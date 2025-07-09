@@ -1,0 +1,154 @@
+{
+  "Zielgruppe Studierende mit Beeinträchtigungen": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Zielgruppe Studierende mit Beeinträchtigungen",
+    "1": "Handlungsempfehlung für Stufe 1 - Zielgruppe Studierende mit Beeinträchtigungen",
+    "2": "Handlungsempfehlung für Stufe 2 - Zielgruppe Studierende mit Beeinträchtigungen",
+    "3": "Handlungsempfehlung für Stufe 3 - Zielgruppe Studierende mit Beeinträchtigungen",
+    "4": "Handlungsempfehlung für Stufe 4 - Zielgruppe Studierende mit Beeinträchtigungen"
+  },
+  "Partizipation": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Partizipation",
+    "1": "Handlungsempfehlung für Stufe 1 - Partizipation",
+    "2": "Handlungsempfehlung für Stufe 2 - Partizipation",
+    "3": "Handlungsempfehlung für Stufe 3 - Partizipation",
+    "4": "Handlungsempfehlung für Stufe 4 - Partizipation"
+  },
+  "Kollaboration": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Kollaboration",
+    "1": "Handlungsempfehlung für Stufe 1 - Kollaboration",
+    "2": "Handlungsempfehlung für Stufe 2 - Kollaboration",
+    "3": "Handlungsempfehlung für Stufe 3 - Kollaboration",
+    "4": "Handlungsempfehlung für Stufe 4 - Kollaboration"
+  },
+  "Steuerungsinstrumente": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Steuerungsinstrumente",
+    "1": "Handlungsempfehlung für Stufe 1 - Steuerungsinstrumente",
+    "2": "Handlungsempfehlung für Stufe 2 - Steuerungsinstrumente",
+    "3": "Handlungsempfehlung für Stufe 3 - Steuerungsinstrumente",
+    "4": "Handlungsempfehlung für Stufe 4 - Steuerungsinstrumente"
+  },
+  "Akkreditierung": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Akkreditierung",
+    "1": "Handlungsempfehlung für Stufe 1 - Akkreditierung",
+    "2": "Handlungsempfehlung für Stufe 2 - Akkreditierung",
+    "3": "Handlungsempfehlung für Stufe 3 - Akkreditierung",
+    "4": "Handlungsempfehlung für Stufe 4 - Akkreditierung"
+  },
+  "Feedback- und Beschwerdemanagement": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Feedback- und Beschwerdemanagement",
+    "1": "Handlungsempfehlung für Stufe 1 - Feedback- und Beschwerdemanagement",
+    "2": "Handlungsempfehlung für Stufe 2 - Feedback- und Beschwerdemanagement",
+    "3": "Handlungsempfehlung für Stufe 3 - Feedback- und Beschwerdemanagement",
+    "4": "Handlungsempfehlung für Stufe 4 - Feedback- und Beschwerdemanagement"
+  },
+  "Webauftritt": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Webauftritt",
+    "1": "Handlungsempfehlung für Stufe 1 - Webauftritt",
+    "2": "Handlungsempfehlung für Stufe 2 - Webauftritt",
+    "3": "Handlungsempfehlung für Stufe 3 - Webauftritt",
+    "4": "Handlungsempfehlung für Stufe 4 - Webauftritt"
+  },
+  "Infrastruktur": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Infrastruktur",
+    "1": "Handlungsempfehlung für Stufe 1 - Infrastruktur",
+    "2": "Handlungsempfehlung für Stufe 2 - Infrastruktur",
+    "3": "Handlungsempfehlung für Stufe 3 - Infrastruktur",
+    "4": "Handlungsempfehlung für Stufe 4 - Infrastruktur"
+  },
+  "Beschaffung": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Beschaffung",
+    "1": "Handlungsempfehlung für Stufe 1 - Beschaffung",
+    "2": "Handlungsempfehlung für Stufe 2 - Beschaffung",
+    "3": "Handlungsempfehlung für Stufe 3 - Beschaffung",
+    "4": "Handlungsempfehlung für Stufe 4 - Beschaffung"
+  },
+  "Finanzielle Ressourcen": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Finanzielle Ressourcen",
+    "1": "Handlungsempfehlung für Stufe 1 - Finanzielle Ressourcen",
+    "2": "Handlungsempfehlung für Stufe 2 - Finanzielle Ressourcen",
+    "3": "Handlungsempfehlung für Stufe 3 - Finanzielle Ressourcen",
+    "4": "Handlungsempfehlung für Stufe 4 - Finanzielle Ressourcen"
+  },
+  "Personelle Ressourcen": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Personelle Ressourcen",
+    "1": "Handlungsempfehlung für Stufe 1 - Personelle Ressourcen",
+    "2": "Handlungsempfehlung für Stufe 2 - Personelle Ressourcen",
+    "3": "Handlungsempfehlung für Stufe 3 - Personelle Ressourcen",
+    "4": "Handlungsempfehlung für Stufe 4 - Personelle Ressourcen"
+  },
+  "Nachteilsausgleich": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Nachteilsausgleich",
+    "1": "Handlungsempfehlung für Stufe 1 - Nachteilsausgleich",
+    "2": "Handlungsempfehlung für Stufe 2 - Nachteilsausgleich",
+    "3": "Handlungsempfehlung für Stufe 3 - Nachteilsausgleich",
+    "4": "Handlungsempfehlung für Stufe 4 - Nachteilsausgleich"
+  },
+  "Prüfungsleistungen": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Prüfungsleistungen",
+    "1": "Handlungsempfehlung für Stufe 1 - Prüfungsleistungen",
+    "2": "Handlungsempfehlung für Stufe 2 - Prüfungsleistungen",
+    "3": "Handlungsempfehlung für Stufe 3 - Prüfungsleistungen",
+    "4": "Handlungsempfehlung für Stufe 4 - Prüfungsleistungen"
+  },
+  "Training und Unterstützung": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Training und Unterstützung",
+    "1": "Handlungsempfehlung für Stufe 1 - Training und Unterstützung",
+    "2": "Handlungsempfehlung für Stufe 2 - Training und Unterstützung",
+    "3": "Handlungsempfehlung für Stufe 3 - Training und Unterstützung",
+    "4": "Handlungsempfehlung für Stufe 4 - Training und Unterstützung"
+  },
+  "Sensibilisierung": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Sensibilisierung",
+    "1": "Handlungsempfehlung für Stufe 1 - Sensibilisierung",
+    "2": "Handlungsempfehlung für Stufe 2 - Sensibilisierung",
+    "3": "Handlungsempfehlung für Stufe 3 - Sensibilisierung",
+    "4": "Handlungsempfehlung für Stufe 4 - Sensibilisierung"
+  },
+  "Prüfung auf Barrierefreiheit von Lehrmaterial": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Prüfung auf BF",
+    "1": "Handlungsempfehlung für Stufe 1 - Prüfung auf BF",
+    "2": "Handlungsempfehlung für Stufe 2 - Prüfung auf BF",
+    "3": "Handlungsempfehlung für Stufe 3 - Prüfung auf BF",
+    "4": "Handlungsempfehlung für Stufe 4 - Prüfung auf BF"
+  },
+  "Beratung": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Beratung",
+    "1": "Handlungsempfehlung für Stufe 1 - Beratung",
+    "2": "Handlungsempfehlung für Stufe 2 - Beratung",
+    "3": "Handlungsempfehlung für Stufe 3 - Beratung",
+    "4": "Handlungsempfehlung für Stufe 4 - Beratung"
+  },
+  "Unterstützungsangebot": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Unterstützngsangebot",
+    "1": "Handlungsempfehlung für Stufe 1 - Unterstützngsangebot",
+    "2": "Handlungsempfehlung für Stufe 2 - Unterstützngsangebot",
+    "3": "Handlungsempfehlung für Stufe 3 - Unterstützngsangebot",
+    "4": "Handlungsempfehlung für Stufe 4 - Unterstützngsangebot"
+  },
+  "Austausch": {
+    "-1": "Nicht bewertet",
+    "0": "Handlungsempfehlung für Stufe 0 - Austausch",
+    "1": "Handlungsempfehlung für Stufe 1 - Austausch",
+    "2": "Handlungsempfehlung für Stufe 2 - Austausch",
+    "3": "Handlungsempfehlung für Stufe 3 - Austausch",
+    "4": "Handlungsempfehlung für Stufe 4 - Austausch"
+  }
+}
