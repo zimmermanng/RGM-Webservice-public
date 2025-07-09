@@ -1,0 +1,245 @@
+/* Skip Link Styling */
+.skip-link {
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    font-size: 10px;
+    padding: 2px;
+    border-radius: 4px;
+    border: solid black 1px;
+    font-weight: bold;
+    margin: 10px 0;
+    transition: background 0.3s ease;
+}
+
+.skip-link:hover {
+    background-color: #f0f0f0;
+}
+
+.pdf-button {
+    background-color: #324b8c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px 0;
+}
+
+.pdf-button:hover {
+    background-color: #1e326a;
+}
+
+
+/* Main container */
+.mainContainer.top {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Container for the chart */
+.chart-container svg {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    max-height: 90vh;
+    /* Make the container span the full height */
+    width: 100vw;
+}
+
+/* Toggle Buttons */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.toggle-button {
+    background-color: #ffffff;
+    border: solid black 1px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.toggle-button.active {
+    background-color: #000000;
+    color: white;
+}
+
+.chart-container,
+.table-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Tabs and Filter */
+.tabs-container {
+    display: flex;
+    justify-content: center; /* Center tabs */
+    gap: 10px;
+}
+
+.tab-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 8px;
+}
+
+.tab-button.active {
+    background-color: #324b8c;
+    color: white;
+    border-color: #324b8c;
+}
+
+.tab-button:hover {
+    transform: scale(1.05);
+}
+
+/* Filter Button */
+.filter-toggle-button {
+    background-color: #ffffff;
+    border: solid black 1px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.filter-toggle-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Filter Options */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    background: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out, border-color 0.2s;
+}
+
+.filter-option:hover {
+    background: #f0f0f0;
+    border-color: #999;
+}
+
+/* Tab Content Styling */
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Category Box Styling */
+.category-box {
+    background-color: #fff;
+    padding: 15px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.category-box h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.category-box p:last-of-type {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 5px;
+}
+
+.category-box h4, .category-box p {
+    margin-bottom: 10px;
+}
+
+/* Adjustments for the 'ext' section */
+#ext {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+#ext h2 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    /* Make toggle buttons (Diagramm/Tabelle) vertical */
+    .toggle-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .toggle-button {
+        width: 100%;
+        margin: 5px 0; /* Adjust margin to stack properly */
+    }
+
+    /* Make the tabs for explanations vertical */
+    .tabs-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab-button {
+        width: 80%;
+        margin: 5px 0;
+    }
+
+    /* Center the skip link */
+    .skip-link {
+        display: block;
+        text-align: center;
+        width: 50%;
+        margin: 20px auto;
+    }
+}
