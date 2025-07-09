@@ -367,7 +367,7 @@ const RadialBarChart = ({ data }) => {
         });
 
         // Dynamically add logo image with scalable size
-        const logoImage = 'shuffle_logo.png';
+        const logoImage = 'LMZ-Logo-rund.png';
         const logoSize = Math.min(innerRadius * 1.5, 200);
         svg.append('image')
             .attr('xlink:href', logoImage)
