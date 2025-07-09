@@ -1,0 +1,60 @@
+html, body {
+    display: flex;
+    flex-direction: column; /* Stack header, content, and footer vertically */
+    min-height: 100vh; /* Ensure the page is at least the height of the viewport */
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow the main content area to grow */
+}
+
+main {
+    flex-grow: 1; /* Push the footer to the bottom when content is smaller */
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Ensure text is centered */
+    padding: 20px;
+    margin: auto; /* Center the container */
+    background-color: #E6ECF3;
+}
+
+#top {
+    padding-top: 80px;
+}
+.mainContainer img {
+    max-width: 5%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 5px; /* Add spacing below the image */
+}
+
+.mainContainer h1 {
+    font-size: 2rem; /* Adjust font size */
+    margin-bottom: 10px;
+}
+
+.mainContainer h2 {
+    font-size: 1.5rem; /* Adjust font size */
+    margin-bottom: 15px;
+    font-weight: initial;
+}
+
+.mainContainer p {
+    font-size: 1rem;
+    line-height: 1.6; /* Improve readability */
+}
+
+.cardBox {
+    display: flex;
+    justify-Content: center;
+    gap: 20px;
+    flex-Wrap: wrap;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}

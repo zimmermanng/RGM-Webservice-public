@@ -1,0 +1,47 @@
+footer {
+    background-color: #E6ECF3;
+    display: flex; /* Flexbox for the footer */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    padding: 5px; /* Add padding for better spacing */
+    width: 100%; /* Ensure the footer spans the entire width */
+    border-top: 2px #ffffff solid;
+}
+
+footer ul {
+    list-style: none; /* Remove default bullet points */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Flex layout for responsive positioning */
+    justify-content: space-evenly; /* Evenly spread items across the available space */
+    align-items: center; /* Align the items vertically */
+    width: 100%; /* Ensure the content spans the entire width */
+    max-width: 1200px; /* Prevent stretching on larger screens */
+    flex-wrap: wrap; /* Allow items to wrap when screen size is small */
+}
+
+footer li {
+    padding: 10px 20px; /* Add consistent spacing */
+    text-align: center;
+}
+
+footer a {
+    display: block;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease; /* Add a smooth transition for hover effect */
+}
+
+@media (max-width: 775px) {
+    footer ul {
+        flex-direction: column; /* Stack list items vertically */
+        align-items: center; /* Center items on smaller screens */
+        justify-content: center; /* Center content horizontally */
+    }
+
+    footer li {
+        padding: 10px 0; /* Adjust padding for vertical layout */
+    }
+}
