@@ -7,8 +7,8 @@ const HeaderDesktop = () => {
         <header className="HeaderDesktop">
             <div className="logo">
                 <Link className="logotext" to="/">
-                    <img src="logo.svg" alt="Shuffle Logo" />
-                    <span>SHUFFLE RGM-Prüfwerkzeug</span>
+                    <img src="LMZ-Logo.jpg" alt="LMZ Logo" />
+                    <span>LMZ RGM-Prüfwerkzeug</span>
                 </Link>
             </div>
             <nav>
