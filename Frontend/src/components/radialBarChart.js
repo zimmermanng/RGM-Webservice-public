@@ -36,7 +36,7 @@ const RadialBarChart = ({ data }) => {
     // Color scale for groups
     const colorScale = d3.scaleOrdinal()
         .domain(['Beratung und Support', 'Lehren und Lernen', 'Struktur', 'Strategie'])
-        .range(['#E21437', '#1E7F5E', '#FEC705', '#324B8C']);
+        .range(['#F6B700', '#FA4730', '#F08811', '#5E5F4F']); 
 
     // Choosing text color for correct contrast ratio
     const getLuminance = (color) => {
