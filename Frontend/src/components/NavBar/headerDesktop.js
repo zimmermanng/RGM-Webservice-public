@@ -17,6 +17,7 @@ const HeaderDesktop = () => {
                     <li><Link to="/tutorial">Anleitung</Link></li>
                     <li><Link to="/download">Downloads</Link></li> */}
                     {/* Upload sichtbar – unabhängig vom Login */}
+                    <li><Link to="/download">Downloads</Link></li>
                     <li><Link to="/upload">Upload</Link></li>
                 </ul>
             </nav>
