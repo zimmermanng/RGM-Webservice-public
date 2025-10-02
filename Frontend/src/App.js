@@ -6,6 +6,7 @@ import Footer from "./components/Footer/footer";
 import "./App.css";
 import ResultPage from "./ResultPage";
 import Download from "./pages/DownloadPage";
+import QuestionnairePage from "./pages/QuestionnairePage";
 
 
 const App = () => {
@@ -24,7 +25,9 @@ const App = () => {
 
                         {/* 🔹 Protect the Upload Page */}
                         <Route path="/download" element={<Download />} />
+                         <Route path="/questionnaire" element={<QuestionnairePage />} />
                         <Route path="/results" element={<ResultPage data={data} />} />
+                        <Route path="/handlungsempfehlungen" element={<ResultPage data={data} />} />
                         { <Route path="/upload" element={<UploadPage onUpload={setData} />} /> }
 
                     </Routes>

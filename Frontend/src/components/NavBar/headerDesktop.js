@@ -19,6 +19,7 @@ const HeaderDesktop = () => {
                     {/* Upload sichtbar – unabhängig vom Login */}
                     <li><Link to="/download">Downloads</Link></li>
                     <li><Link to="/upload">Upload</Link></li>
+                    <li><Link to="/questionnaire">Fragebogen</Link></li>
                 </ul>
             </nav>
         </header>
