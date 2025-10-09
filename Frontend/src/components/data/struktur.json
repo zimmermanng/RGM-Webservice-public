@@ -2,7 +2,7 @@
   "dimensionen": [
     {
       "id": "D1",
-      "name": "Beratung und Support",
+      "name": "D1",
       "handlungsfelder": [
         {
           "id": "H1",
@@ -93,7 +93,7 @@
     },
     {
       "id": "D2",
-      "name": "Lehren und Lernen",
+      "name": "D2",
       "handlungsfelder": [
         {
           "id": "H10",
@@ -184,7 +184,7 @@
     },
     {
       "id": "D3",
-      "name": "Struktur",
+      "name": "D3",
       "handlungsfelder": [
         {
           "id": "H11",
@@ -275,7 +275,7 @@
     },
     {
       "id": "D4",
-      "name": "Strategie",
+      "name": "D4",
       "handlungsfelder": [
         {
           "id": "H16",

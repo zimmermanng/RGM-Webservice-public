@@ -1,244 +1,328 @@
 {
   "indikatoren": [
     {
-      "id": "I1",
-      "name": "Indikator 1"
+      "id": "B1",
+      "name": "undefined"
     },
     {
-      "id": "I2",
-      "name": "Indikator 2"
+      "id": "B2",
+      "name": "undefined"
     },
     {
-      "id": "I3",
-      "name": "Indikator 3"
+      "id": "B3",
+      "name": "undefined"
     },
     {
-      "id": "I4",
-      "name": "Indikator 4"
+      "id": "B4",
+      "name": "undefined"
     },
     {
-      "id": "I5",
-      "name": "Indikator 5"
+      "id": "B5",
+      "name": "undefined"
     },
     {
-      "id": "I6",
-      "name": "Indikator 6"
+      "id": "B6",
+      "name": "undefined"
     },
     {
-      "id": "I7",
-      "name": "Indikator 7"
+      "id": "B7",
+      "name": "undefined"
     },
     {
-      "id": "I8",
-      "name": "Indikator 8"
+      "id": "B8",
+      "name": "undefined"
     },
     {
-      "id": "I9",
-      "name": "Indikator 9"
+      "id": "B9",
+      "name": "undefined"
     },
     {
-      "id": "I10",
-      "name": "Indikator 10"
+      "id": "B10",
+      "name": "undefined"
     },
     {
-      "id": "I11",
-      "name": "Indikator 11"
+      "id": "B11",
+      "name": "undefined"
     },
     {
-      "id": "I12",
-      "name": "Indikator 12"
+      "id": "B12",
+      "name": "undefined"
     },
     {
-      "id": "I13",
-      "name": "Indikator 13"
+      "id": "B13",
+      "name": "undefined"
     },
     {
-      "id": "I14",
-      "name": "Indikator 14"
+      "id": "B14",
+      "name": "undefined"
     },
     {
-      "id": "I15",
-      "name": "Indikator 15"
+      "id": "B15",
+      "name": "undefined"
     },
     {
-      "id": "I16",
-      "name": "Indikator 16"
+      "id": "B16",
+      "name": "undefined"
     },
     {
-      "id": "I17",
-      "name": "Indikator 17"
+      "id": "L1",
+      "name": "undefined"
     },
     {
-      "id": "I18",
-      "name": "Indikator 18"
+      "id": "L2",
+      "name": "undefined"
     },
     {
-      "id": "I19",
-      "name": "Indikator 19"
+      "id": "L3",
+      "name": "undefined"
     },
     {
-      "id": "I20",
-      "name": "Indikator 20"
+      "id": "L4",
+      "name": "undefined"
     },
     {
-      "id": "I21",
-      "name": "Indikator 21"
+      "id": "L5",
+      "name": "undefined"
     },
     {
-      "id": "I22",
-      "name": "Indikator 22"
+      "id": "L6",
+      "name": "undefined"
     },
     {
-      "id": "I23",
-      "name": "Indikator 23"
+      "id": "L7",
+      "name": "undefined"
     },
     {
-      "id": "I24",
-      "name": "Indikator 24"
+      "id": "L8",
+      "name": "undefined"
     },
     {
-      "id": "I25",
-      "name": "Indikator 25"
+      "id": "L9",
+      "name": "undefined"
     },
     {
-      "id": "I26",
-      "name": "Indikator 26"
+      "id": "L10",
+      "name": "undefined"
     },
     {
-      "id": "I27",
-      "name": "Indikator 27"
+      "id": "L11",
+      "name": "undefined"
     },
     {
-      "id": "I28",
-      "name": "Indikator 28"
+      "id": "L12",
+      "name": "undefined"
     },
     {
-      "id": "I29",
-      "name": "Indikator 29"
+      "id": "L13",
+      "name": "undefined"
     },
     {
-      "id": "I30",
-      "name": "Indikator 30"
+      "id": "L14",
+      "name": "undefined"
     },
     {
-      "id": "I31",
-      "name": "Indikator 31"
+      "id": "L15",
+      "name": "undefined"
     },
     {
-      "id": "I32",
-      "name": "Indikator 32"
+      "id": "L16",
+      "name": "undefined"
     },
     {
-      "id": "I33",
-      "name": "Indikator 33"
+      "id": "L17",
+      "name": "undefined"
     },
     {
-      "id": "I34",
-      "name": "Indikator 34"
+      "id": "L18",
+      "name": "undefined"
     },
     {
-      "id": "I35",
-      "name": "Indikator 35"
+      "id": "L19",
+      "name": "undefined"
     },
     {
-      "id": "I36",
-      "name": "Indikator 36"
+      "id": "L20",
+      "name": "undefined"
     },
     {
-      "id": "I37",
-      "name": "Indikator 37"
+      "id": "L21",
+      "name": "undefined"
     },
     {
-      "id": "I38",
-      "name": "Indikator 38"
+      "id": "L22",
+      "name": "undefined"
     },
     {
-      "id": "I39",
-      "name": "Indikator 39"
+      "id": "L23",
+      "name": "undefined"
     },
     {
-      "id": "I40",
-      "name": "Indikator 40"
+      "id": "Struk1",
+      "name": "undefined"
     },
     {
-      "id": "I41",
-      "name": "Indikator 41"
+      "id": "Struk2",
+      "name": "undefined"
     },
     {
-      "id": "I42",
-      "name": "Indikator 42"
+      "id": "Struk3",
+      "name": "undefined"
     },
     {
-      "id": "I43",
-      "name": "Indikator 43"
+      "id": "Struk4",
+      "name": "undefined"
     },
     {
-      "id": "I44",
-      "name": "Indikator 44"
+      "id": "Struk5",
+      "name": "undefined"
     },
     {
-      "id": "I45",
-      "name": "Indikator 45"
+      "id": "Struk6",
+      "name": "undefined"
     },
     {
-      "id": "I46",
-      "name": "Indikator 46"
+      "id": "Struk7",
+      "name": "undefined"
     },
     {
-      "id": "I47",
-      "name": "Indikator 47"
+      "id": "Struk8",
+      "name": "undefined"
     },
     {
-      "id": "I48",
-      "name": "Indikator 48"
+      "id": "Struk9",
+      "name": "undefined"
     },
     {
-      "id": "I49",
-      "name": "Indikator 49"
+      "id": "Struk10",
+      "name": "undefined"
     },
     {
-      "id": "I50",
-      "name": "Indikator 50"
+      "id": "Struk11",
+      "name": "undefined"
     },
     {
-      "id": "I51",
-      "name": "Indikator 51"
+      "id": "Struk12",
+      "name": "undefined"
     },
     {
-      "id": "I52",
-      "name": "Indikator 52"
+      "id": "Struk13",
+      "name": "undefined"
     },
     {
-      "id": "I53",
-      "name": "Indikator 53"
+      "id": "Struk14",
+      "name": "undefined"
     },
     {
-      "id": "I54",
-      "name": "Indikator 54"
+      "id": "Struk15",
+      "name": "undefined"
     },
     {
-      "id": "I55",
-      "name": "Indikator 55"
+      "id": "Struk16",
+      "name": "undefined"
     },
     {
-      "id": "I56",
-      "name": "Indikator 56"
+      "id": "Struk17",
+      "name": "undefined"
     },
     {
-      "id": "I57",
-      "name": "Indikator 57"
+      "id": "Struk18",
+      "name": "undefined"
     },
     {
-      "id": "I58",
-      "name": "Indikator 58"
+      "id": "Struk19",
+      "name": "undefined"
     },
     {
-      "id": "I59",
-      "name": "Indikator 59"
+      "id": "Struk20",
+      "name": "undefined"
     },
     {
-      "id": "I60",
-      "name": "Indikator 60"
+      "id": "Struk21",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk22",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk23",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk24",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk25",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk26",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat1",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat2",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat3",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat4",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat5",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat6",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat7",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat8",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat9",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat10",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat11",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat12",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat13",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat14",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat15",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat16",
+      "name": "undefined"
     }
   ]
 }

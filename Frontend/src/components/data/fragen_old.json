@@ -1,0 +1,485 @@
+{
+  "fragen": [
+    {
+      "id": "F1",
+      "frage": "Frage 1 zur Handlungsempfehlung H1",
+      "handlungsempfehlungsId": "H1",
+      "antworten": [
+        {
+          "id": "A1",
+          "antwort": "Antwort 1 zu F1",
+          "indikatorIds": [
+            "I1",
+            "I2",
+            "I3"
+          ],
+          "stufe": 1
+        },
+        {
+          "id": "A2",
+          "antwort": "Antwort 2 zu F1",
+          "indikatorIds": [
+            "I1",
+            "I2",
+            "I3"
+          ],
+          "stufe": 2
+        },
+        {
+          "id": "A3",
+          "antwort": "Antwort 3 zu F1",
+          "indikatorIds": [
+            "I1",
+            "I2",
+            "I3"
+          ],
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "frage": "Frage 2 zur Handlungsempfehlung H1",
+      "handlungsempfehlungsId": "H1",
+      "antworten": [
+        {
+          "id": "A4",
+          "antwort": "Antwort 4 zu F2",
+          "indikatorIds": [
+            "I1",
+            "I2",
+            "I3"
+          ],
+          "stufe": 2
+        },
+        {
+          "id": "A5",
+          "antwort": "Antwort 5 zu F2",
+          "indikatorIds": [
+            "I1",
+            "I2",
+            "I3"
+          ],
+          "stufe": 3
+        },
+        {
+          "id": "A6",
+          "antwort": "Antwort 6 zu F2",
+          "indikatorIds": [
+            "I1",
+            "I2",
+            "I3"
+          ],
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "frage": "Frage 3 zur Handlungsempfehlung H10",
+      "handlungsempfehlungsId": "H10",
+      "antworten": [
+        {
+          "id": "A7",
+          "antwort": "Antwort 7 zu F3",
+          "indikatorIds": [
+            "I28",
+            "I29",
+            "I30"
+          ],
+          "stufe": 3
+        },
+        {
+          "id": "A8",
+          "antwort": "Antwort 8 zu F3",
+          "indikatorIds": [
+            "I28",
+            "I29",
+            "I30"
+          ],
+          "stufe": 4
+        },
+        {
+          "id": "A9",
+          "antwort": "Antwort 9 zu F3",
+          "indikatorIds": [
+            "I28",
+            "I29",
+            "I30"
+          ],
+          "stufe": 0
+        }
+      ]
+    },
+    {
+      "id": "F4",
+      "frage": "Frage 4 zur Handlungsempfehlung H10",
+      "handlungsempfehlungsId": "H10",
+      "antworten": [
+        {
+          "id": "A10",
+          "antwort": "Antwort 10 zu F4",
+          "indikatorIds": [
+            "I28",
+            "I29",
+            "I30"
+          ],
+          "stufe": 4
+        },
+        {
+          "id": "A11",
+          "antwort": "Antwort 11 zu F4",
+          "indikatorIds": [
+            "I28",
+            "I29",
+            "I30"
+          ],
+          "stufe": 0
+        },
+        {
+          "id": "A12",
+          "antwort": "Antwort 12 zu F4",
+          "indikatorIds": [
+            "I28",
+            "I29",
+            "I30"
+          ],
+          "stufe": 1
+        }
+      ]
+    },
+    {
+      "id": "F5",
+      "frage": "Frage 5 zur Handlungsempfehlung H11",
+      "handlungsempfehlungsId": "H11",
+      "antworten": [
+        {
+          "id": "A13",
+          "antwort": "Antwort 13 zu F5",
+          "indikatorIds": [
+            "I31",
+            "I32",
+            "I33"
+          ],
+          "stufe": 0
+        },
+        {
+          "id": "A14",
+          "antwort": "Antwort 14 zu F5",
+          "indikatorIds": [
+            "I31",
+            "I32",
+            "I33"
+          ],
+          "stufe": 1
+        },
+        {
+          "id": "A15",
+          "antwort": "Antwort 15 zu F5",
+          "indikatorIds": [
+            "I31",
+            "I32",
+            "I33"
+          ],
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "F6",
+      "frage": "Frage 6 zur Handlungsempfehlung H11",
+      "handlungsempfehlungsId": "H11",
+      "antworten": [
+        {
+          "id": "A16",
+          "antwort": "Antwort 16 zu F6",
+          "indikatorIds": [
+            "I31",
+            "I32",
+            "I33"
+          ],
+          "stufe": 1
+        },
+        {
+          "id": "A17",
+          "antwort": "Antwort 17 zu F6",
+          "indikatorIds": [
+            "I31",
+            "I32",
+            "I33"
+          ],
+          "stufe": 2
+        },
+        {
+          "id": "A18",
+          "antwort": "Antwort 18 zu F6",
+          "indikatorIds": [
+            "I31",
+            "I32",
+            "I33"
+          ],
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F7",
+      "frage": "Frage 7 zur Handlungsempfehlung H12",
+      "handlungsempfehlungsId": "H12",
+      "antworten": [
+        {
+          "id": "A19",
+          "antwort": "Antwort 19 zu F7",
+          "indikatorIds": [
+            "I34",
+            "I35",
+            "I36"
+          ],
+          "stufe": 2
+        },
+        {
+          "id": "A20",
+          "antwort": "Antwort 20 zu F7",
+          "indikatorIds": [
+            "I34",
+            "I35",
+            "I36"
+          ],
+          "stufe": 3
+        },
+        {
+          "id": "A21",
+          "antwort": "Antwort 21 zu F7",
+          "indikatorIds": [
+            "I34",
+            "I35",
+            "I36"
+          ],
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F8",
+      "frage": "Frage 8 zur Handlungsempfehlung H12",
+      "handlungsempfehlungsId": "H12",
+      "antworten": [
+        {
+          "id": "A22",
+          "antwort": "Antwort 22 zu F8",
+          "indikatorIds": [
+            "I34",
+            "I35",
+            "I36"
+          ],
+          "stufe": 3
+        },
+        {
+          "id": "A23",
+          "antwort": "Antwort 23 zu F8",
+          "indikatorIds": [
+            "I34",
+            "I35",
+            "I36"
+          ],
+          "stufe": 4
+        },
+        {
+          "id": "A24",
+          "antwort": "Antwort 24 zu F8",
+          "indikatorIds": [
+            "I34",
+            "I35",
+            "I36"
+          ],
+          "stufe": 0
+        }
+      ]
+    },
+    {
+      "id": "F9",
+      "frage": "Frage 9 zur Handlungsempfehlung H13",
+      "handlungsempfehlungsId": "H13",
+      "antworten": [
+        {
+          "id": "A25",
+          "antwort": "Antwort 25 zu F9",
+          "indikatorIds": [
+            "I37",
+            "I38",
+            "I39"
+          ],
+          "stufe": 4
+        },
+        {
+          "id": "A26",
+          "antwort": "Antwort 26 zu F9",
+          "indikatorIds": [
+            "I37",
+            "I38",
+            "I39"
+          ],
+          "stufe": 0
+        },
+        {
+          "id": "A27",
+          "antwort": "Antwort 27 zu F9",
+          "indikatorIds": [
+            "I37",
+            "I38",
+            "I39"
+          ],
+          "stufe": 1
+        }
+      ]
+    },
+    {
+      "id": "F10",
+      "frage": "Frage 10 zur Handlungsempfehlung H13",
+      "handlungsempfehlungsId": "H13",
+      "antworten": [
+        {
+          "id": "A28",
+          "antwort": "Antwort 28 zu F10",
+          "indikatorIds": [
+            "I37",
+            "I38",
+            "I39"
+          ],
+          "stufe": 0
+        },
+        {
+          "id": "A29",
+          "antwort": "Antwort 29 zu F10",
+          "indikatorIds": [
+            "I37",
+            "I38",
+            "I39"
+          ],
+          "stufe": 1
+        },
+        {
+          "id": "A30",
+          "antwort": "Antwort 30 zu F10",
+          "indikatorIds": [
+            "I37",
+            "I38",
+            "I39"
+          ],
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "F11",
+      "frage": "Frage 11 zur Handlungsempfehlung H14",
+      "handlungsempfehlungsId": "H14",
+      "antworten": [
+        {
+          "id": "A31",
+          "antwort": "Antwort 31 zu F11",
+          "indikatorIds": [
+            "I40",
+            "I41",
+            "I42"
+          ],
+          "stufe": 1
+        },
+        {
+          "id": "A32",
+          "antwort": "Antwort 32 zu F11",
+          "indikatorIds": [
+            "I40",
+            "I41",
+            "I42"
+          ],
+          "stufe": 2
+        },
+        {
+          "id": "A33",
+          "antwort": "Antwort 33 zu F11",
+          "indikatorIds": [
+            "I40",
+            "I41",
+            "I42"
+          ],
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F12",
+      "frage": "Frage 12 zur Handlungsempfehlung H14",
+      "handlungsempfehlungsId": "H14",
+      "antworten": [
+        {
+          "id": "A34",
+          "antwort": "Antwort 34 zu F12",
+          "indikatorIds": [
+            "I40",
+            "I41",
+            "I42"
+          ],
+          "stufe": 2
+        },
+        {
+          "id": "A35",
+          "antwort": "Antwort 35 zu F12",
+          "indikatorIds": [
+            "I40",
+            "I41",
+            "I42"
+          ],
+          "stufe": 3
+        },
+        {
+          "id": "A36",
+          "antwort": "Antwort 36 zu F12",
+          "indikatorIds": [
+            "I40",
+            "I41",
+            "I42"
+          ],
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F13",
+      "frage": "Frage 13 zur Handlungsempfehlung H15",
+      "handlungsempfehlungsId": "H15",
+      "antworten": [
+        {
+          "id": "A37",
+          "antwort": "Antwort 37 zu F13",
+          "indikatorIds": [
+            "I43",
+            "I44",
+            "I45"
+          ],
+          "stufe": 3
+        },
+        {
+          "id": "A38",
+          "antwort": "Antwort 38 zu F13",
+          "indikatorIds": [
+            "I43",
+            "I44",
+            "I45"
+          ],
+          "stufe": 4
+        },
+        {
+          "id": "A39",
+          "antwort": "Antwort 39 zu F13",
+          "indikatorIds": [
+            "I43",
+            "I44",
+            "I45"
+          ],
+          "stufe": 0
+        }
+      ]
+    }
+  ]
+}

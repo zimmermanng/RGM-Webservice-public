@@ -20,6 +20,7 @@ const HeaderDesktop = () => {
                     <li><Link to="/download">Downloads</Link></li>
                     <li><Link to="/upload">Upload</Link></li>
                     <li><Link to="/questionnaire">Fragebogen</Link></li>
+                    <li><Link to="/dimensions">Dimensionen</Link></li>
                 </ul>
             </nav>
         </header>

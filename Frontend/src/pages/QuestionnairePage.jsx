@@ -37,6 +37,7 @@ export default function QuestionnairePage() {
   };
 
   return (
+    <div className='mainContainer' id="top">
     <div className="questions-container">
       <h2>Fragen & Antworten</h2>
 
@@ -65,6 +66,7 @@ export default function QuestionnairePage() {
       <button className="submit-button" onClick={handleSubmit}>
         Antworten speichern / auswerten
       </button>
+    </div>
     </div>
   );
 }
