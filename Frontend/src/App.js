@@ -7,6 +7,7 @@ import "./App.css";
 import ResultPage from "./ResultPage";
 import Download from "./pages/DownloadPage";
 import QuestionnairePage from "./pages/QuestionnairePage";
+import DimensionsPage from "./pages/DimensionsPage";
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
                         <Route path="/results" element={<ResultPage data={data} />} />
                         <Route path="/handlungsempfehlungen" element={<ResultPage data={data} />} />
                         { <Route path="/upload" element={<UploadPage onUpload={setData} />} /> }
+                         <Route path="/dimensions" element={<DimensionsPage />} />
 
                     </Routes>
                 </main>

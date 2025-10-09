@@ -60,6 +60,10 @@
   margin-bottom: 15px;
 }
 
+.card-content li {
+  text-align: left;
+}
+
 .card-link a {
   display: inline-block;
   color: #426992;

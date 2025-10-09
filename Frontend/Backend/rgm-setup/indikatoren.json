@@ -1,0 +1,328 @@
+{
+  "indikatoren": [
+    {
+      "id": "B1",
+      "name": "undefined"
+    },
+    {
+      "id": "B2",
+      "name": "undefined"
+    },
+    {
+      "id": "B3",
+      "name": "undefined"
+    },
+    {
+      "id": "B4",
+      "name": "undefined"
+    },
+    {
+      "id": "B5",
+      "name": "undefined"
+    },
+    {
+      "id": "B6",
+      "name": "undefined"
+    },
+    {
+      "id": "B7",
+      "name": "undefined"
+    },
+    {
+      "id": "B8",
+      "name": "undefined"
+    },
+    {
+      "id": "B9",
+      "name": "undefined"
+    },
+    {
+      "id": "B10",
+      "name": "undefined"
+    },
+    {
+      "id": "B11",
+      "name": "undefined"
+    },
+    {
+      "id": "B12",
+      "name": "undefined"
+    },
+    {
+      "id": "B13",
+      "name": "undefined"
+    },
+    {
+      "id": "B14",
+      "name": "undefined"
+    },
+    {
+      "id": "B15",
+      "name": "undefined"
+    },
+    {
+      "id": "B16",
+      "name": "undefined"
+    },
+    {
+      "id": "L1",
+      "name": "undefined"
+    },
+    {
+      "id": "L2",
+      "name": "undefined"
+    },
+    {
+      "id": "L3",
+      "name": "undefined"
+    },
+    {
+      "id": "L4",
+      "name": "undefined"
+    },
+    {
+      "id": "L5",
+      "name": "undefined"
+    },
+    {
+      "id": "L6",
+      "name": "undefined"
+    },
+    {
+      "id": "L7",
+      "name": "undefined"
+    },
+    {
+      "id": "L8",
+      "name": "undefined"
+    },
+    {
+      "id": "L9",
+      "name": "undefined"
+    },
+    {
+      "id": "L10",
+      "name": "undefined"
+    },
+    {
+      "id": "L11",
+      "name": "undefined"
+    },
+    {
+      "id": "L12",
+      "name": "undefined"
+    },
+    {
+      "id": "L13",
+      "name": "undefined"
+    },
+    {
+      "id": "L14",
+      "name": "undefined"
+    },
+    {
+      "id": "L15",
+      "name": "undefined"
+    },
+    {
+      "id": "L16",
+      "name": "undefined"
+    },
+    {
+      "id": "L17",
+      "name": "undefined"
+    },
+    {
+      "id": "L18",
+      "name": "undefined"
+    },
+    {
+      "id": "L19",
+      "name": "undefined"
+    },
+    {
+      "id": "L20",
+      "name": "undefined"
+    },
+    {
+      "id": "L21",
+      "name": "undefined"
+    },
+    {
+      "id": "L22",
+      "name": "undefined"
+    },
+    {
+      "id": "L23",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk1",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk2",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk3",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk4",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk5",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk6",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk7",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk8",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk9",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk10",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk11",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk12",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk13",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk14",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk15",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk16",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk17",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk18",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk19",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk20",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk21",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk22",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk23",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk24",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk25",
+      "name": "undefined"
+    },
+    {
+      "id": "Struk26",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat1",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat2",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat3",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat4",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat5",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat6",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat7",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat8",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat9",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat10",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat11",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat12",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat13",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat14",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat15",
+      "name": "undefined"
+    },
+    {
+      "id": "Strat16",
+      "name": "undefined"
+    }
+  ]
+}

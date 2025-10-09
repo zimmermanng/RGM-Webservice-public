@@ -1,0 +1,368 @@
+{
+  "dimensionen": [
+    {
+      "id": "D1",
+      "name": "Beratung und Support",
+      "handlungsfelder": [
+        {
+          "id": "H1",
+          "name": "Supportstruktur",
+          "stufen": {
+            "1": [
+              {
+                "id": "H1",
+                "titel": "Supportstruktur",
+                "indikatorIds": [
+                  "I1",
+                  "I2",
+                  "I3"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H2",
+          "name": "Nutzerzufriedenheit",
+          "stufen": {
+            "4": [
+              {
+                "id": "H2",
+                "titel": "Nutzerzufriedenheit",
+                "indikatorIds": [
+                  "I4",
+                  "I5",
+                  "I6"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H3",
+          "name": "Fortbildung",
+          "stufen": {
+            "1": [
+              {
+                "id": "H3",
+                "titel": "Fortbildung",
+                "indikatorIds": [
+                  "I7",
+                  "I8",
+                  "I9"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H4",
+          "name": "Helpdesk",
+          "stufen": {
+            "3": [
+              {
+                "id": "H4",
+                "titel": "Helpdesk",
+                "indikatorIds": [
+                  "I10",
+                  "I11",
+                  "I12"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H5",
+          "name": "Feedback-System",
+          "stufen": {
+            "1": [
+              {
+                "id": "H5",
+                "titel": "Feedback-System",
+                "indikatorIds": [
+                  "I13",
+                  "I14",
+                  "I15"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "Lehren und Lernen",
+      "handlungsfelder": [
+        {
+          "id": "H10",
+          "name": "Gamification",
+          "stufen": {
+            "2": [
+              {
+                "id": "H10",
+                "titel": "Gamification",
+                "indikatorIds": [
+                  "I28",
+                  "I29",
+                  "I30"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H6",
+          "name": "Didaktische Methoden",
+          "stufen": {
+            "1": [
+              {
+                "id": "H6",
+                "titel": "Didaktische Methoden",
+                "indikatorIds": [
+                  "I16",
+                  "I17",
+                  "I18"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H7",
+          "name": "Digitale Tools",
+          "stufen": {
+            "4": [
+              {
+                "id": "H7",
+                "titel": "Digitale Tools",
+                "indikatorIds": [
+                  "I19",
+                  "I20",
+                  "I21"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H8",
+          "name": "Selbstlernangebote",
+          "stufen": {
+            "4": [
+              {
+                "id": "H8",
+                "titel": "Selbstlernangebote",
+                "indikatorIds": [
+                  "I22",
+                  "I23",
+                  "I24"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H9",
+          "name": "Lernplattformen",
+          "stufen": {
+            "2": [
+              {
+                "id": "H9",
+                "titel": "Lernplattformen",
+                "indikatorIds": [
+                  "I25",
+                  "I26",
+                  "I27"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "Struktur",
+      "handlungsfelder": [
+        {
+          "id": "H11",
+          "name": "IT-Infrastruktur",
+          "stufen": {
+            "1": [
+              {
+                "id": "H11",
+                "titel": "IT-Infrastruktur",
+                "indikatorIds": [
+                  "I31",
+                  "I32",
+                  "I33"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H12",
+          "name": "Organisation & Prozesse",
+          "stufen": {
+            "4": [
+              {
+                "id": "H12",
+                "titel": "Organisation & Prozesse",
+                "indikatorIds": [
+                  "I34",
+                  "I35",
+                  "I36"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H13",
+          "name": "Rollen & Verantwortlichkeiten",
+          "stufen": {
+            "0": [
+              {
+                "id": "H13",
+                "titel": "Rollen & Verantwortlichkeiten",
+                "indikatorIds": [
+                  "I37",
+                  "I38",
+                  "I39"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H14",
+          "name": "Kommunikationswege",
+          "stufen": {
+            "1": [
+              {
+                "id": "H14",
+                "titel": "Kommunikationswege",
+                "indikatorIds": [
+                  "I40",
+                  "I41",
+                  "I42"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H15",
+          "name": "Datensicherheit",
+          "stufen": {
+            "4": [
+              {
+                "id": "H15",
+                "titel": "Datensicherheit",
+                "indikatorIds": [
+                  "I43",
+                  "I44",
+                  "I45"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "name": "Strategie",
+      "handlungsfelder": [
+        {
+          "id": "H16",
+          "name": "Zielsetzung & Vision",
+          "stufen": {
+            "1": [
+              {
+                "id": "H16",
+                "titel": "Zielsetzung & Vision",
+                "indikatorIds": [
+                  "I46",
+                  "I47",
+                  "I48"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H17",
+          "name": "Change Management",
+          "stufen": {
+            "4": [
+              {
+                "id": "H17",
+                "titel": "Change Management",
+                "indikatorIds": [
+                  "I49",
+                  "I50",
+                  "I51"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H18",
+          "name": "Qualitätssicherung",
+          "stufen": {
+            "0": [
+              {
+                "id": "H18",
+                "titel": "Qualitätssicherung",
+                "indikatorIds": [
+                  "I52",
+                  "I53",
+                  "I54"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H19",
+          "name": "Budgetplanung",
+          "stufen": {
+            "2": [
+              {
+                "id": "H19",
+                "titel": "Budgetplanung",
+                "indikatorIds": [
+                  "I55",
+                  "I56",
+                  "I57"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "H20",
+          "name": "Langfristige Roadmap",
+          "stufen": {
+            "4": [
+              {
+                "id": "H20",
+                "titel": "Langfristige Roadmap",
+                "indikatorIds": [
+                  "I58",
+                  "I59",
+                  "I60"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
