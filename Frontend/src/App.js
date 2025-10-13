@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar/navBar";
 import UploadPage from "./pages/UploadPage";
 import Footer from "./components/Footer/footer";
 import "./App.css";
-import ResultPage from "./ResultPage";
+import ResultPage from "./pages/ResultPage";
 import Download from "./pages/DownloadPage";
 import QuestionnairePage from "./pages/QuestionnairePage";
 import DimensionsPage from "./pages/DimensionsPage";
