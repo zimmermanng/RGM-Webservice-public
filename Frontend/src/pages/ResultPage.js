@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
-import PDFExport from "../components/PDFExport";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import "./ResultPage.css"
 import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
 
@@ -56,15 +54,6 @@ const ResultPage = ({ data }) => {
             <div className='mainContainer' id="top">
                 <h1>Ergebnisse</h1>
                 <p>Hier finden Sie eine detaillierte Erklärung der Dimensionen und ihrer Stufen.</p>
-                {/* PDF Export Button */}
-                <PDFDownloadLink document={<PDFExport />} fileName="dummy.pdf">
-                    {({ loading }) => (
-                        <button className="pdf-button">
-                            {loading ? "Laden..." : "PDF herunterladen"}
-                        </button>
-                    )}
-                </PDFDownloadLink>
-
 
                 <div className="toggle-container">
                     <button className={`toggle-button ${viewMode === "chart" ? "active" : ""}`} onClick={() => setViewMode("chart")}>
