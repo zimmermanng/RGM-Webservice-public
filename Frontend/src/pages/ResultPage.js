@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import RadialBarChart from "./components/radialBarChart";
-import DataTable from "./components/DataTable";
-import PDFExport from "./components/PDFExport";
+import RadialBarChart from "../components/radialBarChart";
+import DataTable from "../components/DataTable";
+import PDFExport from "../components/PDFExport";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import "./ResultPage.css";
-import handlungsempfehlungenData from "../src/components/data/handlungsempfehlungen.json";
+import "./ResultPage.css"
+import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
 
 const normalizeHandlungsempfehlungen = (data) => {
     return Object.keys(data).reduce((acc, category) => {
