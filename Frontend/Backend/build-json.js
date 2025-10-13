@@ -1,165 +1,270 @@
-// Erzeugt: rgm-setup/indikatoren.json, rgm-setup/struktur.json, rgm-setup/fragen.json
+// build-json.js
+// Robust Excel→JSON converter for a 3-sheet workbook.
 // Install: npm i xlsx
-// Run: node build-json.js
+// Run:     node build-json.js ./excel/Neue_Daten.xlsx
+//
+// Sheets (by index):
+//  0) Struktur: Dimension (ID+name) → Handlungsfeld (ID+name) → Frage (ID+name)
+//  1) Handlungsempfehlungen: Handlungsempfehlung (ID+name) → Antwort (ID-ARRAY) → Handlungsfeld ID (attached to each Antwort)
+//  2) Fragen & Antworten: Frage (ID+name) → Handlungsfeld ID → Antwort (ID+name) → Stufe
+//
+// Outputs (./rgm-setup):
+//  - struktur.json
+//  - handlungsempfehlungen.json
+//  - fragen.json
+//
+// This script is tolerant to header variations by normalizing column names.
+// It also cross-links answer texts from sheet 3 where possible.
 
-const fs = require("fs");
-const path = require("path");
-const XLSX = require("xlsx");
+const fs = require('fs');
+const path = require('path');
+const XLSX = require('xlsx');
 
-// === Ausgabe-Ordner ===
-const OUT_DIR = path.resolve(__dirname, "rgm-setup");
-fs.mkdirSync(OUT_DIR, { recursive: true });
-
-// === Pfade zu den Excel-Dateien (bei Bedarf anpassen) ===
-const FILE_1 = path.resolve(__dirname, "excel/struktur.xlsx");           
-const FILE_2 = path.resolve(__dirname, "excel/Handlungsempfehlungen_mit_Indikatoren.xlsx");     
-const FILE_3 = path.resolve(__dirname, "excel/fragen.xlsx");   
-
-function readFirstSheetAsJson(xlsxPath) {
-  const wb = XLSX.readFile(xlsxPath);
-  const ws = wb.Sheets[wb.SheetNames[0]];
-  return XLSX.utils.sheet_to_json(ws, { defval: "" });
+// ---------- CLI ----------
+const inputPath = process.argv[2] || path.resolve(__dirname, 'excel', 'Daten.xlsx');
+if (!fs.existsSync(inputPath)) {
+  console.error('❌ Excel file not found:', inputPath);
+  process.exit(1);
 }
 
-function parseMaybeArray(val) {
-  if (Array.isArray(val)) return val.map(String).map(s => s.trim());
+const OUT_DIR = path.resolve(__dirname, 'rgm-setup');
+fs.mkdirSync(OUT_DIR, { recursive: true });
+
+// ---------- Helpers ----------
+function normalize(s) {
+  return String(s || '')
+    .toLowerCase()
+    .replace(/[ä]/g, 'ae')
+    .replace(/[ö]/g, 'oe')
+    .replace(/[ü]/g, 'ue')
+    .replace(/[ß]/g, 'ss')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+}
+
+function buildHeaderMap(row) {
+  const map = new Map();
+  for (const key of Object.keys(row)) {
+    map.set(normalize(key), key);
+  }
+  return map;
+}
+
+function pick(row, headerMap, aliases, asNumber = false) {
+  for (const a of aliases) {
+    const k = headerMap.get(normalize(a));
+    if (k && String(row[k]).trim() !== '') {
+      const v = row[k];
+      return asNumber ? (isFinite(+v) ? +v : null) : String(v).trim();
+    }
+  }
+  // Also try direct normalized presence (if alias is already normalized-ish)
+  for (const nk of headerMap.keys()) {
+    if (aliases.map(normalize).includes(nk)) {
+      const k = headerMap.get(nk);
+      const v = row[k];
+      return asNumber ? (isFinite(+v) ? +v : null) : String(v).trim();
+    }
+  }
+  return asNumber ? null : '';
+}
+
+function parseIdArray(val) {
+  if (Array.isArray(val)) return val.map(String).map(s => s.trim()).filter(Boolean);
   if (val == null) return [];
   const s = String(val).trim();
   if (!s) return [];
-  if (s.startsWith("[") && s.endsWith("]")) {
+  if ((s.startsWith('[') && s.endsWith(']')) || (s.startsWith('(') && s.endsWith(')'))) {
     try {
-      const normalized = s.replace(/'/g, '"').replace(/,\s*]/g, "]");
+      const normalized = s
+        .replace(/^\(/, '[').replace(/\)$/, ']')
+        .replace(/'/g, '"')
+        .replace(/,\s*]/g, ']');
       const arr = JSON.parse(normalized);
-      return (Array.isArray(arr) ? arr : [arr]).map(String).map(t => t.trim());
-    } catch {
-      return s.slice(1, -1).split(",").map(x => x.replace(/['"\s]/g, "")).filter(Boolean);
-    }
+      return (Array.isArray(arr) ? arr : [arr]).map(String).map(t => t.trim()).filter(Boolean);
+    } catch { /* fallthrough */ }
   }
-  if (s.includes(",") || s.includes(";")) {
+  if (s.includes(',') || s.includes(';')) {
     return s.split(/[;,]/).map(x => x.trim()).filter(Boolean);
   }
   return [s];
 }
 
-// === 1) Daten laden ===
-const t1 = readFirstSheetAsJson(FILE_1);
-const t2 = readFirstSheetAsJson(FILE_2);
-const t3 = readFirstSheetAsJson(FILE_3);
-
-// === 2) Indikatoren extrahieren (nur aus t1) ===
-const indikatorMap = new Map(); // id -> { id, name }
-t1.forEach(r => {
-  const id = String(r["ID Indikator"]).trim();
-  const name = String(r["Indikator"]).trim();
-  if (!id) return;
-  if (!indikatorMap.has(id)) indikatorMap.set(id, { id, name });
-});
-const indikatoren = Array.from(indikatorMap.values());
-
-// -> indikatoren.json im rgm-setup Ordner
-fs.writeFileSync(path.join(OUT_DIR, "indikatoren.json"), JSON.stringify({ indikatoren }, null, 2), "utf8");
-
-// === 3) Dimensionen-Hierarchie (ohne globale Indikatorenliste) ===
-const dimNameById = new Map();
-t1.forEach(r => {
-  const did = String(r["ID Dimension"]).trim();
-  const dname = String(r["Dimension"]).trim();
-  if (did && dname && !dimNameById.has(did)) dimNameById.set(did, dname);
-});
-
-const dimensionenMap = new Map();
-/*
-Je Dimension:
-{
-  id, name,
-  handlungsfelder: [
-    { id, name, stufen: { "0": [{ id, titel, indikatorIds: [...] }], ... } }
-  ]
+function sheetToJsonByIndex(wb, idx) {
+  const name = wb.SheetNames[idx];
+  if (!name) return [];
+  const ws = wb.Sheets[name];
+  return XLSX.utils.sheet_to_json(ws, { defval: '' });
 }
-*/
 
-t2.forEach(r => {
-  const hid = String(r["ID Handlungsempfehlung"]).trim();
-  const hName = String(r["Handlungsempfehlung"]).trim();
-  const dimId = String(r["Handlungsfeld ID"]).trim(); // in den Testdaten = Dimension-ID
-  const stufe = Number(r["Stufe"]);
-  const indIds = parseMaybeArray(r["Indikator IDs"]).filter(Boolean);
+// ---------- Load workbook ----------
+const wb = XLSX.readFile(inputPath);
 
-  if (!dimId) return;
+// ---------- Column alias sets ----------
+const S1 = { // Sheet 1
+  dimId:   ['ID Dimension', 'Dimension ID', 'Dim ID', 'DimID', 'DimensionId', 'dim id'],
+  dimName: ['Dimension', 'Name Dimension', 'Dimension Name'],
+  hfId:    ['ID Handlungsfeld', 'Handlungsfeld ID', 'ID Handlungsempfehlung', 'Handlungsempfehlungs ID', 'HF ID'],
+  hfName:  ['Handlungsfeld', 'Handlungsempfehlung', 'HF Name'],
+  frageId: ['ID Frage', 'Frage ID', 'FrageId', 'Question ID'],
+  frage:   ['Frage', 'Fragetext', 'Frage Text', 'Question'],
+};
 
-  if (!dimensionenMap.has(dimId)) {
-    dimensionenMap.set(dimId, {
-      id: dimId,
-      name: dimNameById.get(dimId) || dimId,
-      handlungsfelder: new Map(), // hfId -> { id, name, stufen: Map<stufe, Array<...>> }
-    });
+const S2 = { // Sheet 2
+  heId:    ['ID Handlungsempfehlung', 'Handlungsempfehlungs ID', 'ID Handlungsfeld', 'HF ID'],
+  heName:  ['Handlungsempfehlung', 'Handlungsfeld', 'HF Name'],
+  antwortIds: ['Antwort IDs', 'Antworten', 'Antwort ID(s)', 'Antwort ID Liste', 'Antwort'],
+  hfId:    ['Handlungsfeld ID', 'ID Handlungsfeld', 'HF ID'],
+};
+
+const S3 = { // Sheet 3
+  frageId:   ['ID Frage', 'Frage ID', 'FrageId', 'Question ID'],
+  frage:     ['Frage', 'Fragetext', 'Frage Text', 'Question'],
+  hfId:      ['Handlungsfeld ID', 'ID Handlungsfeld', 'HF ID'],
+  antwortId: ['Antwort ID', 'ID Antwort', 'Answer ID'],
+  antwort:   ['Antwort', 'Antworttext', 'Answer'],
+  stufe:     ['Stufe', 'Level'],
+};
+
+// ---------- SHEET 3 FIRST: build answer-text lookup ----------
+const s3 = sheetToJsonByIndex(wb, 2);
+const answerTextById = new Map();
+for (const r of s3) {
+  const hdr = buildHeaderMap(r);
+  const aId = pick(r, hdr, S3.antwortId);
+  const aTxt = pick(r, hdr, S3.antwort);
+  if (aId) {
+    if (!answerTextById.has(aId)) answerTextById.set(aId, aTxt || '');
+    if (!answerTextById.get(aId) && aTxt) answerTextById.set(aId, aTxt);
   }
-  const dimEntry = dimensionenMap.get(dimId);
+}
 
-  const hfId = hid; // HID als Handlungsfeld-ID
-  if (!dimEntry.handlungsfelder.has(hfId)) {
-    dimEntry.handlungsfelder.set(hfId, {
-      id: hfId,
-      name: hName || hfId,
-      stufen: new Map(),
-    });
+// ---------- SHEET 1 → struktur.json ----------
+const s1 = sheetToJsonByIndex(wb, 0);
+const dimMap = new Map();
+
+for (const r of s1) {
+  const hdr = buildHeaderMap(r);
+
+  const dimId = pick(r, hdr, S1.dimId);
+  const dimName = pick(r, hdr, S1.dimName) || dimId || '';
+  if (!dimId) continue;
+
+  if (!dimMap.has(dimId)) {
+    dimMap.set(dimId, { id: dimId, name: dimName || dimId, hfs: new Map() });
   }
-  const hfEntry = dimEntry.handlungsfelder.get(hfId);
+  const dim = dimMap.get(dimId);
 
-  if (!hfEntry.stufen.has(stufe)) hfEntry.stufen.set(stufe, []);
-  hfEntry.stufen.get(stufe).push({
-    id: hid,
-    titel: hName || hid,
-    indikatorIds: indIds,
-  });
-});
+  const hfId = pick(r, hdr, S1.hfId) || pick(r, hdr, S1.hfName);
+  const hfName = pick(r, hdr, S1.hfName) || pick(r, hdr, S1.hfId) || hfId || '';
+  if (!hfId) continue;
 
-// Maps → JSON
-const dimensionen = Array.from(dimensionenMap.values()).map(dim => ({
-  id: dim.id,
-  name: dim.name,
-  handlungsfelder: Array.from(dim.handlungsfelder.values()).map(hf => ({
-    id: hf.id,
-    name: hf.name,
-    stufen: Object.fromEntries(
-      Array.from(hf.stufen.entries())
-        .sort((a, b) => Number(a[0]) - Number(b[0]))
-        .map(([stufe, arr]) => [String(stufe), arr])
-    ),
+  if (!dim.hfs.has(hfId)) {
+    dim.hfs.set(hfId, { id: hfId, name: hfName || hfId, fragen: new Map() });
+  }
+  const hf = dim.hfs.get(hfId);
+
+  const frageId = pick(r, hdr, S1.frageId);
+  const frageTxt = pick(r, hdr, S1.frage);
+  if (frageId || frageTxt) {
+    const fid = frageId || frageTxt;
+    const fname = frageTxt || frageId || '';
+    if (!hf.fragen.has(fid)) hf.fragen.set(fid, { id: fid, name: fname });
+  }
+}
+
+const strukturJson = {
+  dimensionen: Array.from(dimMap.values()).map(d => ({
+    id: d.id,
+    name: d.name,
+    handlungsfelder: Array.from(d.hfs.values()).map(hf => ({
+      id: hf.id,
+      name: hf.name,
+      fragen: Array.from(hf.fragen.values()),
+    })),
   })),
-}));
+};
+fs.writeFileSync(path.join(OUT_DIR, 'struktur.json'), JSON.stringify(strukturJson, null, 2), 'utf8');
 
-fs.writeFileSync(path.join(OUT_DIR, "struktur.json"), JSON.stringify({ dimensionen }, null, 2), "utf8");
+// ---------- SHEET 2 → handlungsempfehlungen.json ----------
+const s2 = sheetToJsonByIndex(wb, 1);
+const heMap = new Map();
+for (const r of s2) {
+  const hdr = buildHeaderMap(r);
 
-// === 4) Fragen-JSON ===
-const fragenMap = new Map(); // fId -> obj
-t3.forEach(r => {
-  const fId = String(r["ID Frage"]).trim();
-  const frage = String(r["Frage"]).trim();
-  const hid = String(r["Handlungsempfehlungs ID"]).trim();
-  const aId = String(r["Antwort ID"]).trim();
-  const antwort = String(r["Antwort"]).trim();
-  const stufe = Number(r["Stufe"]);
-  const indIds = parseMaybeArray(r["Indikator IDs"]).filter(Boolean);
+  const heId = pick(r, hdr, S2.heId);
+  if (!heId) continue;
+  const heName = pick(r, hdr, S2.heName) || heId;
+  const hfId = pick(r, hdr, S2.hfId);
+  const arr = parseIdArray(pick(r, hdr, S2.antwortIds));
 
-  if (!fId) return;
-  if (!fragenMap.has(fId)) {
-    fragenMap.set(fId, {
-      id: fId,
-      frage,
-      handlungsempfehlungsId: hid || "",
-      antworten: [],
-    });
+  if (!heMap.has(heId)) heMap.set(heId, { id: heId, name: heName, antworten: [], _set: new Set() });
+  const he = heMap.get(heId);
+
+  for (const aId of arr) {
+    const key = `${aId}::${hfId || ''}`;
+    if (aId && !he._set.has(key)) {
+      he._set.add(key);
+      const aTxt = answerTextById.get(aId) || '';
+      he.antworten.push({ id: aId, antwort: aTxt, handlungsfeldId: hfId || '' });
+    }
   }
-  fragenMap.get(fId).antworten.push({
-    id: aId,
-    antwort,
-    indikatorIds: indIds,
-    stufe: Number.isFinite(stufe) ? stufe : null,
-  });
-});
+}
+const handlungsempfehlungenJson = {
+  handlungsempfehlungen: Array.from(heMap.values()).map(h => ({
+    id: h.id,
+    name: h.name,
+    antworten: h.antworten,
+  })),
+};
+fs.writeFileSync(path.join(OUT_DIR, 'handlungsempfehlungen.json'), JSON.stringify(handlungsempfehlungenJson, null, 2), 'utf8');
 
-const fragenJson = { fragen: Array.from(fragenMap.values()) };
-fs.writeFileSync(path.join(OUT_DIR, "fragen.json"), JSON.stringify(fragenJson, null, 2), "utf8");
+// ---------- SHEET 3 → fragen.json ----------
+const qMap = new Map();
+for (const r of s3) {
+  const hdr = buildHeaderMap(r);
 
-console.log("✅ Dateien erzeugt unter:", OUT_DIR);
+  const frageId = pick(r, hdr, S3.frageId);
+  if (!frageId) continue;
+  const frageTxt = pick(r, hdr, S3.frage);
+  const hfId = pick(r, hdr, S3.hfId);
+  const antwortId = pick(r, hdr, S3.antwortId);
+  const antwortTxt = pick(r, hdr, S3.antwort);
+  const stufe = pick(r, hdr, S3.stufe, true);
+
+  if (!qMap.has(frageId)) {
+    qMap.set(frageId, { id: frageId, frage: frageTxt || '', antworten: [], _set: new Set() });
+  } else if (!qMap.get(frageId).frage && frageTxt) {
+    qMap.get(frageId).frage = frageTxt;
+  }
+
+  if (antwortId) {
+    const key = `${antwortId}::${hfId || ''}::${Number.isFinite(stufe) ? stufe : ''}`;
+    if (!qMap.get(frageId)._set.has(key)) {
+      qMap.get(frageId)._set.add(key);
+      const aTxt = antwortTxt || answerTextById.get(antwortId) || '';
+      qMap.get(frageId).antworten.push({
+        id: antwortId,
+        antwort: aTxt,
+        handlungsfeldId: hfId || '',
+        stufe: Number.isFinite(stufe) ? stufe : null,
+      });
+    }
+  }
+}
+
+const fragenJson = {
+  fragen: Array.from(qMap.values()).map(q => ({
+    id: q.id,
+    frage: q.frage,
+    antworten: q.antworten,
+  })),
+};
+fs.writeFileSync(path.join(OUT_DIR, 'fragen.json'), JSON.stringify(fragenJson, null, 2), 'utf8');
+
+console.log('✅ Written:');
+console.log(' -', path.join(OUT_DIR, 'struktur.json'));
+console.log(' -', path.join(OUT_DIR, 'handlungsempfehlungen.json'));
+console.log(' -', path.join(OUT_DIR, 'fragen.json'));
+console.log('Source XLSX:', inputPath);
