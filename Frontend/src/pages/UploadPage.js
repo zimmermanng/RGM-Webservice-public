@@ -42,10 +42,15 @@ const UploadPage = ({ onUpload }) => {
 
     const handleConfirmUpload = () => {
         if (selectedFile) {
-            readExcelFile(selectedFile, (processedData) => {
-                onUpload(processedData);
-                navigate('/results');
-            });
+      readExcelFile(selectedFile, (processedData) => {
+  onUpload(processedData);
+  navigate('/results');
+}, {
+  downloadJson: true,      // triggers a rgm-data.json download
+  logToConsole: true,      // prints array + console.table
+  // sheetName: 'Datenexport', // optional override
+  // filename: 'my-results.json',
+});
         }
     };
 

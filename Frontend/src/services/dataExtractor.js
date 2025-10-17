@@ -1,48 +1,107 @@
-// utils/dataExtractor.js
+// services/dataExtractor.js
+// Based on your existing extractor (kept the same mapping + sheet name). :contentReference[oaicite:0]{index=0}
 
 import * as XLSX from 'xlsx';
 
-// Function to map stages to numbers
+// Map stages to integers 1..5 (0 = unknown)
 export const mapStageToInteger = (stage) => {
-    const stageMap = {
-        "Stufe 0": 1,
-        "Stufe 1": 2,
-        "Stufe 2": 3,
-        "Stufe 3": 4,
-        "Stufe 4": 5,
-    };
-    return stageMap[stage] || 0; // Default to 0 if the stage is not recognized
+  const stageMap = {
+    'Stufe 0': 1,
+    'Stufe 1': 2,
+    'Stufe 2': 3,
+    'Stufe 3': 4,
+    'Stufe 4': 5,
+  };
+  return stageMap[stage] || 0;
 };
 
-// Function to process the raw Excel data and extract usable data
+// Convert raw sheet rows into your app's shape
 export const processData = (jsonData) => {
-    const [header, ...rows] = jsonData;
-    return rows.map((row) => ({
-        group: row[0],
-        category: row[1],
-        value: mapStageToInteger(row[2]),
+  const [, ...rows] = jsonData; // drop header row
+  return rows
+    .filter((row) => row && (row[0] || row[1] || row[2])) // skip empty lines
+    .map((row) => ({
+      group: row[0],
+      category: row[1],
+      value: mapStageToInteger(row[2]),
     }));
 };
 
-// Function to read the Excel file and process its data
-export const readExcelFile = (file, callback) => {
-    const reader = new FileReader();
-    
-    reader.onload = (e) => {
-        const binaryStr = e.target.result;
-        const wb = XLSX.read(binaryStr, { type: 'binary' });
-        const sheetName = "Datenexport";
+// Helper: trigger a JSON download in the browser
+export const downloadJSON = (data, filename = 'rgm-data.json') => {
+  try {
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error('JSON download failed:', err);
+  }
+};
 
-        if (!wb.SheetNames.includes(sheetName)) {
-            alert(`Excel Datei mit Tabelle "${sheetName}" wurde nicht gefunden. Bitte laden Sie die korrekte Datei hoch.`);
-            return;
-        }
+/**
+ * Read + parse the Excel file.
+ *
+ * @param {File} file - the uploaded Excel file
+ * @param {(data: Array) => void} callback - receives processed data
+ * @param {Object} options
+ * @param {boolean} [options.downloadJson=false] - save processed data as JSON
+ * @param {boolean} [options.logToConsole=false] - print processed data to console
+ * @param {string}  [options.sheetName='Datenexport'] - override the expected sheet name
+ * @param {string}  [options.filename='rgm-data.json'] - filename for the JSON download
+ */
+export const readExcelFile = (
+  file,
+  callback,
+  {
+    downloadJson = false,
+    logToConsole = false,
+    sheetName = 'Datenexport',
+    filename = 'rgm-data.json',
+  } = {}
+) => {
+  const reader = new FileReader();
 
-        const ws = wb.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
-        const processedData = processData(jsonData);
-        callback(processedData); // Call the callback to update the state with the data
-    };
-    
-    reader.readAsBinaryString(file);
+  reader.onload = (e) => {
+    const binaryStr = e.target.result;
+    const wb = XLSX.read(binaryStr, { type: 'binary' });
+
+    if (!wb.SheetNames.includes(sheetName)) {
+      alert(
+        `Excel Datei mit Tabelle "${sheetName}" wurde nicht gefunden. Bitte laden Sie die korrekte Datei hoch.`
+      );
+      return;
+    }
+
+    const ws = wb.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
+    const processedData = processData(jsonData);
+
+    // Terminal output
+    if (logToConsole) {
+      console.log('✅ Verarbeitete Daten (Array):', processedData);
+      try {
+        console.table(processedData);
+      } catch {
+        // console.table may not exist in some environments
+      }
+    }
+
+    // Optional JSON download
+    if (downloadJson) {
+      downloadJSON(processedData, filename);
+    }
+
+    // Feed the app
+    callback(processedData);
+  };
+
+  reader.readAsBinaryString(file);
 };
