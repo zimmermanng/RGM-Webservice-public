@@ -21,7 +21,7 @@ const DimensionsPage = () => {
             list={dimension.handlungsfelder.map(
               (handlungsfeld) => handlungsfeld.name
             )}
-            link={`/questionnaire/`}
+            link={`/questionnaire/${dimension.id}`}
           />
         ))}
       </div>

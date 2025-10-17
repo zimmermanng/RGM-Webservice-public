@@ -2,365 +2,463 @@
   "dimensionen": [
     {
       "id": "D1",
-      "name": "D1",
+      "name": "Beratung und Support",
       "handlungsfelder": [
         {
           "id": "H1",
-          "name": "Supportstruktur",
-          "stufen": {
-            "1": [
-              {
-                "id": "H1",
-                "titel": "Supportstruktur",
-                "indikatorIds": [
-                  "I1",
-                  "I2",
-                  "I3"
-                ]
-              }
-            ]
-          }
+          "name": "Beratung",
+          "fragen": [
+            {
+              "id": "B1",
+              "name": "Wie findet Beratung an der Hochschule statt?"
+            },
+            {
+              "id": "B2",
+              "name": "Ist eine Verweispraxis der Beratenden an der Hochschule etabliert?"
+            },
+            {
+              "id": "B3",
+              "name": "Gibt es eine Übersicht der vorhandenen Beratungsangebote an der Hochschule?"
+            },
+            {
+              "id": "B4",
+              "name": "Wie werden Beratungsangebote kommuniziert?"
+            },
+            {
+              "id": "B5",
+              "name": "Gibt es eine*n Beauftragte*n für Studierende mit Behinderung und chronischer Erkrankung an der Hochschule?"
+            },
+            {
+              "id": "B6",
+              "name": "Bilden sich Beratende an der Hochschule zum Thema (digitale) Barrierefreiheit weiter?"
+            },
+            {
+              "id": "B7",
+              "name": "Wird das gesamte Beratungsangebot der Hochschule regelmäßig evaluiert?"
+            }
+          ]
         },
         {
           "id": "H2",
-          "name": "Nutzerzufriedenheit",
-          "stufen": {
-            "4": [
-              {
-                "id": "H2",
-                "titel": "Nutzerzufriedenheit",
-                "indikatorIds": [
-                  "I4",
-                  "I5",
-                  "I6"
-                ]
-              }
-            ]
-          }
+          "name": "Unterstützungsangebote",
+          "fragen": [
+            {
+              "id": "B8",
+              "name": "Stehen Studierenden und/oder Lehrenden Unterstützungsangebote zur Verfügung?"
+            },
+            {
+              "id": "B9",
+              "name": "Wie ist der Hilfsmittelpool umgesetzt?"
+            },
+            {
+              "id": "B10",
+              "name": "Wie sind die Unterstützungsangebote umgesetzt?"
+            },
+            {
+              "id": "B11",
+              "name": "Wie werden die Unterstützungsangebote kommuniziert?"
+            }
+          ]
         },
         {
           "id": "H3",
-          "name": "Fortbildung",
-          "stufen": {
-            "1": [
-              {
-                "id": "H3",
-                "titel": "Fortbildung",
-                "indikatorIds": [
-                  "I7",
-                  "I8",
-                  "I9"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "id": "H4",
-          "name": "Helpdesk",
-          "stufen": {
-            "3": [
-              {
-                "id": "H4",
-                "titel": "Helpdesk",
-                "indikatorIds": [
-                  "I10",
-                  "I11",
-                  "I12"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "id": "H5",
-          "name": "Feedback-System",
-          "stufen": {
-            "1": [
-              {
-                "id": "H5",
-                "titel": "Feedback-System",
-                "indikatorIds": [
-                  "I13",
-                  "I14",
-                  "I15"
-                ]
-              }
-            ]
-          }
+          "name": "Austausch",
+          "fragen": [
+            {
+              "id": "B12",
+              "name": "Gibt es Austauschformate für Studierende mit Beeinträchtigungen an der Hochschule?"
+            },
+            {
+              "id": "B13",
+              "name": "Wie regelmäßig finden die Austauschformate statt?"
+            },
+            {
+              "id": "B14",
+              "name": "Wie sind diese Austauschformate verwaltet?"
+            },
+            {
+              "id": "B15",
+              "name": "Werden die Austauschformate weiterentwickelt?"
+            },
+            {
+              "id": "B16",
+              "name": "Werden Impulse und Anregungen aus den Austauschformaten für die Weiterentwicklung der Hochschule verwendet?"
+            }
+          ]
         }
       ]
     },
     {
       "id": "D2",
-      "name": "D2",
+      "name": "Lehren und Lernen",
       "handlungsfelder": [
         {
-          "id": "H10",
-          "name": "Gamification",
-          "stufen": {
-            "2": [
-              {
-                "id": "H10",
-                "titel": "Gamification",
-                "indikatorIds": [
-                  "I28",
-                  "I29",
-                  "I30"
-                ]
-              }
-            ]
-          }
+          "id": "H4",
+          "name": "Nachteilsausgleich",
+          "fragen": [
+            {
+              "id": "L1",
+              "name": "Wie ist der Antrags- und Vergabeprozess von Nachteilsausgleichen an der Hochschule geregelt?"
+            },
+            {
+              "id": "L2",
+              "name": "Gibt es Informationen zur Beantragung und Vergabe von Nachteilsausgleichen (für Studierende)?"
+            },
+            {
+              "id": "L3",
+              "name": "Sind Lehrende über die Prozesse zur Beantragung und Vergabe informiert?"
+            },
+            {
+              "id": "L4",
+              "name": "Wird auf die Möglichkeit der Beratung und Unterstützung zur Beantragung von Nachteilsausgleichen hingewiesen?"
+            }
+          ]
+        },
+        {
+          "id": "H5",
+          "name": "Prüfungsleistungen",
+          "fragen": [
+            {
+              "id": "L5",
+              "name": "Gibt es Unterstützung bei der barrierefreien Umsetzung von Prüfungen?"
+            },
+            {
+              "id": "L6",
+              "name": "Wie wird die Barrierefreiheit von Prüfungen umgesetzt?"
+            },
+            {
+              "id": "L7",
+              "name": "Wird die Barrierefreiheit von Prüfungen unter Einbezug von Studierenden evaluiert und verbessert?"
+            }
+          ]
         },
         {
           "id": "H6",
-          "name": "Didaktische Methoden",
-          "stufen": {
-            "1": [
-              {
-                "id": "H6",
-                "titel": "Didaktische Methoden",
-                "indikatorIds": [
-                  "I16",
-                  "I17",
-                  "I18"
-                ]
-              }
-            ]
-          }
+          "name": "Training und Unterstützung",
+          "fragen": [
+            {
+              "id": "L8",
+              "name": "Werden (interne wie externe) Schulungsangebote zur Umsetzung von (digitaler) Barrierefreiheit in der Lehre und im Lernmaterial für Lehrende angeboten?"
+            },
+            {
+              "id": "L9",
+              "name": "Wird das Schulungsangebot evaluiert und weiterentwickelt?"
+            },
+            {
+              "id": "L10",
+              "name": "Gibt es Unterstützungsangebote zur Umsetzung von (digitaler) Barrierefreiheit in der Lehre und im Lernmaterial für Lehrende?"
+            },
+            {
+              "id": "L11",
+              "name": "Wird digitale Barrierefreiheit in der Hochschuldidaktik thematisiert?"
+            },
+            {
+              "id": "L12",
+              "name": "Gibt es Zertifikate, Anrechnungsmöglichkeiten und/oder Anreize zu Fortbildungen für Lehrende zum Thema (digitale) Barrierefreiheit?"
+            }
+          ]
         },
         {
           "id": "H7",
-          "name": "Digitale Tools",
-          "stufen": {
-            "4": [
-              {
-                "id": "H7",
-                "titel": "Digitale Tools",
-                "indikatorIds": [
-                  "I19",
-                  "I20",
-                  "I21"
-                ]
-              }
-            ]
-          }
+          "name": "Sensibilisierung",
+          "fragen": [
+            {
+              "id": "L13",
+              "name": "Gibt es Maßnahmen zur Sensibilisierung?"
+            },
+            {
+              "id": "L14",
+              "name": "Wie finden die Angebote statt?"
+            },
+            {
+              "id": "L15",
+              "name": "Werden bei der Durchführung von Sensibilisierungsangeboten auch Menschen mit Behinderungen einbezogen?"
+            },
+            {
+              "id": "L16",
+              "name": "Stehen die Angebote hochschulweit zur Verfügung?"
+            },
+            {
+              "id": "L17",
+              "name": "Ist „studieren mit Beeinträchtigung“ in der internen und externen Kommunikation präsent?"
+            },
+            {
+              "id": "L18",
+              "name": "Werden Kompetenzen zur Umsetzung von Barrierefreiheit auch als Studieninhalt vermittelt?"
+            }
+          ]
         },
         {
           "id": "H8",
-          "name": "Selbstlernangebote",
-          "stufen": {
-            "4": [
-              {
-                "id": "H8",
-                "titel": "Selbstlernangebote",
-                "indikatorIds": [
-                  "I22",
-                  "I23",
-                  "I24"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "id": "H9",
-          "name": "Lernplattformen",
-          "stufen": {
-            "2": [
-              {
-                "id": "H9",
-                "titel": "Lernplattformen",
-                "indikatorIds": [
-                  "I25",
-                  "I26",
-                  "I27"
-                ]
-              }
-            ]
-          }
+          "name": "Prüfungs auf Barrierefreiheit von Lehrmaterial",
+          "fragen": [
+            {
+              "id": "L19",
+              "name": "Werden Lehrmaterialien auf (digitale) Barrierefreiheit getestet?"
+            },
+            {
+              "id": "L20",
+              "name": "Wer testet die Lehrmaterialien auf digitale Barrierefreiheit?"
+            },
+            {
+              "id": "L21",
+              "name": "Werden digitale Lernräume auf digitale Barrierefreiheit getestet?"
+            },
+            {
+              "id": "L22",
+              "name": "Wer testet die digitalen Lernräume auf digitale Barrierefreiheit?"
+            },
+            {
+              "id": "L23",
+              "name": "Wenn es einen zentralen Dienst zur Unterstützung der Lehrenden bei der Testung von Lehrmaterialien und digitalen Lernräumen gibt, wird dieser regelmäßig evaluiert?"
+            }
+          ]
         }
       ]
     },
     {
       "id": "D3",
-      "name": "D3",
+      "name": "Struktur",
       "handlungsfelder": [
         {
+          "id": "H9",
+          "name": "Feedback- und Beschwerdemanagement",
+          "fragen": [
+            {
+              "id": "Struk1",
+              "name": "Wie ist das Feedback- und Beschwerdemanagement aufgebaut?"
+            },
+            {
+              "id": "Struk2",
+              "name": "Wird regelmäßig auch aktiv Feedback eingeholt?"
+            },
+            {
+              "id": "Struk3",
+              "name": "Gibt es die Möglichkeit, auch anonym Feedback einzureichen?"
+            },
+            {
+              "id": "Struk4",
+              "name": "Gibt es an der Hochschule eine Übersicht der Ansprechpersonen, bei welchen Feedback eingereicht werden kann?"
+            },
+            {
+              "id": "Struk5",
+              "name": "Ist der Prozess zum Feedback- und Beschwerdemanagement (zur Meldung und Verarbeitung von Feedback und Beschwerden) klar definiert?"
+            },
+            {
+              "id": "Struk6",
+              "name": "Werden Feedback-Gebende in den Feedbackprozess einbezogen?"
+            },
+            {
+              "id": "Struk7",
+              "name": "Wird der Feedbackprozess regelmäßig überprüft?"
+            }
+          ]
+        },
+        {
+          "id": "H10",
+          "name": "Webauftritt",
+          "fragen": [
+            {
+              "id": "Struk8",
+              "name": "Wurden die Webauftritte der Hochschule schon einmal auf Barrierefreiheit überprüft?"
+            },
+            {
+              "id": "Struk9",
+              "name": "Wurden die mobilen Apps der Hochschule schon einmal auf Barrierefreiheit überprüft?"
+            },
+            {
+              "id": "Struk10",
+              "name": "Sind Content-Autor*innen zum Thema digitale Barrierefreiheit geschult?"
+            },
+            {
+              "id": "Struk11",
+              "name": "Sind IT-Verantwortliche im Bereich digitale Barrierefreiheit geschult?"
+            }
+          ]
+        },
+        {
           "id": "H11",
-          "name": "IT-Infrastruktur",
-          "stufen": {
-            "1": [
-              {
-                "id": "H11",
-                "titel": "IT-Infrastruktur",
-                "indikatorIds": [
-                  "I31",
-                  "I32",
-                  "I33"
-                ]
-              }
-            ]
-          }
+          "name": "Infrastruktur",
+          "fragen": [
+            {
+              "id": "Struk12",
+              "name": "Stehen in der Hochschule barrierearme Arbeitsplätze zur Verfügung?"
+            },
+            {
+              "id": "Struk13",
+              "name": "Werden an der Hochschule Hilfsmittel (assistive Technologien) zur Verfügung gestellt?"
+            },
+            {
+              "id": "Struk14",
+              "name": "Werden barrierefreie Arbeitsplätze und/oder die Verfügbarkeit von Hilfsmitteln an der Hochschule kommuniziert?"
+            },
+            {
+              "id": "Struk15",
+              "name": "Falls es einen Hilfsmittelpool gibt: Gibt es Verantwortliche für den vorhandenen Hilfsmittelpool?"
+            },
+            {
+              "id": "Struk16",
+              "name": "Sind Hörsäle und Seminarräume mit Barrierefreiheits-Technologien ausgestattet?"
+            }
+          ]
         },
         {
           "id": "H12",
-          "name": "Organisation & Prozesse",
-          "stufen": {
-            "4": [
-              {
-                "id": "H12",
-                "titel": "Organisation & Prozesse",
-                "indikatorIds": [
-                  "I34",
-                  "I35",
-                  "I36"
-                ]
-              }
-            ]
-          }
+          "name": "Beschaffung",
+          "fragen": [
+            {
+              "id": "Struk17",
+              "name": "Wird (digitale) Barrierefreiheit bei der Beschaffung von Soft- und Hardware beachtet?"
+            },
+            {
+              "id": "Struk18",
+              "name": "Werden bei der Leistungsabnahme Tests bezüglich der Barrierefreiheit durchgeführt?"
+            },
+            {
+              "id": "Struk19",
+              "name": "Werden Betroffene in den Beschaffungsprozess einbezogen?"
+            },
+            {
+              "id": "Struk20",
+              "name": "Sind in der Vergabestelle Kompetenzen im Bereich Barrierefreiheit vorhanden?"
+            }
+          ]
         },
         {
           "id": "H13",
-          "name": "Rollen & Verantwortlichkeiten",
-          "stufen": {
-            "0": [
-              {
-                "id": "H13",
-                "titel": "Rollen & Verantwortlichkeiten",
-                "indikatorIds": [
-                  "I37",
-                  "I38",
-                  "I39"
-                ]
-              }
-            ]
-          }
+          "name": "Finanzielle Ressourcen",
+          "fragen": [
+            {
+              "id": "Struk21",
+              "name": "Wie systematisch können Maßnahmen zur (digitalen) Barrierefreiheit umgesetzt werden?"
+            },
+            {
+              "id": "Struk22",
+              "name": "Woher stammen die finanziellen Mittel zur Umsetzung?"
+            },
+            {
+              "id": "Struk23",
+              "name": "Sind Drittmittelgelder vorhanden?"
+            }
+          ]
         },
         {
           "id": "H14",
-          "name": "Kommunikationswege",
-          "stufen": {
-            "1": [
-              {
-                "id": "H14",
-                "titel": "Kommunikationswege",
-                "indikatorIds": [
-                  "I40",
-                  "I41",
-                  "I42"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "id": "H15",
-          "name": "Datensicherheit",
-          "stufen": {
-            "4": [
-              {
-                "id": "H15",
-                "titel": "Datensicherheit",
-                "indikatorIds": [
-                  "I43",
-                  "I44",
-                  "I45"
-                ]
-              }
-            ]
-          }
+          "name": "Personelle Ressourcen",
+          "fragen": [
+            {
+              "id": "Struk24",
+              "name": "Gibt es Personen, die für digitale Barrierefreiheit an der Hochschule zuständig sind?"
+            },
+            {
+              "id": "Struk25",
+              "name": "In welchem Umfang können Personen sich mit digitaler Barrierefreiheit beschäftigen?"
+            },
+            {
+              "id": "Struk26",
+              "name": "Wird die Arbeit dieser Personen koordiniert?"
+            }
+          ]
         }
       ]
     },
     {
       "id": "D4",
-      "name": "D4",
+      "name": "Strategie",
       "handlungsfelder": [
         {
+          "id": "H15",
+          "name": "Zielgruppe Studierende mit Beeinträchtigungen",
+          "fragen": [
+            {
+              "id": "Strat1",
+              "name": "Gibt es zielgruppenspezifische Informationen für Studieninteressierte und Studierende mit Beeinträchtigungen?"
+            },
+            {
+              "id": "Strat2",
+              "name": "Gibt es zielgruppenspezifische Angebote für Studieninteressierte und Studierende mit Beeinträchtigungen?"
+            }
+          ]
+        },
+        {
           "id": "H16",
-          "name": "Zielsetzung & Vision",
-          "stufen": {
-            "1": [
-              {
-                "id": "H16",
-                "titel": "Zielsetzung & Vision",
-                "indikatorIds": [
-                  "I46",
-                  "I47",
-                  "I48"
-                ]
-              }
-            ]
-          }
+          "name": "Patrizipation",
+          "fragen": [
+            {
+              "id": "Strat3",
+              "name": "Werden Studierende mit Beeinträchtigungen in Evaluationsmaßnahmen adressiert und zu ihren Erfahrungen an der Hochschule befragt?"
+            },
+            {
+              "id": "Strat4",
+              "name": "Gibt es studentische Vertretungen von Studierenden mit Beeinträchtigungen in zentralen Gremien der Hochschule?"
+            },
+            {
+              "id": "Strat5",
+              "name": "Wenn es eine Diversitätsstrategie gibt, wurden/werden Studierende mit Beeinträchtigungen in ihre Gestaltung und Umsetzung mit einbezogen?"
+            },
+            {
+              "id": "Strat6",
+              "name": "Wie werden Studierende mit Beeinträchtigung in Entscheidungsprozesse eingebunden?"
+            }
+          ]
         },
         {
           "id": "H17",
-          "name": "Change Management",
-          "stufen": {
-            "4": [
-              {
-                "id": "H17",
-                "titel": "Change Management",
-                "indikatorIds": [
-                  "I49",
-                  "I50",
-                  "I51"
-                ]
-              }
-            ]
-          }
+          "name": "Kollaboration",
+          "fragen": [
+            {
+              "id": "Strat7",
+              "name": "Findet interne Kollaboration zum Thema (digitale) Barrierefreiheit statt?"
+            },
+            {
+              "id": "Strat8",
+              "name": "Findet externe Kollaboration zum Thema (digitale) Barrierefreiheit statt?"
+            }
+          ]
         },
         {
           "id": "H18",
-          "name": "Qualitätssicherung",
-          "stufen": {
-            "0": [
-              {
-                "id": "H18",
-                "titel": "Qualitätssicherung",
-                "indikatorIds": [
-                  "I52",
-                  "I53",
-                  "I54"
-                ]
-              }
-            ]
-          }
+          "name": "Steuerungsinstrumente",
+          "fragen": [
+            {
+              "id": "Strat9",
+              "name": "Wird (digitale) Barrierefreiheit in Steuerungsinstrumenten aktiv benannt?"
+            },
+            {
+              "id": "Strat10",
+              "name": "Gibt es strategische Anreize zur Umsetzung (digitaler) Barrierefreiheit?"
+            },
+            {
+              "id": "Strat11",
+              "name": "Werden konkrete Maßnahmen und entsprechende Handlungsempfehlungen mit relevanten Messkriterien zur Umsetzung (digitaler) Barrierefreiheit festgelegt?"
+            }
+          ]
         },
         {
           "id": "H19",
-          "name": "Budgetplanung",
-          "stufen": {
-            "2": [
-              {
-                "id": "H19",
-                "titel": "Budgetplanung",
-                "indikatorIds": [
-                  "I55",
-                  "I56",
-                  "I57"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "id": "H20",
-          "name": "Langfristige Roadmap",
-          "stufen": {
-            "4": [
-              {
-                "id": "H20",
-                "titel": "Langfristige Roadmap",
-                "indikatorIds": [
-                  "I58",
-                  "I59",
-                  "I60"
-                ]
-              }
-            ]
-          }
+          "name": "Akkreditierung",
+          "fragen": [
+            {
+              "id": "Strat12",
+              "name": "Findet (digitale) Barrierefreiheit Einzug in Akkreditierungsprozesse?"
+            },
+            {
+              "id": "Strat13",
+              "name": "Finden externe Audits statt?"
+            },
+            {
+              "id": "Strat14",
+              "name": "Wenn Ihre Hochschule systemakkreditiert ist, sind die Mitarbeitenden des QM-Teams in Bezug auf (digitale) Barrierefreiheit geschult?"
+            },
+            {
+              "id": "Strat15",
+              "name": "Werden für die Akkreditierung von Studiengängen konkrete Daten in Bezug auf (digitale) Barrierefreiheit erhoben?"
+            },
+            {
+              "id": "Strat16",
+              "name": "Werden Studierende mit Beeinträchtigungen in den Prozess der Akkreditierung involviert?"
+            }
+          ]
         }
       ]
     }

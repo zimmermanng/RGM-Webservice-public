@@ -26,7 +26,8 @@ const App = () => {
 
                         {/* 🔹 Protect the Upload Page */}
                         <Route path="/download" element={<Download />} />
-                         <Route path="/questionnaire" element={<QuestionnairePage />} />
+                        <Route path="/questionnaire" element={<QuestionnairePage />} />
+                         <Route path="/questionnaire/:dimensionId" element={<QuestionnairePage />} />
                         <Route path="/results" element={<ResultPage data={data} />} />
                         <Route path="/handlungsempfehlungen" element={<ResultPage data={data} />} />
                         { <Route path="/upload" element={<UploadPage onUpload={setData} />} /> }
