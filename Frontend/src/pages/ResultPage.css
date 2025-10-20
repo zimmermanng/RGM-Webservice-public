@@ -187,13 +187,6 @@
     margin-top: 8px;
 }
 
-.category-box p:last-of-type {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.5;
-    margin-top: 5px;
-}
-
 .category-box h4, .category-box p {
     margin-bottom: 10px;
 }
