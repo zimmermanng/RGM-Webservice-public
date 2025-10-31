@@ -1,13 +1,11 @@
-//navBar.js
+import HeaderDesktop from "./headerDesktop";
 
-import HeaderDesktop from './headerDesktop';
-
-const NavBar = () => {
-    return(
-        <div>
-            <HeaderDesktop/>
-        </div>
-    )
-}
+const NavBar = ({ activeCompany }) => {
+  return (
+    <div>
+      <HeaderDesktop activeCompany={activeCompany} />
+    </div>
+  );
+};
 
 export default NavBar;

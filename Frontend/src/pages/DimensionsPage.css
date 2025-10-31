@@ -1,0 +1,115 @@
+.mainContainer {
+  margin-top: 2rem;
+}
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* max. 4 Cards pro Reihe */
+  gap: 1.5rem;
+  justify-items: stretch;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gridContainer {
+    grid-template-columns: 1fr; /* mobil: eine Spalte */
+  }
+}
+
+.gridItem {
+  transition: transform 0.2s ease;
+}
+
+.gridItem:focus {
+  outline: 3px solid #0078d4;
+  outline-offset: 3px;
+}
+
+.gridItem[aria-grabbed="true"] {
+  opacity: 0.7;
+  border: 2px dashed #0078d4;
+  transform: scale(1.03);
+}
+
+
+.editToggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.toggleButton {
+  width: 70px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggleButton.on {
+  background-color: #0078d4;
+}
+
+.toggleButton.off {
+  background-color: #888;
+}
+
+.toggleButton:focus {
+  outline: 3px solid #005a9e;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   ✏️ Bearbeitungsmodus: Drop-Zonen
+   ========================================= */
+.editModeWrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.dropZone {
+  flex: 1 1 45%;
+  min-height: 300px;
+  padding: 1rem;
+  border: 2px dashed #0078d4;
+  border-radius: 12px;
+  background: none; /* kein grauer Hintergrund */
+}
+
+/* Zeigt Hintergrund nur, wenn leer */
+.dropZone:empty {
+  background-color: #f8f8f8;
+}
+
+.dropZone h4 {
+  margin-bottom: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  left: -9999px;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+
