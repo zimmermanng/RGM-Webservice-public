@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 
-
 const RadialBarChart = ({ data }) => {
     const svgRef = useRef(null);
     const [chartData, setChartData] = useState(null); // Use state to manage the chart data
@@ -36,7 +35,7 @@ const RadialBarChart = ({ data }) => {
     // Color scale for groups
     const colorScale = d3.scaleOrdinal()
         .domain(['Beratung und Support', 'Lehren und Lernen', 'Struktur', 'Strategie'])
-        .range(['#F6B700', '#FA4730', '#F08811', '#5E5F4F']); 
+        .range(['#E21437', '#1E7F5E', '#FEC705', '#324B8C']); 
 
     // Choosing text color for correct contrast ratio
     const getLuminance = (color) => {
@@ -367,7 +366,7 @@ const RadialBarChart = ({ data }) => {
         });
 
         // Dynamically add logo image with scalable size
-        const logoImage = 'LMZ-Logo-rund.png';
+        const logoImage = 'Logo_Barrierefreiheit.png';
         const logoSize = Math.min(innerRadius * 1.5, 200);
         svg.append('image')
             .attr('xlink:href', logoImage)

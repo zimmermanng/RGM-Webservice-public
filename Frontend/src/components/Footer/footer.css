@@ -1,5 +1,5 @@
 footer {
-    background-color: #F69E2F;
+    background-color: var(--footer-color);
     display: flex; /* Flexbox for the footer */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */

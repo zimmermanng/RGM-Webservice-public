@@ -1,3 +1,8 @@
+:root {
+    --footer-color: #F69E2F;
+    --navBar-color: #ebebe2;
+}
+
 html, body {
     display: flex;
     flex-direction: column; /* Stack header, content, and footer vertically */
@@ -22,7 +27,7 @@ main {
     text-align: center; /* Ensure text is centered */
     padding: 20px;
     margin: auto; /* Center the container */
-    background-color: #ebebe2;
+    background-color: var(--navBar-color);
 }
 
 #top {

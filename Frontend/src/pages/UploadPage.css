@@ -15,8 +15,8 @@
 }
 
 .confirm-button, .upload-button{
-    background-color: #F08811;
-    color: black;
+    background-color: var(--button-color);
+    color: var(--letter-color);
     border: none;
     padding: 10px 15px;
     margin-top: 10px;
