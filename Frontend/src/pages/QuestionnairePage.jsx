@@ -11,8 +11,8 @@ import { setDebug } from "../services/questionnaireToResults";
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId } = useParams();
   const navigate = useNavigate();
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
+
 
   // Collect all frageIds that belong to the current dimension
   const frageIdsForDimension = useMemo(() => {
@@ -102,11 +102,18 @@ export default function QuestionnairePage({ onUpload }) {
   const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
   const anyAnswered = Object.keys(selectedAnswers).length > 0;
 
+  const totalQuestions = filteredFragen.length;
+  const answeredCount = Object.keys(selectedAnswers).length;
+  const progress = totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0;
+
   return (
     <div className="mainContainer" id="top">
       <div className="questions-container">
         <h2>Fragen & Antworten</h2>
-
+          <div class="progress-container">
+              <p>Fortschritt: {answeredCount} von {totalQuestions} beantwortet</p>
+              <p>{Math.round(progress)}%</p>
+          </div>
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für diese Dimension gefunden.</p>
         ) : (
