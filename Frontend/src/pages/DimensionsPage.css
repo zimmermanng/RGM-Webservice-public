@@ -1,6 +1,9 @@
 .mainContainer {
   margin-top: 2rem;
 }
+.card{
+  height:250px;
+}
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* max. 4 Cards pro Reihe */
@@ -33,13 +36,13 @@
 }
 
 .gridItem:focus {
-  outline: 3px solid #0078d4;
+  outline: 3px solid var(--footer-color);
   outline-offset: 3px;
 }
 
 .gridItem[aria-grabbed="true"] {
   opacity: 0.7;
-  border: 2px dashed #0078d4;
+  border: 2px dashed var(--footer-color);
   transform: scale(1.03);
 }
 
@@ -63,16 +66,11 @@
 }
 
 .toggleButton.on {
-  background-color: #0078d4;
+  background-color: var(--footer-color);
 }
 
 .toggleButton.off {
   background-color: #888;
-}
-
-.toggleButton:focus {
-  outline: 3px solid #005a9e;
-  outline-offset: 3px;
 }
 
 /* =========================================
@@ -90,7 +88,7 @@
   flex: 1 1 45%;
   min-height: 300px;
   padding: 1rem;
-  border: 2px dashed #0078d4;
+  border: 2px dashed var(--footer-color);
   border-radius: 12px;
   background: none; /* kein grauer Hintergrund */
 }

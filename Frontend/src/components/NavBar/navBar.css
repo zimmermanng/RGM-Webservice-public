@@ -111,7 +111,7 @@ nav li {
         position: fixed;
         top: 60px; /* Space below header for the menu */
         right: 0;
-        background-color: #E6ECF3; /* Add background to the menu */
+        background-color: var(--footer-color); /* Add background to the menu */
         width: 100%;
         border-bottom: 2px #ffffff solid;
     }

@@ -9,9 +9,7 @@ const DimensionsPage = () => {
   const [draggedCard, setDraggedCard] = useState(null);
   const [editMode, setEditMode] = useState(true);
   const liveRegionRef = useRef(null); 
-
   const toggleEditMode = () => setEditMode(!editMode);
-
 
   const handleDragStart = (e, card, fromList) => {
     setDraggedCard({ card, fromList });
@@ -57,10 +55,9 @@ const DimensionsPage = () => {
 
   return (
     <div className="mainContainer" id="top">
-      <h3>Pakete</h3>
+      <h2>Dimensionen</h2>
       <p id="pageDescription">
-        Im Bearbeitungsmodus kannst du festlegen, welche Dimensionen du
-        bearbeiten möchtest.
+        Im Bearbeitungsmodus können Sie festlegen, welche Dimensionen für Sie und ihr Team relevant sind und ihr eigenes RGM zusammenstellen.
       </p>
 
   

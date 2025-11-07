@@ -13,7 +13,6 @@ export default function QuestionnairePage({ onUpload }) {
   const navigate = useNavigate();
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
-
   // Collect all frageIds that belong to the current dimension
   const frageIdsForDimension = useMemo(() => {
     const dimension = struktur.dimensionen.find((d) => d.id === dimensionId);
@@ -29,6 +28,8 @@ export default function QuestionnairePage({ onUpload }) {
       frageIdsForDimension.includes(f.id)
     );
   }, [frageIdsForDimension]);
+    
+  const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
 
   const handleAnswerClick = (frage, antwort) => {
     setSelectedAnswers((prev) => ({
@@ -109,8 +110,8 @@ export default function QuestionnairePage({ onUpload }) {
   return (
     <div className="mainContainer" id="top">
       <div className="questions-container">
-        <h2>Fragen & Antworten</h2>
-          <div class="progress-container">
+        <h1>{currentDimension.name}</h1>
+          <div className="progress-container">
               <p>Fortschritt: {answeredCount} von {totalQuestions} beantwortet</p>
               <p>{Math.round(progress)}%</p>
           </div>
@@ -121,7 +122,7 @@ export default function QuestionnairePage({ onUpload }) {
             <div key={frage.id} className="question-box">
               <p className="question-text">{frage.frage}</p>
               <div className="answers">
-                {(frage.antworten || []).map((antwort) => {
+             {[...(frage.antworten || []), { id: "", antwort: "Keine Angabe", stufe: -1, frage:frage.frage }].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
                   return (
