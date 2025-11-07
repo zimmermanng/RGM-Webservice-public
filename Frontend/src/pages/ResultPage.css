@@ -100,9 +100,9 @@
 }
 
 .tab-button.active {
-    background-color: #324b8c;
+    background-color: var(--button-color);
     color: white;
-    border-color: #324b8c;
+    border-color: var(--button-color);
 }
 
 .tab-button:hover {

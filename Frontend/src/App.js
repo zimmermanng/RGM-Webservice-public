@@ -9,11 +9,12 @@ import Download from "./pages/DownloadPage";
 import QuestionnairePage from "./pages/QuestionnairePage";
 import DimensionsPage from "./pages/DimensionsPage";
 import { applyTheme } from "./theme";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   const [data, setData] = useState([]);
 
-  const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln
+  const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
 
   useEffect(() => {
     applyTheme(activeCompany);
@@ -24,6 +25,7 @@ const App = () => {
        <NavBar activeCompany={activeCompany} />
       <main>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/download" element={<Download />} />
           <Route path="/questionnaire" element={<QuestionnairePage />} />
           <Route

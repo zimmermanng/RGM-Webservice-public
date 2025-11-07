@@ -4,15 +4,13 @@ import data from "../components/data/struktur.json";
 import Card from "../components/Cards/Card";
 
 const DimensionsPage = () => {
-  const [toEdit, setToEdit] = useState(data.dimensionen); // Start: alles aktiv
+  const [toEdit, setToEdit] = useState(data.dimensionen);
   const [notToEdit, setNotToEdit] = useState([]);
   const [draggedCard, setDraggedCard] = useState(null);
   const [editMode, setEditMode] = useState(true);
-  const liveRegionRef = useRef(null); // Screenreader-Ausgabe
-
+  const liveRegionRef = useRef(null); 
   const toggleEditMode = () => setEditMode(!editMode);
 
-  // 🧩 Drag-and-drop mit Maus
   const handleDragStart = (e, card, fromList) => {
     setDraggedCard({ card, fromList });
     e.dataTransfer.effectAllowed = "move";
@@ -26,7 +24,6 @@ const DimensionsPage = () => {
     setDraggedCard(null);
   };
 
-  // 🧭 Logik: Karte verschieben
   const moveCard = (card, fromList, toList) => {
     if (fromList === toList) return;
 
@@ -47,7 +44,6 @@ const DimensionsPage = () => {
     }, 100);
   };
 
-  // 📢 Screenreader Feedback
   const announce = (message) => {
     if (liveRegionRef.current) {
       liveRegionRef.current.textContent = "";
@@ -59,13 +55,12 @@ const DimensionsPage = () => {
 
   return (
     <div className="mainContainer" id="top">
-      <h3>Pakete</h3>
+      <h2>Dimensionen</h2>
       <p id="pageDescription">
-        Im Bearbeitungsmodus kannst du festlegen, welche Dimensionen du
-        bearbeiten möchtest.
+        Im Bearbeitungsmodus können Sie festlegen, welche Dimensionen für Sie und ihr Team relevant sind und ihr eigenes RGM zusammenstellen.
       </p>
 
-      {/* 🧭 Toggle-Schalter */}
+  
       <div className="editToggle">
         <span id="editModeLabel">Bearbeitungsmodus:</span>
         <button
@@ -85,7 +80,6 @@ const DimensionsPage = () => {
         </button>
       </div>
 
-      {/* 🦻 Screenreader-Ausgabe */}
       <div
         aria-live="polite"
         aria-atomic="true"
@@ -93,10 +87,8 @@ const DimensionsPage = () => {
         ref={liveRegionRef}
       />
 
-      {/* 📦 Hauptbereich */}
       {editMode ? (
         <div className="editModeWrapper">
-          {/* Zu bearbeiten */}
           <div
             className="dropZone"
             role="region"
@@ -135,7 +127,6 @@ const DimensionsPage = () => {
             </div>
           </div>
 
-          {/* Nicht zu bearbeiten */}
           <div
             className="dropZone"
             role="region"
@@ -175,7 +166,7 @@ const DimensionsPage = () => {
           </div>
         </div>
       ) : (
-        // 📋 Nur die zu bearbeitenden Cards anzeigen
+
         <div
           className="gridContainer"
           role="grid"

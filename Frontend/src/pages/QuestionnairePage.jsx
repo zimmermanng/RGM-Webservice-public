@@ -11,7 +11,6 @@ import { setDebug } from "../services/questionnaireToResults";
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId } = useParams();
   const navigate = useNavigate();
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
   // Collect all frageIds that belong to the current dimension
@@ -29,6 +28,8 @@ export default function QuestionnairePage({ onUpload }) {
       frageIdsForDimension.includes(f.id)
     );
   }, [frageIdsForDimension]);
+    
+  const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
 
   const handleAnswerClick = (frage, antwort) => {
     setSelectedAnswers((prev) => ({
@@ -102,11 +103,18 @@ export default function QuestionnairePage({ onUpload }) {
   const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
   const anyAnswered = Object.keys(selectedAnswers).length > 0;
 
+  const totalQuestions = filteredFragen.length;
+  const answeredCount = Object.keys(selectedAnswers).length;
+  const progress = totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0;
+
   return (
     <div className="mainContainer" id="top">
       <div className="questions-container">
-        <h2>Fragen & Antworten</h2>
-
+        <h1>{currentDimension.name}</h1>
+          <div className="progress-container">
+              <p>Fortschritt: {answeredCount} von {totalQuestions} beantwortet</p>
+              <p>{Math.round(progress)}%</p>
+          </div>
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für diese Dimension gefunden.</p>
         ) : (
@@ -114,7 +122,7 @@ export default function QuestionnairePage({ onUpload }) {
             <div key={frage.id} className="question-box">
               <p className="question-text">{frage.frage}</p>
               <div className="answers">
-                {(frage.antworten || []).map((antwort) => {
+             {[...(frage.antworten || []), { id: "", antwort: "Keine Angabe", stufe: -1, frage:frage.frage }].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
                   return (

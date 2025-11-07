@@ -5,9 +5,9 @@ import "./navBar.css";
 const HeaderDesktop = ({ activeCompany }) => {
   const getLogo = () => {
     if (activeCompany === "LMZ") {
-      return "LMZ-Logo.jpg"; 
+      return "/LMZ-Logo.jpg"; 
     } else if(activeCompany==="Shuffle") {
-      return "shuffle-logo.svg"; 
+      return "/shuffle-logo.svg"; 
     }
   };
 
@@ -22,6 +22,7 @@ const HeaderDesktop = ({ activeCompany }) => {
 
       <nav>
         <ul>
+           {/* <li><Link to="/questionnaire">Fragebogen</Link></li> */}
           <li><Link to="/download">Downloads</Link></li>
           <li><Link to="/upload">Upload</Link></li>
           <li><Link to="/dimensions">Dimensionen</Link></li>

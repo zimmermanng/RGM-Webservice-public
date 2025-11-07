@@ -31,11 +31,15 @@ const RadialBarChart = ({ data }) => {
         lastInputType = "touch";
       });
 
-
+    const styles= getComputedStyle(document.documentElement);
     // Color scale for groups
     const colorScale = d3.scaleOrdinal()
         .domain(['Beratung und Support', 'Lehren und Lernen', 'Struktur', 'Strategie'])
-        .range(['#E21437', '#1E7F5E', '#FEC705', '#324B8C']); 
+        .range
+        ([styles.getPropertyValue('--range_1-color').trim(), 
+            styles.getPropertyValue('--range_2-color').trim(), 
+            styles.getPropertyValue('--range_3-color').trim(), 
+            styles.getPropertyValue('--range_4-color').trim(),]); 
 
     // Choosing text color for correct contrast ratio
     const getLuminance = (color) => {
@@ -366,8 +370,8 @@ const RadialBarChart = ({ data }) => {
         });
 
         // Dynamically add logo image with scalable size
-        const logoImage = 'Logo_Barrierefreiheit.png';
-        const logoSize = Math.min(innerRadius * 1.5, 200);
+        const logoImage = 'LMZ-Logo-rund.png';
+        const logoSize = Math.min(innerRadius * 2.5, 200);
         svg.append('image')
             .attr('xlink:href', logoImage)
             .attr('x', -logoSize / 2)

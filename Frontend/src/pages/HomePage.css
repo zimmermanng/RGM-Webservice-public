@@ -1,0 +1,10 @@
+.homeButton {
+  display: inline-block;
+  background-color: var(--footer-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
