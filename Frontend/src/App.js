@@ -14,7 +14,7 @@ import HomePage from "./pages/HomePage";
 const App = () => {
   const [data, setData] = useState([]);
 
-  const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
+  const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
 
   useEffect(() => {
     applyTheme(activeCompany);
@@ -32,7 +32,7 @@ const App = () => {
             path="/questionnaire/:dimensionId"
             element={<QuestionnairePage />}
           />
-          <Route path="/results" element={<ResultPage data={data} />} />
+          <Route path="/results" element={<ResultPage data={data} activeCompany={activeCompany}/>} />
           <Route
             path="/handlungsempfehlungen"
             element={<ResultPage data={data} />}

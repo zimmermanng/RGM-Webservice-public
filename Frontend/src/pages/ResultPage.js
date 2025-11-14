@@ -3,7 +3,7 @@ import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 import "./ResultPage.css";
 
-const ResultPage = ({ data }) => {
+const ResultPage = ({ data, activeCompany}) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
   const [visibleLevels, setVisibleLevels] = useState(new Set([0, 1, 2, 3, 4]));
@@ -134,7 +134,7 @@ const ResultPage = ({ data }) => {
       <div>
         {viewMode === "chart" ? (
           <div className="chart-container">
-            <RadialBarChart data={data} />
+            <RadialBarChart data={data} activeCompany={activeCompany}/>
           </div>
         ) : (
           <div className="table-container">
