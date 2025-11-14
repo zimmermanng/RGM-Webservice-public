@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/navBar";
 import UploadPage from "./pages/UploadPage";
@@ -10,35 +10,49 @@ import QuestionnairePage from "./pages/QuestionnairePage";
 import DimensionsPage from "./pages/DimensionsPage";
 import { applyTheme } from "./theme";
 import HomePage from "./pages/HomePage";
+import ShuffleHomePage from "./pages/shuffleHomePage";
 
 const App = () => {
   const [data, setData] = useState([]);
 
-  const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
+const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
 
   useEffect(() => {
     applyTheme(activeCompany);
   }, [activeCompany]);
 
+  // Decide which homepage to render
+  const homeElement = useMemo(() => {
+    return activeCompany === "Shuffle" ? (
+      <ShuffleHomePage activeCompany={activeCompany} />
+    ) : (
+      <HomePage activeCompany={activeCompany} />
+    );
+  }, [activeCompany]);
+
   return (
     <Router>
-       <NavBar activeCompany={activeCompany} />
+      <NavBar activeCompany={activeCompany} />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          {/* Single home route, decided by activeCompany */}
+          <Route path="/" element={homeElement} />
+
           <Route path="/download" element={<Download />} />
-          <Route path="/questionnaire" element={<QuestionnairePage />} />
-          <Route
-            path="/questionnaire/:dimensionId"
-            element={<QuestionnairePage />}
-          />
-          <Route path="/results" element={<ResultPage data={data} activeCompany={activeCompany}/>} />
-          <Route
-            path="/handlungsempfehlungen"
-            element={<ResultPage data={data} />}
-          />
           <Route path="/upload" element={<UploadPage onUpload={setData} />} />
           <Route path="/dimensions" element={<DimensionsPage />} />
+
+          <Route path="/questionnaire" element={<QuestionnairePage />} />
+          <Route path="/questionnaire/:dimensionId" element={<QuestionnairePage />} />
+
+          <Route
+            path="/results"
+            element={<ResultPage data={data} activeCompany={activeCompany} />}
+          />
+          <Route
+            path="/handlungsempfehlungen"
+            element={<ResultPage data={data} activeCompany={activeCompany} />}
+          />
         </Routes>
       </main>
       <Footer />
@@ -47,4 +61,3 @@ const App = () => {
 };
 
 export default App;
-
