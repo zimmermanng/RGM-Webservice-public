@@ -5,15 +5,17 @@ import struktur from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import { useParams, useNavigate } from "react-router-dom";
-import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
-import { setDebug } from "../services/questionnaireToResults";
+import { answersToResultsWithRecommendations, setDebug } from "../services/questionnaireToResults";
+import CommentBox from "./CommentFunction";
 
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId } = useParams();
   const navigate = useNavigate();
-  const [selectedAnswers, setSelectedAnswers] = useState({});
 
-  // Collect all frageIds that belong to the current dimension
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [postedComments, setPostedComments] = useState({});
+  const [inputs, setInputs] = useState({});
+
   const frageIdsForDimension = useMemo(() => {
     const dimension = struktur.dimensionen.find((d) => d.id === dimensionId);
     if (!dimension) return [];
@@ -22,14 +24,15 @@ export default function QuestionnairePage({ onUpload }) {
     );
   }, [dimensionId]);
 
-  // Filter the global fragen list to only those for this dimension
   const filteredFragen = useMemo(() => {
     return (fragen.fragen || []).filter((f) =>
       frageIdsForDimension.includes(f.id)
     );
   }, [frageIdsForDimension]);
-    
-  const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
+
+  const currentDimension = struktur.dimensionen.find(
+    (d) => d.id === dimensionId
+  );
 
   const handleAnswerClick = (frage, antwort) => {
     setSelectedAnswers((prev) => ({
@@ -39,13 +42,13 @@ export default function QuestionnairePage({ onUpload }) {
         frageText: frage.frage,
         antwortId: antwort.id,
         antwortText: antwort.antwort,
-        stufe: antwort.stufe, // numeric 0..4
+        stufe: antwort.stufe,
       },
     }));
   };
 
   setDebug(true);
-  // Build ResultPage rows (with recommendations) from the current state
+
   const resultRowsForCurrentState = () =>
     answersToResultsWithRecommendations({
       selectedAnswers,
@@ -55,20 +58,41 @@ export default function QuestionnairePage({ onUpload }) {
       dimensionId,
     });
 
+  const buildCommentsExport = () => {
+    return Object.entries(postedComments).map(([frageId, comments]) => {
+      const frage = fragen.fragen.find((f) => f.id === frageId);
+
+      return {
+        frageId,
+        frageText: frage?.frage || "",
+        comments: comments.map((c) => ({
+          user: c.user,
+          text: c.text
+        }))
+      };
+    });
+  };
+
   const handleSubmit = () => {
-    const resultRows = resultRowsForCurrentState();
+    const results = resultRowsForCurrentState();
+    const comments = buildCommentsExport();
+
+    const payload = {
+      dimensionId,
+      timestamp: new Date().toISOString(),
+      results,
+      comments
+    };
 
     if (typeof onUpload === "function") {
-      // keep parity with your UploadPage flow
-      onUpload(resultRows); // [{ group, category, value, recommendations }]
+      onUpload(payload);
       navigate("/results");
     } else {
-      console.log("Questionnaire→Result rows:", resultRows);
-      alert("Antworten verarbeitet. (Kein onUpload-Handler gefunden.)");
+      console.log("Questionnaire → Payload:", payload);
+      alert("Antworten und Kommentare verarbeitet.");
     }
   };
 
-  // ---- Debug: download current results as JSON ----
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
       type: "application/json;charset=utf-8",
@@ -84,45 +108,76 @@ export default function QuestionnairePage({ onUpload }) {
   };
 
   const handleDownload = () => {
-    const rows = resultRowsForCurrentState();
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-    const filename = `results_${dimensionId || "unknown"}_${ts}.json`;
-    downloadJSON(
-      {
-        dimensionId,
-        timestamp: new Date().toISOString(),
-        data: rows, // [{ group, category, value, recommendations }]
-      },
-      filename
-    );
-  };
-  // -----------------------------------------------
+  const results = resultRowsForCurrentState();
+  const comments = buildCommentsExport();
 
-  // Optional UX: require all questions answered before submit
+  const ts = new Date().toISOString().replace(/[:.]/g, "-");
+
+  // Datei 1: Ergebnisse
+  downloadJSON(
+    {
+      dimensionId,
+      timestamp: new Date().toISOString(),
+      results
+    },
+    `results_${dimensionId}_${ts}.json`
+  );
+
+  // Datei 2: Kommentare
+  downloadJSON(
+    {
+      dimensionId,
+      timestamp: new Date().toISOString(),
+      comments
+    },
+    `comments_${dimensionId}_${ts}.json`
+  );
+};
+
+
   const allQuestionIds = filteredFragen.map((f) => f.id);
   const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
   const anyAnswered = Object.keys(selectedAnswers).length > 0;
 
-  const totalQuestions = filteredFragen.length;
-  const answeredCount = Object.keys(selectedAnswers).length;
-  const progress = totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0;
+  const handleInputChange = (frageId, field, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      [frageId]: { ...prev[frageId], [field]: value },
+    }));
+  };
+
+  const handlePost = (frageId) => {
+    const entry = inputs[frageId];
+    if (!entry?.user || !entry?.text) return;
+
+    setPostedComments((prev) => ({
+      ...prev,
+      [frageId]: [...(prev[frageId] || []), entry],
+    }));
+
+    setInputs((prev) => ({
+      ...prev,
+      [frageId]: { user: "", text: "" },
+    }));
+  };
 
   return (
     <div className="mainContainer" id="top">
       <div className="questions-container">
-        <h1>{currentDimension.name}</h1>
-          <div className="progress-container">
-              <p>Fortschritt: {answeredCount} von {totalQuestions} beantwortet</p>
-              <p>{Math.round(progress)}%</p>
-          </div>
+        <h1>{currentDimension?.name || "Unbekannte Dimension"}</h1>
+
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für diese Dimension gefunden.</p>
         ) : (
           filteredFragen.map((frage) => (
             <div key={frage.id} className="question-box">
               <p className="question-text">{frage.frage}</p>
+
               <div className="answers">
-             {[...(frage.antworten || []), { id: "", antwort: "Keine Angabe", stufe: -1, frage:frage.frage }].map((antwort) => {
+                {[
+                  ...(frage.antworten || []),
+                  { id: "", antwort: "Keine Angabe", stufe: -1, frage: frage.frage },
+                ].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
                   return (
@@ -136,16 +191,23 @@ export default function QuestionnairePage({ onUpload }) {
                   );
                 })}
               </div>
+
+              <CommentBox
+                frageId={frage.id}
+                inputs={inputs[frage.id]}
+                comments={postedComments[frage.id]}
+                onInputChange={handleInputChange}
+                onPost={handlePost}
+              />
             </div>
           ))
         )}
 
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+        <div>
           <button
             className="submit-button"
             onClick={handleSubmit}
             disabled={!allAnswered}
-            title={allAnswered ? "" : "Bitte alle Fragen beantworten"}
           >
             Auswerten & anzeigen
           </button>
@@ -154,7 +216,6 @@ export default function QuestionnairePage({ onUpload }) {
             className="submit-button"
             onClick={handleDownload}
             disabled={!anyAnswered}
-            title={anyAnswered ? "" : "Bitte mindestens eine Antwort wählen"}
           >
             JSON herunterladen (Debug)
           </button>
@@ -163,3 +224,4 @@ export default function QuestionnairePage({ onUpload }) {
     </div>
   );
 }
+
