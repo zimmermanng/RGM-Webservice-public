@@ -15,7 +15,7 @@ import ShuffleHomePage from "./pages/shuffleHomePage";
 const App = () => {
   const [data, setData] = useState([]);
 
-const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
+const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
 
   useEffect(() => {
     applyTheme(activeCompany);
@@ -40,7 +40,7 @@ const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechsel
 
           <Route path="/download" element={<Download />} />
           <Route path="/upload" element={<UploadPage onUpload={setData} />} />
-          <Route path="/dimensions" element={<DimensionsPage />} />
+          <Route path="/dimensions" element={<DimensionsPage activeCompany={activeCompany} />} />
 
           <Route path="/questionnaire" element={<QuestionnairePage />} />
           <Route path="/questionnaire/:dimensionId" element={<QuestionnairePage />} />
