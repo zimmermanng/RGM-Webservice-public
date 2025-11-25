@@ -7,7 +7,8 @@
     "range_3": "#F08811",
     "range_4": "#5E5F4F",
     "letter":"#000000",
-    "button":"#F08811"
+    "button":"#F08811",
+    "details":"#5E5F4F"
   },
   "Shuffle": {
     "footer": "#E6ECF3",
@@ -17,6 +18,7 @@
     "range_3": "#FEC705",
     "range_4": "#324B8C",
     "letter":"#FFFFFF",
-    "button":"#004a94"
+    "button":"#004a94",
+    "details":"#324B8C"
   }
 }

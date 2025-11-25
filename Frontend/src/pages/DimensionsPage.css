@@ -88,9 +88,9 @@
   flex: 1 1 45%;
   min-height: 300px;
   padding: 1rem;
-  border: 2px dashed var(--footer-color);
+  border: 2px dashed var(--details-color);
   border-radius: 12px;
-  background: none; /* kein grauer Hintergrund */
+  background-color: "#000000";
 }
 
 /* Zeigt Hintergrund nur, wenn leer */

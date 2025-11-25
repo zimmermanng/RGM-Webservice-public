@@ -3,7 +3,7 @@ import "./DimensionsPage.css";
 import data from "../components/data/struktur.json";
 import Card from "../components/Cards/Card";
 
-const DimensionsPage = () => {
+const DimensionsPage = ({activeCompany}) => {
   const [toEdit, setToEdit] = useState(data.dimensionen);
   const [notToEdit, setNotToEdit] = useState([]);
   const [draggedCard, setDraggedCard] = useState(null);
@@ -53,6 +53,8 @@ const DimensionsPage = () => {
     }
   };
 
+  const isEditable = activeCompany ==="LMZ";
+
   return (
     <div className="mainContainer" id="top">
       <h2>Dimensionen</h2>
@@ -60,7 +62,7 @@ const DimensionsPage = () => {
         Im Bearbeitungsmodus können Sie festlegen, welche Dimensionen für Sie und ihr Team relevant sind und ihr eigenes RGM zusammenstellen.
       </p>
 
-  
+      {isEditable && (
       <div className="editToggle">
         <span id="editModeLabel">Bearbeitungsmodus:</span>
         <button
@@ -76,10 +78,10 @@ const DimensionsPage = () => {
             }
           }}
         >
-          {editMode ? "An" : "Aus"}
+          {isEditable && editMode ? "An" : "Aus"}
         </button>
       </div>
-
+      )}
       <div
         aria-live="polite"
         aria-atomic="true"
@@ -87,7 +89,7 @@ const DimensionsPage = () => {
         ref={liveRegionRef}
       />
 
-      {editMode ? (
+      {isEditable && editMode ? (
         <div className="editModeWrapper">
           <div
             className="dropZone"
