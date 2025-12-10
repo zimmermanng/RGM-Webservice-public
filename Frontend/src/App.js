@@ -15,7 +15,7 @@ import ShuffleHomePage from "./pages/shuffleHomePage";
 const App = () => {
   const [data, setData] = useState([]);
 
-const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
+const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
 
   useEffect(() => {
     applyTheme(activeCompany);

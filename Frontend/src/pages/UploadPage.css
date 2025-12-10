@@ -44,3 +44,7 @@
 .file-input-hidden {
     display: none; /* Hide default file input */
 }
+
+.outline {
+    min-height: calc(100vh - 200px);
+}

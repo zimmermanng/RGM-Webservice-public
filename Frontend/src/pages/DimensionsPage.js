@@ -57,9 +57,9 @@ const DimensionsPage = ({activeCompany}) => {
 
   return (
     <div className="mainContainer" id="top">
-      <h2>Dimensionen</h2>
+      <h2>SHUFFLE-Profil</h2>
       <p id="pageDescription">
-        Im Bearbeitungsmodus können Sie festlegen, welche Dimensionen für Sie und ihr Team relevant sind und ihr eigenes RGM zusammenstellen.
+        Hier können Sie die verfügbaren Dimensionen auswählen und zugehörige Fragebögen beantworten.
       </p>
 
       {isEditable && (

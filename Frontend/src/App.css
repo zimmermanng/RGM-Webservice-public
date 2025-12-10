@@ -19,6 +19,9 @@ main {
     flex-grow: 1; /* Push the footer to the bottom when content is smaller */
 }
 
+.reducedWidth {
+    max-width: 80%;
+}
 .mainContainer {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
@@ -56,10 +59,10 @@ main {
 }
 
 .cardBox {
-    display: flex;
-    justify-Content: center;
-    gap: 20px;
-    flex-Wrap: wrap;
-    padding-top: 50px;
-    padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }

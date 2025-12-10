@@ -1,166 +1,109 @@
-/*NAVIGATION*/
-/* Apply box-sizing globally */
-*,
-*::before,
-*::after {
-    box-sizing: border-box; /* Ensures padding and borders are included in width/height */
-}
-
-/* NAVIGATION */
-header {
+/* Base Header Styling */
+.Header {
     background-color: var(--navBar-color);
-    overflow: hidden;
-    display: flex; /* Use flexbox for the header container */
-    justify-content: space-between; /* Space between logo and burger */
-    align-items: center; /* Vertically center all items */
-    padding: 0px 15px; /* Adjust padding as needed */
-    position: fixed; /* Fix the header at the top of the page */
-    top: 0; /* Align the header to the top of the page */
-    left: 0; /* Align the header to the left */
-    width: 100%; /* Make sure it spans the entire width */
-    border-bottom: 2px #ffffff solid;
-    z-index: 1;
-
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 2px solid white;
 }
 
-a:hover {
-    text-decoration: underline;
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
 }
 
+/* Desktop nav */
+.nav-desktop ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-desktop li {
+    padding: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Logo */
 .logo {
-    display: flex; /* Flexbox for the logo container */
-    align-items: center; /* Vertically center logo and text */
+    display: flex;
+    align-items: center;
 }
 
 .logotext {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
     display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .logotext img {
     height: 40px;
-    width: auto;
     padding: 5px;
 }
 
 .logotext span {
-    font-size: large;
     margin-left: 5px;
-    margin-top: auto;
-    margin-bottom: auto;
+      margin-left: 5px;
+    margin-top: 0;               
+    margin-bottom: 0;         
+    display: flex;
+    align-items: center;   
 }
 
-.HeaderMobile {
+/* Mobile hamburger button */
+.HamburgerMenu {
     display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
 }
 
-nav a {
-    display: block;
-    color: #333;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul {
-    list-style: none; /* Remove default bullet points */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    display: flex; /* Use flex to make the list items inline */
-}
-
-nav li {
-    display: inline-block; /* Ensure list items are inline */
-    padding: 15px;
-}
-
-
-/* Show the mobile header on small screens */
+/* ---------------- MOBILE ---------------- */
 @media (max-width: 775px) {
-    .HeaderDesktop {
+    .nav-desktop {
         display: none;
     }
 
-    .HeaderMobile {
-        display: flex;
-        padding: 10px 15px; /* Adjust padding as needed */
-    }
-
-    .baseheader {
-        display: flex;
-        justify-content: space-between; /* This makes sure the logo and burger icon are spaced correctly */
-        width: 100%;
-        align-items: center; /* Vertically center both the logo and burger */
-    }
-
     .HamburgerMenu {
-        cursor: pointer;
-        width: 30px;
-        height: 30px; /* Set a consistent height for the burger */
-        display: flex;
-        align-items: center; /* Vertically center the icon */
-        justify-content: center; /* Center icon if larger than container */
-        margin: 0; /* Reset margin */
+        display: block;
     }
 
-    nav ul {
-        display: flex;
-        flex-direction: column; /* Stack items vertically */
-        position: fixed;
-        top: 60px; /* Space below header for the menu */
-        right: 0;
-        background-color: var(--footer-color); /* Add background to the menu */
-        width: 100%;
-        border-bottom: 2px #ffffff solid;
-    }
-
-    nav li {
-        display: flex; /* Ensure list items are inline */
-        justify-content: flex-end;
-        padding: 10px;
-
-    }
-
-    nav li:hover {
+    .mobile-menu {
         background-color: white;
-        text-decoration: underline;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* NavLinks should be hidden until burger is clicked */
-    nav ul.open {
-        display: block; /* Show the menu when it's opened */
-
+    .mobile-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
-}
-/* NAVIGATION_END */
+    .mobile-menu li {
+        border-bottom: 1px solid #ddd;
+        padding: 15px;
+        text-align: center;
+    }
 
-.mobile-menu {
-    background-color: white;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-menu ul {
-    list-style: none;
-    padding: 0;
-}
-
-.mobile-menu li {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-}
-
-.mobile-menu a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
+    .mobile-menu a {
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+    }
 }
