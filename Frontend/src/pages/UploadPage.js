@@ -59,7 +59,7 @@ const UploadPage = ({ onUpload }) => {
     };
 
     return (
-        <div className='mainContainer' id="top">
+        <div className='mainContainer outline' id="top">
             <h1>Upload</h1>
             <h2>Selbstauswertung und Visualisierung des RGM</h2>
             <p>Bitte laden Sie eine Datei hoch und bestätigen Sie die Auswahl.</p>
