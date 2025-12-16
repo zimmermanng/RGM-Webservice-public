@@ -144,3 +144,7 @@
     max-width: 100%;
   }
 }
+.textfield{
+  max-width:600px;
+  margin:50px;
+}

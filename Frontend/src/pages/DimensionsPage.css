@@ -36,13 +36,12 @@
 }
 
 .gridItem:focus {
-  outline: 3px solid var(--footer-color);
   outline-offset: 3px;
 }
 
 .gridItem[aria-grabbed="true"] {
   opacity: 0.7;
-  border: 2px dashed var(--footer-color);
+  
   transform: scale(1.03);
 }
 
