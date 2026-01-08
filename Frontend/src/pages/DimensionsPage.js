@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./DimensionsPage.css";
 import data from "../components/data/struktur.json";
-import Card from "../components/Cards/Card";
+import Card_dimensions from "../components/Cards/Card_dimensions";
 
 const DimensionsPage = ({activeCompany}) => {
   const [toEdit, setToEdit] = useState(data.dimensionen);
@@ -119,7 +119,7 @@ const DimensionsPage = ({activeCompany}) => {
                     }
                   }}
                 >
-                  <Card
+                  <Card_dimensions
                     title={dimension.name}
                     list={dimension.handlungsfelder.map((h) => h.name)}
                     link={`/questionnaire/${dimension.id}`}
@@ -157,7 +157,7 @@ const DimensionsPage = ({activeCompany}) => {
                     }
                   }}
                 >
-                  <Card
+                  <Card_dimensions
                     title={dimension.name}
                     list={dimension.handlungsfelder.map((h) => h.name)}
                     link={`/questionnaire/${dimension.id}`}
@@ -182,12 +182,10 @@ const DimensionsPage = ({activeCompany}) => {
               role="gridcell"
               tabIndex="0"
             >
-              <Card
+              <Card_dimensions
                 title={dimension.name}
-                list={dimension.handlungsfelder.map(
-                  (handlungsfeld) => handlungsfeld.name
-                )}
-                link={`/questionnaire/${dimension.id}`}
+                dimensionId={dimension.id}
+                handlungsfelder={dimension.handlungsfelder}
               />
             </div>
           ))}
