@@ -23,7 +23,7 @@ const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechsel
 
   // Decide which homepage to render
   const homeElement = useMemo(() => {
-    return activeCompany === "Shuffle" ? (
+    return activeCompany === "LMZ" ? (
       <ShuffleHomePage activeCompany={activeCompany} />
     ) : (
       <HomePage activeCompany={activeCompany} />
@@ -35,6 +35,8 @@ const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechsel
       <NavBar activeCompany={activeCompany} />
       <main>
         <Routes>
+          
+
           {/* Single home route, decided by activeCompany */}
           <Route path="/" element={homeElement} />
 
@@ -43,7 +45,7 @@ const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechsel
           <Route path="/dimensions" element={<DimensionsPage activeCompany={activeCompany} />} />
 
           <Route path="/questionnaire" element={<QuestionnairePage />} />
-          <Route path="/questionnaire/:dimensionId" element={<QuestionnairePage />} />
+          <Route path="/questionnaire/:dimensionId/:handlungsfeldId" element={<QuestionnairePage />} />
 
           <Route
             path="/results"

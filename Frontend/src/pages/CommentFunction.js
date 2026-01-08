@@ -2,7 +2,6 @@ import React from "react";
 import "./CommentFunction.css";
 
 export default function CommentBox({
-  frageId,
   inputs,
   comments,
   onInputChange,
@@ -14,7 +13,7 @@ export default function CommentBox({
     Nutzer
     <input
       value={inputs?.user || ""}
-      onChange={(e) => onInputChange(frageId, "user", e.target.value)}
+      onChange={(e) => onInputChange("user", e.target.value)}
       placeholder="Name eingeben"
     />
   </label>
@@ -23,12 +22,12 @@ export default function CommentBox({
     Kommentar
     <input
       value={inputs?.text || ""}
-      onChange={(e) => onInputChange(frageId, "text", e.target.value)}
+      onChange={(e) => onInputChange("text", e.target.value)}
       placeholder="Kommentar eingeben"
     />
   </label>
 
-  <button onClick={() => onPost(frageId)}>Senden</button>
+  <button onClick={() => onPost()}>Senden</button>
 
   {(comments || []).map((c, i) => (
     <p key={i}>

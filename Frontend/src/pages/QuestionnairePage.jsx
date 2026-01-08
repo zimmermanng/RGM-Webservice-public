@@ -9,30 +9,34 @@ import { answersToResultsWithRecommendations, setDebug } from "../services/quest
 import CommentBox from "./CommentFunction";
 
 export default function QuestionnairePage({ onUpload }) {
-  const { dimensionId } = useParams();
+  const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [postedComments, setPostedComments] = useState({});
-  const [inputs, setInputs] = useState({});
-
-  const frageIdsForDimension = useMemo(() => {
-    const dimension = struktur.dimensionen.find((d) => d.id === dimensionId);
-    if (!dimension) return [];
-    return dimension.handlungsfelder.flatMap((hf) =>
-      (hf.fragen || []).map((f) => f.id)
-    );
-  }, [dimensionId]);
-
-  const filteredFragen = useMemo(() => {
-    return (fragen.fragen || []).filter((f) =>
-      frageIdsForDimension.includes(f.id)
-    );
-  }, [frageIdsForDimension]);
+  const [postedComments, setPostedComments] = useState([]);
+  const [inputs, setInputs] = useState({ user: "", text: "" });
 
   const currentDimension = struktur.dimensionen.find(
     (d) => d.id === dimensionId
   );
+
+  const currentHandlungsfeld = currentDimension?.handlungsfelder.find(
+  (h) => h.id === handlungsfeldId
+);
+
+const filteredFragen = useMemo(() => {
+  if (!currentHandlungsfeld) return [];
+
+  return currentHandlungsfeld.fragen
+    .map((ref) =>
+      fragen.fragen.find((f) => f.id === ref.id)
+    )
+    .filter(Boolean);
+}, [currentHandlungsfeld]);
+
+
+if (!currentDimension || !currentHandlungsfeld) {
+  return <p>Handlungsfeld nicht gefunden.</p>;
+}
 
   const handleAnswerClick = (frage, antwort) => {
     setSelectedAnswers((prev) => ({
@@ -65,10 +69,7 @@ export default function QuestionnairePage({ onUpload }) {
       return {
         frageId,
         frageText: frage?.frage || "",
-        comments: comments.map((c) => ({
-          user: c.user,
-          text: c.text
-        }))
+        comments: postedComments
       };
     });
   };
@@ -139,27 +140,18 @@ export default function QuestionnairePage({ onUpload }) {
   const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
   const anyAnswered = Object.keys(selectedAnswers).length > 0;
 
-  const handleInputChange = (frageId, field, value) => {
-    setInputs((prev) => ({
-      ...prev,
-      [frageId]: { ...prev[frageId], [field]: value },
-    }));
-  };
+const handleInputChange = (field, value) => {
+  setInputs((prev) => ({ ...prev, [field]: value }));
+};
 
-  const handlePost = (frageId) => {
-    const entry = inputs[frageId];
-    if (!entry?.user || !entry?.text) return;
+const handlePost = () => {
+  if (!inputs.user || !inputs.text) return;
 
-    setPostedComments((prev) => ({
-      ...prev,
-      [frageId]: [...(prev[frageId] || []), entry],
-    }));
+  setPostedComments((prev) => [...prev, inputs]);
 
-    setInputs((prev) => ({
-      ...prev,
-      [frageId]: { user: "", text: "" },
-    }));
-  };
+  setInputs({ user: "", text: "" });
+};
+
 
   return (
     <div className="mainContainer" id="top">
@@ -191,17 +183,16 @@ export default function QuestionnairePage({ onUpload }) {
                   );
                 })}
               </div>
-
-              <CommentBox
-                frageId={frage.id}
-                inputs={inputs[frage.id]}
-                comments={postedComments[frage.id]}
-                onInputChange={handleInputChange}
-                onPost={handlePost}
-              />
             </div>
           ))
         )}
+          <h2>Kommentare</h2>
+          <CommentBox
+            inputs={inputs}
+            comments={postedComments}
+            onInputChange={handleInputChange}
+            onPost={handlePost}
+          />
 
         <div>
           <button
