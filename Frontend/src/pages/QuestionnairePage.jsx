@@ -74,25 +74,40 @@ if (!currentDimension || !currentHandlungsfeld) {
     });
   };
 
-  const handleSubmit = () => {
-    const results = resultRowsForCurrentState();
-    const comments = buildCommentsExport();
-
-    const payload = {
-      dimensionId,
-      timestamp: new Date().toISOString(),
-      results,
-      comments
-    };
-
-    if (typeof onUpload === "function") {
-      onUpload(payload);
-      navigate("/results");
-    } else {
-      console.log("Questionnaire → Payload:", payload);
-      alert("Antworten und Kommentare verarbeitet.");
-    }
+const handleSubmit = async () => {
+  const payload = {
+    dimension: {
+      id: dimensionId,
+      name: currentDimension.name,
+    },
+    handlungsfeld: {
+      id: handlungsfeldId,
+      name: currentHandlungsfeld.name,
+    },
+    timestamp: new Date().toISOString(),
+    results: resultRowsForCurrentState(),
+    comments: postedComments,
   };
+
+  try {
+    const response = await fetch("http://localhost:3001/api/results", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    console.log("Backend-Antwort:", data);
+
+    navigate("/results");
+  } catch (err) {
+    console.error("Fehler beim Senden:", err);
+    alert("Backend nicht erreichbar");
+  }
+};
+
 
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
