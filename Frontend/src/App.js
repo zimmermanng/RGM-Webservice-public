@@ -11,6 +11,7 @@ import DimensionsPage from "./pages/DimensionsPage";
 import { applyTheme } from "./theme";
 import HomePage from "./pages/HomePage";
 import ShuffleHomePage from "./pages/shuffleHomePage";
+import RawResults from "./pages/RawResults";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -50,6 +51,10 @@ const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechsel
           <Route
             path="/results"
             element={<ResultPage data={data} activeCompany={activeCompany} />}
+          />
+           <Route
+            path="/rawresults"
+            element={<RawResults data={data} activeCompany={activeCompany} />}
           />
           <Route
             path="/handlungsempfehlungen"

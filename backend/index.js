@@ -1,24 +1,43 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
+const sessionRoutes = require("./routes/session");
 
 const app = express();
 const port = 3001;
 
-// Middleware
-app.use(cors()); 
-app.use(express.json()); 
+// CORS
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
-// Test
-app.get("/", (req, res) => {
-  res.send("Backend läuft 🚀");
-});
+// Body Parser
+app.use(express.json());
 
-// Endpoint für Questionnaire
-app.post("/api/results", (req, res) => {
-  console.log("Empfangene Daten:", req.body);
-  res.json({ status: "ok" });
-});
+// Session
+app.use(
+  session({
+    name: "questionnaire.sid",
+    secret: "super-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60,
+    },
+  })
+);
 
+// Session Routes
+app.use("/api/session", sessionRoutes);
+
+// Start Server
 app.listen(port, () => {
   console.log(`Backend läuft auf http://localhost:${port}`);
 });
+

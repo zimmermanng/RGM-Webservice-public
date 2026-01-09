@@ -5,7 +5,10 @@ import struktur from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import { useParams, useNavigate } from "react-router-dom";
-import { answersToResultsWithRecommendations, setDebug } from "../services/questionnaireToResults";
+import {
+  answersToResultsWithRecommendations,
+  setDebug,
+} from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
 export default function QuestionnairePage({ onUpload }) {
@@ -20,23 +23,20 @@ export default function QuestionnairePage({ onUpload }) {
   );
 
   const currentHandlungsfeld = currentDimension?.handlungsfelder.find(
-  (h) => h.id === handlungsfeldId
-);
+    (h) => h.id === handlungsfeldId
+  );
 
-const filteredFragen = useMemo(() => {
-  if (!currentHandlungsfeld) return [];
+  const filteredFragen = useMemo(() => {
+    if (!currentHandlungsfeld) return [];
 
-  return currentHandlungsfeld.fragen
-    .map((ref) =>
-      fragen.fragen.find((f) => f.id === ref.id)
-    )
-    .filter(Boolean);
-}, [currentHandlungsfeld]);
+    return currentHandlungsfeld.fragen
+      .map((ref) => fragen.fragen.find((f) => f.id === ref.id))
+      .filter(Boolean);
+  }, [currentHandlungsfeld]);
 
-
-if (!currentDimension || !currentHandlungsfeld) {
-  return <p>Handlungsfeld nicht gefunden.</p>;
-}
+  if (!currentDimension || !currentHandlungsfeld) {
+    return <p>Handlungsfeld nicht gefunden.</p>;
+  }
 
   const handleAnswerClick = (frage, antwort) => {
     setSelectedAnswers((prev) => ({
@@ -69,45 +69,36 @@ if (!currentDimension || !currentHandlungsfeld) {
       return {
         frageId,
         frageText: frage?.frage || "",
-        comments: postedComments
+        comments: postedComments,
       };
     });
   };
 
-const handleSubmit = async () => {
-  const payload = {
-    dimension: {
-      id: dimensionId,
-      name: currentDimension.name,
-    },
-    handlungsfeld: {
-      id: handlungsfeldId,
-      name: currentHandlungsfeld.name,
-    },
-    timestamp: new Date().toISOString(),
-    results: resultRowsForCurrentState(),
-    comments: postedComments,
+  const handleSubmit = async () => {
+    const payload = {
+      timestamp: new Date().toISOString(),
+      results: resultRowsForCurrentState(),
+      comments: postedComments,
+    };
+
+    try {
+      const response = await await fetch("http://localhost:3001/api/session/results", {
+  method: "POST",
+  credentials: "include",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+});
+
+      
+      const data = await response.json();
+      console.log("Backend-Antwort:", data);
+
+      navigate("/rawresults");
+    } catch (err) {
+      console.error("Fehler beim Senden:", err);
+      alert("Backend nicht erreichbar");
+    }
   };
-
-  try {
-    const response = await fetch("http://localhost:3001/api/results", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await response.json();
-    console.log("Backend-Antwort:", data);
-
-    navigate("/results");
-  } catch (err) {
-    console.error("Fehler beim Senden:", err);
-    alert("Backend nicht erreichbar");
-  }
-};
-
 
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -124,49 +115,47 @@ const handleSubmit = async () => {
   };
 
   const handleDownload = () => {
-  const results = resultRowsForCurrentState();
-  const comments = buildCommentsExport();
+    const results = resultRowsForCurrentState();
+    const comments = buildCommentsExport();
 
-  const ts = new Date().toISOString().replace(/[:.]/g, "-");
+    const ts = new Date().toISOString().replace(/[:.]/g, "-");
 
-  // Datei 1: Ergebnisse
-  downloadJSON(
-    {
-      dimensionId,
-      timestamp: new Date().toISOString(),
-      results
-    },
-    `results_${dimensionId}_${ts}.json`
-  );
+    // Datei 1: Ergebnisse
+    downloadJSON(
+      {
+        dimensionId,
+        timestamp: new Date().toISOString(),
+        results,
+      },
+      `results_${dimensionId}_${ts}.json`
+    );
 
-  // Datei 2: Kommentare
-  downloadJSON(
-    {
-      dimensionId,
-      timestamp: new Date().toISOString(),
-      comments
-    },
-    `comments_${dimensionId}_${ts}.json`
-  );
-};
-
+    // Datei 2: Kommentare
+    downloadJSON(
+      {
+        dimensionId,
+        timestamp: new Date().toISOString(),
+        comments,
+      },
+      `comments_${dimensionId}_${ts}.json`
+    );
+  };
 
   const allQuestionIds = filteredFragen.map((f) => f.id);
   const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
   const anyAnswered = Object.keys(selectedAnswers).length > 0;
 
-const handleInputChange = (field, value) => {
-  setInputs((prev) => ({ ...prev, [field]: value }));
-};
+  const handleInputChange = (field, value) => {
+    setInputs((prev) => ({ ...prev, [field]: value }));
+  };
 
-const handlePost = () => {
-  if (!inputs.user || !inputs.text) return;
+  const handlePost = () => {
+    if (!inputs.user || !inputs.text) return;
 
-  setPostedComments((prev) => [...prev, inputs]);
+    setPostedComments((prev) => [...prev, inputs]);
 
-  setInputs({ user: "", text: "" });
-};
-
+    setInputs({ user: "", text: "" });
+  };
 
   return (
     <div className="mainContainer" id="top">
@@ -183,14 +172,21 @@ const handlePost = () => {
               <div className="answers">
                 {[
                   ...(frage.antworten || []),
-                  { id: "", antwort: "Keine Angabe", stufe: -1, frage: frage.frage },
+                  {
+                    id: "",
+                    antwort: "Keine Angabe",
+                    stufe: -1,
+                    frage: frage.frage,
+                  },
                 ].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
                   return (
                     <button
                       key={antwort.id}
-                      className={`answer-button ${isSelected ? "selected" : ""}`}
+                      className={`answer-button ${
+                        isSelected ? "selected" : ""
+                      }`}
                       onClick={() => handleAnswerClick(frage, antwort)}
                     >
                       {antwort.antwort}
@@ -201,13 +197,13 @@ const handlePost = () => {
             </div>
           ))
         )}
-          <h2>Kommentare</h2>
-          <CommentBox
-            inputs={inputs}
-            comments={postedComments}
-            onInputChange={handleInputChange}
-            onPost={handlePost}
-          />
+        <h2>Kommentare</h2>
+        <CommentBox
+          inputs={inputs}
+          comments={postedComments}
+          onInputChange={handleInputChange}
+          onPost={handlePost}
+        />
 
         <div>
           <button
@@ -230,4 +226,3 @@ const handlePost = () => {
     </div>
   );
 }
-
