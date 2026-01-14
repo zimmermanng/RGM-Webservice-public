@@ -25,9 +25,9 @@ const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechsel
   // Decide which homepage to render
   const homeElement = useMemo(() => {
     return activeCompany === "LMZ" ? (
-      <ShuffleHomePage activeCompany={activeCompany} />
-    ) : (
       <HomePage activeCompany={activeCompany} />
+    ) : (
+      <ShuffleHomePage activeCompany={activeCompany} />
     );
   }, [activeCompany]);
 
