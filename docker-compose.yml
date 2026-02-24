@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"   # host:container
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"   # CRA
+      # If Vite: use "5173:5173" instead
+    environment:
+      # makes file watching reliable in Docker
+      - CHOKIDAR_USEPOLLING=true
+      # API URL used by the frontend (adjust to your app)
+      - REACT_APP_API_URL=http://localhost:5000
+      # If Vite: VITE_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
