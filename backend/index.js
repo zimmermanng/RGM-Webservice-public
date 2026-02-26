@@ -4,12 +4,12 @@ const session = require("express-session");
 const sessionRoutes = require("./routes/session");
 
 const app = express();
-const port = 3001;
+const port = 3011;
 
 // CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3010",
     credentials: true,
   })
 );
