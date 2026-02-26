@@ -8,6 +8,6 @@ RUN npm ci
 COPY . .
 
 # CRA usually 3000, Vite usually 5173 (we’ll map in compose)
-EXPOSE 3000
+EXPOSE 3010
 
 CMD ["npm", "start"]

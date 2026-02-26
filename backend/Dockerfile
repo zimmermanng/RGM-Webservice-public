@@ -8,6 +8,6 @@ RUN npm ci
 COPY . .
 
 # Change if your backend uses a different port
-EXPOSE 5000
+EXPOSE 3011
 
 CMD ["node", "index.js"]
