@@ -74,31 +74,38 @@ export default function QuestionnairePage({ onUpload }) {
     });
   };
 
-  const handleSubmit = async () => {
-    const payload = {
-      timestamp: new Date().toISOString(),
-      results: resultRowsForCurrentState(),
-      comments: postedComments,
-    };
-
-    try {
-      const response = await await fetch("http://localhost:3011/api/session/results", {
-  method: "POST",
-  credentials: "include",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload),
-});
-
-      
-      const data = await response.json();
-      console.log("Backend-Antwort:", data);
-
-      navigate("/rawresults");
-    } catch (err) {
-      console.error("Fehler beim Senden:", err);
-      alert("Backend nicht erreichbar");
-    }
+const handleSubmit = async () => {
+  const payload = {
+    timestamp: new Date().toISOString(),
+    results: resultRowsForCurrentState(),
+    comments: postedComments,
   };
+
+  try {
+    // Fetch an das Backend über die ENV-Variable
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/session/results`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    // Prüfen, ob Response ok ist
+    if (!response.ok) {
+      throw new Error(`Server antwortete mit Status ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Backend-Antwort:", data);
+
+    // Weiterleitung nach erfolgreichem Senden
+    navigate("/rawresults");
+
+  } catch (err) {
+    console.error("Fehler beim Senden:", err);
+    alert("Backend nicht erreichbar oder Fehler beim Senden");
+  }
+};
 
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
