@@ -4,7 +4,8 @@ services:
     ports:
       - "3011:3011"   # host:container
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+      - REACT_APP_API_URL=http://localhost:3011
     volumes:
       - ./backend:/app
       - /app/node_modules
