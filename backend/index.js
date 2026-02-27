@@ -4,12 +4,13 @@ const session = require("express-session");
 const sessionRoutes = require("./routes/session");
 
 const app = express();
-const port = 3011;
+const port = process.env.PORT || 3011;
 
 // CORS
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3010";
 app.use(
   cors({
-    origin: "http://localhost:3010",
+    origin: allowedOrigin,
     credentials: true,
   })
 );
@@ -21,12 +22,12 @@ app.use(express.json());
 app.use(
   session({
     name: "questionnaire.sid",
-    secret: "super-secret-key",
+    secret: process.env.SESSION_SECRET || "super-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 1000 * 60 * 60,
     },
@@ -37,7 +38,6 @@ app.use(
 app.use("/api/session", sessionRoutes);
 
 // Start Server
-app.listen(port, () => {
-  console.log(`Backend läuft auf http://localhost:${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Backend läuft auf Port ${port}`);
 });
-
