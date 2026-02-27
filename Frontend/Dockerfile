@@ -1,13 +1,20 @@
-FROM node:24.14.0
-
+# Stage 1: Build Frontend
+FROM node:24.14.0 AS build
 WORKDIR /app
-
 COPY package*.json ./
-RUN npm ci
+RUN npm install
+COPY . ./
 
-COPY . .
+# ARG für Backend-URL
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
-# CRA usually 3000, Vite usually 5173 (we’ll map in compose)
-EXPOSE 3010
+# Production Build (statt npm start)
+RUN npm run build
 
-CMD ["npm", "start"]
+# Stage 2: Serve mit NGINX
+FROM nginx:1.28.2
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
