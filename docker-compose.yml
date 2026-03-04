@@ -13,7 +13,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3010:3000"   # CRA
+      - "80:80"   # CRA
       # If Vite: use "5173:5173" instead
     environment:
       # makes file watching reliable in Docker
