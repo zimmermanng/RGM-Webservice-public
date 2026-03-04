@@ -6,7 +6,7 @@ const RawResults = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/session/results", {
+        const res = await fetch("/api/session/results", {
           credentials: "include",
         });
         const data = await res.json();
