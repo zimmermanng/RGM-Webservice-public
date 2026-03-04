@@ -1,5 +1,5 @@
 # Stage 1: Build Frontend
-FROM node:24.14.0 AS build
+FROM dhi.io/node:24.13.1-alpine3.23 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
