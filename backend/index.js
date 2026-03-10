@@ -4,10 +4,10 @@ const session = require("express-session");
 const sessionRoutes = require("./routes/session");
 
 const app = express();
-const port = process.env.PORT || 3011;
+const port = 3011;
 
 // CORS
-const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3010";
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(
   cors({
     origin: allowedOrigin,
@@ -35,7 +35,7 @@ app.use(
 );
 
 // Session Routes
-app.use("/api/session", sessionRoutes);
+app.use("/session", sessionRoutes);
 
 // Start Server
 app.listen(port, "0.0.0.0", () => {
