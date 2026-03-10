@@ -5,7 +5,8 @@ services:
       - "3011:3011"   # host:container
     environment:
       - NODE_ENV=production
-      - REACT_APP_API_URL=http://localhost:3011
+      - REACT_APP_API_URL=http://lmz-pilot.bf-lernen.de/api
+
     volumes:
       - ./backend:/app
       - /app/node_modules
