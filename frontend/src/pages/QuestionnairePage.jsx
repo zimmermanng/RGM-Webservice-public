@@ -15,7 +15,6 @@ const API_BASE = "http://localhost:3011";
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [postedComments, setPostedComments] = useState([]);
   const [inputs, setInputs] = useState({ user: "", text: "" });
