@@ -1,4 +1,3 @@
-// src/pages/QuestionnairePage.jsx
 import React, { useState, useMemo } from "react";
 import "./QuestionnairePage.css";
 import struktur from "../components/data/struktur.json";
@@ -63,15 +62,11 @@ export default function QuestionnairePage({ onUpload }) {
     });
 
   const buildCommentsExport = () => {
-    return Object.entries(postedComments).map(([frageId, comments]) => {
-      const frage = fragen.fragen.find((f) => f.id === frageId);
-
       return {
         frageId,
         frageText: frage?.frage || "",
         comments: postedComments,
       };
-    });
   };
 
   const handleSubmit = async () => {
@@ -82,7 +77,7 @@ export default function QuestionnairePage({ onUpload }) {
     };
 
     try {
-      const response = await await fetch("/api/session/results", {
+      const response = await fetch(`${API_BASE}/session/results`, {
   method: "POST",
   credentials: "include",
   headers: { "Content-Type": "application/json" },
@@ -92,11 +87,10 @@ export default function QuestionnairePage({ onUpload }) {
       
       const data = await response.json();
       console.log("Backend-Antwort:", data);
-
       navigate("/rawresults");
     } catch (err) {
       console.error("Fehler beim Senden:", err);
-      alert("Backend nicht erreichbar");
+      alert("Backend nicht erreichbar oder Fehler beim Senden");
     }
   };
 
@@ -116,28 +110,21 @@ export default function QuestionnairePage({ onUpload }) {
 
   const handleDownload = () => {
     const results = resultRowsForCurrentState();
-    const comments = buildCommentsExport();
-
+    const commentsExport = buildCommentsExport();
     const ts = new Date().toISOString().replace(/[:.]/g, "-");
 
-    // Datei 1: Ergebnisse
     downloadJSON(
       {
         dimensionId,
         timestamp: new Date().toISOString(),
         results,
       },
-      `results_${dimensionId}_${ts}.json`
+      `results_${dimensionId}_${handlungsfeldId}_${ts}.json`
     );
 
-    // Datei 2: Kommentare
     downloadJSON(
-      {
-        dimensionId,
-        timestamp: new Date().toISOString(),
-        comments,
-      },
-      `comments_${dimensionId}_${ts}.json`
+      commentsExport,
+      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`
     );
   };
 
@@ -153,7 +140,6 @@ export default function QuestionnairePage({ onUpload }) {
     if (!inputs.user || !inputs.text) return;
 
     setPostedComments((prev) => [...prev, inputs]);
-
     setInputs({ user: "", text: "" });
   };
 
@@ -181,6 +167,7 @@ export default function QuestionnairePage({ onUpload }) {
                 ].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
+
                   return (
                     <button
                       key={antwort.id}
@@ -197,6 +184,7 @@ export default function QuestionnairePage({ onUpload }) {
             </div>
           ))
         )}
+
         <h2>Kommentare</h2>
         <CommentBox
           inputs={inputs}

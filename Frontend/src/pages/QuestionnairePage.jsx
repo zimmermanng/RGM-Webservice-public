@@ -10,12 +10,9 @@ import {
 } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
-const API_BASE = "http://localhost:3011";
-
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [postedComments, setPostedComments] = useState([]);
   const [inputs, setInputs] = useState({ user: "", text: "" });
@@ -49,10 +46,6 @@ export default function QuestionnairePage({ onUpload }) {
         antwortId: antwort.id,
         antwortText: antwort.antwort,
         stufe: antwort.stufe,
-        group: currentDimension.name,
-        category: currentHandlungsfeld.name,
-        dimensionId,
-        handlungsfeldId,
       },
     }));
   };
@@ -70,26 +63,18 @@ export default function QuestionnairePage({ onUpload }) {
 
   const buildCommentsExport = () => {
     return {
-      dimensionId,
-      handlungsfeldId,
-      dimensionName: currentDimension?.name || "",
-      handlungsfeldName: currentHandlungsfeld?.name || "",
-      timestamp: new Date().toISOString(),
+        frageId,
+        frageText: frage?.frage || "",
       comments: postedComments,
     };
   };
 
   const handleSubmit = async () => {
     const payload = {
-      dimensionId,
-      handlungsfeldId,
       timestamp: new Date().toISOString(),
       results: resultRowsForCurrentState(),
-      selections: Object.values(selectedAnswers),
       comments: postedComments,
     };
-
-    console.log("Submitting payload:", payload);
 
     try {
       const response = await fetch(`${API_BASE}/session/results`, {
@@ -99,9 +84,6 @@ export default function QuestionnairePage({ onUpload }) {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error(`Server antwortete mit Status ${response.status}`);
-      }
 
       const data = await response.json();
       console.log("Backend-Antwort:", data);
@@ -134,10 +116,8 @@ export default function QuestionnairePage({ onUpload }) {
     downloadJSON(
       {
         dimensionId,
-        handlungsfeldId,
         timestamp: new Date().toISOString(),
         results,
-        selections: Object.values(selectedAnswers),
       },
       `results_${dimensionId}_${handlungsfeldId}_${ts}.json`
     );
@@ -167,7 +147,6 @@ export default function QuestionnairePage({ onUpload }) {
     <div className="mainContainer" id="top">
       <div className="questions-container">
         <h1>{currentDimension?.name || "Unbekannte Dimension"}</h1>
-        <h2>{currentHandlungsfeld?.name || "Unbekanntes Handlungsfeld"}</h2>
 
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für diese Dimension gefunden.</p>
@@ -191,7 +170,7 @@ export default function QuestionnairePage({ onUpload }) {
 
                   return (
                     <button
-                      key={`${frage.id}-${antwort.id || "none"}`}
+                      key={antwort.id}
                       className={`answer-button ${
                         isSelected ? "selected" : ""
                       }`}
