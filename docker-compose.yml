@@ -1,29 +1,20 @@
 services:
   backend:
     build: ./backend
+    container_name: lmz-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
     ports:
-      - "3011:3011"   # host:container
-    environment:
-      - NODE_ENV=production
-      - REACT_APP_API_URL=http://lmz-pilot.bf-lernen.de/api
-
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+      - "127.0.0.1:3011:3011"
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lmz-frontend
+    restart: unless-stopped
     ports:
-      - "3010:3000"   # CRA
-      # If Vite: use "5173:5173" instead
-    environment:
-      # makes file watching reliable in Docker
-      - CHOKIDAR_USEPOLLING=true
-      # API URL used by the frontend (adjust to your app)
-      - REACT_APP_API_URL=http://localhost:3010
-      # If Vite: VITE_API_URL=http://localhost:5000
+      - "127.0.0.1:3010:80"
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules

@@ -3,11 +3,7 @@ FROM dhi.io/node:24.13.1-alpine3.23 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . ./
-
-# ARG für Backend-URL
-ARG REACT_APP_API_URL
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
+COPY . .
 
 # Production Build (statt npm start)
 RUN npm run build
