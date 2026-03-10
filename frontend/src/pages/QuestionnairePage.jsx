@@ -62,11 +62,11 @@ export default function QuestionnairePage({ onUpload }) {
     });
 
   const buildCommentsExport = () => {
-      return {
+    return {
         frageId,
         frageText: frage?.frage || "",
-        comments: postedComments,
-      };
+      comments: postedComments,
+    };
   };
 
   const handleSubmit = async () => {
@@ -78,13 +78,13 @@ export default function QuestionnairePage({ onUpload }) {
 
     try {
       const response = await fetch(`${API_BASE}/session/results`, {
-  method: "POST",
-  credentials: "include",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload),
-});
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-      
+
       const data = await response.json();
       console.log("Backend-Antwort:", data);
       navigate("/rawresults");
