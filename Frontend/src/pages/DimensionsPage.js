@@ -3,12 +3,12 @@ import "./DimensionsPage.css";
 import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 
-const DimensionsPage = ({activeCompany}) => {
+const DimensionsPage = ({ activeCompany }) => {
   const [toEdit, setToEdit] = useState(data.dimensionen);
   const [notToEdit, setNotToEdit] = useState([]);
   const [draggedCard, setDraggedCard] = useState(null);
   const [editMode, setEditMode] = useState(true);
-  const liveRegionRef = useRef(null); 
+  const liveRegionRef = useRef(null);
   const toggleEditMode = () => setEditMode(!editMode);
 
   const handleDragStart = (e, card, fromList) => {
@@ -53,34 +53,35 @@ const DimensionsPage = ({activeCompany}) => {
     }
   };
 
-  const isEditable = activeCompany ==="LMZ";
+  const isEditable = activeCompany === "LMZ";
 
   return (
     <div className="mainContainer" id="top">
-      <h2>SHUFFLE-Profil</h2>
+      <h2>Dimensionsübersicht</h2>
       <p id="pageDescription">
-        Hier können Sie die verfügbaren Dimensionen auswählen und zugehörige Fragebögen beantworten.
+        Hier können Sie die verfügbaren Dimensionen auswählen und zugehörige
+        Fragebögen beantworten.
       </p>
 
       {isEditable && (
-      <div className="editToggle">
-        <span id="editModeLabel">Bearbeitungsmodus:</span>
-        <button
-          className={`toggleButton ${editMode ? "on" : "off"}`}
-          role="switch"
-          aria-checked={editMode}
-          aria-labelledby="editModeLabel"
-          onClick={toggleEditMode}
-          onKeyDown={(e) => {
-            if (e.key === " " || e.key === "Enter") {
-              e.preventDefault();
-              toggleEditMode();
-            }
-          }}
-        >
-          {isEditable && editMode ? "An" : "Aus"}
-        </button>
-      </div>
+        <div className="editToggle">
+          <span id="editModeLabel">Bearbeitungsmodus:</span>
+          <button
+            className={`toggleButton ${editMode ? "on" : "off"}`}
+            role="switch"
+            aria-checked={editMode}
+            aria-labelledby="editModeLabel"
+            onClick={toggleEditMode}
+            onKeyDown={(e) => {
+              if (e.key === " " || e.key === "Enter") {
+                e.preventDefault();
+                toggleEditMode();
+              }
+            }}
+          >
+            {isEditable && editMode ? "An" : "Aus"}
+          </button>
+        </div>
       )}
       <div
         aria-live="polite"
@@ -109,9 +110,7 @@ const DimensionsPage = ({activeCompany}) => {
                   tabIndex="0"
                   draggable
                   aria-grabbed={draggedCard?.card.id === dimension.id}
-                  onDragStart={(e) =>
-                    handleDragStart(e, dimension, "toEdit")
-                  }
+                  onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
                   onKeyDown={(e) => {
                     if ((e.ctrlKey || e.metaKey) && e.key === "ArrowRight") {
                       e.preventDefault();
@@ -121,8 +120,8 @@ const DimensionsPage = ({activeCompany}) => {
                 >
                   <Card_dimensions
                     title={dimension.name}
-                    list={dimension.handlungsfelder.map((h) => h.name)}
-                    link={`/questionnaire/${dimension.id}`}
+                    dimensionId={dimension.id}
+                    handlungsfelder={dimension.handlungsfelder}
                   />
                 </div>
               ))}
@@ -151,7 +150,7 @@ const DimensionsPage = ({activeCompany}) => {
                     handleDragStart(e, dimension, "notToEdit")
                   }
                   onKeyDown={(e) => {
-                     if ((e.ctrlKey || e.metaKey) && e.key === "ArrowLeft") {
+                    if ((e.ctrlKey || e.metaKey) && e.key === "ArrowLeft") {
                       e.preventDefault();
                       moveCard(dimension, "notToEdit", "toEdit");
                     }
@@ -168,7 +167,6 @@ const DimensionsPage = ({activeCompany}) => {
           </div>
         </div>
       ) : (
-
         <div
           className="gridContainer"
           role="grid"
@@ -196,6 +194,3 @@ const DimensionsPage = ({activeCompany}) => {
 };
 
 export default DimensionsPage;
-
-
-

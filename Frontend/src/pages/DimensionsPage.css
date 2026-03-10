@@ -1,9 +1,7 @@
 .mainContainer {
   margin-top: 2rem;
 }
-.card{
-  height:250px;
-}
+
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* max. 4 Cards pro Reihe */
