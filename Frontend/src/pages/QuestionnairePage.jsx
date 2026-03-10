@@ -1,4 +1,3 @@
-// src/pages/QuestionnairePage.jsx
 import React, { useState, useMemo } from "react";
 import "./QuestionnairePage.css";
 import struktur from "../components/data/struktur.json";
@@ -10,6 +9,8 @@ import {
   setDebug,
 } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
+
+const API_BASE = "http://localhost:3011";
 
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId, handlungsfeldId } = useParams();
@@ -47,6 +48,10 @@ export default function QuestionnairePage({ onUpload }) {
         antwortId: antwort.id,
         antwortText: antwort.antwort,
         stufe: antwort.stufe,
+        group: currentDimension.name,
+        category: currentHandlungsfeld.name,
+        dimensionId,
+        handlungsfeldId,
       },
     }));
   };
@@ -63,49 +68,48 @@ export default function QuestionnairePage({ onUpload }) {
     });
 
   const buildCommentsExport = () => {
-    return Object.entries(postedComments).map(([frageId, comments]) => {
-      const frage = fragen.fragen.find((f) => f.id === frageId);
-
-      return {
-        frageId,
-        frageText: frage?.frage || "",
-        comments: postedComments,
-      };
-    });
+    return {
+      dimensionId,
+      handlungsfeldId,
+      dimensionName: currentDimension?.name || "",
+      handlungsfeldName: currentHandlungsfeld?.name || "",
+      timestamp: new Date().toISOString(),
+      comments: postedComments,
+    };
   };
 
-const handleSubmit = async () => {
-  const payload = {
-    timestamp: new Date().toISOString(),
-    results: resultRowsForCurrentState(),
-    comments: postedComments,
-  };
+  const handleSubmit = async () => {
+    const payload = {
+      dimensionId,
+      handlungsfeldId,
+      timestamp: new Date().toISOString(),
+      results: resultRowsForCurrentState(),
+      selections: Object.values(selectedAnswers),
+      comments: postedComments,
+    };
 
-  try {
-    // Fetch an das Backend über die ENV-Variable
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/session/results`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    console.log("Submitting payload:", payload);
 
-    // Prüfen, ob Response ok ist
-    if (!response.ok) {
-      throw new Error(`Server antwortete mit Status ${response.status}`);
+    try {
+      const response = await fetch(`${API_BASE}/session/results`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server antwortete mit Status ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Backend-Antwort:", data);
+      navigate("/rawresults");
+    } catch (err) {
+      console.error("Fehler beim Senden:", err);
+      alert("Backend nicht erreichbar oder Fehler beim Senden");
     }
-
-    const data = await response.json();
-    console.log("Backend-Antwort:", data);
-
-    // Weiterleitung nach erfolgreichem Senden
-    navigate("/rawresults");
-
-  } catch (err) {
-    console.error("Fehler beim Senden:", err);
-    alert("Backend nicht erreichbar oder Fehler beim Senden");
-  }
-};
+  };
 
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -123,28 +127,23 @@ const handleSubmit = async () => {
 
   const handleDownload = () => {
     const results = resultRowsForCurrentState();
-    const comments = buildCommentsExport();
-
+    const commentsExport = buildCommentsExport();
     const ts = new Date().toISOString().replace(/[:.]/g, "-");
 
-    // Datei 1: Ergebnisse
     downloadJSON(
       {
         dimensionId,
+        handlungsfeldId,
         timestamp: new Date().toISOString(),
         results,
+        selections: Object.values(selectedAnswers),
       },
-      `results_${dimensionId}_${ts}.json`
+      `results_${dimensionId}_${handlungsfeldId}_${ts}.json`
     );
 
-    // Datei 2: Kommentare
     downloadJSON(
-      {
-        dimensionId,
-        timestamp: new Date().toISOString(),
-        comments,
-      },
-      `comments_${dimensionId}_${ts}.json`
+      commentsExport,
+      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`
     );
   };
 
@@ -160,7 +159,6 @@ const handleSubmit = async () => {
     if (!inputs.user || !inputs.text) return;
 
     setPostedComments((prev) => [...prev, inputs]);
-
     setInputs({ user: "", text: "" });
   };
 
@@ -168,6 +166,7 @@ const handleSubmit = async () => {
     <div className="mainContainer" id="top">
       <div className="questions-container">
         <h1>{currentDimension?.name || "Unbekannte Dimension"}</h1>
+        <h2>{currentHandlungsfeld?.name || "Unbekanntes Handlungsfeld"}</h2>
 
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für diese Dimension gefunden.</p>
@@ -188,9 +187,10 @@ const handleSubmit = async () => {
                 ].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
+
                   return (
                     <button
-                      key={antwort.id}
+                      key={`${frage.id}-${antwort.id || "none"}`}
                       className={`answer-button ${
                         isSelected ? "selected" : ""
                       }`}
@@ -204,6 +204,7 @@ const handleSubmit = async () => {
             </div>
           ))
         )}
+
         <h2>Kommentare</h2>
         <CommentBox
           inputs={inputs}
