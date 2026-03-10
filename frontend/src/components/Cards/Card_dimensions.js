@@ -50,7 +50,6 @@ const Card = ({ title, dimensionId, handlungsfelder = [], link, list }) => {
             onClick={prev}
             aria-label="Zurück"
           >
-            <span className="material-icons">chevron_left</span>
           </button>
 
           {currentHF && (
@@ -67,12 +66,10 @@ const Card = ({ title, dimensionId, handlungsfelder = [], link, list }) => {
             onClick={next}
             aria-label="Weiter"
           >
-            <span className="material-icons">chevron_right</span>
           </button>
         </div>
 
         <p className="check">
-          <span className="material-icons">check_circle</span>
         </p>
         <div class="change">Zuletzt aktualisiert am {currDate} um {currTime} </div>
         <hr>
