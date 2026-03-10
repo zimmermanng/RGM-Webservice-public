@@ -25,11 +25,24 @@ const RawResults = () => {
         let latest = null;
 
         if (Array.isArray(data?.results) && data.results.length > 0) {
-          const first = data.results[0];
-          latest = first?.data ?? first;
+          const normalizedEntries = data.results.map((entry) => entry?.data ?? entry);
+
+          latest = normalizedEntries
+            .filter(Boolean)
+            .sort((a, b) => {
+              const ta = new Date(a?.timestamp || 0).getTime();
+              const tb = new Date(b?.timestamp || 0).getTime();
+              return tb - ta;
+            })[0];
         } else if (Array.isArray(data) && data.length > 0) {
-          const first = data[0];
-          latest = first?.data ?? first;
+          latest = data
+            .map((entry) => entry?.data ?? entry)
+            .filter(Boolean)
+            .sort((a, b) => {
+              const ta = new Date(a?.timestamp || 0).getTime();
+              const tb = new Date(b?.timestamp || 0).getTime();
+              return tb - ta;
+            })[0];
         } else if (data?.data) {
           latest = data.data;
         } else {
@@ -37,6 +50,8 @@ const RawResults = () => {
         }
 
         console.log("Resolved surveyResults for page:", latest);
+        console.log("Resolved selections:", latest?.selections);
+
         setSurveyResults(latest);
       } catch (err) {
         console.error("Fehler beim Laden der Session-Daten:", err);
