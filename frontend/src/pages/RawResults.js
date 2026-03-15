@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:3011";
 
 const RawResults = () => {
   const [surveyResults, setSurveyResults] = useState(null);

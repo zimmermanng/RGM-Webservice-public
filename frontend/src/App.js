@@ -16,7 +16,7 @@ import RawResults from "./pages/RawResults";
 const App = () => {
   const [data, setData] = useState([]);
 
-const activeCompany = "Shuffle"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
+const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
 
   useEffect(() => {
     applyTheme(activeCompany);

@@ -10,7 +10,7 @@ import {
 } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:3011";
 
 export default function QuestionnairePage({ onUpload }) {
   const { dimensionId, handlungsfeldId } = useParams();
