@@ -17,13 +17,27 @@ import DimensionsEditPage from "./pages/DimensionsEditPage";
 const App = () => {
   const [data, setData] = useState([]);
 
-const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("Shuffle" oder "LMZ")
+  const activeCompany = "LMZ"; // "Shuffle" oder "LMZ"
 
   useEffect(() => {
     applyTheme(activeCompany);
+
+    document.body.setAttribute("data-company", activeCompany);
+
+    const root = document.getElementById("root");
+    if (root) {
+      root.setAttribute("data-company", activeCompany);
+    }
+
+    return () => {
+      document.body.removeAttribute("data-company");
+
+      if (root) {
+        root.removeAttribute("data-company");
+      }
+    };
   }, [activeCompany]);
 
-  // Decide which homepage to render
   const homeElement = useMemo(() => {
     return activeCompany === "LMZ" ? (
       <HomePage activeCompany={activeCompany} />
@@ -37,23 +51,29 @@ const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("
       <NavBar activeCompany={activeCompany} />
       <main>
         <Routes>
-          
-
-          {/* Single home route, decided by activeCompany */}
           <Route path="/" element={homeElement} />
 
           <Route path="/download" element={<Download />} />
           <Route path="/upload" element={<UploadPage onUpload={setData} />} />
-          <Route path="/dimensions" element={<DimensionsPage activeCompany={activeCompany} />} />
-          <Route path="/dimensions/bearbeiten" element={<DimensionsEditPage />}/>
+          <Route
+            path="/dimensions"
+            element={<DimensionsPage activeCompany={activeCompany} />}
+          />
+          <Route
+            path="/dimensions/bearbeiten"
+            element={<DimensionsEditPage />}
+          />
           <Route path="/questionnaire" element={<QuestionnairePage />} />
-          <Route path="/questionnaire/:dimensionId/:handlungsfeldId" element={<QuestionnairePage />} />
+          <Route
+            path="/questionnaire/:dimensionId/:handlungsfeldId"
+            element={<QuestionnairePage />}
+          />
 
           <Route
             path="/results"
             element={<ResultPage data={data} activeCompany={activeCompany} />}
           />
-           <Route
+          <Route
             path="/rawresults"
             element={<RawResults data={data} activeCompany={activeCompany} />}
           />
@@ -63,7 +83,8 @@ const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("
           />
         </Routes>
       </main>
-       {/* <Footer /> */}
+
+      {/* <Footer /> */}
     </Router>
   );
 };
