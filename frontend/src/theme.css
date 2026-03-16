@@ -1,10 +1,11 @@
 :root {
   color-scheme: light;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  --font-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --font-mono: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -45,71 +46,81 @@
   --color-warning-bg: #fff4db;
   --color-danger: #b42318;
 
-  /* default brand = Shuffle */
-  --brand-bg: #edf2f7;
-  --brand-surface: #eef5fb;
-  --brand-primary: #005fa3;
-  --brand-primary-strong: #004b82;
-  --brand-primary-soft: #e8f1ff;
-  --brand-accent: #0077cc;
-  --brand-accent-strong: #005fa3;
-  --brand-accent-soft: rgba(0, 119, 204, 0.12);
-  --brand-nav: #ebf2f8;
-  --brand-highlight: #dceeff;
+  /* Default = Shuffle */
+  --brand-bg: #f7f9fc;
+  --brand-surface: #ffffff;
+  --brand-primary: #324b8c;
+  --brand-primary-strong: #25396c;
+  --brand-primary-soft: #eef2fb;
+  --brand-accent: #004a94;
+  --brand-accent-strong: #003a75;
+  --brand-accent-soft: rgba(0, 74, 148, 0.12);
+  --brand-nav: #e6ecf3;
+  --brand-highlight: #e6ecf3;
   --brand-button-text: #ffffff;
 
-  /* backward-compatible aliases for existing JS/CSS */
-  --footer-color: #dceeff;
-  --navBar-color: var(--brand-nav);
-  --button-color: var(--brand-accent);
-  --details-color: var(--brand-primary);
-  --letter-color: var(--brand-button-text);
+  /* project compatibility variables */
+  --footer-color: #e6ecf3;
+  --navBar-color: #e6ecf3;
+  --button-color: #004a94;
+  --details-color: #324b8c;
+  --letter-color: #ffffff;
+  --range_1-color: #e21437;
+  --range_2-color: #1e7f5e;
+  --range_3-color: #fec705;
+  --range_4-color: #324b8c;
 }
 
-body[activeCompany='LMZ'],
-#root[activeCompany='LMZ'],
+body[data-company="LMZ"],
+#root[data-company="LMZ"],
 body.LMZ,
-#root.LMZ,
-.theme-lmz {
-  --brand-bg: #f7f0e6;
-  --brand-surface: #fbf6ee;
-  --brand-primary: #7a4a16;
-  --brand-primary-strong: #5f3810;
-  --brand-primary-soft: #f2dfc9;
-  --brand-accent: #c77719;
-  --brand-accent-strong: #9d5f13;
-  --brand-accent-soft: rgba(199, 119, 25, 0.14);
-  --brand-nav: #f3ede4;
-  --brand-highlight: #f2dfc9;
-  --brand-button-text: #1f1408;
+#root.LMZ {
+  --brand-bg: #f8f5ef;
+  --brand-surface: #ffffff;
+  --brand-primary: #5e5f4f;
+  --brand-primary-strong: #47483b;
+  --brand-primary-soft: #f2efe8;
+  --brand-accent: #f08811;
+  --brand-accent-strong: #c56a08;
+  --brand-accent-soft: rgba(240, 136, 17, 0.16);
+  --brand-nav: #ebebe2;
+  --brand-highlight: #f7ead7;
+  --brand-button-text: #000000;
 
-  --footer-color: #f2dfc9;
-  --navBar-color: var(--brand-nav);
-  --button-color: var(--brand-accent);
-  --details-color: var(--brand-primary);
-  --letter-color: var(--brand-button-text);
+  --footer-color: #f69e2f;
+  --navBar-color: #ebebe2;
+  --button-color: #f08811;
+  --details-color: #5e5f4f;
+  --letter-color: #000000;
+  --range_1-color: #f6b700;
+  --range_2-color: #fa4730;
+  --range_3-color: #f08811;
+  --range_4-color: #5e5f4f;
 }
 
-body[activeCompany='Shuffle'],
-#root[activeCompany='Shuffle'],
+body[data-company="Shuffle"],
+#root[data-company="Shuffle"],
 body.Shuffle,
-#root.Shuffle,
-.theme-shuffle {
-  --brand-bg: #edf2f7;
-  --brand-surface: #eef5fb;
-  --brand-primary: #005fa3;
-  --brand-primary-strong: #004b82;
-  --brand-primary-soft: #e8f1ff;
-  --brand-accent: #0077cc;
-  --brand-accent-strong: #005fa3;
-  --brand-accent-soft: rgba(0, 119, 204, 0.12);
-  --brand-nav: #ebf2f8;
-  --brand-highlight: #dceeff;
+#root.Shuffle {
+  --brand-bg: #f7f9fc;
+  --brand-surface: #ffffff;
+  --brand-primary: #324b8c;
+  --brand-primary-strong: #25396c;
+  --brand-primary-soft: #eef2fb;
+  --brand-accent: #004a94;
+  --brand-accent-strong: #003a75;
+  --brand-accent-soft: rgba(0, 74, 148, 0.12);
+  --brand-nav: #e6ecf3;
+  --brand-highlight: #e6ecf3;
   --brand-button-text: #ffffff;
 
-  --footer-color: #dceeff;
-  --navBar-color: var(--brand-nav);
-  --button-color: var(--brand-accent);
-  --details-color: var(--brand-primary);
-  --letter-color: var(--brand-button-text);
+  --footer-color: #e6ecf3;
+  --navBar-color: #e6ecf3;
+  --button-color: #004a94;
+  --details-color: #324b8c;
+  --letter-color: #ffffff;
+  --range_1-color: #e21437;
+  --range_2-color: #1e7f5e;
+  --range_3-color: #fec705;
+  --range_4-color: #324b8c;
 }
