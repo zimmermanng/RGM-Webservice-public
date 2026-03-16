@@ -72,7 +72,7 @@ const DimensionsEditPage = () => {
         >
           <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">Zu bearbeiten</h4>
 
-          <div className="gridContainer">
+          <div className="editGrid">
             {toEdit.map((dimension) => (
               <div
                 key={dimension.id}
@@ -98,7 +98,7 @@ const DimensionsEditPage = () => {
         >
           <h4 title="Alle Pakete, die nicht zu Ihrer Abteilung passen">Nicht zu bearbeiten</h4>
 
-          <div className="gridContainer">
+          <div className="editGrid">
             {notToEdit.map((dimension) => (
               <div
                 key={dimension.id}

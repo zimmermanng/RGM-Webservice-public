@@ -14,7 +14,7 @@ function HomePage() {
           </p>
 
           <div className="homeHeroActions">
-            <Link to="/dimensions" className="homeButton">
+            <Link to="/dimensions/bearbeiten" className="homeButton">
               Start
             </Link>
           </div>
