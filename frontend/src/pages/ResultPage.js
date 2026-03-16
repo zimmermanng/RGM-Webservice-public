@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
-import "./ResultPage.css";
 
 const ResultPage = ({ data, activeCompany}) => {
   const [viewMode, setViewMode] = useState("chart");

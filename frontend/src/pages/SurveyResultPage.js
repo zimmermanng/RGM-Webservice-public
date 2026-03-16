@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
-import "./ResultPage.css";
 import fragenData from "../components/data/fragen.json";
 import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
 

@@ -1,5 +1,4 @@
 import React from "react";
-import "./CommentFunction.css";
 
 export default function CommentBox({
   inputs,

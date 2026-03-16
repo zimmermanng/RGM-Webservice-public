@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Card_dimensions.css";
-
 const Card_dimensions = ({
   title,
   dimensionId,

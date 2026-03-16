@@ -1,0 +1,155 @@
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--brand-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+a {
+  color: var(--brand-primary);
+}
+
+a:hover {
+  color: var(--brand-primary-strong);
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+code {
+  font-family: var(--font-mono);
+}
+
+.reducedWidth {
+  max-width: 80%;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-6) var(--page-gutter);
+  margin: 0 auto;
+  background: var(--navBar-color);
+  text-align: center;
+}
+
+#top {
+  padding-top: calc(var(--header-height) + var(--space-4));
+}
+
+.page-shell,
+.page-section,
+.page-width,
+.homeHeroInner,
+.homeContent,
+.header-inner,
+.mobile-menu ul,
+.skip-link,
+#ext,
+.tab-content,
+.question-reference-section {
+  width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-width-narrow {
+  width: min(var(--content-narrow), calc(100% - (var(--page-gutter) * 2)));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-stack > * + * {
+  margin-top: var(--space-6);
+}
+
+.sectionBlock {
+  margin-top: var(--space-10);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: 4.25rem;
+  }
+
+  .mainContainer {
+    padding-inline: var(--page-gutter);
+  }
+}

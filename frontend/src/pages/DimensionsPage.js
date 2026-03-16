@@ -1,5 +1,4 @@
 import React from "react";
-import "./DimensionsPage.css";
 import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link } from "react-router-dom";

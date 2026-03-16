@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./navBar.css";
 
 const NAV_ITEMS = {
   default: [

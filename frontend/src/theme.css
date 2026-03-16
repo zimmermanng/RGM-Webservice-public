@@ -1,0 +1,115 @@
+:root {
+  color-scheme: light;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.125rem;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 8px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
+
+  --content-max: 1200px;
+  --content-narrow: 1120px;
+  --page-gutter: clamp(1rem, 2vw, 1.5rem);
+  --header-height: 4.75rem;
+
+  --color-text: #1f2937;
+  --color-text-muted: #475467;
+  --color-text-soft: #667085;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-surface-subtle: #f4f7fb;
+  --color-border: #d0d5dd;
+  --color-border-strong: #98a2b3;
+  --color-focus: #111827;
+  --color-info-bg: #eef6ff;
+  --color-success-bg: #f4fbf6;
+  --color-warning-bg: #fff4db;
+  --color-danger: #b42318;
+
+  /* default brand = Shuffle */
+  --brand-bg: #edf2f7;
+  --brand-surface: #eef5fb;
+  --brand-primary: #005fa3;
+  --brand-primary-strong: #004b82;
+  --brand-primary-soft: #e8f1ff;
+  --brand-accent: #0077cc;
+  --brand-accent-strong: #005fa3;
+  --brand-accent-soft: rgba(0, 119, 204, 0.12);
+  --brand-nav: #ebf2f8;
+  --brand-highlight: #dceeff;
+  --brand-button-text: #ffffff;
+
+  /* backward-compatible aliases for existing JS/CSS */
+  --footer-color: #dceeff;
+  --navBar-color: var(--brand-nav);
+  --button-color: var(--brand-accent);
+  --details-color: var(--brand-primary);
+  --letter-color: var(--brand-button-text);
+}
+
+body[activeCompany='LMZ'],
+#root[activeCompany='LMZ'],
+body.LMZ,
+#root.LMZ,
+.theme-lmz {
+  --brand-bg: #f7f0e6;
+  --brand-surface: #fbf6ee;
+  --brand-primary: #7a4a16;
+  --brand-primary-strong: #5f3810;
+  --brand-primary-soft: #f2dfc9;
+  --brand-accent: #c77719;
+  --brand-accent-strong: #9d5f13;
+  --brand-accent-soft: rgba(199, 119, 25, 0.14);
+  --brand-nav: #f3ede4;
+  --brand-highlight: #f2dfc9;
+  --brand-button-text: #1f1408;
+
+  --footer-color: #f2dfc9;
+  --navBar-color: var(--brand-nav);
+  --button-color: var(--brand-accent);
+  --details-color: var(--brand-primary);
+  --letter-color: var(--brand-button-text);
+}
+
+body[activeCompany='Shuffle'],
+#root[activeCompany='Shuffle'],
+body.Shuffle,
+#root.Shuffle,
+.theme-shuffle {
+  --brand-bg: #edf2f7;
+  --brand-surface: #eef5fb;
+  --brand-primary: #005fa3;
+  --brand-primary-strong: #004b82;
+  --brand-primary-soft: #e8f1ff;
+  --brand-accent: #0077cc;
+  --brand-accent-strong: #005fa3;
+  --brand-accent-soft: rgba(0, 119, 204, 0.12);
+  --brand-nav: #ebf2f8;
+  --brand-highlight: #dceeff;
+  --brand-button-text: #ffffff;
+
+  --footer-color: #dceeff;
+  --navBar-color: var(--brand-nav);
+  --button-color: var(--brand-accent);
+  --details-color: var(--brand-primary);
+  --letter-color: var(--brand-button-text);
+}

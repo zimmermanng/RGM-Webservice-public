@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-import "./QuestionnairePage.css";
 import struktur from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";

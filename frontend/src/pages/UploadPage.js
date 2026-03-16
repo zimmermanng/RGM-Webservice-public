@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { readExcelFile } from '../services/dataExtractor';
 import { MdUpload } from "react-icons/md";
-import './UploadPage.css';
 
 const UploadPage = ({ onUpload }) => {
     const navigate = useNavigate();

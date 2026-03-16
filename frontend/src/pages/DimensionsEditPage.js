@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./DimensionsPage.css";
-import "./DimensionsEditPage.css";
 import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link } from "react-router-dom";
