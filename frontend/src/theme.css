@@ -59,7 +59,7 @@
   --brand-highlight: #e6ecf3;
   --brand-button-text: #ffffff;
 
-  /* Backward-compatible aliases */
+  /* project compatibility variables */
   --footer-color: #e6ecf3;
   --navBar-color: #e6ecf3;
   --button-color: #004a94;
@@ -74,8 +74,7 @@
 body[data-company="LMZ"],
 #root[data-company="LMZ"],
 body.LMZ,
-#root.LMZ,
-.theme-lmz {
+#root.LMZ {
   --brand-bg: #f8f5ef;
   --brand-surface: #ffffff;
   --brand-primary: #5e5f4f;
@@ -102,8 +101,7 @@ body.LMZ,
 body[data-company="Shuffle"],
 #root[data-company="Shuffle"],
 body.Shuffle,
-#root.Shuffle,
-.theme-shuffle {
+#root.Shuffle {
   --brand-bg: #f7f9fc;
   --brand-surface: #ffffff;
   --brand-primary: #324b8c;
