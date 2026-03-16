@@ -1,29 +1,113 @@
-// radialBarChart.js
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-const RadialBarChart = ({ data, activeCompany = 'Shuffle' }) => {
+const WIDTH = 1700;
+const HEIGHT = 1400;
+const MARGIN = 160;
+const INNER_RADIUS = 100;
+const LABEL_RING_THICKNESS = 80;
+const GROUP_RING_THICKNESS = 80;
+const MAX_VALUE = 5;
+const NUM_TICKS = 5;
+const MAX_CHARS_PER_LINE = 20;
+const CATEGORY_FONT_SIZE = 16;
+const CATEGORY_LINE_HEIGHT = 20;
+
+const COMPANY_LOGOS = {
+  LMZ: '/LMZ-Logo-rund.png',
+  Shuffle: '/shuffle-logo.svg',
+};
+
+const normalizeCompany = (company) => {
+  if (typeof company !== 'string') return 'LMZ';
+
+  const normalized = company.trim().toLowerCase();
+
+  if (normalized === 'shuffle') return 'Shuffle';
+  if (normalized === 'lmz') return 'LMZ';
+
+  return 'LMZ';
+};
+
+const wrapText = (text = '', maxChars = MAX_CHARS_PER_LINE) => {
+  const words = text.split(' ').filter(Boolean);
+  const lines = [];
+  let currentLine = '';
+
+  words.forEach((word) => {
+    const candidate = currentLine ? `${currentLine} ${word}` : word;
+
+    if (candidate.length <= maxChars) {
+      currentLine = candidate;
+    } else {
+      if (currentLine) lines.push(currentLine);
+      currentLine = word;
+    }
+  });
+
+  if (currentLine) lines.push(currentLine);
+  return lines.length ? lines : [''];
+};
+
+const getLuminance = (color) => {
+  const parsedColor = d3.color(color);
+  if (!parsedColor) return 0;
+
+  const rgb = parsedColor.rgb();
+  const [r, g, b] = [rgb.r, rgb.g, rgb.b]
+    .map((channel) => channel / 255)
+    .map((channel) =>
+      channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4)
+    );
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
+const getTextColor = (backgroundColor) =>
+  getLuminance(backgroundColor) > 0.5 ? 'black' : 'white';
+
+const RadialBarChart = ({ data = [], activeCompany }) => {
   const svgRef = useRef(null);
-  const [chartData, setChartData] = useState(null);
   const lastInputTypeRef = useRef('mouse');
+  const [chartData, setChartData] = useState([]);
 
-  // ----- Constants -----
-  const width = 1700;
-  const height = 1400;
-  const margin = 160;
-  const radius = Math.min(width, height) / 2 - margin;
-  const innerRadius = 100;
-  const labelRingThickness = 80;
-  const groupRingThickness = 80;
-  const maxValue = 5;
-  const numTicks = 5;
-  const maxCharsPerLine = 20;
+  const radius = Math.min(WIDTH, HEIGHT) / 2 - MARGIN;
+  const resolvedCompany = useMemo(() => normalizeCompany(activeCompany), [activeCompany]);
+  const centerLogo = COMPANY_LOGOS[resolvedCompany] || COMPANY_LOGOS.LMZ;
 
-  // Track last input type (keyboard/mouse/touch) once with cleanup
+  const colorScale = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return d3
+        .scaleOrdinal()
+        .domain(['Beratung und Support', 'Lehren und Lernen', 'Struktur', 'Strategie'])
+        .range(['#D9D9D9', '#C4C4C4', '#AFAFAF', '#9A9A9A']);
+    }
+
+    const styles = getComputedStyle(document.documentElement);
+
+    return d3
+      .scaleOrdinal()
+      .domain(['Beratung und Support', 'Lehren und Lernen', 'Struktur', 'Strategie'])
+      .range([
+        styles.getPropertyValue('--range_1-color').trim(),
+        styles.getPropertyValue('--range_2-color').trim(),
+        styles.getPropertyValue('--range_3-color').trim(),
+        styles.getPropertyValue('--range_4-color').trim(),
+      ]);
+  }, []);
+
   useEffect(() => {
-    const onMouseDown = () => (lastInputTypeRef.current = 'mouse');
-    const onKeyDown = () => (lastInputTypeRef.current = 'keyboard');
-    const onTouchStart = () => (lastInputTypeRef.current = 'touch');
+    const onMouseDown = () => {
+      lastInputTypeRef.current = 'mouse';
+    };
+
+    const onKeyDown = () => {
+      lastInputTypeRef.current = 'keyboard';
+    };
+
+    const onTouchStart = () => {
+      lastInputTypeRef.current = 'touch';
+    };
 
     document.addEventListener('mousedown', onMouseDown);
     document.addEventListener('keydown', onKeyDown);
@@ -36,139 +120,61 @@ const RadialBarChart = ({ data, activeCompany = 'Shuffle' }) => {
     };
   }, []);
 
-  // CSS variable colors
-  const styles = getComputedStyle(document.documentElement);
-  const colorScale = d3
-    .scaleOrdinal()
-    .domain(['Beratung und Support', 'Lehren und Lernen', 'Struktur', 'Strategie'])
-    .range([
-      styles.getPropertyValue('--range_1-color').trim(),
-      styles.getPropertyValue('--range_2-color').trim(),
-      styles.getPropertyValue('--range_3-color').trim(),
-      styles.getPropertyValue('--range_4-color').trim(),
-    ]);
-
-  // Luminance helpers for text contrast
-  const getLuminance = (color) => {
-    const rgb = d3.color(color).rgb();
-    const [r, g, b] = [rgb.r, rgb.g, rgb.b]
-      .map((c) => c / 255)
-      .map((c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)));
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  };
-  const getTextColor = (bgColor) => (getLuminance(bgColor) > 0.5 ? 'black' : 'white');
-
-  // Accept external data
   useEffect(() => {
-    if (data && data.length > 0) setChartData(data);
+    setChartData(Array.isArray(data) ? data : []);
   }, [data]);
 
-  // Choose the logo shown in the center by company
-  const getCenterLogo = () => {
-    if (activeCompany === 'LMZ') return '/LMZ-Logo-rund.png';
-    if (activeCompany === 'Shuffle') return '/shuffle-logo.svg';
-    return '/LMZ-Logo-rund.png'; // fallback
-  };
+  useEffect(() => {
+    if (!chartData.length || !svgRef.current) return;
 
-  // Draw the chart
-  const drawChart = () => {
-    if (!chartData || chartData.length === 0) return;
-
-    // Clear previous render
     const root = d3.select(svgRef.current);
     root.selectAll('*').remove();
 
     const svg = root
-      .attr('width', width)
-      .attr('height', height)
-      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', WIDTH)
+      .attr('height', HEIGHT)
+      .attr('viewBox', `0 0 ${WIDTH} ${HEIGHT}`)
       .attr('role', 'region')
       .attr('aria-label', 'Diagramm zur Visualisierung der RGM-Ergebnisse.')
       .append('g')
-      .attr('transform', `translate(${width / 2}, ${height / 2})`);
+      .attr('transform', `translate(${WIDTH / 2}, ${HEIGHT / 2})`);
 
-    const radialScale = d3.scaleLinear().domain([0, numTicks]).range([innerRadius, radius]);
-
+    const radialScale = d3.scaleLinear().domain([0, NUM_TICKS]).range([INNER_RADIUS, radius]);
     const angleStep = (2 * Math.PI) / chartData.length;
-    const uniqueGroups = [...new Set(chartData.map((d) => d.group))];
+    const uniqueGroups = [...new Set(chartData.map((entry) => entry.group))];
 
-    // Arc generator helper
-    const createArcGenerator = (innerR, outerR, startA, endA) =>
-      d3.arc().innerRadius(innerR).outerRadius(outerR).startAngle(startA).endAngle(endA);
+    const createArc = (innerR, outerR, startAngle, endAngle) =>
+      d3.arc().innerRadius(innerR).outerRadius(outerR).startAngle(startAngle).endAngle(endAngle);
 
-    // Label wrapping for categories
-    const wrapText = (text, maxChars) => {
-      const words = text.split(' ');
-      const lines = [];
-      let current = '';
-      words.forEach((w) => {
-        if (current.length + w.length + 1 <= maxChars) {
-          current += (current ? ' ' : '') + w;
-        } else {
-          lines.push(current);
-          current = w;
-        }
-      });
-      if (current) lines.push(current);
-      return lines;
-    };
-
-    const placeTextAlongArcs = (text, angle, nextAngle, r, lines) => {
-      const lineHeight = Math.max(20, 40 / lines.length);
-      lines.forEach((line, idx) => {
-        const arc = createArcGenerator(
-          r - idx * lineHeight,
-          r + labelRingThickness / 2 - (idx + 1) * lineHeight,
-          angle,
-          nextAngle
-        );
-        const pathId = `category-path-${text}-${idx}-${Math.random().toString(36).slice(2)}`;
-        svg
-          .append('path')
-          .attr('id', pathId)
-          .attr('d', arc)
-          .attr('fill', 'none')
-          .attr('aria-hidden', 'true');
-
-        svg
-          .append('text')
-          .append('textPath')
-          .attr('xlink:href', `#${pathId}`)
-          .attr('startOffset', '24%')
-          .attr('fill', 'black')
-          .attr('font-size', '16px')
-          .attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle')
-          .text(line)
-          .attr('aria-hidden', 'true');
-      });
-    };
-
-    const createTooltip = (svgSel, x, y, lines) => {
+    const createTooltip = (svgSelection, x, y, lines) => {
       const screenWidth = window.innerWidth;
       let fontSize = 18;
+
       if (screenWidth < 600) fontSize = 30;
       else if (screenWidth < 1000) fontSize = 20;
 
-      const g = svgSel
+      const tooltipGroup = svgSelection
         .append('g')
         .attr('id', 'tooltip-group')
         .attr('transform', `translate(${x}, ${y})`)
         .attr('pointer-events', 'none');
 
-      lines.forEach((line, i) => {
-        g.append('text')
+      lines.forEach((line, index) => {
+        tooltipGroup
+          .append('text')
           .text(line)
           .attr('x', 0)
-          .attr('y', -35 + i * (fontSize * 1.2))
+          .attr('y', -35 + index * (fontSize * 1.2))
           .attr('text-anchor', 'middle')
           .attr('dominant-baseline', 'middle')
           .attr('font-size', fontSize);
       });
 
-      const bbox = g.node().getBBox();
+      const bbox = tooltipGroup.node().getBBox();
       const padding = 10;
-      g.insert('rect', ':first-child')
+
+      tooltipGroup
+        .insert('rect', ':first-child')
         .attr('x', bbox.x - padding)
         .attr('y', bbox.y - padding)
         .attr('width', bbox.width + 2 * padding)
@@ -178,11 +184,17 @@ const RadialBarChart = ({ data, activeCompany = 'Shuffle' }) => {
         .attr('rx', 8)
         .attr('ry', 8);
 
-      return g;
+      return tooltipGroup;
     };
 
-    const createFocus = (innerR, r, labelThickness, angle, nextAngle) => {
-      const focusArc = createArcGenerator(innerR, r + labelThickness, angle, nextAngle);
+    const createFocus = (startAngle, endAngle) => {
+      const focusArc = createArc(
+        INNER_RADIUS,
+        radius + LABEL_RING_THICKNESS,
+        startAngle,
+        endAngle
+      );
+
       svg
         .append('path')
         .attr('id', 'focus-ring')
@@ -191,176 +203,204 @@ const RadialBarChart = ({ data, activeCompany = 'Shuffle' }) => {
         .attr('stroke', 'black')
         .attr('stroke-width', 8);
 
-      const focusArcInner = createArcGenerator(innerR, r + labelThickness, angle, nextAngle);
       svg
         .append('path')
-        .attr('id', 'focus-ring')
-        .attr('d', focusArcInner)
+        .attr('id', 'focus-ring-inner')
+        .attr('d', focusArc)
         .attr('fill', 'none')
         .attr('stroke', 'white')
         .attr('stroke-width', 2);
     };
 
-    // Draw each bar/segment
+    const placeCategoryText = (category, startAngle, endAngle) => {
+      const lines = wrapText(category);
+      const middleAngle = (startAngle + endAngle) / 2;
+      const labelRadius = radius + LABEL_RING_THICKNESS / 2;
+      const x = Math.sin(middleAngle) * labelRadius;
+      const y = -Math.cos(middleAngle) * labelRadius;
+      const rotation = (middleAngle * 180) / Math.PI;
+      const totalHeight = (lines.length - 1) * CATEGORY_LINE_HEIGHT;
+
+      const labelGroup = svg
+        .append('g')
+        .attr('transform', `translate(${x}, ${y}) rotate(${rotation})`)
+        .attr('aria-hidden', 'true');
+
+      lines.forEach((line, lineIndex) => {
+        labelGroup
+          .append('text')
+          .text(line)
+          .attr('x', 0)
+          .attr('y', lineIndex * CATEGORY_LINE_HEIGHT - totalHeight / 2)
+          .attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle')
+          .attr('fill', 'black')
+          .attr('font-size', `${CATEGORY_FONT_SIZE}px`);
+      });
+    };
+
     let mouseX = null;
     let mouseY = null;
 
-    // Use the SVG root for coordinate reference
-    root.on('mousedown', function (event) {
+    root.on('mousedown', function handleRootMouseDown(event) {
       const [x, y] = d3.pointer(event, svg.node());
       mouseX = x;
       mouseY = y;
     });
 
-    chartData.forEach((d, i) => {
-      const angle = i * angleStep;
-      const nextAngle = angle + angleStep;
-      const outerRadius = radialScale(d.value);
+    chartData.forEach((entry, index) => {
+      const startAngle = index * angleStep;
+      const endAngle = startAngle + angleStep;
+      const outerRadius = radialScale(entry.value);
+      const adjustedValue = entry.value - 1;
+      const valueText = adjustedValue === -1 ? 'Keine Einstufung vorhanden' : adjustedValue;
+      const ariaLabel = `Dimension: ${entry.group}, Themenfeld: ${entry.category}, Stufe: ${valueText}, Drücken Sie Enter für Details`;
 
-      // Grey background (unreached)
-      const grey = createArcGenerator(innerRadius, radialScale(maxValue), angle, nextAngle);
       svg
         .append('path')
         .attr('class', 'unreached-bar')
-        .attr('d', grey)
+        .attr('d', createArc(INNER_RADIUS, radialScale(MAX_VALUE), startAngle, endAngle))
         .attr('fill', '#F1F1F1')
         .attr('stroke', 'white')
         .attr('stroke-width', 2)
         .attr('aria-hidden', 'true');
 
-      // Actual bar
-      const bar = createArcGenerator(innerRadius, outerRadius, angle, nextAngle);
       svg
         .append('path')
         .attr('class', 'bar')
-        .attr('d', bar)
-        .attr('fill', colorScale(d.group))
+        .attr('d', createArc(INNER_RADIUS, outerRadius, startAngle, endAngle))
+        .attr('fill', colorScale(entry.group))
         .attr('stroke', 'white')
         .attr('stroke-width', 2)
         .attr('aria-hidden', 'true');
 
-      // Top black cap
-      const cap = createArcGenerator(outerRadius, outerRadius + 8, angle, nextAngle);
       svg
         .append('path')
         .attr('class', 'top-arc')
-        .attr('d', cap)
+        .attr('d', createArc(outerRadius, outerRadius + 8, startAngle, endAngle))
         .attr('fill', 'black')
         .attr('stroke', 'white')
         .attr('stroke-width', 2)
         .attr('aria-hidden', 'true');
 
-      // Label background ring
-      const outerRing = createArcGenerator(radius + 8, radius + labelRingThickness, angle, nextAngle);
       svg
         .append('path')
         .attr('class', 'outer-ring')
-        .attr('d', outerRing)
+        .attr('d', createArc(radius + 8, radius + LABEL_RING_THICKNESS, startAngle, endAngle))
         .attr('fill', '#D9D9D9')
         .attr('stroke', 'white')
         .attr('stroke-width', 3)
         .attr('aria-hidden', 'true');
 
-      // Screen reader label
-      const adjustedValue = d.value - 1;
-      const valueText = adjustedValue === -1 ? 'Keine Einstufung vorhanden' : adjustedValue;
-      const LabelText = `Dimension: ${d.group}, Themenfeld: ${d.category}, Stufe: ${valueText}, Drücken Sie Enter für Details`;
-
-      // Focus overlay (keyboard/mouse)
-      const overlayArcGenerator = createArcGenerator(
-        innerRadius + 4,
-        radius + labelRingThickness + 4,
-        angle,
-        nextAngle
-      );
-      const overlayPath = svg
+      const overlay = svg
         .append('path')
         .attr('class', 'overlay')
-        .attr('d', overlayArcGenerator)
+        .attr(
+          'd',
+          createArc(INNER_RADIUS + 4, radius + LABEL_RING_THICKNESS + 4, startAngle, endAngle)
+        )
         .attr('fill', 'transparent')
         .attr('tabindex', '0')
-        .attr('data-index', i)
-        .attr('aria-label', LabelText);
+        .attr('data-index', index)
+        .attr('aria-label', ariaLabel);
 
-      overlayPath.on('focus', function () {
+      overlay.on('focus', function handleFocus() {
         d3.select('#focus-ring').remove();
+        d3.select('#focus-ring-inner').remove();
         d3.select('#tooltip-group').remove();
 
-        createFocus(innerRadius, radius, labelRingThickness, angle, nextAngle);
-        const texts = [`Dimension: ${d.group}`, `Themenfeld: ${d.category}`, `Stufe: ${valueText}`];
+        createFocus(startAngle, endAngle);
 
-        const arcCenterAngle = (angle + nextAngle) / 2;
+        const tooltipLines = [
+          `Dimension: ${entry.group}`,
+          `Themenfeld: ${entry.category}`,
+          `Stufe: ${valueText}`,
+        ];
+
+        const centerAngle = (startAngle + endAngle) / 2;
         const offsetX = 90;
 
-        if (lastInputTypeRef.current === 'mouse' && mouseX !== null) {
+        if (lastInputTypeRef.current === 'mouse' && mouseX !== null && mouseY !== null) {
           const x = mouseX < 0 ? mouseX + offsetX : mouseX - offsetX;
           const y = mouseY - 20;
-          createTooltip(svg, x, y, texts);
+          createTooltip(svg, x, y, tooltipLines);
         } else {
-          const y = (-(radius + labelRingThickness) * Math.cos(arcCenterAngle)) * 0.75;
-          const x = ((radius + labelRingThickness) * Math.sin(arcCenterAngle)) * 0.75;
-          createTooltip(svg, x, y, texts);
+          const y = (-(radius + LABEL_RING_THICKNESS) * Math.cos(centerAngle)) * 0.75;
+          const x = ((radius + LABEL_RING_THICKNESS) * Math.sin(centerAngle)) * 0.75;
+          createTooltip(svg, x, y, tooltipLines);
         }
-
-        overlayPath.on('mousedown', function (event) {
-          d3.select('#tooltip-group').remove();
-          const [x0, y0] = d3.pointer(event, svg.node());
-          const x = x0 < 0 ? x0 + offsetX : x0 - offsetX;
-          const y = y0 - 20;
-          createTooltip(svg, x, y, texts);
-        });
       });
 
-      overlayPath.on('blur', function () {
+      overlay.on('mousedown', function handleMouseDown(event) {
+        d3.select('#tooltip-group').remove();
+
+        const tooltipLines = [
+          `Dimension: ${entry.group}`,
+          `Themenfeld: ${entry.category}`,
+          `Stufe: ${valueText}`,
+        ];
+
+        const [x0, y0] = d3.pointer(event, svg.node());
+        const x = x0 < 0 ? x0 + 90 : x0 - 90;
+        const y = y0 - 20;
+        createTooltip(svg, x, y, tooltipLines);
+      });
+
+      overlay.on('blur', function handleBlur() {
         d3.select('#focus-ring').remove();
+        d3.select('#focus-ring-inner').remove();
         d3.select('#tooltip-group').remove();
       });
 
-      // Category labels
-      const categoryLines = wrapText(d.category, maxCharsPerLine);
-      placeTextAlongArcs(d.category, angle, nextAngle, radius + labelRingThickness / 2, categoryLines);
+      placeCategoryText(entry.category, startAngle, endAngle);
     });
 
-    // Group rings + labels
-    uniqueGroups.forEach((group, idx) => {
-      const groupData = chartData.filter((d) => d.group === group);
-      const groupStartAngle = chartData.findIndex((d) => d.group === group) * angleStep;
-      const groupEndAngle = groupStartAngle + groupData.length * angleStep;
-
-      const groupArc = createArcGenerator(
-        radius + labelRingThickness,
-        radius + labelRingThickness + groupRingThickness,
-        groupStartAngle,
-        groupEndAngle
-      );
+    uniqueGroups.forEach((group, index) => {
+      const firstGroupIndex = chartData.findIndex((entry) => entry.group === group);
+      const groupItems = chartData.filter((entry) => entry.group === group);
+      const groupStartAngle = firstGroupIndex * angleStep;
+      const groupEndAngle = groupStartAngle + groupItems.length * angleStep;
+      const groupColor = colorScale(group);
+      const groupPathId = `group-path-${index}-${Math.random().toString(36).slice(2)}`;
 
       svg
         .append('path')
         .attr('class', 'group-ring')
-        .attr('d', groupArc)
-        .attr('fill', colorScale(group))
+        .attr(
+          'd',
+          createArc(
+            radius + LABEL_RING_THICKNESS,
+            radius + LABEL_RING_THICKNESS + GROUP_RING_THICKNESS,
+            groupStartAngle,
+            groupEndAngle
+          )
+        )
+        .attr('fill', groupColor)
         .attr('stroke', 'white')
         .attr('stroke-width', 2)
         .attr('aria-hidden', 'true');
 
-      const pathId = `group-path-${idx}-${Math.random().toString(36).slice(2)}`;
-      const groupColor = colorScale(group);
-      const textColor = getTextColor(groupColor);
-      const groupPath = createArcGenerator(
-        radius + labelRingThickness + groupRingThickness / 2,
-        radius + labelRingThickness + groupRingThickness / 2,
-        groupStartAngle,
-        groupEndAngle
-      );
-
-      svg.append('path').attr('id', pathId).attr('d', groupPath).attr('aria-hidden', 'true');
+      svg
+        .append('path')
+        .attr('id', groupPathId)
+        .attr(
+          'd',
+          createArc(
+            radius + LABEL_RING_THICKNESS + GROUP_RING_THICKNESS / 2,
+            radius + LABEL_RING_THICKNESS + GROUP_RING_THICKNESS / 2,
+            groupStartAngle,
+            groupEndAngle
+          )
+        )
+        .attr('fill', 'none')
+        .attr('aria-hidden', 'true');
 
       svg
         .append('text')
         .append('textPath')
-        .attr('xlink:href', `#${pathId}`)
+        .attr('xlink:href', `#${groupPathId}`)
         .attr('startOffset', '25%')
-        .attr('fill', textColor)
+        .attr('fill', getTextColor(groupColor))
         .attr('font-size', '35px')
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
@@ -368,53 +408,40 @@ const RadialBarChart = ({ data, activeCompany = 'Shuffle' }) => {
         .attr('aria-hidden', 'true');
     });
 
-    // Circular grid ticks
-    const ticks = d3.range(1, numTicks + 1);
-    ticks.forEach((tick) => {
+    d3.range(1, NUM_TICKS + 1).forEach((tick) => {
       const tickRadius = radialScale(tick);
-      const tickPath = d3
-        .arc()
-        .innerRadius(tickRadius)
-        .outerRadius(tickRadius)
-        .startAngle(0)
-        .endAngle(2 * Math.PI);
+
       svg
         .append('path')
         .attr('class', 'tick')
-        .attr('d', tickPath)
+        .attr(
+          'd',
+          d3
+            .arc()
+            .innerRadius(tickRadius)
+            .outerRadius(tickRadius)
+            .startAngle(0)
+            .endAngle(2 * Math.PI)
+        )
         .attr('fill', 'none')
         .attr('stroke', 'white')
         .attr('stroke-width', 1)
         .attr('aria-hidden', 'true');
     });
 
-    // Center logo (dynamic)
-    const logoImage = getCenterLogo();
-    const logoSize = Math.min(innerRadius * 1.5, 200);
+    const logoSize = Math.min(INNER_RADIUS * 1.5, 200);
 
-    svg.append('title').text(
-      activeCompany === 'LMZ'
-        ? 'LMZ Logo'
-        : activeCompany === 'Shuffle'
-        ? 'Shuffle Logo'
-        : 'Logo'
-    );
+    svg.append('title').text(`${resolvedCompany} Logo`);
 
     svg
       .append('image')
-      .attr('xlink:href', logoImage)
+      .attr('xlink:href', centerLogo)
       .attr('x', -logoSize / 2)
       .attr('y', -logoSize / 2)
       .attr('width', logoSize)
       .attr('height', logoSize)
       .attr('aria-hidden', 'true');
-  };
-
-  // Redraw when data or company changes
-  useEffect(() => {
-    if (chartData) drawChart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartData, activeCompany]);
+  }, [chartData, colorScale, radius, resolvedCompany, centerLogo]);
 
   return (
     <>
