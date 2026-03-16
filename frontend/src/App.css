@@ -3,66 +3,94 @@
     --navBar-color: #ebebe2;
 }
 
-html, body {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     display: flex;
-    flex-direction: column; /* Stack header, content, and footer vertically */
-    min-height: 100vh; /* Ensure the page is at least the height of the viewport */
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body {
+    position: relative;
 }
 
 #root {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Allow the main content area to grow */
+    flex-grow: 1;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
 }
 
 main {
-    flex-grow: 1; /* Push the footer to the bottom when content is smaller */
+    flex-grow: 1;
+    width: 100%;
+    min-width: 0;
 }
 
 .reducedWidth {
     max-width: 80%;
 }
+
 .mainContainer {
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    text-align: center; /* Ensure text is centered */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
     padding: 20px;
-    margin: auto; /* Center the container */
+    margin: 0 auto;
     background-color: var(--navBar-color);
 }
 
 #top {
     padding-top: 80px;
 }
+
 .mainContainer img {
-    max-width: 5%; /* Make image responsive */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 5px; /* Add spacing below the image */
+    max-width: 5%;
+    height: auto;
+    margin-bottom: 5px;
 }
 
 .mainContainer h1 {
-    font-size: 2rem; /* Adjust font size */
+    font-size: 2rem;
     margin-bottom: 10px;
 }
 
 .mainContainer h2 {
-    font-size: 1.5rem; /* Adjust font size */
+    font-size: 1.5rem;
     margin-bottom: 15px;
     font-weight: initial;
 }
 
 .mainContainer p {
     font-size: 1rem;
-    line-height: 1.6; /* Improve readability */
+    line-height: 1.6;
 }
 
 .cardBox {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding-top: 50px;
-  padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 100%;
+    max-width: 100%;
 }
