@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from '/Users/lisanohl/Documents/GitHub/RGM-Webservice/frontend/src/App.js'
+import App from './App.js'
 
 
 
