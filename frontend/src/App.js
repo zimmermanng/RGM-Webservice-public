@@ -62,7 +62,7 @@ const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("
           />
         </Routes>
       </main>
-      <Footer />
+       {/* <Footer /> */}
     </Router>
   );
 };

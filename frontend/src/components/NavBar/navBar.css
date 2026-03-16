@@ -1,109 +1,149 @@
-/* Base Header Styling */
 .Header {
-    background-color: var(--navBar-color);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    border-bottom: 2px solid white;
+  background-color: var(--navBar-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  border-bottom: 2px solid white;
+  box-sizing: border-box;
 }
 
 .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
 }
 
-/* Desktop nav */
-.nav-desktop ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-desktop li {
-    padding: 15px;
-}
-
-nav a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Logo */
 .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .logotext {
-    display: flex;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: 700;
 }
 
 .logotext img {
-    height: 40px;
-    padding: 5px;
+  height: 40px;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .logotext span {
-    margin-left: 5px;
-      margin-left: 5px;
-    margin-top: 0;               
-    margin-bottom: 0;         
-    display: flex;
-    align-items: center;   
+  display: inline-block;
+  line-height: 1.2;
 }
 
-/* Mobile hamburger button */
+.nav-desktop ul,
+.mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-desktop ul {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background-color: rgba(0, 0, 0, 0.06);
+  outline: none;
+}
+
+.nav-link.active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .HamburgerMenu {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
+  display: none;
+  background: none;
+  border: none;
+  padding: 6px 8px;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
 }
 
-/* ---------------- MOBILE ---------------- */
+.mobile-menu {
+  display: none;
+}
+
 @media (max-width: 775px) {
-    .nav-desktop {
-        display: none;
-    }
+  .nav-desktop {
+    display: none;
+  }
 
-    .HamburgerMenu {
-        display: block;
-    }
+  .HamburgerMenu {
+    display: block;
+    flex-shrink: 0;
+  }
 
-    .mobile-menu {
-        background-color: white;
-        width: 100%;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+  .mobile-menu {
+    display: block;
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
 
-    .mobile-menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+  .mobile-menu ul {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding: 8px 16px 16px;
+    box-sizing: border-box;
+  }
 
-    .mobile-menu li {
-        border-bottom: 1px solid #ddd;
-        padding: 15px;
-        text-align: center;
-    }
+  .mobile-menu li + li {
+    margin-top: 6px;
+  }
 
-    .mobile-menu a {
-        color: #333;
-        text-decoration: none;
-        font-weight: bold;
-    }
+  .mobile-menu .nav-link {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+
+  .logotext span {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    padding: 10px 12px;
+  }
+
+  .logotext span {
+    font-size: 0.9rem;
+  }
+
+  .logotext img {
+    height: 34px;
+  }
 }
