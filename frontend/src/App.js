@@ -12,6 +12,7 @@ import { applyTheme } from "./theme";
 import HomePage from "./pages/HomePage";
 import ShuffleHomePage from "./pages/shuffleHomePage";
 import RawResults from "./pages/RawResults";
+import DimensionsEditPage from "./pages/DimensionsEditPage";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ const activeCompany = "LMZ"; // <-- hier umstellen, um das Design zu wechseln ("
           <Route path="/download" element={<Download />} />
           <Route path="/upload" element={<UploadPage onUpload={setData} />} />
           <Route path="/dimensions" element={<DimensionsPage activeCompany={activeCompany} />} />
-
+          <Route path="/dimensions/bearbeiten" element={<DimensionsEditPage />}/>
           <Route path="/questionnaire" element={<QuestionnairePage />} />
           <Route path="/questionnaire/:dimensionId/:handlungsfeldId" element={<QuestionnairePage />} />
 

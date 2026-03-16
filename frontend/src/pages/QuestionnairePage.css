@@ -7,6 +7,20 @@
   margin: 0 auto;
 }
 
+.top-buttons {
+  display:flex;
+  margin-right:auto;
+}
+
+.top-buttons button {
+  width:150px;
+  height:50px;
+  background-color: orange;
+  border:none;
+  border-radius: 10px;
+}
+
+
 .progress-container{
   font-weight: bold;
 }

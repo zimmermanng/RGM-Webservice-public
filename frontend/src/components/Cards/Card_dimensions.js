@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Card_dimensions.css";
 
-const Card = ({ title, dimensionId, handlungsfelder = [], link, list }) => {
+const Card_dimensions = ({
+  title,
+  dimensionId,
+  handlungsfelder = [],
+  link,
+  showStartButton = true,
+  showProgress = true,
+  progress= 0,
+}) => {
   const titleId = `card-title-${dimensionId}`;
-  const [currentIndex, setCurrentIndex] = useState(0);
   const currDate = new Date().toLocaleDateString();
   const currTime = new Date().toLocaleTimeString();
+  const firstHF = handlungsfelder[0];
 
   // 🔹 Edit-Modus: link vorhanden
   if (link) {
@@ -21,67 +29,46 @@ const Card = ({ title, dimensionId, handlungsfelder = [], link, list }) => {
       </div>
     );
   }
-  // 🔹 Carousel-Modus
+
+  // 🔹 Wenn keine Handlungsfelder vorhanden
   if (!handlungsfelder.length) return null;
-
-  const prev = () => {
-    setCurrentIndex((index) =>
-      index === 0 ? handlungsfelder.length - 1 : index - 1
-    );
-  };
-
-  const next = () => {
-    setCurrentIndex((index) =>
-      index === handlungsfelder.length - 1 ? 0 : index + 1
-    );
-  };
-
-  const currentHF = handlungsfelder[currentIndex];
 
   return (
     <div className="card" role="article" aria-labelledby={titleId}>
       <div className="card-content">
         <h3 id={titleId}>{title}</h3>
 
-        {/* Carousel */}
-        <div className="carousel">
-          <button
-            className="carousel-arrow"
-            onClick={prev}
-            aria-label="Zurück"
-          >
-          </button>
-
-          {currentHF && (
-            <Link 
-              to={`/questionnaire/${dimensionId}/${currentHF.id}`}
-              className="hf-button"
-            >
-              {currentHF.name}
-            </Link>
-          )}
-
-          <button
-            className="carousel-arrow"
-            onClick={next}
-            aria-label="Weiter"
-          >
-          </button>
+        <div className="background_declaration">
+          <p>
+            Dieses Päckchen wird importiert, wenn in dem Referat
+            Ergebnisprodukte jeglicher Art (Software, Materialien, Content,...)
+            entstehen, die barrierefrei sein sollen.
+          </p>
         </div>
 
-        <p className="check">
-        </p>
-        <div class="change">Zuletzt aktualisiert am {currDate} um {currTime} </div>
-        <hr>
-        </hr>
-        <div class="dFooter">
-        <progress value={0.3} />
-        <button>Ergebnisse</button>
+        <div className="dFooter">
+          {showProgress && (
+            <>
+              <progress value={progress} max={1} />
+              <div className="progress-text">
+                Fortschritt: {Math.round(progress * 100)}%
+              </div>
+            </>
+          )}
+          {/*   <div className="change">
+            Zuletzt aktualisiert am {currDate} um {currTime}
+          </div> */}
+          {showStartButton && firstHF && (
+            <div className="dFooterButtons">
+              <Link to={`/questionnaire/${dimensionId}/${firstHF.id}`}>
+                <button className="startButton">Start</button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
-   
     </div>
   );
 };
 
-export default Card;
+export default Card_dimensions;

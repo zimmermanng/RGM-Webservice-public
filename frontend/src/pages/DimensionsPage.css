@@ -29,9 +29,6 @@
   }
 }
 
-.gridItem {
-  transition: transform 0.2s ease;
-}
 
 .gridItem:focus {
   outline-offset: 3px;
@@ -39,8 +36,6 @@
 
 .gridItem[aria-grabbed="true"] {
   opacity: 0.7;
-  
-  transform: scale(1.03);
 }
 
 
@@ -107,4 +102,28 @@
   overflow: hidden;
 }
 
+.footerDimension {
+    display: flex;
+    justify-content: space-between; /* links und rechts außen */
+    align-items: center;            /* vertikal zentriert */
+    padding: 20px;
+    width: 100%;                    /* Container füllt die Breite */
+    box-sizing: border-box;         /* Padding wird berücksichtigt */
+}
 
+.footerDimension button {
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* linker Button */
+.footerDimension .editButton {
+    background-color: orange;
+}
+
+/* rechter Button */
+.footerDimension .results {
+    background-color: orange; /* gleiche Farbe wie linker Button, kannst du ändern */
+}

@@ -1,0 +1,131 @@
+.footer {
+    display:flex;
+    margin-left:auto;
+    padding:20px;
+}
+
+.footer button {
+    width:150px;
+    height:50px;
+    background-color: orange;
+    border:none;
+    border-radius: 10px;
+}
+
+.footer button:hover {
+    background-color: darkorange;
+}
+.mainContainer {
+  margin-top: 3rem;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* max. 4 Cards pro Reihe */
+  gap: 1.5rem;
+  justify-items: stretch;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gridContainer {
+    grid-template-columns: 1fr; /* mobil: eine Spalte */
+  }
+}
+
+.gridItem:focus {
+  outline-offset: 3px;
+}
+
+.gridItem[aria-grabbed="true"] {
+  opacity: 0.7;
+
+}
+
+
+.editToggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.toggleButton {
+  width: 70px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggleButton.on {
+  background-color: var(--footer-color);
+}
+
+.toggleButton.off {
+  background-color: #888;
+}
+
+/* =========================================
+   ✏️ Bearbeitungsmodus: Drop-Zonen
+   ========================================= */
+.editModeWrapper {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.dropZone {
+  min-height: 300px;
+  min-width:1300px;
+  flex:1;
+  padding: 1rem;
+  border: 2px dashed var(--details-color);
+  border-radius: 12px;
+  background-color: "#f8f8f8";
+}
+
+/* Zeigt Hintergrund nur, wenn leer */
+.dropZone:empty {
+  background-color: #f8f8f8;
+}
+
+.dropZone h4 {
+  margin-bottom: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  left: -9999px;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+.gridItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.gridItem > .card_dimensions {
+  flex: 1; /* Card füllt das GridItem */
+  height: 100%;
+}

@@ -63,7 +63,7 @@ function HeaderDesktop({ activeCompany }) {
               </li>
             ))}
           </ul>
-        </nav>
+        </nav> */}
 
         <button
           className="HamburgerMenu"

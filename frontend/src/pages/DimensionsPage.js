@@ -1,194 +1,69 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import "./DimensionsPage.css";
 import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
+import { Link } from "react-router-dom";
 
 const DimensionsPage = ({ activeCompany }) => {
-  const [toEdit, setToEdit] = useState(data.dimensionen);
-  const [notToEdit, setNotToEdit] = useState([]);
-  const [draggedCard, setDraggedCard] = useState(null);
-  const [editMode, setEditMode] = useState(true);
-  const liveRegionRef = useRef(null);
-  const toggleEditMode = () => setEditMode(!editMode);
+  const stored = localStorage.getItem("activeDimensions");
+  const activeIds = stored ? JSON.parse(stored) : null;
 
-  const handleDragStart = (e, card, fromList) => {
-    setDraggedCard({ card, fromList });
-    e.dataTransfer.effectAllowed = "move";
-  };
-
-  const handleDrop = (e, targetList) => {
-    e.preventDefault();
-    if (!draggedCard) return;
-
-    moveCard(draggedCard.card, draggedCard.fromList, targetList);
-    setDraggedCard(null);
-  };
-
-  const moveCard = (card, fromList, toList) => {
-    if (fromList === toList) return;
-
-    if (fromList === "toEdit") {
-      setToEdit((prev) => prev.filter((c) => c.id !== card.id));
-      setNotToEdit((prev) => [...prev, card]);
-      announce(`"${card.name}" verschoben in Nicht zu bearbeiten`);
-    } else {
-      setNotToEdit((prev) => prev.filter((c) => c.id !== card.id));
-      setToEdit((prev) => [...prev, card]);
-      announce(`"${card.name}" verschoben in Zu bearbeiten`);
-    }
-
-    // Fokus nach Verschieben auf Karte setzen
-    setTimeout(() => {
-      const newFocus = document.getElementById(`card-${card.id}`);
-      if (newFocus) newFocus.focus();
-    }, 100);
-  };
-
-  const announce = (message) => {
-    if (liveRegionRef.current) {
-      liveRegionRef.current.textContent = "";
-      setTimeout(() => {
-        liveRegionRef.current.textContent = message;
-      }, 50);
-    }
-  };
+  const dimensionen = activeIds
+    ? data.dimensionen.filter((d) => activeIds.includes(d.id))
+    : data.dimensionen;
 
   const isEditable = activeCompany === "LMZ";
 
+  // 🔹 Antworten aus localStorage laden
+  const storedAnswers = JSON.parse(localStorage.getItem("answers") || "{}");
+
   return (
-    <div className="mainContainer" id="top">
-      <h2>Dimensionsübersicht</h2>
-      <p id="pageDescription">
-        Hier können Sie die verfügbaren Dimensionen auswählen und zugehörige
-        Fragebögen beantworten.
+    <div className="mainContainer">
+      <h2>Übersicht</h2>
+      <p>
+        Hier finden Sie ihre zuvor gewählten Pakete Ihres persönlichen
+        Reifegradmodells.
       </p>
+      <div className="gridContainer">
+        {dimensionen.map((dimension) => {
+          // 🔹 Antworten für diese Dimension
+          const answeredObj = storedAnswers[dimension.id] || {};
+          const answeredCount = Object.keys(answeredObj).length;
 
-      {isEditable && (
-        <div className="editToggle">
-          <span id="editModeLabel">Bearbeitungsmodus:</span>
-          <button
-            className={`toggleButton ${editMode ? "on" : "off"}`}
-            role="switch"
-            aria-checked={editMode}
-            aria-labelledby="editModeLabel"
-            onClick={toggleEditMode}
-            onKeyDown={(e) => {
-              if (e.key === " " || e.key === "Enter") {
-                e.preventDefault();
-                toggleEditMode();
-              }
-            }}
-          >
-            {isEditable && editMode ? "An" : "Aus"}
-          </button>
-        </div>
-      )}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-        ref={liveRegionRef}
-      />
+          // 🔹 Gesamtanzahl Fragen dieser Dimension
+          const totalQuestions = dimension.handlungsfelder.reduce(
+            (sum, hf) => sum + (hf.fragen?.length || 0),
+            0,
+          );
 
-      {isEditable && editMode ? (
-        <div className="editModeWrapper">
-          <div
-            className="dropZone"
-            role="region"
-            aria-label="Zu bearbeiten"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => handleDrop(e, "toEdit")}
-          >
-            <h4>Zu bearbeiten</h4>
-            <div className="gridContainer">
-              {toEdit.map((dimension) => (
-                <div
-                  key={dimension.id}
-                  id={`card-${dimension.id}`}
-                  className="gridItem"
-                  role="gridcell"
-                  tabIndex="0"
-                  draggable
-                  aria-grabbed={draggedCard?.card.id === dimension.id}
-                  onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
-                  onKeyDown={(e) => {
-                    if ((e.ctrlKey || e.metaKey) && e.key === "ArrowRight") {
-                      e.preventDefault();
-                      moveCard(dimension, "toEdit", "notToEdit");
-                    }
-                  }}
-                >
-                  <Card_dimensions
-                    title={dimension.name}
-                    dimensionId={dimension.id}
-                    handlungsfelder={dimension.handlungsfelder}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          const progress =
+            totalQuestions > 0 ? answeredCount / totalQuestions : 0;
 
-          <div
-            className="dropZone"
-            role="region"
-            aria-label="Nicht zu bearbeiten"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => handleDrop(e, "notToEdit")}
-          >
-            <h4>Nicht zu bearbeiten</h4>
-            <div className="gridContainer">
-              {notToEdit.map((dimension) => (
-                <div
-                  key={dimension.id}
-                  id={`card-${dimension.id}`}
-                  className="gridItem"
-                  role="gridcell"
-                  tabIndex="0"
-                  draggable
-                  aria-grabbed={draggedCard?.card.id === dimension.id}
-                  onDragStart={(e) =>
-                    handleDragStart(e, dimension, "notToEdit")
-                  }
-                  onKeyDown={(e) => {
-                    if ((e.ctrlKey || e.metaKey) && e.key === "ArrowLeft") {
-                      e.preventDefault();
-                      moveCard(dimension, "notToEdit", "toEdit");
-                    }
-                  }}
-                >
-                  <Card_dimensions
-                    title={dimension.name}
-                    list={dimension.handlungsfelder.map((h) => h.name)}
-                    link={`/questionnaire/${dimension.id}`}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div
-          className="gridContainer"
-          role="grid"
-          aria-describedby="pageDescription"
-        >
-          {toEdit.map((dimension) => (
-            <div
-              key={dimension.id}
-              id={`card-${dimension.id}`}
-              className="gridItem"
-              role="gridcell"
-              tabIndex="0"
-            >
+          return (
+            <div key={dimension.id} className="gridItem">
               <Card_dimensions
                 title={dimension.name}
                 dimensionId={dimension.id}
                 handlungsfelder={dimension.handlungsfelder}
+                progress={progress} // 🔹 Fortschritt übergeben
               />
             </div>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
+      <div className="footerDimension">
+        {isEditable && (
+          <>
+            <div className="editButtonContainer">
+              <Link to="/dimensions/bearbeiten">
+                <button className="editButton">Konfigurationsmodus ←</button>
+              </Link>
+            </div>
+
+            <button className="results"> Ergebnisse ansehen →</button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -10,27 +10,31 @@ import {
 } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
+// /api für den Server
 const API_BASE = "http://localhost:3011";
 
-export default function QuestionnairePage({ onUpload }) {
+export default function QuestionnairePage({ onUpload, activeCompany }) {
   const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
 
+  // Antworten pro Handlungsfeld speichern
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [postedComments, setPostedComments] = useState([]);
   const [inputs, setInputs] = useState({ user: "", text: "" });
-
   const currentDimension = struktur.dimensionen.find(
-    (d) => d.id === dimensionId
+    (d) => d.id === dimensionId,
   );
+  const handlungsfelder = currentDimension?.handlungsfelder || [];
 
-  const currentHandlungsfeld = currentDimension?.handlungsfelder.find(
-    (h) => h.id === handlungsfeldId
+  // Index des aktuellen HF
+  const currentHFIndex = handlungsfelder.findIndex(
+    (h) => h.id === handlungsfeldId,
   );
-
+  const currentHandlungsfeld = handlungsfelder[currentHFIndex];
+  const comments = activeCompany === "Shuffle";
+  // Filter Fragen für dieses HF
   const filteredFragen = useMemo(() => {
     if (!currentHandlungsfeld) return [];
-
     return currentHandlungsfeld.fragen
       .map((ref) => fragen.fragen.find((f) => f.id === ref.id))
       .filter(Boolean);
@@ -40,21 +44,35 @@ export default function QuestionnairePage({ onUpload }) {
     return <p>Handlungsfeld nicht gefunden.</p>;
   }
 
+  // Antworten merken
+  // Antworten merken
   const handleAnswerClick = (frage, antwort) => {
-    setSelectedAnswers((prev) => ({
-      ...prev,
-      [frage.id]: {
-        frageId: frage.id,
-        frageText: frage.frage,
-        antwortId: antwort.id,
-        antwortText: antwort.antwort,
-        stufe: antwort.stufe,
-        group: currentDimension.name,
-        category: currentHandlungsfeld.name,
-        dimensionId,
-        handlungsfeldId,
-      },
-    }));
+    setSelectedAnswers((prev) => {
+      const newAnswersForHF = {
+        ...prev,
+        [frage.id]: {
+          frageId: frage.id,
+          frageText: frage.frage,
+          antwortId: antwort.id,
+          antwortText: antwort.antwort,
+          stufe: antwort.stufe,
+          group: currentDimension.name,
+          category: currentHandlungsfeld.name,
+          dimensionId,
+          handlungsfeldId,
+        },
+      };
+
+      // 🔹 alle Antworten der Dimension im localStorage speichern
+      const allAnswers = JSON.parse(localStorage.getItem("answers") || "{}");
+      allAnswers[dimensionId] = {
+        ...allAnswers[dimensionId], // alte Antworten behalten
+        ...newAnswersForHF, // neue/aktualisierte hinzufügen
+      };
+      localStorage.setItem("answers", JSON.stringify(allAnswers));
+
+      return newAnswersForHF;
+    });
   };
 
   setDebug(true);
@@ -68,16 +86,14 @@ export default function QuestionnairePage({ onUpload }) {
       dimensionId,
     });
 
-  const buildCommentsExport = () => {
-    return {
-      dimensionId,
-      handlungsfeldId,
-      dimensionName: currentDimension?.name || "",
-      handlungsfeldName: currentHandlungsfeld?.name || "",
-      timestamp: new Date().toISOString(),
-      comments: postedComments,
-    };
-  };
+  const buildCommentsExport = () => ({
+    dimensionId,
+    handlungsfeldId,
+    dimensionName: currentDimension?.name || "",
+    handlungsfeldName: currentHandlungsfeld?.name || "",
+    timestamp: new Date().toISOString(),
+    comments: postedComments,
+  });
 
   const handleSubmit = async () => {
     const payload = {
@@ -139,12 +155,12 @@ export default function QuestionnairePage({ onUpload }) {
         results,
         selections: Object.values(selectedAnswers),
       },
-      `results_${dimensionId}_${handlungsfeldId}_${ts}.json`
+      `results_${dimensionId}_${handlungsfeldId}_${ts}.json`,
     );
 
     downloadJSON(
       commentsExport,
-      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`
+      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`,
     );
   };
 
@@ -158,24 +174,36 @@ export default function QuestionnairePage({ onUpload }) {
 
   const handlePost = () => {
     if (!inputs.user || !inputs.text) return;
-
     setPostedComments((prev) => [...prev, inputs]);
     setInputs({ user: "", text: "" });
   };
 
+  // Navigation Funktionen
+  const navigateToHandlungsfeld = (index) => {
+    if (index < 0 || index >= handlungsfelder.length) return;
+    const nextHF = handlungsfelder[index];
+    navigate(`/questionnaire/${dimensionId}/${nextHF.id}`);
+  };
+
+  const handleNext = () => navigateToHandlungsfeld(currentHFIndex + 1);
+  const handlePrev = () => navigateToHandlungsfeld(currentHFIndex - 1);
+
   return (
     <div className="mainContainer" id="top">
+      <div className="top-buttons">
+        <button onClick={() => navigate("/dimensions")}>
+          ← Zurück zur Übersicht
+        </button>
+      </div>
       <div className="questions-container">
-        <h1>{currentDimension?.name || "Unbekannte Dimension"}</h1>
-        <h2>{currentHandlungsfeld?.name || "Unbekanntes Handlungsfeld"}</h2>
-
+        <h1>{currentDimension?.name}</h1>
+        <h2>{currentHandlungsfeld?.name}</h2>
         {filteredFragen.length === 0 ? (
-          <p>Keine Fragen für diese Dimension gefunden.</p>
+          <p>Keine Fragen für dieses Handlungsfeld gefunden.</p>
         ) : (
           filteredFragen.map((frage) => (
             <div key={frage.id} className="question-box">
               <p className="question-text">{frage.frage}</p>
-
               <div className="answers">
                 {[
                   ...(frage.antworten || []),
@@ -188,13 +216,10 @@ export default function QuestionnairePage({ onUpload }) {
                 ].map((antwort) => {
                   const isSelected =
                     selectedAnswers[frage.id]?.antwortId === antwort.id;
-
                   return (
                     <button
                       key={`${frage.id}-${antwort.id || "none"}`}
-                      className={`answer-button ${
-                        isSelected ? "selected" : ""
-                      }`}
+                      className={`answer-button ${isSelected ? "selected" : ""}`}
                       onClick={() => handleAnswerClick(frage, antwort)}
                     >
                       {antwort.antwort}
@@ -206,15 +231,38 @@ export default function QuestionnairePage({ onUpload }) {
           ))
         )}
 
-        <h2>Kommentare</h2>
-        <CommentBox
-          inputs={inputs}
-          comments={postedComments}
-          onInputChange={handleInputChange}
-          onPost={handlePost}
-        />
+        {comments && (
+          <CommentBox
+            inputs={inputs}
+            comments={postedComments}
+            onInputChange={handleInputChange}
+            onPost={handlePost}
+          />
+        )}
 
-        <div>
+        {/* Handlungsfeld Navigation */}
+        <div className="hf-navigation">
+          <button
+            onClick={handlePrev}
+            disabled={currentHFIndex === 0}
+            className="nav-button"
+          >
+            Zurück
+          </button>
+          <span>
+            {currentHFIndex + 1} / {handlungsfelder.length}
+          </span>
+          <button
+            onClick={handleNext}
+            disabled={currentHFIndex === handlungsfelder.length - 1}
+            className="nav-button"
+          >
+            Weiter
+          </button>
+        </div>
+
+        {/* Auswertung / Download Buttons */}
+        <div className="submit-buttons">
           <button
             className="submit-button"
             onClick={handleSubmit}
