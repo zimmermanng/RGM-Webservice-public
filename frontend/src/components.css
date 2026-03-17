@@ -855,3 +855,8 @@ td span.nicht-bewertet {
 .logout-button--mobile {
   width: 100%;
 }
+
+.results:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
