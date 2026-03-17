@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
+import struktur from "../components/data/struktur.json";
 
 const API_BASE = "http://localhost:3011";
 
@@ -26,19 +27,36 @@ const RawResults = () => {
         const res = await fetch(`${API_BASE}/session/results`, {
           credentials: "include",
         });
-
-        if (!res.ok) {
+        if (!res.ok)
           throw new Error(`Server antwortete mit Status ${res.status}`);
-        }
 
         const data = await res.json();
-        console.log("GET /session/results:", data);
 
+        // 1️⃣ Backend-Antwort normalisieren
         const normalizedEntries = normalizeResponseToEntries(data);
-        const combined = combineEntries(normalizedEntries);
 
-        console.log("Resolved combined surveyResults for page:", combined);
-        console.log("Resolved combined selections:", combined?.selections);
+        // 2️⃣ Aktive Pakete aus localStorage holen
+        const stored = localStorage.getItem("activeDimensions");
+        const activeIds = stored ? JSON.parse(stored) : [];
+        const idToName = struktur.dimensionen.reduce((acc, d) => {
+          acc[d.id] = d.name;
+          return acc;
+        }, {});
+        const activeNames = activeIds.map((id) => idToName[id]);
+
+        // 3️⃣ Nur aktive Pakete behalten
+        const filteredEntries = normalizedEntries.map((entry) => ({
+          ...entry,
+          results: (entry.results || []).filter((r) =>
+            activeNames.includes(r.group),
+          ),
+          selections: (entry.selections || []).filter((s) =>
+            activeNames.includes(s.group),
+          ),
+        }));
+
+        // 4️⃣ Einträge kombinieren (neueste Antworten pro Frage)
+        const combined = combineEntries(filteredEntries);
 
         setSurveyResults(combined);
       } catch (err) {
@@ -63,15 +81,12 @@ function normalizeResponseToEntries(data) {
   if (Array.isArray(data?.results)) {
     return data.results.map((entry) => entry?.data ?? entry).filter(Boolean);
   }
-
   if (Array.isArray(data)) {
     return data.map((entry) => entry?.data ?? entry).filter(Boolean);
   }
-
   if (data?.data) {
     return [data.data].filter(Boolean);
   }
-
   return data ? [data] : [];
 }
 
@@ -89,18 +104,19 @@ function combineEntries(entries) {
   const allComments = [];
 
   sortedEntries.forEach((entry) => {
-    (Array.isArray(entry?.results) ? entry.results : []).forEach((row, index) => {
-      const key =
-        row?.id || `${row?.group || "group"}__${row?.category || "category"}__${index}`;
-      resultsByKey.set(key, row);
-    });
+    (Array.isArray(entry?.results) ? entry.results : []).forEach(
+      (row, index) => {
+        const key = `${row.group}__${row.category}`; // index weglassen
+        resultsByKey.set(key, row);
+      },
+    );
 
-    (Array.isArray(entry?.selections) ? entry.selections : []).forEach((selection, index) => {
-      const key =
-        selection?.frageId ||
-        `${selection?.group || "group"}__${selection?.category || "category"}__${index}`;
-      selectionsByQuestionId.set(key, selection);
-    });
+    (Array.isArray(entry?.selections) ? entry.selections : []).forEach(
+      (selection, index) => {
+        const key = selection.frageId; // frageId reicht als eindeutiger Schlüssel
+        selectionsByQuestionId.set(key, selection);
+      },
+    );
 
     if (Array.isArray(entry?.comments) && entry.comments.length > 0) {
       allComments.push(...entry.comments);
