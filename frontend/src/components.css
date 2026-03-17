@@ -754,6 +754,7 @@ td span.nicht-bewertet {
 .editModeWrapper {
   gap: var(--space-6);
   margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
   padding: clamp(1rem, 2vw, 1.5rem);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);

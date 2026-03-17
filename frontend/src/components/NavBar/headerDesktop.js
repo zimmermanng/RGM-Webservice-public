@@ -9,12 +9,9 @@ const NAV_ITEMS = {
     { label: "Dimensionen", to: "/dimensions" },
   ],
   LMZ: [
-    { label: "Startseite", to: "/start" },
-    { label: "Fragebogen", to: "/dimensions" },
-  ],
-  Shuffle: [
-    { label: "Startseite", to: "/start" },
-    { label: "Fragebogen", to: "/dimensions" },
+    { label: "Startseite", to: "/" },
+    { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
+    { label: "Fragebogen", to: "/dimensions" }
   ],
 };
 
