@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import struktur from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
@@ -9,81 +9,118 @@ import {
 } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
-// /api für den Server
 const API_BASE = "http://localhost:3011";
+const ANSWERS_STORAGE_KEY = "answers";
 
-export default function QuestionnairePage({ onUpload, activeCompany }) {
+export default function QuestionnairePage({ activeCompany }) {
   const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
 
-  // Antworten pro Handlungsfeld speichern
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [postedComments, setPostedComments] = useState([]);
   const [inputs, setInputs] = useState({ user: "", text: "" });
-  const currentDimension = struktur.dimensionen.find(
-    (d) => d.id === dimensionId,
-  );
-  const handlungsfelder = currentDimension?.handlungsfelder || [];
 
-  // Index des aktuellen HF
-  const currentHFIndex = handlungsfelder.findIndex(
-    (h) => h.id === handlungsfeldId,
-  );
+  const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
+  const handlungsfelder = currentDimension?.handlungsfelder || [];
+  const currentHFIndex = handlungsfelder.findIndex((h) => h.id === handlungsfeldId);
   const currentHandlungsfeld = handlungsfelder[currentHFIndex];
-  const comments = activeCompany === "Shuffle";
-  // Filter Fragen für dieses HF
+  const commentsEnabled = activeCompany === "Shuffle";
+
   const filteredFragen = useMemo(() => {
     if (!currentHandlungsfeld) return [];
+
     return currentHandlungsfeld.fragen
       .map((ref) => fragen.fragen.find((f) => f.id === ref.id))
       .filter(Boolean);
   }, [currentHandlungsfeld]);
 
+  setDebug(true);
+
+  function readStoredAnswers() {
+    try {
+      const raw = localStorage.getItem(ANSWERS_STORAGE_KEY);
+      const parsed = JSON.parse(raw || "{}");
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (error) {
+      console.warn("Konnte localStorage answers nicht lesen:", error);
+      return {};
+    }
+  }
+
+  function writeStoredAnswers(allAnswers) {
+    localStorage.setItem(ANSWERS_STORAGE_KEY, JSON.stringify(allAnswers));
+  }
+
+  function flattenSelections(allAnswersByDimension) {
+    return Object.values(allAnswersByDimension)
+      .flatMap((dimensionAnswers) => Object.values(dimensionAnswers || {}))
+      .filter(Boolean);
+  }
+
+  function buildAggregatedResults(allAnswersByDimension) {
+    const mergedRows = new Map();
+
+    Object.entries(allAnswersByDimension).forEach(([dimId, answersForDimension]) => {
+      if (!answersForDimension || Object.keys(answersForDimension).length === 0) {
+        return;
+      }
+
+      const rows = answersToResultsWithRecommendations({
+        selectedAnswers: answersForDimension,
+        struktur,
+        fragen,
+        handlEmpf,
+        dimensionId: dimId,
+      });
+
+      (Array.isArray(rows) ? rows : []).forEach((row, index) => {
+        const key =
+          row?.id || `${row?.group || "group"}__${row?.category || "category"}__${index}`;
+        mergedRows.set(key, row);
+      });
+    });
+
+    return Array.from(mergedRows.values());
+  }
+
+  useEffect(() => {
+    const allStoredAnswers = readStoredAnswers();
+    setSelectedAnswers(allStoredAnswers[dimensionId] || {});
+  }, [dimensionId, handlungsfeldId]);
+
   if (!currentDimension || !currentHandlungsfeld) {
     return <p>Handlungsfeld nicht gefunden.</p>;
   }
 
-  // Antworten merken
-  // Antworten merken
   const handleAnswerClick = (frage, antwort) => {
+    const nextSelection = {
+      frageId: frage.id,
+      frageText: frage.frage,
+      antwortId: antwort.id,
+      antwortText: antwort.antwort,
+      stufe: antwort.stufe,
+      group: currentDimension.name,
+      category: currentHandlungsfeld.name,
+      dimensionId,
+      handlungsfeldId,
+    };
+
     setSelectedAnswers((prev) => {
-      const newAnswersForHF = {
+      const nextAnswersForDimension = {
         ...prev,
-        [frage.id]: {
-          frageId: frage.id,
-          frageText: frage.frage,
-          antwortId: antwort.id,
-          antwortText: antwort.antwort,
-          stufe: antwort.stufe,
-          group: currentDimension.name,
-          category: currentHandlungsfeld.name,
-          dimensionId,
-          handlungsfeldId,
-        },
+        [frage.id]: nextSelection,
       };
 
-      // 🔹 alle Antworten der Dimension im localStorage speichern
-      const allAnswers = JSON.parse(localStorage.getItem("answers") || "{}");
-      allAnswers[dimensionId] = {
-        ...allAnswers[dimensionId], // alte Antworten behalten
-        ...newAnswersForHF, // neue/aktualisierte hinzufügen
+      const allStoredAnswers = readStoredAnswers();
+      allStoredAnswers[dimensionId] = {
+        ...(allStoredAnswers[dimensionId] || {}),
+        [frage.id]: nextSelection,
       };
-      localStorage.setItem("answers", JSON.stringify(allAnswers));
+      writeStoredAnswers(allStoredAnswers);
 
-      return newAnswersForHF;
+      return nextAnswersForDimension;
     });
   };
-
-  setDebug(true);
-
-  const resultRowsForCurrentState = () =>
-    answersToResultsWithRecommendations({
-      selectedAnswers,
-      struktur,
-      fragen,
-      handlEmpf,
-      dimensionId,
-    });
 
   const buildCommentsExport = () => ({
     dimensionId,
@@ -94,50 +131,63 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
     comments: postedComments,
   });
 
- const handleSubmit = async () => {
-  const payload = {
-    dimensionId,
-    handlungsfeldId,
-    timestamp: new Date().toISOString(),
-    results: resultRowsForCurrentState(),
-    selections: Object.values(selectedAnswers),
-    comments: postedComments,
+  const buildFullPayload = () => {
+    const allStoredAnswers = readStoredAnswers();
+
+    allStoredAnswers[dimensionId] = {
+      ...(allStoredAnswers[dimensionId] || {}),
+      ...selectedAnswers,
+    };
+
+    const selections = flattenSelections(allStoredAnswers);
+    const results = buildAggregatedResults(allStoredAnswers);
+
+    return {
+      dimensionId,
+      handlungsfeldId,
+      timestamp: new Date().toISOString(),
+      results,
+      selections,
+      comments: postedComments,
+    };
   };
 
-  console.log("Submitting payload:", payload);
+  const handleSubmit = async () => {
+    const payload = buildFullPayload();
+    console.log("Submitting aggregated payload:", payload);
 
-  try {
-    const response = await fetch(`${API_BASE}/session/results`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const response = await fetch(`${API_BASE}/session/results`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    if (response.status === 401) {
-      alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
-      navigate("/login");
-      return;
+      if (response.status === 401) {
+        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+        navigate("/login");
+        return;
+      }
+
+      if (response.status === 403) {
+        alert("Bitte zuerst ein Team auswählen.");
+        navigate("/team-select");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`Server antwortete mit Status ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Backend-Antwort:", data);
+      navigate("/rawresults");
+    } catch (error) {
+      console.error("Fehler beim Senden:", error);
+      alert("Backend nicht erreichbar oder Fehler beim Senden");
     }
-
-    if (response.status === 403) {
-      alert("Bitte zuerst ein Team auswählen.");
-      navigate("/team-select");
-      return;
-    }
-
-    if (!response.ok) {
-      throw new Error(`Server antwortete mit Status ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Backend-Antwort:", data);
-    navigate("/rawresults");
-  } catch (err) {
-    console.error("Fehler beim Senden:", err);
-    alert("Backend nicht erreichbar oder Fehler beim Senden");
-  }
-};
+  };
 
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -154,24 +204,14 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
   };
 
   const handleDownload = () => {
-    const results = resultRowsForCurrentState();
+    const payload = buildFullPayload();
     const commentsExport = buildCommentsExport();
     const ts = new Date().toISOString().replace(/[:.]/g, "-");
 
-    downloadJSON(
-      {
-        dimensionId,
-        handlungsfeldId,
-        timestamp: new Date().toISOString(),
-        results,
-        selections: Object.values(selectedAnswers),
-      },
-      `results_${dimensionId}_${handlungsfeldId}_${ts}.json`,
-    );
-
+    downloadJSON(payload, `results_${dimensionId}_${handlungsfeldId}_${ts}.json`);
     downloadJSON(
       commentsExport,
-      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`,
+      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`
     );
   };
 
@@ -189,7 +229,6 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
     setInputs({ user: "", text: "" });
   };
 
-  // Navigation Funktionen
   const navigateToHandlungsfeld = (index) => {
     if (index < 0 || index >= handlungsfelder.length) return;
     const nextHF = handlungsfelder[index];
@@ -202,19 +241,20 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
   return (
     <div className="mainContainer" id="top">
       <div className="top-buttons">
-        <button onClick={() => navigate("/dimensions")}>
-          ← Zurück zur Übersicht
-        </button>
+        <button onClick={() => navigate("/dimensions")}>← Zurück zur Übersicht</button>
       </div>
+
       <div className="questions-container">
         <h1>{currentDimension?.name}</h1>
         <h2>{currentHandlungsfeld?.name}</h2>
+
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für dieses Handlungsfeld gefunden.</p>
         ) : (
           filteredFragen.map((frage) => (
             <div key={frage.id} className="question-box">
               <p className="question-text">{frage.frage}</p>
+
               <div className="answers">
                 {[
                   ...(frage.antworten || []),
@@ -225,8 +265,8 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
                     frage: frage.frage,
                   },
                 ].map((antwort) => {
-                  const isSelected =
-                    selectedAnswers[frage.id]?.antwortId === antwort.id;
+                  const isSelected = selectedAnswers[frage.id]?.antwortId === antwort.id;
+
                   return (
                     <button
                       key={`${frage.id}-${antwort.id || "none"}`}
@@ -242,7 +282,7 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
           ))
         )}
 
-        {comments && (
+        {commentsEnabled && (
           <CommentBox
             inputs={inputs}
             comments={postedComments}
@@ -251,7 +291,6 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
           />
         )}
 
-        {/* Handlungsfeld Navigation */}
         <div className="hf-navigation">
           <button
             onClick={handlePrev}
@@ -260,9 +299,11 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
           >
             Zurück
           </button>
+
           <span>
             {currentHFIndex + 1} / {handlungsfelder.length}
           </span>
+
           <button
             onClick={handleNext}
             disabled={currentHFIndex === handlungsfelder.length - 1}
@@ -272,21 +313,12 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
           </button>
         </div>
 
-        {/* Auswertung / Download Buttons */}
         <div className="submit-buttons">
-          <button
-            className="submit-button"
-            onClick={handleSubmit}
-            disabled={!allAnswered}
-          >
+          <button className="submit-button" onClick={handleSubmit} disabled={!allAnswered}>
             Auswerten & anzeigen
           </button>
 
-          <button
-            className="submit-button"
-            onClick={handleDownload}
-            disabled={!anyAnswered}
-          >
+          <button className="submit-button" onClick={handleDownload} disabled={!anyAnswered}>
             JSON herunterladen (Debug)
           </button>
         </div>
