@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const NAV_ITEMS = {
   default: [
-    { label: "Startseite", to: "/" },
+    { label: "Startseite", to: "/start" },
     { label: "Downloads", to: "/download" },
     { label: "Upload", to: "/upload" },
     { label: "Dimensionen", to: "/dimensions" },
@@ -11,7 +11,7 @@ const NAV_ITEMS = {
   LMZ: [
     { label: "Startseite", to: "/" },
     { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
-    { label: "Fragebogen", to: "/dimensions" }
+    { label: "Fragebogen", to: "/dimensions" },
   ],
 };
 
@@ -21,7 +21,7 @@ const LOGO_BY_COMPANY = {
   default: "/LMZ-Logo.jpg",
 };
 
-function HeaderDesktop({ activeCompany }) {
+function HeaderDesktop({ activeCompany, onLogout, team }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -34,15 +34,39 @@ function HeaderDesktop({ activeCompany }) {
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
-const isActive = (path) => {
-  return location.pathname === path;
-};
+  const isActive = (path) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+
+    if (path === "/dimensions") {
+      return (
+        location.pathname === "/dimensions" ||
+        location.pathname.startsWith("/questionnaire")
+      );
+    }
+
+    if (path === "/dimensions/bearbeiten") {
+      return location.pathname.startsWith("/dimensions/bearbeiten");
+    }
+
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
+
+  const handleLogoutClick = async () => {
+    closeMenu();
+    if (onLogout) {
+      await onLogout();
+    }
+  };
+
+  const homeTarget = activeCompany === "LMZ" ? "/" : "/start";
 
   return (
     <header className="Header">
       <div className="header-inner">
         <div className="logo">
-          <Link className="logotext" to="/" onClick={closeMenu}>
+          <Link className="logotext" to={homeTarget} onClick={closeMenu}>
             <img src={logoSrc} alt={`${activeCompany || "LMZ"} Logo`} />
             <span>RGM-Prüfwerkzeug</span>
           </Link>
@@ -64,16 +88,28 @@ const isActive = (path) => {
           </ul>
         </nav>
 
-        <button
-          className="HamburgerMenu"
-          type="button"
-          onClick={toggleMenu}
-          aria-expanded={isOpen}
-          aria-controls="mobile-navigation"
-          aria-label="Navigation öffnen oder schließen"
-        >
-          ☰
-        </button>
+        <div className="header-actions">
+          {team && <span className="team-indicator">{team}</span>}
+
+          <button
+            type="button"
+            className="logout-button"
+            onClick={handleLogoutClick}
+          >
+            Logout
+          </button>
+
+          <button
+            className="HamburgerMenu"
+            type="button"
+            onClick={toggleMenu}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label="Navigation öffnen oder schließen"
+          >
+            ☰
+          </button>
+        </div>
       </div>
 
       {isOpen && (
@@ -94,6 +130,20 @@ const isActive = (path) => {
                 </Link>
               </li>
             ))}
+
+            <li className="mobile-team-row">
+              {team && <span className="team-indicator">{team}</span>}
+            </li>
+
+            <li>
+              <button
+                type="button"
+                className="logout-button logout-button--mobile"
+                onClick={handleLogoutClick}
+              >
+                Logout
+              </button>
+            </li>
           </ul>
         </nav>
       )}

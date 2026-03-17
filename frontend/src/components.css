@@ -234,12 +234,14 @@
 }
 
 .header-inner {
+  width: min(100%, var(--content-max));
+  margin-inline: auto;
   min-height: var(--header-height);
-  padding: 0.75rem 0;
-  display: flex;
-  justify-content: space-between;
+  padding: 0.75rem var(--page-gutter);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: var(--space-4);
+  column-gap: var(--space-4);
 }
 
 .logo,
@@ -247,6 +249,10 @@
   display: flex;
   align-items: center;
   min-width: 0;
+}
+
+.logo {
+  justify-self: start;
 }
 
 .logotext {
@@ -272,6 +278,12 @@
 
 .logotext span {
   line-height: 1.2;
+  white-space: nowrap;
+}
+
+.nav-desktop {
+  justify-self: center;
+  min-width: 0;
 }
 
 .nav-desktop ul,
@@ -284,6 +296,7 @@
 .nav-desktop ul {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.375rem;
 }
 
@@ -301,6 +314,14 @@
 .nav-link.active {
   background: var(--brand-accent-soft);
   color: var(--brand-primary-strong);
+}
+
+.header-actions {
+  justify-self: end;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .HamburgerMenu {
@@ -351,18 +372,6 @@
 .gridContainer {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: stretch;
-}
-
-.editGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-5);
-}
-
-@media (max-width: 900px) {
-  .editGrid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .homeGrid,
@@ -418,12 +427,12 @@
 }
 
 .editModeWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  margin-top: var(--space-5);
+  align-items: start;
 }
 
 .dropZone {
@@ -754,7 +763,6 @@ td span.nicht-bewertet {
 .editModeWrapper {
   gap: var(--space-6);
   margin-top: var(--space-6);
-  margin-bottom: var(--space-6);
   padding: clamp(1rem, 2vw, 1.5rem);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
@@ -774,17 +782,11 @@ td span.nicht-bewertet {
   background: color-mix(in srgb, var(--color-surface) 92%, var(--brand-primary-soft));
 }
 
-.dropZone .card
- {
+.dropZone .card,
+.dropZone .card_dimension {
   min-height: 8.5rem;
   justify-content: center;
 }
-
-.dropZone .card_dimension{
-  min-height: auto;
-  padding: var(--space-4);
-}
-
 
 .dFooter {
   margin-top: var(--space-6);
@@ -799,6 +801,59 @@ td span.nicht-bewertet {
   .nav-button {
     flex: 1 1 10rem;
   }
+}
+
+@media (max-width: 900px) {
+  .header-inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  .header-actions {
+    justify-self: end;
+  }
+
+  .HamburgerMenu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.logout-button {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1rem;
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--button-color);
+  color: var(--brand-button-text);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.logout-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(0.98);
+}
+
+.logout-button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.logout-button--mobile {
+  width: 100%;
 }
 
 .results:disabled {

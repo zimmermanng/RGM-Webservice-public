@@ -25,28 +25,11 @@ const RawResults = () => {
         let latest = null;
 
         if (Array.isArray(data?.results) && data.results.length > 0) {
-          const normalizedEntries = data.results
-            .map((entry) => entry?.data ?? entry)
-            .filter(Boolean);
-
-          latest = normalizedEntries.sort((a, b) => {
-            const ta = new Date(a?.timestamp || 0).getTime();
-            const tb = new Date(b?.timestamp || 0).getTime();
+          latest = [...data.results].sort((a, b) => {
+            const ta = new Date(a?.timestamp || a?.savedAt || 0).getTime();
+            const tb = new Date(b?.timestamp || b?.savedAt || 0).getTime();
             return tb - ta;
           })[0];
-        } else if (Array.isArray(data) && data.length > 0) {
-          latest = data
-            .map((entry) => entry?.data ?? entry)
-            .filter(Boolean)
-            .sort((a, b) => {
-              const ta = new Date(a?.timestamp || 0).getTime();
-              const tb = new Date(b?.timestamp || 0).getTime();
-              return tb - ta;
-            })[0];
-        } else if (data?.data) {
-          latest = data.data;
-        } else {
-          latest = data;
         }
 
         console.log("Resolved surveyResults for page:", latest);
@@ -66,6 +49,7 @@ const RawResults = () => {
 
   if (loading) return <p>Lade Ergebnisse...</p>;
   if (error) return <p>{error}</p>;
+  if (!surveyResults) return <p>Noch keine Ergebnisse vorhanden.</p>;
 
   return <SurveyResultPage surveyResults={surveyResults} />;
 };
