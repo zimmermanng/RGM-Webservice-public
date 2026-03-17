@@ -800,3 +800,8 @@ td span.nicht-bewertet {
     flex: 1 1 10rem;
   }
 }
+
+.results:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

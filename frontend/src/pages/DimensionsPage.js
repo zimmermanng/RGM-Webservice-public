@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 const DimensionsPage = ({ activeCompany }) => {
   const stored = localStorage.getItem("activeDimensions");
+  const activeDimensions = JSON.parse(
+  localStorage.getItem("activeDimensions") || "[]"
+);
   const activeIds = stored ? JSON.parse(stored) : null;
 
   const dimensionen = activeIds
@@ -15,6 +18,18 @@ const DimensionsPage = ({ activeCompany }) => {
 
   // 🔹 Antworten aus localStorage laden
   const storedAnswers = JSON.parse(localStorage.getItem("answers") || "{}");
+
+  const allCompleted = dimensionen.every((dimension) => {
+    const answeredObj = storedAnswers[dimension.id] || {};
+    const answeredCount = Object.keys(answeredObj).length;
+
+    const totalQuestions = dimension.handlungsfelder.reduce(
+      (sum, hf) => sum + (hf.fragen?.length || 0),
+      0,
+    );
+
+    return totalQuestions > 0 && answeredCount === totalQuestions;
+  });
 
   return (
     <div className="mainContainer">
@@ -58,8 +73,11 @@ const DimensionsPage = ({ activeCompany }) => {
                 <button className="editButton">Konfigurationsmodus ←</button>
               </Link>
             </div>
-
-            <button className="results"> Ergebnisse ansehen →</button>
+            <Link to="/rawresults">
+              <button className="results" disabled={!allCompleted}>
+                Ergebnisse ansehen
+              </button>
+            </Link>
           </>
         )}
       </div>
