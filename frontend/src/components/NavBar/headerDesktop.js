@@ -11,7 +11,7 @@ const NAV_ITEMS = {
   LMZ: [
     { label: "Startseite", to: "/" },
     { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
-    { label: "Fragebogen", to: "/dimensions" }
+    { label: "Fragebogen", to: "/dimensions" },
   ],
 };
 
@@ -35,8 +35,22 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   const closeMenu = () => setIsOpen(false);
 
   const isActive = (path) => {
-    if (path === "/start") return location.pathname === "/start";
-    return location.pathname.startsWith(path);
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+
+    if (path === "/dimensions") {
+      return (
+        location.pathname === "/dimensions" ||
+        location.pathname.startsWith("/questionnaire")
+      );
+    }
+
+    if (path === "/dimensions/bearbeiten") {
+      return location.pathname.startsWith("/dimensions/bearbeiten");
+    }
+
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
 
   const handleLogoutClick = async () => {
@@ -46,11 +60,13 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     }
   };
 
+  const homeTarget = activeCompany === "LMZ" ? "/" : "/start";
+
   return (
     <header className="Header">
       <div className="header-inner">
         <div className="logo">
-          <Link className="logotext" to="/start" onClick={closeMenu}>
+          <Link className="logotext" to={homeTarget} onClick={closeMenu}>
             <img src={logoSrc} alt={`${activeCompany || "LMZ"} Logo`} />
             <span>RGM-Prüfwerkzeug</span>
           </Link>
