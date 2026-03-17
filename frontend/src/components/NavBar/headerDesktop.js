@@ -3,13 +3,17 @@ import { Link, useLocation } from "react-router-dom";
 
 const NAV_ITEMS = {
   default: [
-    { label: "Startseite", to: "/" },
+    { label: "Startseite", to: "/start" },
     { label: "Downloads", to: "/download" },
     { label: "Upload", to: "/upload" },
     { label: "Dimensionen", to: "/dimensions" },
   ],
   LMZ: [
-    { label: "Startseite", to: "/" },
+    { label: "Startseite", to: "/start" },
+    { label: "Fragebogen", to: "/dimensions" },
+  ],
+  Shuffle: [
+    { label: "Startseite", to: "/start" },
     { label: "Fragebogen", to: "/dimensions" },
   ],
 };
@@ -20,7 +24,7 @@ const LOGO_BY_COMPANY = {
   default: "/LMZ-Logo.jpg",
 };
 
-function HeaderDesktop({ activeCompany }) {
+function HeaderDesktop({ activeCompany, onLogout, team }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -34,15 +38,22 @@ function HeaderDesktop({ activeCompany }) {
   const closeMenu = () => setIsOpen(false);
 
   const isActive = (path) => {
-    if (path === "/") return location.pathname === "/";
+    if (path === "/start") return location.pathname === "/start";
     return location.pathname.startsWith(path);
+  };
+
+  const handleLogoutClick = async () => {
+    closeMenu();
+    if (onLogout) {
+      await onLogout();
+    }
   };
 
   return (
     <header className="Header">
       <div className="header-inner">
         <div className="logo">
-          <Link className="logotext" to="/" onClick={closeMenu}>
+          <Link className="logotext" to="/start" onClick={closeMenu}>
             <img src={logoSrc} alt={`${activeCompany || "LMZ"} Logo`} />
             <span>RGM-Prüfwerkzeug</span>
           </Link>
@@ -64,16 +75,28 @@ function HeaderDesktop({ activeCompany }) {
           </ul>
         </nav>
 
-        <button
-          className="HamburgerMenu"
-          type="button"
-          onClick={toggleMenu}
-          aria-expanded={isOpen}
-          aria-controls="mobile-navigation"
-          aria-label="Navigation öffnen oder schließen"
-        >
-          ☰
-        </button>
+        <div className="header-actions">
+          {team && <span className="team-indicator">{team}</span>}
+
+          <button
+            type="button"
+            className="logout-button"
+            onClick={handleLogoutClick}
+          >
+            Logout
+          </button>
+
+          <button
+            className="HamburgerMenu"
+            type="button"
+            onClick={toggleMenu}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label="Navigation öffnen oder schließen"
+          >
+            ☰
+          </button>
+        </div>
       </div>
 
       {isOpen && (
@@ -94,6 +117,20 @@ function HeaderDesktop({ activeCompany }) {
                 </Link>
               </li>
             ))}
+
+            <li className="mobile-team-row">
+              {team && <span className="team-indicator">{team}</span>}
+            </li>
+
+            <li>
+              <button
+                type="button"
+                className="logout-button logout-button--mobile"
+                onClick={handleLogoutClick}
+              >
+                Logout
+              </button>
+            </li>
           </ul>
         </nav>
       )}

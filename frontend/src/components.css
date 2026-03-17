@@ -799,3 +799,69 @@ td span.nicht-bewertet {
     flex: 1 1 10rem;
   }
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.team-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1;
+  background: var(--brand-primary-soft);
+  border: 1px solid var(--color-border);
+  color: var(--brand-primary);
+  white-space: nowrap;
+}
+
+.logout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--button-color);
+  color: var(--brand-button-text);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.logout-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(0.98);
+}
+
+.logout-button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.logout-button--mobile {
+  width: 100%;
+  justify-content: center;
+}
+
+.mobile-team-row {
+  padding: 0.5rem 0 0.25rem;
+}
+
+.mobile-team-row .team-indicator {
+  width: 100%;
+  justify-content: center;
+}

@@ -661,3 +661,163 @@
 .already-done-block > p {
   padding: 1rem 1rem 1.1rem;
 }
+
+.access-page {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 4rem) var(--page-gutter);
+  background:
+    radial-gradient(circle at top right, var(--brand-accent-soft), transparent 28%),
+    linear-gradient(180deg, var(--brand-bg) 0%, var(--color-surface-subtle) 100%);
+}
+
+.access-card {
+  width: min(100%, 34rem);
+  background: var(--brand-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.access-logo {
+  display: block;
+  max-width: 10rem;
+  width: auto;
+  height: auto;
+  margin: 0 auto 0.5rem;
+}
+
+.access-title {
+  margin: 0;
+  text-align: center;
+  color: var(--brand-primary);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.access-subtitle {
+  margin: 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.access-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.access-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.access-input,
+.access-form input,
+.access-form select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--color-text);
+  font: inherit;
+  line-height: 1.4;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.access-input::placeholder,
+.access-form input::placeholder {
+  color: var(--color-text-soft);
+}
+
+.access-input:hover,
+.access-form input:hover,
+.access-form select:hover {
+  border-color: var(--color-border-strong);
+}
+
+.access-input:focus,
+.access-form input:focus,
+.access-form select:focus {
+  outline: none;
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 4px var(--brand-accent-soft);
+}
+
+.access-error {
+  margin: 0;
+  padding: 0.8rem 0.95rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(180, 35, 24, 0.2);
+  background: #fef3f2;
+  color: var(--color-danger);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.access-button {
+  width: 100%;
+  min-height: 3rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--button-color);
+  color: var(--brand-button-text);
+  font: inherit;
+  font-weight: 700;
+  padding: 0.85rem 1.25rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.access-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(0.98);
+}
+
+.access-button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.access-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+  .access-page {
+    align-items: flex-start;
+    padding-top: calc(var(--header-height) + 1.5rem);
+  }
+
+  .access-card {
+    width: 100%;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .access-logo {
+    max-width: 8rem;
+  }
+}

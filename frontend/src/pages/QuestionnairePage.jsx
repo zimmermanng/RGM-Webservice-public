@@ -94,38 +94,50 @@ export default function QuestionnairePage({ onUpload, activeCompany }) {
     comments: postedComments,
   });
 
-  const handleSubmit = async () => {
-    const payload = {
-      dimensionId,
-      handlungsfeldId,
-      timestamp: new Date().toISOString(),
-      results: resultRowsForCurrentState(),
-      selections: Object.values(selectedAnswers),
-      comments: postedComments,
-    };
-
-    console.log("Submitting payload:", payload);
-
-    try {
-      const response = await fetch(`${API_BASE}/session/results`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Server antwortete mit Status ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Backend-Antwort:", data);
-      navigate("/rawresults");
-    } catch (err) {
-      console.error("Fehler beim Senden:", err);
-      alert("Backend nicht erreichbar oder Fehler beim Senden");
-    }
+ const handleSubmit = async () => {
+  const payload = {
+    dimensionId,
+    handlungsfeldId,
+    timestamp: new Date().toISOString(),
+    results: resultRowsForCurrentState(),
+    selections: Object.values(selectedAnswers),
+    comments: postedComments,
   };
+
+  console.log("Submitting payload:", payload);
+
+  try {
+    const response = await fetch(`${API_BASE}/session/results`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.status === 401) {
+      alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+      navigate("/login");
+      return;
+    }
+
+    if (response.status === 403) {
+      alert("Bitte zuerst ein Team auswählen.");
+      navigate("/team-select");
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Server antwortete mit Status ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Backend-Antwort:", data);
+    navigate("/rawresults");
+  } catch (err) {
+    console.error("Fehler beim Senden:", err);
+    alert("Backend nicht erreichbar oder Fehler beim Senden");
+  }
+};
 
   const downloadJSON = (data, filename = "results.json") => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {

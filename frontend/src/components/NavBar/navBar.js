@@ -1,9 +1,13 @@
 import HeaderDesktop from "./headerDesktop";
 
-const NavBar = ({ activeCompany }) => {
+const NavBar = ({ activeCompany, onLogout, team }) => {
   return (
     <div>
-      <HeaderDesktop activeCompany={activeCompany} />
+      <HeaderDesktop
+        activeCompany={activeCompany}
+        onLogout={onLogout}
+        team={team}
+      />
     </div>
   );
 };
