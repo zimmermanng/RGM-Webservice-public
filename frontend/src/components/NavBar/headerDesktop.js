@@ -10,7 +10,8 @@ const NAV_ITEMS = {
   ],
   LMZ: [
     { label: "Startseite", to: "/" },
-    { label: "Fragebogen", to: "/dimensions" },
+    { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
+    { label: "Fragebogen", to: "/dimensions" }
   ],
 };
 
@@ -33,10 +34,9 @@ function HeaderDesktop({ activeCompany }) {
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
-  const isActive = (path) => {
-    if (path === "/") return location.pathname === "/";
-    return location.pathname.startsWith(path);
-  };
+const isActive = (path) => {
+  return location.pathname === path;
+};
 
   return (
     <header className="Header">
