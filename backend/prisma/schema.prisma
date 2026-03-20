@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id              Int                @id @default(autoincrement())
+  name            String             @unique
+  parentId        Int?
+  isSelectable    Boolean            @default(true)
+  sortOrder       Int                @default(0)
+  isActive        Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  parent          Team?              @relation("TeamHierarchy", fields: [parentId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  children        Team[]             @relation("TeamHierarchy")
+
+  settings        TeamSettings?
+  current         TeamCurrentState?
+  surveyRuns      SurveyRun[]
+  loginEvents     TeamLoginEvent[]
+  snapshots       SurveySnapshot[]
+  sessionLock     TeamSessionLock?
+
+  @@index([parentId])
+  @@index([isSelectable])
+  @@index([isActive])
+  @@index([sortOrder])
+}
+
+model TeamSettings {
+  id               Int      @id @default(autoincrement())
+  teamId           Int      @unique
+  activeDimensions Json
+  updatedAt        DateTime @updatedAt
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model TeamCurrentState {
+  id                Int       @id @default(autoincrement())
+  teamId            Int       @unique
+  latestSurveyRunId Int?
+  currentAnswers    Json?
+  updatedAt         DateTime  @updatedAt
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model SurveyRun {
+  id               Int      @id @default(autoincrement())
+  teamId           Int
+  createdAt        DateTime @default(now())
+  submittedAt      DateTime
+  dimensionId      String?
+  handlungsfeldId  String?
+  payload          Json
+  isLatest         Boolean  @default(false)
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([teamId, submittedAt])
+  @@index([teamId, isLatest])
+}
+
+model TeamLoginEvent {
+  id         Int      @id @default(autoincrement())
+  teamId     Int
+  sessionId  String?
+  loggedInAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([teamId, loggedInAt])
+}
+
+model SurveySnapshot {
+  id              Int      @id @default(autoincrement())
+  teamId          Int
+  snapshotType    String
+  dimensionId     String?
+  handlungsfeldId String?
+  submittedAt     DateTime
+  payload         Json
+  createdAt       DateTime @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([teamId, submittedAt])
+  @@index([teamId, snapshotType])
+}
+
+model TeamSessionLock {
+  id             Int      @id @default(autoincrement())
+  teamId         Int      @unique
+  sessionId      String
+  lockedAt       DateTime @default(now())
+  lastActivityAt DateTime @default(now())
+  expiresAt      DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([expiresAt])
+}

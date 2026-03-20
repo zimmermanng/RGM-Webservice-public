@@ -100,6 +100,36 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     });
   };
 
+  const handleDownloadJson = () => {
+    const exportPayload = {
+      team: surveyResults?.team || null,
+      exportedAt: new Date().toISOString(),
+      result: surveyResults,
+    };
+
+    const teamSlug = (surveyResults?.team || "team")
+      .toString()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "");
+
+    const datePart = new Date().toISOString().slice(0, 10);
+    const fileName = `results_${teamSlug}_${datePart}.json`;
+
+    const blob = new Blob([JSON.stringify(exportPayload, null, 2)], {
+      type: "application/json;charset=utf-8",
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
     const isTodo = variant === "todo";
 
@@ -248,82 +278,6 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     );
   };
 
-  const renderQuestionCrosscheck = () => {
-    if (selections.length === 0) {
-      return <p>Es wurden noch keine Fragen beantwortet.</p>;
-    }
-
-    return selections.map((selection, index) => {
-      const question = questionMap?.[selection?.frageId];
-      const answers = Array.isArray(question?.antworten)
-        ? question.antworten
-        : [];
-
-      return (
-        <div
-          key={`${selection?.frageId ?? "frage"}-${index}`}
-          className="question-reference-card"
-        >
-          <h4 className="question-reference-title">
-            {selection?.frageText || question?.frage || "Frage"}
-          </h4>
-
-          <p className="question-reference-area">
-            <strong>Bereich:</strong> {selection?.group} –{" "}
-            {selection?.category}
-          </p>
-
-          <ul className="question-answer-list">
-            {answers.map((answer) => {
-              const isSelected = answer?.id === selection?.antwortId;
-              const linkedRecommendations = dedupeRecommendations(
-                recommendationMap[answer?.id] ?? []
-              );
-
-              return (
-                <li
-                  key={answer?.id}
-                  className={`question-answer-item ${
-                    isSelected ? "question-answer-selected" : ""
-                  }`}
-                >
-                  <p>
-                    <strong>{isSelected ? "Ausgewählt:" : "Antwort:"}</strong>{" "}
-                    {answer?.antwort}
-                  </p>
-
-                  <p>
-                    <strong>Stufe:</strong>{" "}
-                    {typeof answer?.stufe === "number"
-                      ? answer.stufe
-                      : "Keine Stufe"}
-                  </p>
-
-                  {linkedRecommendations.length > 0 ? (
-                    <div className="question-linked-recommendations">
-                      <strong>Verknüpfte Handlungsempfehlungen:</strong>
-                      <ul>
-                        {linkedRecommendations.map((rec, recIndex) => (
-                          <li key={rec?.id ?? `${answer?.id}-${recIndex}`}>
-                            {rec?.text ?? String(rec)}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <p className="question-no-recommendations">
-                      Keine verknüpften Handlungsempfehlungen.
-                    </p>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      );
-    });
-  };
-
   return (
     <div>
       <div className="mainContainer" id="top">
@@ -345,6 +299,12 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             onClick={() => setViewMode("table")}
           >
             Tabelle anzeigen
+          </button>
+          <button
+            className="toggle-button secondary"
+            onClick={handleDownloadJson}
+          >
+            JSON herunterladen
           </button>
         </div>
       </div>
@@ -444,26 +404,6 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             })}
         </div>
       )}
-
-      <div className="question-reference-section">
-        <details className="question-reference-accordion">
-          <summary className="question-reference-summary">
-            <span>Fragen- und Antwortübersicht zum Abgleich</span>
-            <span className="question-reference-badge">
-              {selections.length} beantwortet
-            </span>
-          </summary>
-
-          <div className="question-reference-panel">
-            <p className="question-reference-intro">
-              Hier sehen Sie alle verwendeten Fragen, alle Antwortoptionen und
-              die jeweils verknüpften Handlungsempfehlungen. Die gewählte Antwort
-              ist markiert.
-            </p>
-            {renderQuestionCrosscheck()}
-          </div>
-        </details>
-      </div>
     </div>
   );
 };

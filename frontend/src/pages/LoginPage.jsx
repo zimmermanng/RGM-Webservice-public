@@ -1,17 +1,29 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = ({ activeCompany, onLoginSuccess }) => {
+const LoginPage = ({
+  activeCompany,
+  onLoginSuccess,
+  sessionNotice,
+  onNoticeShown,
+}) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const sessionNoticeRef = useRef(null);
 
   const logoPath = useMemo(() => {
     return activeCompany === "LMZ" ? "/lmz-logo.jpg" : "/shuffle-logo.svg";
   }, [activeCompany]);
 
   const companyLabel = activeCompany === "LMZ" ? "LMZ" : "Shuffle";
+
+  useEffect(() => {
+    if (sessionNotice && sessionNoticeRef.current) {
+      sessionNoticeRef.current.focus();
+    }
+  }, [sessionNotice]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +54,10 @@ const LoginPage = ({ activeCompany, onLoginSuccess }) => {
         });
       }
 
+      if (onNoticeShown) {
+        onNoticeShown();
+      }
+
       navigate(data.team ? "/start" : "/team-select");
     } catch (err) {
       setError("Backend nicht erreichbar");
@@ -64,6 +80,18 @@ const LoginPage = ({ activeCompany, onLoginSuccess }) => {
           Bitte geben Sie das Passwort ein, um auf den Fragebogen zuzugreifen.
         </p>
 
+        {sessionNotice && (
+          <div
+            ref={sessionNoticeRef}
+            className="access-error"
+            role="alert"
+            aria-live="assertive"
+            tabIndex={-1}
+          >
+            {sessionNotice}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="access-form">
           <input
             type="password"
@@ -73,7 +101,11 @@ const LoginPage = ({ activeCompany, onLoginSuccess }) => {
             className="access-input"
           />
 
-          {error && <div className="access-error">{error}</div>}
+          {error && (
+            <div className="access-error" role="alert" aria-live="assertive">
+              {error}
+            </div>
+          )}
 
           <button type="submit" className="access-button" disabled={loading}>
             {loading ? "Prüfen..." : "Einloggen"}

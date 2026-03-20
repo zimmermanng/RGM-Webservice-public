@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_ITEMS = {
@@ -24,15 +24,14 @@ const LOGO_BY_COMPANY = {
 function HeaderDesktop({ activeCompany, onLogout, team }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const hamburgerButtonRef = useRef(null);
+  const firstMobileLinkRef = useRef(null);
 
   const navItems = useMemo(() => {
     return NAV_ITEMS[activeCompany] || NAV_ITEMS.default;
   }, [activeCompany]);
 
   const logoSrc = LOGO_BY_COMPANY[activeCompany] || LOGO_BY_COMPANY.default;
-
-  const toggleMenu = () => setIsOpen((prev) => !prev);
-  const closeMenu = () => setIsOpen(false);
 
   const isActive = (path) => {
     if (path === "/") {
@@ -50,11 +49,58 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       return location.pathname.startsWith("/dimensions/bearbeiten");
     }
 
-    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+    return (
+      location.pathname === path || location.pathname.startsWith(`${path}/`)
+    );
   };
 
+  const toggleMenu = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const closeMenu = (restoreFocus = false) => {
+    setIsOpen(false);
+
+    if (restoreFocus && hamburgerButtonRef.current) {
+      window.setTimeout(() => {
+        hamburgerButtonRef.current.focus();
+      }, 0);
+    }
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      if (firstMobileLinkRef.current) {
+        firstMobileLinkRef.current.focus();
+      }
+    }, 0);
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu(true);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    closeMenu(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
   const handleLogoutClick = async () => {
-    closeMenu();
+    closeMenu(false);
     if (onLogout) {
       await onLogout();
     }
@@ -66,40 +112,58 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     <header className="Header">
       <div className="header-inner">
         <div className="logo">
-          <Link className="logotext" to={homeTarget} onClick={closeMenu}>
+          <Link
+            className="logotext"
+            to={homeTarget}
+            onClick={() => closeMenu(false)}
+          >
             <img src={logoSrc} alt={`${activeCompany || "LMZ"} Logo`} />
-            <span>RGM-Prüfwerkzeug</span>
+            <span className="logo-title">RGM-Prüfwerkzeug</span>
           </Link>
         </div>
 
         <nav className="nav-desktop" aria-label="Hauptnavigation">
           <ul>
-            {navItems.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className={isActive(item.to) ? "nav-link active" : "nav-link"}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(item.to);
+
+              return (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className={active ? "nav-link active" : "nav-link"}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => closeMenu(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         <div className="header-actions">
-          {team && <span className="team-indicator">{team}</span>}
+          {team && (
+            <p
+              className="team-indicator desktop-team-indicator"
+              aria-label={`Aktuelle Organisationseinheit: ${team}`}
+            >
+              <span className="team-indicator-label">Organisationseinheit:</span>
+              <span className="team-indicator-value">{team}</span>
+            </p>
+          )}
 
           <button
             type="button"
-            className="logout-button"
+            className="logout-button desktop-logout-button"
             onClick={handleLogoutClick}
           >
             Logout
           </button>
 
           <button
+            ref={hamburgerButtonRef}
             className="HamburgerMenu"
             type="button"
             onClick={toggleMenu}
@@ -119,32 +183,34 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           aria-label="Mobile Hauptnavigation"
         >
           <ul>
-            {navItems.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className={isActive(item.to) ? "nav-link active" : "nav-link"}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item, index) => {
+              const active = isActive(item.to);
 
-            <li className="mobile-team-row">
-              {team && <span className="team-indicator">{team}</span>}
-            </li>
-
-            <li>
-              <button
-                type="button"
-                className="logout-button logout-button--mobile"
-                onClick={handleLogoutClick}
-              >
-                Logout
-              </button>
-            </li>
+              return (
+                <li key={item.to}>
+                  <Link
+                    ref={index === 0 ? firstMobileLinkRef : null}
+                    to={item.to}
+                    className={active ? "nav-link active" : "nav-link"}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => closeMenu(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
+
+          <div className="mobile-menu-meta">
+            <button
+              type="button"
+              className="logout-button mobile-logout-button"
+              onClick={handleLogoutClick}
+            >
+              Logout
+            </button>
+          </div>
         </nav>
       )}
     </header>

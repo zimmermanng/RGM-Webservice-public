@@ -9,6 +9,9 @@ const authRoutes = require("./routes/auth");
 const app = express();
 const port = 3011;
 
+const SESSION_TIMEOUT_MS =
+  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
+
 app.set("trust proxy", 1);
 
 const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
@@ -27,12 +30,13 @@ app.use(
     secret: process.env.SESSION_SECRET || "super-secret-key",
     resave: false,
     saveUninitialized: false,
+    rolling: false,
     proxy: true,
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 1000 * 60 * 60,
+      maxAge: SESSION_TIMEOUT_MS,
     },
   })
 );

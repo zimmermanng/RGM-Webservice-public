@@ -3,22 +3,21 @@ import struktur from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  answersToResultsWithRecommendations,
-  setDebug,
-} from "../services/questionnaireToResults";
+import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
 const API_BASE = "http://localhost:3011";
-const ANSWERS_STORAGE_KEY = "answers";
 
 export default function QuestionnairePage({ activeCompany }) {
   const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
 
+  const [allAnswers, setAllAnswers] = useState({});
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [activeDimensionIds, setActiveDimensionIds] = useState([]);
   const [postedComments, setPostedComments] = useState([]);
   const [inputs, setInputs] = useState({ user: "", text: "" });
+  const [loading, setLoading] = useState(true);
 
   const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
   const handlungsfelder = currentDimension?.handlungsfelder || [];
@@ -33,23 +32,6 @@ export default function QuestionnairePage({ activeCompany }) {
       .map((ref) => fragen.fragen.find((f) => f.id === ref.id))
       .filter(Boolean);
   }, [currentHandlungsfeld]);
-
-  setDebug(true);
-
-  function readStoredAnswers() {
-    try {
-      const raw = localStorage.getItem(ANSWERS_STORAGE_KEY);
-      const parsed = JSON.parse(raw || "{}");
-      return parsed && typeof parsed === "object" ? parsed : {};
-    } catch (error) {
-      console.warn("Konnte localStorage answers nicht lesen:", error);
-      return {};
-    }
-  }
-
-  function writeStoredAnswers(allAnswers) {
-    localStorage.setItem(ANSWERS_STORAGE_KEY, JSON.stringify(allAnswers));
-  }
 
   function flattenSelections(allAnswersByDimension) {
     return Object.values(allAnswersByDimension)
@@ -83,16 +65,129 @@ export default function QuestionnairePage({ activeCompany }) {
     return Array.from(mergedRows.values());
   }
 
+  function getEffectiveActiveDimensionIds() {
+    return activeDimensionIds.length > 0
+      ? activeDimensionIds
+      : struktur.dimensionen.map((d) => d.id);
+  }
+
+  function isDimensionComplete(dimId, answersByDimension) {
+    const dimension = struktur.dimensionen.find((d) => d.id === dimId);
+    if (!dimension) return false;
+
+    const totalQuestions = dimension.handlungsfelder.reduce(
+      (sum, hf) => sum + (hf.fragen?.length || 0),
+      0
+    );
+
+    const answeredCount = Object.keys(answersByDimension[dimId] || {}).length;
+
+    return totalQuestions > 0 && answeredCount === totalQuestions;
+  }
+
+  function isTeamComplete(answersByDimension) {
+    const activeIds = getEffectiveActiveDimensionIds();
+
+    return (
+      activeIds.length > 0 &&
+      activeIds.every((dimId) => isDimensionComplete(dimId, answersByDimension))
+    );
+  }
+
+  async function saveCurrentAnswers(nextAllAnswers) {
+    const response = await fetch(`${API_BASE}/session/current-state`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ currentAnswers: nextAllAnswers }),
+    });
+
+    if (response.status === 401) {
+      alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+      navigate("/login");
+      return false;
+    }
+
+    if (response.status === 403) {
+      alert("Bitte zuerst ein Team auswählen.");
+      navigate("/team-select");
+      return false;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Server antwortete mit Status ${response.status}`);
+    }
+
+    return true;
+  }
+
   useEffect(() => {
-    const allStoredAnswers = readStoredAnswers();
-    setSelectedAnswers(allStoredAnswers[dimensionId] || {});
-  }, [dimensionId, handlungsfeldId]);
+    const fetchData = async () => {
+      try {
+        const [stateResponse, settingsResponse] = await Promise.all([
+          fetch(`${API_BASE}/session/current-state`, {
+            credentials: "include",
+          }),
+          fetch(`${API_BASE}/session/settings`, {
+            credentials: "include",
+          }),
+        ]);
+
+        if (stateResponse.status === 401 || settingsResponse.status === 401) {
+          navigate("/login");
+          return;
+        }
+
+        if (stateResponse.status === 403 || settingsResponse.status === 403) {
+          navigate("/team-select");
+          return;
+        }
+
+        if (!stateResponse.ok) {
+          throw new Error(`State-Status ${stateResponse.status}`);
+        }
+
+        if (!settingsResponse.ok) {
+          throw new Error(`Settings-Status ${settingsResponse.status}`);
+        }
+
+        const stateData = await stateResponse.json();
+        const settingsData = await settingsResponse.json();
+
+        const loadedAnswers =
+          stateData.currentAnswers && typeof stateData.currentAnswers === "object"
+            ? stateData.currentAnswers
+            : {};
+
+        setAllAnswers(loadedAnswers);
+        setSelectedAnswers(loadedAnswers[dimensionId] || {});
+        setActiveDimensionIds(
+          Array.isArray(settingsData.activeDimensions)
+            ? settingsData.activeDimensions
+            : []
+        );
+      } catch (error) {
+        console.error("Fehler beim Laden des aktuellen Zustands:", error);
+        setAllAnswers({});
+        setSelectedAnswers({});
+        setActiveDimensionIds([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [dimensionId, handlungsfeldId, navigate]);
 
   if (!currentDimension || !currentHandlungsfeld) {
     return <p>Handlungsfeld nicht gefunden.</p>;
   }
 
-  const handleAnswerClick = (frage, antwort) => {
+  if (loading) {
+    return <p>Lade Fragen...</p>;
+  }
+
+  const handleAnswerClick = async (frage, antwort) => {
     const nextSelection = {
       frageId: frage.id,
       frageText: frage.frage,
@@ -105,47 +200,50 @@ export default function QuestionnairePage({ activeCompany }) {
       handlungsfeldId,
     };
 
-    setSelectedAnswers((prev) => {
-      const nextAnswersForDimension = {
-        ...prev,
-        [frage.id]: nextSelection,
-      };
-
-      const allStoredAnswers = readStoredAnswers();
-      allStoredAnswers[dimensionId] = {
-        ...(allStoredAnswers[dimensionId] || {}),
-        [frage.id]: nextSelection,
-      };
-      writeStoredAnswers(allStoredAnswers);
-
-      return nextAnswersForDimension;
-    });
-  };
-
-  const buildCommentsExport = () => ({
-    dimensionId,
-    handlungsfeldId,
-    dimensionName: currentDimension?.name || "",
-    handlungsfeldName: currentHandlungsfeld?.name || "",
-    timestamp: new Date().toISOString(),
-    comments: postedComments,
-  });
-
-  const buildFullPayload = () => {
-    const allStoredAnswers = readStoredAnswers();
-
-    allStoredAnswers[dimensionId] = {
-      ...(allStoredAnswers[dimensionId] || {}),
-      ...selectedAnswers,
+    const nextAnswersForDimension = {
+      ...(allAnswers[dimensionId] || {}),
+      [frage.id]: nextSelection,
     };
 
-    const selections = flattenSelections(allStoredAnswers);
-    const results = buildAggregatedResults(allStoredAnswers);
+    const nextAllAnswers = {
+      ...allAnswers,
+      [dimensionId]: nextAnswersForDimension,
+    };
+
+    setAllAnswers(nextAllAnswers);
+    setSelectedAnswers(nextAnswersForDimension);
+
+    try {
+      await saveCurrentAnswers(nextAllAnswers);
+    } catch (error) {
+      console.error("Fehler beim Speichern der Antworten:", error);
+      alert("Antworten konnten nicht gespeichert werden.");
+    }
+  };
+
+  const buildFullPayload = () => {
+    const currentAnswers = {
+      ...allAnswers,
+      [dimensionId]: {
+        ...(allAnswers[dimensionId] || {}),
+        ...selectedAnswers,
+      },
+    };
+
+    const selections = flattenSelections(currentAnswers);
+    const results = buildAggregatedResults(currentAnswers);
+
+    const snapshotType = isTeamComplete(currentAnswers)
+      ? "team_complete"
+      : isDimensionComplete(dimensionId, currentAnswers)
+      ? "dimension_complete"
+      : null;
 
     return {
       dimensionId,
       handlungsfeldId,
       timestamp: new Date().toISOString(),
+      snapshotType,
       results,
       selections,
       comments: postedComments,
@@ -154,7 +252,6 @@ export default function QuestionnairePage({ activeCompany }) {
 
   const handleSubmit = async () => {
     const payload = buildFullPayload();
-    console.log("Submitting aggregated payload:", payload);
 
     try {
       const response = await fetch(`${API_BASE}/session/results`, {
@@ -180,44 +277,12 @@ export default function QuestionnairePage({ activeCompany }) {
         throw new Error(`Server antwortete mit Status ${response.status}`);
       }
 
-      const data = await response.json();
-      console.log("Backend-Antwort:", data);
-      navigate("/rawresults");
+      navigate("/dimensions");
     } catch (error) {
       console.error("Fehler beim Senden:", error);
-      alert("Backend nicht erreichbar oder Fehler beim Senden");
+      alert("Backend nicht erreichbar oder Fehler beim Speichern");
     }
   };
-
-  const downloadJSON = (data, filename = "results.json") => {
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json;charset=utf-8",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleDownload = () => {
-    const payload = buildFullPayload();
-    const commentsExport = buildCommentsExport();
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-
-    downloadJSON(payload, `results_${dimensionId}_${handlungsfeldId}_${ts}.json`);
-    downloadJSON(
-      commentsExport,
-      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`
-    );
-  };
-
-  const allQuestionIds = filteredFragen.map((f) => f.id);
-  const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
-  const anyAnswered = Object.keys(selectedAnswers).length > 0;
 
   const handleInputChange = (field, value) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
@@ -314,14 +379,10 @@ export default function QuestionnairePage({ activeCompany }) {
         </div>
 
         <div className="submit-buttons">
-          <button className="submit-button" onClick={handleSubmit} disabled={!allAnswered}>
-            Auswerten & anzeigen
-          </button>
-
-          <button className="submit-button" onClick={handleDownload} disabled={!anyAnswered}>
-            JSON herunterladen (Debug)
-          </button>
-        </div>
+  <button className="submit-button" onClick={handleSubmit}>
+    Fragebogen schließen und zur Paketübersicht zurückkehren
+  </button>
+</div>
       </div>
     </div>
   );

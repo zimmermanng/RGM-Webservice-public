@@ -1,33 +1,87 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+const API_BASE = "http://localhost:3011";
 
 const DimensionsEditPage = () => {
-  // 🔹 gespeicherte aktive IDs aus localStorage
-  const stored = localStorage.getItem("activeDimensions");
-  const storedIds = stored ? JSON.parse(stored) : [];
-
-  const storedAnswers = JSON.parse(localStorage.getItem("answers") || "{}");
-
-// Nur Pakete anzeigen, die noch in activeDimensions sind UND Antworten haben
-const dimensionen = data.dimensionen.filter(d => 
-  storedIds.includes(d.id) && storedAnswers[d.id] && Object.keys(storedAnswers[d.id]).length > 0
-);
-  // 🔹 Initiale Arrays sauber trennen
-  const initialToEdit = data.dimensionen.filter((d) => storedIds.includes(d.id));
-  const initialNotToEdit = data.dimensionen.filter((d) => !storedIds.includes(d.id));
-
-  const [toEdit, setToEdit] = useState(initialToEdit);
-  const [notToEdit, setNotToEdit] = useState(initialNotToEdit);
+  const navigate = useNavigate();
+  const [toEdit, setToEdit] = useState([]);
+  const [notToEdit, setNotToEdit] = useState([]);
   const [draggedCard, setDraggedCard] = useState(null);
+  const [currentAnswers, setCurrentAnswers] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const liveRegionRef = useRef(null);
 
-  // 🔹 Sync activeDimensions immer, wenn toEdit sich ändert
   useEffect(() => {
-    const ids = toEdit.map((d) => d.id);
-    localStorage.setItem("activeDimensions", JSON.stringify(ids));
-  }, [toEdit]);
+    const fetchData = async () => {
+      try {
+        const [settingsRes, stateRes] = await Promise.all([
+          fetch(`${API_BASE}/session/settings`, {
+            credentials: "include",
+          }),
+          fetch(`${API_BASE}/session/current-state`, {
+            credentials: "include",
+          }),
+        ]);
+
+        if (settingsRes.status === 401 || stateRes.status === 401) {
+          navigate("/login");
+          return;
+        }
+
+        if (settingsRes.status === 403 || stateRes.status === 403) {
+          navigate("/team-select");
+          return;
+        }
+
+        if (!settingsRes.ok) {
+          throw new Error(`Settings-Status ${settingsRes.status}`);
+        }
+
+        if (!stateRes.ok) {
+          throw new Error(`State-Status ${stateRes.status}`);
+        }
+
+        const settingsResult = await settingsRes.json();
+        const stateResult = await stateRes.json();
+
+        const activeIds = Array.isArray(settingsResult.activeDimensions)
+          ? settingsResult.activeDimensions
+          : [];
+
+        const loadedAnswers =
+          stateResult.currentAnswers &&
+          typeof stateResult.currentAnswers === "object"
+            ? stateResult.currentAnswers
+            : {};
+
+        const initialToEdit =
+          activeIds.length > 0
+            ? data.dimensionen.filter((d) => activeIds.includes(d.id))
+            : data.dimensionen;
+
+        const initialNotToEdit = data.dimensionen.filter(
+          (d) => !initialToEdit.some((x) => x.id === d.id)
+        );
+
+        setToEdit(initialToEdit);
+        setNotToEdit(initialNotToEdit);
+        setCurrentAnswers(loadedAnswers);
+      } catch (error) {
+        console.error("Fehler beim Laden der Konfiguration:", error);
+        setToEdit(data.dimensionen);
+        setNotToEdit([]);
+        setCurrentAnswers({});
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
 
   const handleDragStart = (e, card, fromList) => {
     setDraggedCard({ card, fromList });
@@ -46,19 +100,15 @@ const dimensionen = data.dimensionen.filter(d =>
     if (fromList === toList) return;
 
     if (fromList === "toEdit") {
-      // 🔹 Entfernen aus "zu bearbeiten"
       setToEdit((prev) => prev.filter((c) => c.id !== card.id));
       setNotToEdit((prev) => [...prev, card]);
+      setCurrentAnswers((prev) => {
+        const next = { ...prev };
+        delete next[card.id];
+        return next;
+      });
       announce(`"${card.name}" verschoben in Nicht zu bearbeiten`);
-
-      // 🔹 Antworten löschen, damit sie in Raw Results nicht mehr erscheinen
-      const answers = JSON.parse(localStorage.getItem("answers") || "{}");
-      if (answers[card.id]) {
-        delete answers[card.id];
-        localStorage.setItem("answers", JSON.stringify(answers));
-      }
     } else {
-      // 🔹 Verschieben zurück nach "zu bearbeiten"
       setNotToEdit((prev) => prev.filter((c) => c.id !== card.id));
       setToEdit((prev) => [...prev, card]);
       announce(`"${card.name}" verschoben in Zu bearbeiten`);
@@ -74,17 +124,87 @@ const dimensionen = data.dimensionen.filter(d =>
     }
   };
 
+  const handleSave = async () => {
+    const activeDimensions = toEdit.map((d) => d.id);
+    setSaving(true);
+
+    try {
+      const [settingsRes, stateRes] = await Promise.all([
+        fetch(`${API_BASE}/session/settings`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ activeDimensions }),
+        }),
+        fetch(`${API_BASE}/session/current-state`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ currentAnswers }),
+        }),
+      ]);
+
+      if (settingsRes.status === 401 || stateRes.status === 401) {
+        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+        navigate("/login");
+        return;
+      }
+
+      if (settingsRes.status === 403 || stateRes.status === 403) {
+        alert("Bitte zuerst ein Team auswählen.");
+        navigate("/team-select");
+        return;
+      }
+
+      if (!settingsRes.ok) {
+        throw new Error(`Settings-Status ${settingsRes.status}`);
+      }
+
+      if (!stateRes.ok) {
+        throw new Error(`State-Status ${stateRes.status}`);
+      }
+
+      navigate("/dimensions");
+    } catch (error) {
+      console.error("Fehler beim Speichern der Konfiguration:", error);
+      alert("Pakete konnten nicht gespeichert werden.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="mainContainer">
+        <p>Lade Konfiguration...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
+
+      <div
+        ref={liveRegionRef}
+        aria-live="polite"
+        style={{ position: "absolute", left: "-9999px" }}
+      />
+
       <div className="editModeWrapper">
-        {/* Zu bearbeiten */}
         <div
           className="dropZone"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => handleDrop(e, "toEdit")}
         >
-          <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">Zu bearbeiten</h4>
+          <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">
+            Zu bearbeiten
+          </h4>
+
           <div className="editGrid">
             {toEdit.map((dimension) => (
               <div
@@ -103,13 +223,15 @@ const dimensionen = data.dimensionen.filter(d =>
           </div>
         </div>
 
-        {/* Nicht zu bearbeiten */}
         <div
           className="dropZone"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => handleDrop(e, "notToEdit")}
         >
-          <h4 title="Alle Pakete, die nicht zu Ihrer Abteilung passen">Nicht zu bearbeiten</h4>
+          <h4 title="Alle Pakete, die nicht zu Ihrer Abteilung passen">
+            Nicht zu bearbeiten
+          </h4>
+
           <div className="editGrid">
             {notToEdit.map((dimension) => (
               <div
@@ -131,17 +253,18 @@ const dimensionen = data.dimensionen.filter(d =>
       </div>
 
       <div className="footer">
+        <button
+          className="finishEditButton"
+          onClick={handleSave}
+          disabled={saving}
+        >
+          {saving ? "Speichern..." : "Fertig"}
+        </button>
+
         <Link to="/dimensions">
-          <button className="finishEditButton">Fertig</button>
+          <button className="finishEditButton">Abbrechen</button>
         </Link>
       </div>
-
-      {/* 🔹 Live-Region für Accessibility */}
-      <div
-        ref={liveRegionRef}
-        aria-live="polite"
-        style={{ position: "absolute", left: "-9999px" }}
-      />
     </div>
   );
 };

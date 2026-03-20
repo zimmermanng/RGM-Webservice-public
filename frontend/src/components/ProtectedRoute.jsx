@@ -9,7 +9,15 @@ const ProtectedRoute = ({
   children,
 }) => {
   if (!authChecked) {
-    return <div className="access-loading">Lade Zugangsstatus...</div>;
+    return (
+      <div
+        className="access-loading"
+        role="status"
+        aria-live="polite"
+      >
+        Lade Zugangsstatus...
+      </div>
+    );
   }
 
   if (!isAuthenticated) {
