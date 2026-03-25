@@ -29,7 +29,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
 
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState("");
-  const [globalMessage, setGlobalMessage] = useState("");
+  const [globalMessage, setGlobalMessage] = useState({ text: "", type: "" });
   const [loadingTeams, setLoadingTeams] = useState(true);
   const [saving, setSaving] = useState(false);
   const [collapsedNodes, setCollapsedNodes] = useState({});
@@ -45,6 +45,10 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
   const takeoverPrimaryButtonRef = useRef(null);
   const globalMessageRef = useRef(null);
   const previouslyFocusedElementRef = useRef(null);
+
+  const setGlobalFeedback = (text, type = "status") => {
+    setGlobalMessage({ text, type });
+  };
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -66,7 +70,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
         setTeams(Array.isArray(data.teams) ? data.teams : []);
       } catch (err) {
         console.error("Fehler beim Laden der Teamstruktur:", err);
-        setGlobalMessage("Teamstruktur konnte nicht geladen werden.");
+        setGlobalFeedback("Teamstruktur konnte nicht geladen werden.", "error");
       } finally {
         setLoadingTeams(false);
       }
@@ -76,7 +80,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
   }, [navigate]);
 
   useEffect(() => {
-    if (!globalMessage) {
+    if (!globalMessage.text) {
       return;
     }
 
@@ -215,7 +219,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
   };
 
   const clearFeedback = () => {
-    setGlobalMessage("");
+    setGlobalFeedback("", "");
     setRowFeedback({});
   };
 
@@ -268,7 +272,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
             data.message ||
             "Diese Organisationseinheit wird derzeit bereits bearbeitet.";
 
-          setGlobalMessage(visibleMessage);
+          setGlobalFeedback(visibleMessage, "warning");
           setFeedbackForTeam(teamName, visibleMessage, "warning");
           setTakeoverDialog({
             open: true,
@@ -282,7 +286,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
 
         const fallbackMessage =
           data.message || "Team konnte nicht gespeichert werden";
-        setGlobalMessage(fallbackMessage);
+        setGlobalFeedback(fallbackMessage, "error");
         setFeedbackForTeam(teamName, fallbackMessage, "error");
         return;
       }
@@ -291,7 +295,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
         ? "Die Bearbeitung wurde erfolgreich übernommen."
         : "Organisationseinheit erfolgreich ausgewählt.";
 
-      setGlobalMessage(successMessage);
+      setGlobalFeedback(successMessage, "success");
       setFeedbackForTeam(teamName, successMessage, "success");
       setTakeoverDialog({
         open: false,
@@ -303,7 +307,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
     } catch (err) {
       console.error("Fehler beim Speichern des Teams:", err);
       const fallbackMessage = "Backend nicht erreichbar";
-      setGlobalMessage(fallbackMessage);
+      setGlobalFeedback(fallbackMessage, "error");
       setFeedbackForTeam(teamName, fallbackMessage, "error");
     } finally {
       setSaving(false);
@@ -428,6 +432,16 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
     );
   };
 
+  const globalMessageRole =
+    globalMessage.type === "error" || globalMessage.type === "warning"
+      ? "alert"
+      : "status";
+
+  const globalMessageLive =
+    globalMessage.type === "error" || globalMessage.type === "warning"
+      ? "assertive"
+      : "polite";
+
   return (
     <div className="access-page">
       <div className="access-card">
@@ -439,15 +453,15 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
             Nur auswählbare Einheiten besitzen eine Schaltfläche zum Fortfahren.
           </p>
 
-          {globalMessage && (
+          {globalMessage.text && (
             <div
               ref={globalMessageRef}
               className="access-error access-error-prominent"
-              role="alert"
-              aria-live="assertive"
-              tabIndex="-1"
+              role={globalMessageRole}
+              aria-live={globalMessageLive}
+              tabIndex={-1}
             >
-              {globalMessage}
+              {globalMessage.text}
             </div>
           )}
 

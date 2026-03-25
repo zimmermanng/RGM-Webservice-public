@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 import fragenData from "../components/data/fragen.json";
@@ -11,6 +11,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     new Set([-1, 0, 1, 2, 3, 4])
   );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const tabRefs = useRef({});
 
   const questionMap = useMemo(() => buildQuestionMap(fragenData), []);
   const recommendationMap = useMemo(
@@ -24,7 +25,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   );
 
   const data = useMemo(() => {
-    const rows = surveyResults?.results ?? [];
+    const rows = Array.isArray(surveyResults?.results) ? surveyResults.results : [];
 
     return rows
       .filter(
@@ -67,29 +68,26 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       });
   }, [surveyResults, selections, questionMap]);
 
-  if (!surveyResults || !Array.isArray(surveyResults.results)) {
-    return (
-      <div className="mainContainer" id="top">
-        <h1>Fehler: Ergebnisse</h1>
-        <p>Keine gültigen Survey-Ergebnisse gefunden.</p>
-      </div>
-    );
-  }
+  const dimensionData = useMemo(() => {
+    return data.reduce((acc, row) => {
+      if (!acc[row.group]) acc[row.group] = {};
+      acc[row.group][row.category] = row.value;
+      return acc;
+    }, {});
+  }, [data]);
 
-  if (!data.length) {
-    return (
-      <div className="mainContainer" id="top">
-        <h1>Fehler: Ergebnisse</h1>
-        <p>Die Survey-Ergebnisse enthalten keine anzeigbaren Einträge.</p>
-      </div>
-    );
-  }
+  const dimensionKeys = useMemo(() => Object.keys(dimensionData), [dimensionData]);
 
-  const dimensionData = data.reduce((acc, row) => {
-    if (!acc[row.group]) acc[row.group] = {};
-    acc[row.group][row.category] = row.value;
-    return acc;
-  }, {});
+  useEffect(() => {
+    if (!dimensionKeys.length) {
+      setSelectedTab(null);
+      return;
+    }
+
+    if (!selectedTab || !dimensionKeys.includes(selectedTab)) {
+      setSelectedTab(dimensionKeys[0]);
+    }
+  }, [dimensionKeys, selectedTab]);
 
   const handleCheckboxChange = (level) => {
     setVisibleLevels((prev) => {
@@ -98,6 +96,42 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       else next.add(level);
       return next;
     });
+  };
+
+  const focusTab = (dimension) => {
+    const tab = tabRefs.current[dimension];
+    if (tab) tab.focus();
+  };
+
+  const handleTabKeyDown = (event, currentDimension) => {
+    const currentIndex = dimensionKeys.indexOf(currentDimension);
+    if (currentIndex === -1) return;
+
+    let nextIndex = null;
+
+    switch (event.key) {
+      case "ArrowRight":
+      case "Right":
+        nextIndex = (currentIndex + 1) % dimensionKeys.length;
+        break;
+      case "ArrowLeft":
+      case "Left":
+        nextIndex = (currentIndex - 1 + dimensionKeys.length) % dimensionKeys.length;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = dimensionKeys.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    const nextDimension = dimensionKeys[nextIndex];
+    setSelectedTab(nextDimension);
+    focusTab(nextDimension);
   };
 
   const handleDownloadJson = () => {
@@ -218,65 +252,25 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     );
   };
 
-  const renderRecommendations = (row) => {
-    const {
-      todoGroups,
-      establishedHigherGroups,
-      nextTargetLevel,
-    } = getRecommendationSectionsForRow({
-      row,
-      selections,
-      questionMap,
-      recommendationMap,
-    });
+  const hasValidResults = !!surveyResults && Array.isArray(surveyResults.results);
 
+  if (!hasValidResults) {
     return (
-      <>
-        <div className="recommendation-section">
-          <h5 className="recommendation-section-title">
-            {typeof nextTargetLevel === "number"
-              ? `Offene Handlungsempfehlungen für Stufe ${nextTargetLevel}`
-              : "Nächster Entwicklungsschritt"}
-          </h5>
-
-          {todoGroups.length > 0 ? (
-            <div className="question-recommendation-grid">
-              {todoGroups.map((groupItem, index) =>
-                renderRecommendationGroupCard(groupItem, index, "todo")
-              )}
-            </div>
-          ) : (
-            <div className="recommendation-empty-state">
-              <p>
-                Herzlichen Glückwunsch – in den aktuell beantworteten Fragen
-                wurde bereits die höchstmögliche erreichbare Stufe abgedeckt.
-              </p>
-            </div>
-          )}
-        </div>
-
-        <details className="already-done-block">
-          <summary>
-            Bereits gut umgesetzt: nächste und höhere Stufen (
-            {establishedHigherGroups.length})
-          </summary>
-
-          {establishedHigherGroups.length > 0 ? (
-            <div className="question-recommendation-grid">
-              {establishedHigherGroups.map((groupItem, index) =>
-                renderRecommendationGroupCard(groupItem, index, "established")
-              )}
-            </div>
-          ) : (
-            <p className="already-done-empty">
-              Für die nächste und höhere Stufen wurden noch keine bereits
-              umgesetzten Maßnahmen erkannt.
-            </p>
-          )}
-        </details>
-      </>
+      <div className="mainContainer" id="top">
+        <h1>Fehler: Ergebnisse</h1>
+        <p>Keine gültigen Survey-Ergebnisse gefunden.</p>
+      </div>
     );
-  };
+  }
+
+  if (!data.length) {
+    return (
+      <div className="mainContainer" id="top">
+        <h1>Fehler: Ergebnisse</h1>
+        <p>Die Survey-Ergebnisse enthalten keine anzeigbaren Einträge.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -341,28 +335,48 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         </div>
 
         <div className="tabs-container">
-          {Object.keys(dimensionData).map((dimension) => (
-            <button
-              key={dimension}
-              className={`tab-button ${
-                selectedTab === dimension ? "active" : ""
-              }`}
-              onClick={() => setSelectedTab(dimension)}
-            >
-              {dimension}
-            </button>
-          ))}
+          <div className="tabs-list" role="tablist" aria-label="Dimensionen">
+            {dimensionKeys.map((dimension) => {
+              const isSelected = selectedTab === dimension;
+              const slug = slugifyId(dimension);
+              const tabId = `survey-dimension-tab-${slug}`;
+              const panelId = `survey-dimension-panel-${slug}`;
+
+              return (
+                <button
+                  key={dimension}
+                  id={tabId}
+                  ref={(node) => {
+                    tabRefs.current[dimension] = node;
+                  }}
+                  role="tab"
+                  type="button"
+                  className={`tab-button ${isSelected ? "active" : ""}`}
+                  aria-selected={isSelected ? "true" : "false"}
+                  aria-controls={panelId}
+                  tabIndex={isSelected ? 0 : -1}
+                  onClick={() => setSelectedTab(dimension)}
+                  onKeyDown={(event) => handleTabKeyDown(event, dimension)}
+                >
+                  {dimension}
+                </button>
+              );
+            })}
+          </div>
 
           <button
+            type="button"
             className="filter-toggle-button"
             onClick={() => setIsFilterOpen(!isFilterOpen)}
+            aria-expanded={isFilterOpen ? "true" : "false"}
+            aria-controls="survey-dimension-filter-panel"
           >
             Filter
           </button>
         </div>
 
         {isFilterOpen && (
-          <div className="filter-container">
+          <div id="survey-dimension-filter-panel" className="filter-container">
             <div className="filter-options">
               {[-1, 0, 1, 2, 3, 4].map((level) => (
                 <label key={level} className="filter-option">
@@ -380,7 +394,12 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       </div>
 
       {selectedTab && (
-        <div className="tab-content">
+        <div
+          id={`survey-dimension-panel-${slugifyId(selectedTab)}`}
+          className="tab-content"
+          role="tabpanel"
+          aria-labelledby={`survey-dimension-tab-${slugifyId(selectedTab)}`}
+        >
           <h3>{selectedTab}</h3>
 
           {data
@@ -406,6 +425,66 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       )}
     </div>
   );
+
+  function renderRecommendations(row) {
+    const {
+      todoGroups,
+      establishedHigherGroups,
+      nextTargetLevel,
+    } = getRecommendationSectionsForRow({
+      row,
+      selections,
+      questionMap,
+      recommendationMap,
+    });
+
+    return (
+      <>
+        <div className="recommendation-section">
+          <h5 className="recommendation-section-title">
+            {typeof nextTargetLevel === "number"
+              ? `Offene Handlungsempfehlungen für Stufe ${nextTargetLevel}`
+              : "Nächster Entwicklungsschritt"}
+          </h5>
+
+          {todoGroups.length > 0 ? (
+            <div className="question-recommendation-grid">
+              {todoGroups.map((groupItem, index) =>
+                renderRecommendationGroupCard(groupItem, index, "todo")
+              )}
+            </div>
+          ) : (
+            <div className="recommendation-empty-state">
+              <p>
+                Herzlichen Glückwunsch – in den aktuell beantworteten Fragen
+                wurde bereits die höchstmögliche erreichbare Stufe abgedeckt.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <details className="already-done-block">
+          <summary>
+            Bereits gut umgesetzt: nächste und höhere Stufen (
+            {establishedHigherGroups.length})
+          </summary>
+
+          {establishedHigherGroups.length > 0 ? (
+            <div className="question-recommendation-grid">
+              {establishedHigherGroups.map((groupItem, index) =>
+                renderRecommendationGroupCard(groupItem, index, "established")
+              )}
+            </div>
+          ) : (
+            <p className="already-done-empty">
+              Für die nächste und höhere Stufen wurden noch keine bereits
+              umgesetzten Maßnahmen erkannt.
+            </p>
+          )}
+        </details>
+      </>
+    );
+  }
 };
 
 function normalizeSelections(selections) {
@@ -590,6 +669,14 @@ function dedupeRecommendations(recommendations) {
       return true;
     }
   );
+}
+
+function slugifyId(value) {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9_-]/g, "");
 }
 
 export default SurveyResultPage;

@@ -93,16 +93,27 @@ const LoginPage = ({
         )}
 
         <form onSubmit={handleSubmit} className="access-form">
+          <label htmlFor="login-password">Passwort</label>
+
           <input
+            id="login-password"
             type="password"
             placeholder="Passwort eingeben"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="access-input"
+            autoComplete="current-password"
+            aria-invalid={error ? "true" : "false"}
+            aria-describedby={error ? "login-password-error" : undefined}
           />
 
           {error && (
-            <div className="access-error" role="alert" aria-live="assertive">
+            <div
+              id="login-password-error"
+              className="access-error"
+              role="alert"
+              aria-live="assertive"
+            >
               {error}
             </div>
           )}

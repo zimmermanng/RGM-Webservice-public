@@ -13,18 +13,45 @@ const Card = ({
   const titleId = `card-title-${title}`;
   const descId = `card-desc-${title}`;
 
+  if (isDownload) {
+    return (
+      <div
+        className="card"
+        role="article"
+        aria-labelledby={titleId}
+        aria-describedby={descId}
+      >
+        <div className="card-icon">
+          {typeof icon === "string" ? <img src={icon} alt={title} /> : icon}
+        </div>
+
+        <div className="card-content">
+          <h3 id={titleId}>{title}</h3>
+          <p id={descId}>{description}</p>
+          {Array.isArray(list) && list.length > 0 && (
+            <ul>
+              {list.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="card-link">
+          <a href={link} download>
+            {linkText}
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div
+    <Link
+      to={link}
       className="card"
-      tabIndex="0"
-      role="article"
       aria-labelledby={titleId}
       aria-describedby={descId}
-      onClick={() => {
-        if (link) {
-          window.location.href = link;
-        }
-      }}
     >
       <div className="card-icon">
         {typeof icon === "string" ? <img src={icon} alt={title} /> : icon}
@@ -41,19 +68,12 @@ const Card = ({
           </ul>
         )}
       </div>
-      <div className="card-link">
-        {isDownload ? (
-          <a href={link} download>
-            {linkText}
-          </a>
-        ) : (
-          <Link to={link}>{linkText}</Link>
-        )}
+
+      <div className="card-link" aria-hidden="true">
+        <span>{linkText}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default Card;
-
-

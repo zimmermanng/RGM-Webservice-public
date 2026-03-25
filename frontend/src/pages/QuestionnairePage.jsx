@@ -18,6 +18,8 @@ export default function QuestionnairePage({ activeCompany }) {
   const [postedComments, setPostedComments] = useState([]);
   const [inputs, setInputs] = useState({ user: "", text: "" });
   const [loading, setLoading] = useState(true);
+  const [pageMessage, setPageMessage] = useState({ text: "", type: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
   const handlungsfelder = currentDimension?.handlungsfelder || [];
@@ -32,6 +34,10 @@ export default function QuestionnairePage({ activeCompany }) {
       .map((ref) => fragen.fragen.find((f) => f.id === ref.id))
       .filter(Boolean);
   }, [currentHandlungsfeld]);
+
+  function setStatusMessage(text, type = "status") {
+    setPageMessage({ text, type });
+  }
 
   function flattenSelections(allAnswersByDimension) {
     return Object.values(allAnswersByDimension)
@@ -103,13 +109,19 @@ export default function QuestionnairePage({ activeCompany }) {
     });
 
     if (response.status === 401) {
-      alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+      setStatusMessage(
+        "Ihre Sitzung ist nicht mehr gültig. Sie werden zur Anmeldung weitergeleitet.",
+        "error"
+      );
       navigate("/login");
       return false;
     }
 
     if (response.status === 403) {
-      alert("Bitte zuerst ein Team auswählen.");
+      setStatusMessage(
+        "Bitte zuerst ein Team auswählen. Sie werden zur Teamauswahl weitergeleitet.",
+        "error"
+      );
       navigate("/team-select");
       return false;
     }
@@ -134,11 +146,19 @@ export default function QuestionnairePage({ activeCompany }) {
         ]);
 
         if (stateResponse.status === 401 || settingsResponse.status === 401) {
+          setStatusMessage(
+            "Ihre Sitzung ist nicht mehr gültig. Sie werden zur Anmeldung weitergeleitet.",
+            "error"
+          );
           navigate("/login");
           return;
         }
 
         if (stateResponse.status === 403 || settingsResponse.status === 403) {
+          setStatusMessage(
+            "Bitte zuerst ein Team auswählen. Sie werden zur Teamauswahl weitergeleitet.",
+            "error"
+          );
           navigate("/team-select");
           return;
         }
@@ -166,11 +186,16 @@ export default function QuestionnairePage({ activeCompany }) {
             ? settingsData.activeDimensions
             : []
         );
+        setStatusMessage("", "");
       } catch (error) {
         console.error("Fehler beim Laden des aktuellen Zustands:", error);
         setAllAnswers({});
         setSelectedAnswers({});
         setActiveDimensionIds([]);
+        setStatusMessage(
+          "Der aktuelle Zustand konnte nicht geladen werden.",
+          "error"
+        );
       } finally {
         setLoading(false);
       }
@@ -184,7 +209,11 @@ export default function QuestionnairePage({ activeCompany }) {
   }
 
   if (loading) {
-    return <p>Lade Fragen...</p>;
+    return (
+      <div className="mainContainer" id="top">
+        <p aria-live="polite">Lade Fragen...</p>
+      </div>
+    );
   }
 
   const handleAnswerClick = async (frage, antwort) => {
@@ -212,12 +241,13 @@ export default function QuestionnairePage({ activeCompany }) {
 
     setAllAnswers(nextAllAnswers);
     setSelectedAnswers(nextAnswersForDimension);
+    setStatusMessage("", "");
 
     try {
       await saveCurrentAnswers(nextAllAnswers);
     } catch (error) {
       console.error("Fehler beim Speichern der Antworten:", error);
-      alert("Antworten konnten nicht gespeichert werden.");
+      setStatusMessage("Antworten konnten nicht gespeichert werden.", "error");
     }
   };
 
@@ -252,6 +282,8 @@ export default function QuestionnairePage({ activeCompany }) {
 
   const handleSubmit = async () => {
     const payload = buildFullPayload();
+    setIsSubmitting(true);
+    setStatusMessage("Fragebogen wird gespeichert...", "status");
 
     try {
       const response = await fetch(`${API_BASE}/session/results`, {
@@ -262,13 +294,19 @@ export default function QuestionnairePage({ activeCompany }) {
       });
 
       if (response.status === 401) {
-        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+        setStatusMessage(
+          "Ihre Sitzung ist nicht mehr gültig. Sie werden zur Anmeldung weitergeleitet.",
+          "error"
+        );
         navigate("/login");
         return;
       }
 
       if (response.status === 403) {
-        alert("Bitte zuerst ein Team auswählen.");
+        setStatusMessage(
+          "Bitte zuerst ein Team auswählen. Sie werden zur Teamauswahl weitergeleitet.",
+          "error"
+        );
         navigate("/team-select");
         return;
       }
@@ -277,10 +315,19 @@ export default function QuestionnairePage({ activeCompany }) {
         throw new Error(`Server antwortete mit Status ${response.status}`);
       }
 
+      setStatusMessage(
+        "Fragebogen erfolgreich gespeichert. Weiterleitung zur Paketübersicht.",
+        "status"
+      );
       navigate("/dimensions");
     } catch (error) {
       console.error("Fehler beim Senden:", error);
-      alert("Backend nicht erreichbar oder Fehler beim Speichern");
+      setStatusMessage(
+        "Backend nicht erreichbar oder Fehler beim Speichern.",
+        "error"
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -289,9 +336,17 @@ export default function QuestionnairePage({ activeCompany }) {
   };
 
   const handlePost = () => {
-    if (!inputs.user || !inputs.text) return;
+    if (!inputs.user || !inputs.text) {
+      setStatusMessage(
+        "Bitte geben Sie Nutzername und Kommentar ein, bevor Sie senden.",
+        "error"
+      );
+      return;
+    }
+
     setPostedComments((prev) => [...prev, inputs]);
     setInputs({ user: "", text: "" });
+    setStatusMessage("Kommentar hinzugefügt.", "status");
   };
 
   const navigateToHandlungsfeld = (index) => {
@@ -312,6 +367,16 @@ export default function QuestionnairePage({ activeCompany }) {
       <div className="questions-container">
         <h1>{currentDimension?.name}</h1>
         <h2>{currentHandlungsfeld?.name}</h2>
+
+        {pageMessage.text && (
+          <div
+            className="access-error access-error-prominent"
+            role={pageMessage.type === "error" ? "alert" : "status"}
+            aria-live={pageMessage.type === "error" ? "assertive" : "polite"}
+          >
+            {pageMessage.text}
+          </div>
+        )}
 
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für dieses Handlungsfeld gefunden.</p>
@@ -379,10 +444,16 @@ export default function QuestionnairePage({ activeCompany }) {
         </div>
 
         <div className="submit-buttons">
-  <button className="submit-button" onClick={handleSubmit}>
-    Fragebogen schließen und zur Paketübersicht zurückkehren
-  </button>
-</div>
+          <button
+            className="submit-button"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting
+              ? "Speichern..."
+              : "Fragebogen schließen und zur Paketübersicht zurückkehren"}
+          </button>
+        </div>
       </div>
     </div>
   );

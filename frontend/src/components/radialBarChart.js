@@ -401,7 +401,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
         .attr('xlink:href', `#${groupPathId}`)
         .attr('startOffset', '25%')
         .attr('fill', getTextColor(groupColor))
-        .attr('font-size', '35px')
+        .attr('font-size', '30px')
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .text(group)

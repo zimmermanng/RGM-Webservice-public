@@ -1,28 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 
-const ResultPage = ({ data, activeCompany}) => {
+const ResultPage = ({ data, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
   const [visibleLevels, setVisibleLevels] = useState(new Set([0, 1, 2, 3, 4]));
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const tabRefs = useRef({});
 
-  if (!data || data.length === 0) {
-    return (
-      <div className="mainContainer" id="top">
-        <h1>Fehler: Ergebnisse</h1>
-        <p>Keine Daten gefunden, bitte laden Sie eine geeignete Datei hoch.</p>
-      </div>
-    );
-  }
+  const safeData = Array.isArray(data) ? data : [];
 
-  // For tabs: collect categories per dimension (unchanged behavior)
-  const dimensionData = data.reduce((acc, row) => {
-    if (!acc[row.group]) acc[row.group] = {};
-    acc[row.group][row.category] = row.value;
-    return acc;
-  }, {});
+  const dimensionData = useMemo(() => {
+    return safeData.reduce((acc, row) => {
+      if (!row?.group || !row?.category) return acc;
+      if (!acc[row.group]) acc[row.group] = {};
+      acc[row.group][row.category] = row.value;
+      return acc;
+    }, {});
+  }, [safeData]);
+
+  const dimensionKeys = useMemo(() => Object.keys(dimensionData), [dimensionData]);
+
+  useEffect(() => {
+    if (!dimensionKeys.length) {
+      setSelectedTab(null);
+      return;
+    }
+
+    if (!selectedTab || !dimensionKeys.includes(selectedTab)) {
+      setSelectedTab(dimensionKeys[0]);
+    }
+  }, [dimensionKeys, selectedTab]);
 
   const handleCheckboxChange = (level) => {
     setVisibleLevels((prevLevels) => {
@@ -33,18 +42,50 @@ const ResultPage = ({ data, activeCompany}) => {
     });
   };
 
-  // --- helper: render mixed recommendations with nested bullets ---
-  // Top-level bullets: lines starting with "." or "·"
-  // Sub-bullets: lines starting with optional quote then "o", e.g.  o ...  or  "o ...
-  // Everything else becomes a paragraph (<p>).
+  const focusTab = (dimension) => {
+    const tab = tabRefs.current[dimension];
+    if (tab) tab.focus();
+  };
+
+  const handleTabKeyDown = (event, currentDimension) => {
+    const currentIndex = dimensionKeys.indexOf(currentDimension);
+    if (currentIndex === -1) return;
+
+    let nextIndex = null;
+
+    switch (event.key) {
+      case "ArrowRight":
+      case "Right":
+        nextIndex = (currentIndex + 1) % dimensionKeys.length;
+        break;
+      case "ArrowLeft":
+      case "Left":
+        nextIndex = (currentIndex - 1 + dimensionKeys.length) % dimensionKeys.length;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = dimensionKeys.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    const nextDimension = dimensionKeys[nextIndex];
+    setSelectedTab(nextDimension);
+    focusTab(nextDimension);
+  };
+
   const renderMixedRecommendations = (recs) => {
     const isTopBullet = (s) => /^\s*[.\u00B7]\s+/.test(s);
-    const isSubBullet = (s) => /^\s*["“”']?\s*o\b\s*/i.test(s); // handles: o ..., "o ...
+    const isSubBullet = (s) => /^\s*["“”']?\s*o\b\s*/i.test(s);
     const stripTopMarker = (s) => s.replace(/^\s*[.\u00B7]\s+/, "").trim();
     const stripSubMarker = (s) => s.replace(/^\s*["“”']?\s*o\b\s*/, "").trim();
 
     const blocks = [];
-    let currentList = []; // [{ text: string, children: string[] }]
+    let currentList = [];
     let lastItem = null;
 
     const flushList = () => {
@@ -86,14 +127,12 @@ const ResultPage = ({ data, activeCompany}) => {
         if (lastItem) {
           lastItem.children.push(subText);
         } else {
-          // no parent bullet yet → treat as paragraph
           flushList();
           blocks.push(<p key={`p-${i}`}>{subText}</p>);
         }
         return;
       }
 
-      // Plain paragraph: close any open list first
       flushList();
       blocks.push(<p key={`p-${i}`}>{text}</p>);
     });
@@ -101,7 +140,15 @@ const ResultPage = ({ data, activeCompany}) => {
     flushList();
     return blocks.length ? blocks : <p>Keine Handlungsempfehlungen geladen</p>;
   };
-  // --- end helper ---
+
+  if (!safeData.length) {
+    return (
+      <div className="mainContainer" id="top">
+        <h1>Fehler: Ergebnisse</h1>
+        <p>Keine Daten gefunden, bitte laden Sie eine geeignete Datei hoch.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -125,7 +172,6 @@ const ResultPage = ({ data, activeCompany}) => {
         </div>
       </div>
 
-      {/* Skip link */}
       <a href="#ext" className="skip-link">
         Diagramm und Tabelle überspringen
       </a>
@@ -133,39 +179,61 @@ const ResultPage = ({ data, activeCompany}) => {
       <div>
         {viewMode === "chart" ? (
           <div className="chart-container">
-            <RadialBarChart data={data} activeCompany={activeCompany}/>
+            <RadialBarChart data={safeData} activeCompany={activeCompany} />
           </div>
         ) : (
           <div className="table-container">
-            <DataTable data={data} />
+            <DataTable data={safeData} />
           </div>
         )}
       </div>
 
       <div id="ext">
         <h2>Erläuterungen</h2>
-        <div className="tabs-container" id="ext">
-          {Object.keys(dimensionData).map((dimension) => (
-            <button
-              key={dimension}
-              className={`tab-button ${selectedTab === dimension ? "active" : ""}`}
-              onClick={() => setSelectedTab(dimension)}
-            >
-              {dimension}
-            </button>
-          ))}
 
-          {/* Filter button */}
+        <div className="tabs-container">
+          <div className="tabs-list" role="tablist" aria-label="Dimensionen">
+            {dimensionKeys.map((dimension) => {
+              const isSelected = selectedTab === dimension;
+              const slug = slugifyId(dimension);
+              const tabId = `dimension-tab-${slug}`;
+              const panelId = `dimension-panel-${slug}`;
+
+              return (
+                <button
+                  key={dimension}
+                  id={tabId}
+                  ref={(node) => {
+                    tabRefs.current[dimension] = node;
+                  }}
+                  role="tab"
+                  type="button"
+                  className={`tab-button ${isSelected ? "active" : ""}`}
+                  aria-selected={isSelected ? "true" : "false"}
+                  aria-controls={panelId}
+                  tabIndex={isSelected ? 0 : -1}
+                  onClick={() => setSelectedTab(dimension)}
+                  onKeyDown={(event) => handleTabKeyDown(event, dimension)}
+                >
+                  {dimension}
+                </button>
+              );
+            })}
+          </div>
+
           <button
+            type="button"
             className="filter-toggle-button"
             onClick={() => setIsFilterOpen(!isFilterOpen)}
+            aria-expanded={isFilterOpen ? "true" : "false"}
+            aria-controls="dimension-filter-panel"
           >
             Filter
           </button>
         </div>
 
         {isFilterOpen && (
-          <div className="filter-container">
+          <div id="dimension-filter-panel" className="filter-container">
             <div className="filter-options">
               {[...Array(5).keys()].map((level) => (
                 <label key={level} className="filter-option">
@@ -182,11 +250,15 @@ const ResultPage = ({ data, activeCompany}) => {
         )}
       </div>
 
-      {/* Content per selected dimension, using ONLY row-level recommendations */}
       {selectedTab && (
-        <div className="tab-content">
+        <div
+          id={`dimension-panel-${slugifyId(selectedTab)}`}
+          className="tab-content"
+          role="tabpanel"
+          aria-labelledby={`dimension-tab-${slugifyId(selectedTab)}`}
+        >
           <h3>{selectedTab}</h3>
-          {data
+          {safeData
             .filter((row) => row.group === selectedTab)
             .map((row, idx) => {
               const displayedStufe = row.value - 1;
@@ -216,5 +288,13 @@ const ResultPage = ({ data, activeCompany}) => {
     </div>
   );
 };
+
+function slugifyId(value) {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9_-]/g, "");
+}
 
 export default ResultPage;
