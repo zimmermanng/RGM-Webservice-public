@@ -110,6 +110,8 @@
   min-height: 2.75rem;
   min-width: 8.5rem;
   padding: 0.8rem 1.25rem;
+  margin-right: 2px;
+  margin-left: 2px;
   border: 1px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--button-color);
@@ -1323,4 +1325,11 @@ td span.nicht-bewertet {
 .logout-button:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 3px;
+}
+
+.editGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 440px));
+  gap: var(--space-5);
+  justify-content: center;
 }

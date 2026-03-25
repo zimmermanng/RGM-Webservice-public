@@ -133,7 +133,7 @@ const DimensionsPage = ({ activeCompany }) => {
           <>
             <div className="editButtonContainer">
               <Link to="/dimensions/bearbeiten">
-                <button className="editButton">Konfigurationsmodus ←</button>
+                <button className="editButton">Konfigurationsmodus</button>
               </Link>
             </div>
 

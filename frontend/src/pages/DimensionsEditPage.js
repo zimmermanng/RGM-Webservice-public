@@ -15,6 +15,18 @@ const DimensionsEditPage = () => {
   const [saving, setSaving] = useState(false);
   const liveRegionRef = useRef(null);
 
+  const getProgress = (dimension) => {
+    const answeredObj = currentAnswers[dimension.id] || {};
+    const answeredCount = Object.keys(answeredObj).length;
+
+    const totalQuestions = dimension.handlungsfelder.reduce(
+      (sum, hf) => sum + (hf.fragen?.length || 0),
+      0,
+    );
+
+    return totalQuestions > 0 ? answeredCount / totalQuestions : 0;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,7 +76,7 @@ const DimensionsEditPage = () => {
             : data.dimensionen;
 
         const initialNotToEdit = data.dimensionen.filter(
-          (d) => !initialToEdit.some((x) => x.id === d.id)
+          (d) => !initialToEdit.some((x) => x.id === d.id),
         );
 
         setToEdit(initialToEdit);
@@ -206,20 +218,26 @@ const DimensionsEditPage = () => {
           </h4>
 
           <div className="editGrid">
-            {toEdit.map((dimension) => (
-              <div
-                key={dimension.id}
-                draggable
-                onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
-              >
-                <Card_dimensions
-                  title={dimension.name}
-                  dimensionId={dimension.id}
-                  handlungsfelder={dimension.handlungsfelder}
-                  showStartButton={false}
-                />
-              </div>
-            ))}
+            {toEdit.map((dimension) => {
+              const progress = getProgress(dimension);
+
+              return (
+                <div
+                  key={dimension.id}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
+                >
+                  <Card_dimensions
+                    title={dimension.name}
+                    dimensionId={dimension.id}
+                    handlungsfelder={dimension.handlungsfelder}
+                    showStartButton={false}
+                    showProgress={true}
+                    progress={progress}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
 
