@@ -14,7 +14,7 @@ const LoginPage = ({
   const sessionNoticeRef = useRef(null);
 
   const logoPath = useMemo(() => {
-    return activeCompany === "LMZ" ? "/lmz-logo.jpg" : "/shuffle-logo.svg";
+    return activeCompany === "LMZ" ? "/LMZ-Logo.jpg" : "/shuffle-logo.svg";
   }, [activeCompany]);
 
   const companyLabel = activeCompany === "LMZ" ? "LMZ" : "Shuffle";
