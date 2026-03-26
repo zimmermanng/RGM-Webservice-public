@@ -3,7 +3,7 @@ import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link, useNavigate } from "react-router-dom";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:3011";
 
 const DimensionsEditPage = () => {
   const navigate = useNavigate();
@@ -122,18 +122,10 @@ const DimensionsEditPage = () => {
 
       if (hasAnswers) {
         setConfirmDialog({ open: true, card });
-        return; // ❗ STOP → erst Entscheidung abwarten
+        return; 
       }
 
       performMove(card);
-      setToEdit((prev) => prev.filter((c) => c.id !== card.id));
-      setNotToEdit((prev) => [...prev, card]);
-      setCurrentAnswers((prev) => {
-        const next = { ...prev };
-        delete next[card.id];
-        return next;
-      });
-      announce(`"${card.name}" verschoben in Nicht zu bearbeiten`);
     } else {
       setNotToEdit((prev) => prev.filter((c) => c.id !== card.id));
       setToEdit((prev) => [...prev, card]);
