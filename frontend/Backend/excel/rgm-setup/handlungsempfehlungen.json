@@ -1,0 +1,3679 @@
+{
+  "handlungsempfehlungen": [
+    {
+      "id": "HE1",
+      "name": "Informieren Sie sich, wo und wie an der Hochschule Beratungen für Studierende mit Beeinträchtigungen stattfinden und finden Sie die verantwortlichen Stellen und Personen.",
+      "antworten": [
+        {
+          "id": "A1",
+          "antwort": "Es findet Beratung nur auf Anfrage statt",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE2",
+      "name": "Erstellen Sie eine mit aktuellem Datum versehene Übersicht zu internen und externen Anlaufstellen für Beratung und machen Sie die Verantwortlichkeiten transparent oder aktualisieren Sie eine bestehende Übersicht.",
+      "antworten": [
+        {
+          "id": "A2",
+          "antwort": "Es findet unkoordinierte Beratung durch einzelne Personen der Hochschule statt.",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A7",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE3",
+      "name": "Klären Sie, wo und wie für diese Beratungen geworben wird. Wird bei Studierenden und Lehrenden geworben, damit alle Hochschulangehörige darüber Bescheid wissen?",
+      "antworten": [
+        {
+          "id": "A8",
+          "antwort": "Ja",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A9",
+          "antwort": "Beratungen finden ausschließlich auf Anfrage statt und werden nicht kommuniziert.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE4",
+      "name": "Werben Sie für die Beratungsangebote z.B. auf der Webseite, auf sozialen Medien, in der Orientierungswoche, in den Studiengängen, ...",
+      "antworten": [
+        {
+          "id": "A10",
+          "antwort": "Die Beratungsangebote werden selten kommuniziert und sind den Studierenden kaum bekannt.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE5",
+      "name": "Nutzen Sie die Übersicht der Anlaufstellen und Verantwortlichen, um eine Verweispraxis zu etablieren. Geben Sie den Anlaufstellen diese Übersicht, damit diese untereinander verweisen können.",
+      "antworten": [
+        {
+          "id": "A5",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE6",
+      "name": "Lassen Sie die Beratenden reflektieren, welche möglichen Barrieren in der Kontaktaufnahme und der Beratung selbst auftreten (können) und beseitigen Sie diese Barrieren.",
+      "antworten": [
+        {
+          "id": "A16",
+          "antwort": "Beratende in allen Bereichen bilden sich regelmäßig zum Thema (digitale) Barrierefreiheit weiter.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE7",
+      "name": "Bieten Sie regelmäßig Workshops und Weiterbildungen (intern oder extern) für Beratende an, sodass die Beratungen individuell, ergebnisoffen und vertraulich stattfinden können.",
+      "antworten": [
+        {
+          "id": "A4",
+          "antwort": "Es gibt eine zentrale Einrichtung für die Beratung von Studierenden zum Thema Studium mit Behinderung. Die Beratungen erfolgen durch mehrere Personen mit unterschiedlicher Expertise, die untereinander vernetzt sind",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A15",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE8",
+      "name": "Regen Sie alle Beratenden an, Ihre eigenen Beratungen durch die Studierenden anonym evaluieren zu lassen.",
+      "antworten": [
+        {
+          "id": "A4",
+          "antwort": "Es gibt eine zentrale Einrichtung für die Beratung von Studierenden zum Thema Studium mit Behinderung. Die Beratungen erfolgen durch mehrere Personen mit unterschiedlicher Expertise, die untereinander vernetzt sind",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A11",
+          "antwort": "Die Beratungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A17",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE9",
+      "name": "Vernetzen Sie sich als Beratende mit anderen Beratenden der Hochschule, aber auch anderer Hochschulen.",
+      "antworten": [
+        {
+          "id": "A3",
+          "antwort": "Es gibt ein verstetigtes Beratungsangebot mit definierten Zuständigkeiten.",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A6",
+          "antwort": "Ja",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A14",
+          "antwort": "Ja",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE10",
+      "name": "Etablieren Sie eine zentrale Stelle, an der Beratungen stattfinden. Teilen Sie die Ressourcen fest an diese Stelle zu (z.B. Budget, feste Stellenanteile, Personal).",
+      "antworten": [
+        {
+          "id": "A3",
+          "antwort": "Es gibt ein verstetigtes Beratungsangebot mit definierten Zuständigkeiten.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE11",
+      "name": "Erheben Sie regelmäßig, ob die Angebote an Beratungsterminen die Nachfragen decken und führen Sie notfalls Änderungen durch.",
+      "antworten": [
+        {
+          "id": "A4",
+          "antwort": "Es gibt eine zentrale Einrichtung für die Beratung von Studierenden zum Thema Studium mit Behinderung. Die Beratungen erfolgen durch mehrere Personen mit unterschiedlicher Expertise, die untereinander vernetzt sind",
+          "handlungsfeldId": "H1"
+        },
+        {
+          "id": "A17",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE12",
+      "name": "Informieren Sie sich, ob an der Hochschule bereits Unterstützungsdienste angeboten werden. Solche Unterstützungsangebote können beispielsweise sein: barrierefreie Arbeitsplätze, Hilfsmittelpool, Umsetzungsdienste, Untertitelungsdienst oder Mentoringprogramm",
+      "antworten": [
+        {
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A24",
+          "antwort": "Es ist kein Hilfemittelpool vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A27",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE13",
+      "name": "Erstellen Sie eine Übersicht, welche Unterstützungsangebote es an Ihrer Hochschule für Studierende mit Beeinträchtigungen gibt und halten Sie diese stets aktuell.",
+      "antworten": [
+        {
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A23",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A31",
+          "antwort": "Die Unterstützungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE14",
+      "name": "Geben Sie die Übersicht an alle Anlaufstellen/Beratungsstellen sowie an alle Hochschulangehörigen.",
+      "antworten": [
+        {
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A23",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A31",
+          "antwort": "Die Unterstützungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE15",
+      "name": "Werben Sie für die Unterstützungsangebote z.B. auf der Webseite, auf sozialen Medien, in der Orientierungswoche, in den Studiengängen, ...",
+      "antworten": [
+        {
+          "id": "A31",
+          "antwort": "Die Unterstützungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE16",
+      "name": "Stellen Sie (personelle und finanzielle) Ressourcen für Unterstützungsangebote (Hilfsmittel, Ausstattung, zuständige Personen) zur Verfügung.",
+      "antworten": [
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A24",
+          "antwort": "Es ist kein Hilfemittelpool vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A27",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A28",
+          "antwort": "Mitarbeitende in Beratungsstellen können zum Thema (digitale) Barrierefreiheit vereinzelt Hilfeleistungen anbieten.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE17",
+      "name": "Bilden Sie für den Einstieg wissenschaftliche Hilfskräfte in der barrierefreien Umsetzung von Lehrmaterialien und anderen Dokumenten aus, um einen Umsetzungsdienst anzubieten.",
+      "antworten": [
+        {
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A24",
+          "antwort": "Es ist kein Hilfemittelpool vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A27",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE18",
+      "name": "Erweitern Sie die Möglichkeiten der Unterstützungsangebote (siehe Beispiele von oben).",
+      "antworten": []
+    },
+    {
+      "id": "HE19",
+      "name": "Überprüfen Sie regelmäßig, ob Hochschulangehörige von den Unterstützungsangeboten Kenntnis haben (Studierendenbefragung, Qualitätsmanagement).",
+      "antworten": [
+        {
+          "id": "A23",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A31",
+          "antwort": "Die Unterstützungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE20",
+      "name": "Erweitern Sie das Unterstützungsangebot bedarfsgerecht. Befragen Sie hierfür Studierende oder Beratende.",
+      "antworten": [
+        {
+          "id": "A26",
+          "antwort": "Es gibt einen fest etablierten Hilfsmittelpool (mit Übersicht über alle Hilfsmittel und fachlicher Beratung).",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A30",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A32",
+          "antwort": "Die Unterstützungsangebote sind hochschulweit bekannt und werden genutzt.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE21",
+      "name": "Etablieren Sie eine zentrale Stelle, an der sowohl die Unterstützungsangebote als auch die Beratungen für Studierende mit Beeinträchtigungen verortet und miteinander optimal vernetzt werden.",
+      "antworten": [
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A29",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen für Lehrende und einen IT-Support für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE22",
+      "name": "Statten Sie die zentrale Stelle mit Ressourcen aus (z.B. Budget, feste Stellenanteile, Personal).",
+      "antworten": [
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE23",
+      "name": "Informieren Sie sich an Ihrer Hochschule, um herauszufinden, ob es bereits inoffizielle bzw. selbstverwaltete Gruppen zum Austausch für Studierende mit Beeinträchtigungen gibt.",
+      "antworten": [
+        {
+          "id": "A33",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE24",
+      "name": "Unterstützen Sie studentische Initiativen beispielsweise durch Räumlichkeiten und andere Ressourcen.",
+      "antworten": [
+        {
+          "id": "A38",
+          "antwort": "Selbstverwaltet aber nicht von der Hochschule initiiert oder begleitet.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE26",
+      "name": "Nehmen Sie Kontakt zu Studierendengruppen/-vertretungen auf, um mit Ihnen gemeinsam Austauschformate zu etablieren. Hier können Sie ebenfalls mit Ressourcen wie Räumlichkeiten unterstützen.",
+      "antworten": [
+        {
+          "id": "A33",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE27",
+      "name": "Schaffen und etablieren Sie Austauschformate und erstellen Sie Informationsmaterialien über diese Austauschformate. Beispiele für Austauschformate sind: Peer-Mentoring Programme, Selbsthilfegruppen, offene Treffs, Interessensgruppen uvm.",
+      "antworten": [
+        {
+          "id": "A33",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE28",
+      "name": "Kommunizieren Sie vorhandene Austauschformate hochschulweit (z.B. an Aktionstagen oder über die Hochschulkommunikation). Weisen Sie auch in Beratungssituationen auf die vorhandenen Austauschformate hin.",
+      "antworten": [
+        {
+          "id": "A34",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE29",
+      "name": "Etablieren Sie Austauschformate mit festen Zeiten, Räumen und verantwortlichen Personen.",
+      "antworten": [
+        {
+          "id": "A35",
+          "antwort": "Unregelmäßig.",
+          "handlungsfeldId": "H3"
+        },
+        {
+          "id": "A39",
+          "antwort": "Durch die Hochschule begleitet.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE30",
+      "name": "Sichern Sie ein festes Budget für die Umsetzung und das Angebot von Austauschformaten.",
+      "antworten": [
+        {
+          "id": "A36",
+          "antwort": "Es gibt regelmäßige Austauschformate.",
+          "handlungsfeldId": "H3"
+        },
+        {
+          "id": "A39",
+          "antwort": "Durch die Hochschule begleitet.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE31",
+      "name": "Suchen Sie regelmäßig Kontakte zu den Austauschformaten und den dort teilnehmenden Studierenden, um sie auch als Quelle für Rückmeldungen an die Hochschule zu nutzen.",
+      "antworten": [
+        {
+          "id": "A37",
+          "antwort": "Es gibt regelmäßige, fest etablierte Austauschformate.",
+          "handlungsfeldId": "H3"
+        },
+        {
+          "id": "A40",
+          "antwort": "Von der Hochschule durch Verantwortliche und Räume strukturell unterstützt.",
+          "handlungsfeldId": "H3"
+        },
+        {
+          "id": "A41",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE32",
+      "name": "Melden Sie Erkenntnisse und Ideen aus den Austauschformaten zurück in die Hochschule (z.B. Hochschulleitung).",
+      "antworten": [
+        {
+          "id": "A42",
+          "antwort": "Die Austauschformate werden weiterentwickelt.",
+          "handlungsfeldId": "H3"
+        },
+        {
+          "id": "A43",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE33",
+      "name": "Analysieren Sie, wie mit Nachteilsausgleichen an Ihrer Hochschule umgegangen wird und wer am Prozess beteiligt und für die verschiedenen Schritte zuständig ist.",
+      "antworten": [
+        {
+          "id": "A45",
+          "antwort": "Es gibt nur intransparente, unklare Abläufe. Nachteilsausgleiche werden inkonsistent und willkürlich entschieden.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE34",
+      "name": "Dokumentieren Sie den Prozess für alle Prozess-Beteiligten sowie für Studierende und Lehrende.",
+      "antworten": [
+        {
+          "id": "A47",
+          "antwort": "Es gibt einen definierten Prozess und klare Zuständigkeiten.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A48",
+          "antwort": "Es gibt klare Richtlinien auf Ebene der Hochschule oder des Studiengangs.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A51",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE35",
+      "name": "Erstellen Sie einen Leitfaden für den Ablauf und die Umsetzung von Nachteilsausgleichen für Lehrende. Erstellen Sie einen Leitfaden oder einen FAQ-Bereich für Studierende, in dem alle Informationen zur Beantragung eines Nachteilsausgleichs detailliert beschrieben sind, wie beispielsweise der Prozess, welche Angaben und Dokumente benötigt werden, wie die Erfolgschancen sind, wie lange eine Beantragung dauern kann oder auch Erfolgskriterien.",
+      "antworten": [
+        {
+          "id": "A47",
+          "antwort": "Es gibt einen definierten Prozess und klare Zuständigkeiten.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A48",
+          "antwort": "Es gibt klare Richtlinien auf Ebene der Hochschule oder des Studiengangs.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A50",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE36",
+      "name": "Analysieren Sie im Prozess, an welchen Stellen das Vorgehen detaillierter festgelegt werden könnte oder ggf. Zentralisierung möglich ist.",
+      "antworten": [
+        {
+          "id": "A49",
+          "antwort": "Die Prozesse werden (durch Befragung von Studierenden) evaluiert.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A51",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE37",
+      "name": "Erweitern Sie den Leitfaden für Lehrende zu Nachteilsausgleichen durch konkrete Umsetzungsmöglichkeiten.",
+      "antworten": [
+        {
+          "id": "A52",
+          "antwort": "Ja und die Prozesse sind transparent und nachvollziehbar (z.B. Informationen über den Status der Bearbeitung).",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A55",
+          "antwort": "Ja, Lehrende verweisen an die Beauftragten.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE38",
+      "name": "Kommunizieren Sie die erstellten Leitfäden zu Nachteilsausgleichen regelmäßig an Studierende und Lehrende. Bringen Sie sie beispielsweise direkt in Onboardingprozesse für Erstsemester-Studierende oder neue Lehrende und Professor*innen ein.",
+      "antworten": [
+        {
+          "id": "A52",
+          "antwort": "Ja und die Prozesse sind transparent und nachvollziehbar (z.B. Informationen über den Status der Bearbeitung).",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE39",
+      "name": "Entwickeln Sie eine Strategie für Nachteilsausgleiche, indem Sie auf Ebene der Fakultäten oder Studiengänge den Prozess besprechen und ein standardisiertes Vorgehen festlegen, wie mit Anfragen umgegangen wird und wo Zuständigkeiten liegen.",
+      "antworten": [
+        {
+          "id": "A46",
+          "antwort": "Es gibt kein standardisiertes Verfahren.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE40",
+      "name": "Gestalten Sie die SPOs so um, dass sie Flexibilität zulassen und so beispielsweise eine Auswahl an unterschiedlichen Prüfungsformaten ermöglichen.",
+      "antworten": [
+        {
+          "id": "A66",
+          "antwort": "Prüfungen werden nicht barrierefrei geplant oder angepasst.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE41",
+      "name": "Da sich Nachteilsausgleiche nicht nur auf Prüfungsformate beziehen, prüfen Sie auch die Umsetzung von Nachteilsausgleichen für Praktika, Labore und andere praktische Veranstaltungen. Zeigen Sie hierfür ebenfalls Alternativen und Handlungsoptionen auf.",
+      "antworten": [
+        {
+          "id": "A68",
+          "antwort": "Prüfungen werden barrierefrei geplant, Anpassungen werden direkt mitbedacht und Prüfungsformate flexibel gestaltet.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE42",
+      "name": "Sammeln Sie konkrete Daten zu Nachteilsausgleichen, wie beispielsweise die Anzahl der beantragten und gestatteten Nachteilsausgleiche oder die Dauer bis zur Entscheidung. So können Sie nicht nur Bedarfe aufzeigen, sondern auch den Prozess für Studierende noch transparenter machen.",
+      "antworten": [
+        {
+          "id": "A49",
+          "antwort": "Die Prozesse werden (durch Befragung von Studierenden) evaluiert.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE43",
+      "name": "Beziehen Sie Studierende mit Beeinträchtigungen ein, um die Nützlichkeit der Nachteilsausgleiche zu überprüfen.",
+      "antworten": [
+        {
+          "id": "A48",
+          "antwort": "Es gibt klare Richtlinien auf Ebene der Hochschule oder des Studiengangs.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A53",
+          "antwort": "Ja und es gibt einen übersichtlichen Leitfaden zur Beantragung mit konkreten Beispielen und Informationen zu Beratungsangeboten.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A69",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE44",
+      "name": "Informieren Sie sich, wie die unterschiedlichen Fachbereiche der Hochschule mit Prüfungsleistungen umgehen",
+      "antworten": [
+        {
+          "id": "A62",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE45",
+      "name": "Nutzen Sie die Informationen über die möglicherweise unterschiedlichen Vorgehensweisen der Fachbereiche zu Prüfungsleistungen und erarbeiten Sie einen Leitfaden zur Umsetzung von Barrierefreiheit in Prüfungskontexten für Ihre Hochschule.",
+      "antworten": [
+        {
+          "id": "A62",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE46",
+      "name": "Stellen Sie sicher, dass zu jeder Prüfungsform im Modulhandbuch mindestens eine alternative Form möglich ist.",
+      "antworten": [
+        {
+          "id": "A67",
+          "antwort": "Prüfungen werden mit einfachen Lösungen angepasst. (z.B.: Erhöhung der Bearbeitungszeit/ Bilder werden entfernt / ...)",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE47",
+      "name": "Informieren Sie Lehrende über Nachteilsausgleiche und sensibilisieren Sie sie für mögliche Bedarfe und alternative Prüfformate.",
+      "antworten": [
+        {
+          "id": "A54",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE48",
+      "name": "Stellen Sie sicher, dass Lehrende auf die im Nachteilsausgleich festgehaltenen Bedarfe der Studierenden eingehen können, indem Sie Informationen, zusätzliche Räumlichkeiten und personelle Ressourcen zur Verfügung stellen.",
+      "antworten": [
+        {
+          "id": "A56",
+          "antwort": "Ja, Lehrende haben grundlegendes Wissen über alternative Prüf- und Leistungsformate.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE49",
+      "name": "Bieten Sie Schulungen zu barrierefreier Konzipierung und Umsetzung von Prüfungen an (für Lehrende und Mitarbeitende des Prüfungsamts).",
+      "antworten": [
+        {
+          "id": "A57",
+          "antwort": "Ja, es gibt zusätzlich zu Stufe 2 in jedem Institut eine zuständige Ansprechperson mit fachspezifischem Wissen.",
+          "handlungsfeldId": "H5"
+        },
+        {
+          "id": "A67",
+          "antwort": "Prüfungen werden mit einfachen Lösungen angepasst. (z.B.: Erhöhung der Bearbeitungszeit/ Bilder werden entfernt / ...)",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE50",
+      "name": "Stellen Sie sicher, dass alle neuen Mitarbeitenden der Hochschule den Leitfaden zur Umsetzung von Barrierefreiheit in Prüfungskontexten beim Onboarding erhalten und dazu geschult werden.",
+      "antworten": [
+        {
+          "id": "A57",
+          "antwort": "Ja, es gibt zusätzlich zu Stufe 2 in jedem Institut eine zuständige Ansprechperson mit fachspezifischem Wissen.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE51",
+      "name": "Stellen Sie eine Beratung und Unterstützung durch geschultes Personal für Prüfungsleistungen zur Verfügung.",
+      "antworten": [
+        {
+          "id": "A63",
+          "antwort": "Ja, es gibt Informationsmaterialien zur einfachen Anpassung von Prüfungen.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE52",
+      "name": "Erheben Sie, ob und wie dieses Unterstützungsangebot angenommen wird und wo es verbessert werden kann.",
+      "antworten": [
+        {
+          "id": "A65",
+          "antwort": "Es gibt eine Servicestelle, die individuelle Beratung und Unterstützung bei der Gestaltung von barrierefreien Prüfungen anbietet.",
+          "handlungsfeldId": "H5"
+        },
+        {
+          "id": "A119",
+          "antwort": "Es gibt einen zentralen Dienst, aber er wird nicht evaluiert.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE53",
+      "name": "Verweisen Sie zur Umsetzung von Barrierefreiheit in Prüfungsleistungen auf gute Beispiele von anderen Hochschulen oder Institutionen.",
+      "antworten": [
+        {
+          "id": "A62",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE54",
+      "name": "Informieren Sie sich an Ihrer Hochschule, ob und welche Ressourcen es zum Thema digitale Barrierefreiheit in der Lehre bereits gibt und wer diese verwaltet. Sammeln Sie alle diese Ressourcen und bündeln Sie diese, damit sie zentral auffindbar sind.",
+      "antworten": [
+        {
+          "id": "A71",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A77",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE55",
+      "name": "Erarbeiten Sie eine eigene Ressourcensammlung. Nutzen Sie hierzu auch bereits extern vorhandene Ressourcen und Materialien und passen Sie diese an die Bedarfe Ihrer eigenen Hochschule an.",
+      "antworten": [
+        {
+          "id": "A71",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A77",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE56",
+      "name": "Binden Sie die Hochschuldidaktik in die Prozesse und Angebote mit ein. Erarbeiten Sie gemeinsam Konzepte zur Entwicklung alternativer Lehr- und Prüfungsformate.",
+      "antworten": [
+        {
+          "id": "A82",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A100",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE57",
+      "name": "Informieren Sie sich, ob intern an Ihrer Hochschule bereits Weiterbildungen zum Thema Barrierefreiheit angeboten werden oder suchen Sie nach externen Schulungsangeboten. Bewerben Sie diese Angebote hochschulweit.",
+      "antworten": [
+        {
+          "id": "A72",
+          "antwort": "Nein, aber es gibt Informationen zum Selbststudium.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE58",
+      "name": "Entwickeln Sie eigene Schulungsangebote oder engagieren Sie ggf. externe Personen für Schulungen.",
+      "antworten": [
+        {
+          "id": "A73",
+          "antwort": "Ja, vereinzelt werden Schulungen angeboten, die unterschiedliche Themenbereiche der Barrierefreiheit abdecken.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE59",
+      "name": "Bauen Sie an Ihrer Hochschule Kompetenzen auf, um Beratungen für Lehrende anzubieten, zum Beispiel zur Gestaltung von barrierefreien Lehrmaterialien.",
+      "antworten": [
+        {
+          "id": "A78",
+          "antwort": "Ja, es gibt Informationen zum Selbststudium.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE60",
+      "name": "Stellen Sie Ihren Lehrenden Tools zur Verfügung, die Ihnen eine barrierefreie Aufbereitung der Lehre erleichtern.",
+      "antworten": []
+    },
+    {
+      "id": "HE61",
+      "name": "Führen Sie regelmäßige und breite Schulungsangebote zum Thema Barrierefreiheit in der Hochschule ein.",
+      "antworten": [
+        {
+          "id": "A73",
+          "antwort": "Ja, vereinzelt werden Schulungen angeboten, die unterschiedliche Themenbereiche der Barrierefreiheit abdecken.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE62",
+      "name": "Prüfen Sie regelmäßig, ob die Schulungsangebote bedarfsgerecht sind. Führen Sie hierfür beispielsweise Evaluationen mit den Teilnehmenden durch.",
+      "antworten": [
+        {
+          "id": "A74",
+          "antwort": "Ja, es gibt umfangreiche und differenzierte Schulungsangebote in unterschiedlichen Formaten zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A75",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE63",
+      "name": "Informieren Sie sich über offizielle Zertifizierungsmöglichkeiten und richten Sie Ihre Schulungsangebote daran aus.",
+      "antworten": [
+        {
+          "id": "A74",
+          "antwort": "Ja, es gibt umfangreiche und differenzierte Schulungsangebote in unterschiedlichen Formaten zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A76",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A84",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE64",
+      "name": "Lassen Sie das Thema auch in andere thematisch passende Schulungen einfließen.",
+      "antworten": [
+        {
+          "id": "A76",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A83",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE65",
+      "name": "Etablieren Sie einen Umsetzungsdienst für Studierende und Lehrende, um z.B. Dokumente barrierefrei aufzubereiten. Schaffen Sie hierfür Ressourcen und beschaffen Sie benötigte Lizenzen und Hardware.",
+      "antworten": [
+        {
+          "id": "A64",
+          "antwort": "Es gibt grundlegende Beratung zur barrierefreien Erstellung und Anpassung von Prüfungen.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A79",
+          "antwort": "Ja, es gibt Personen, die Lehrende zum Thema (digitale) Barrierefreiheit beraten und grundlegende Unterstützung anbieten können.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE66",
+      "name": "Richten Sie eine zentrale Anlaufstelle für Lehrende im Hinblick auf barrierefreie Lehre ein. Hier sollten alle an der Hochschule vorhandenen Beratungs- und Unterstützungsangebote für Lehrende zusammengebracht werden.",
+      "antworten": [
+        {
+          "id": "A64",
+          "antwort": "Es gibt grundlegende Beratung zur barrierefreien Erstellung und Anpassung von Prüfungen.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A80",
+          "antwort": "Ja, es gibt grundlegende Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE67",
+      "name": "Treiben Sie Innovationen im Bereich der inklusiven Didaktik voran und bringen Sie das Thema auch in die Forschung der Hochschule mit ein.",
+      "antworten": [
+        {
+          "id": "A81",
+          "antwort": "Ja, eine zentrale Einrichtung an der Hochschule unterstützt die Lehrenden zu allen Bereichen der (digitalen) Barrierefreiheit. Die Umsetzungsdienste gehen über die grundlegende Aufbereitung von einzelnen Dokumenten hinaus.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A83",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6"
+        },
+        {
+          "id": "A101",
+          "antwort": "Ja, z.B. in Modulen in IT oder Pädagogik sowie Wahlbereiche.",
+          "handlungsfeldId": "H6"
+        }
+      ]
+    },
+    {
+      "id": "HE68",
+      "name": "Sprechen Sie viel und mit allen über das Thema Barrierefreiheit (Dabei sollten alle angesprochen werden: Lehrende, Mitarbeitende in der Verwaltung, in der Technik und auch Studierende.)",
+      "antworten": [
+        {
+          "id": "A86",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE69",
+      "name": "Stellen Sie Informationsmaterialien zum Thema „Beeinträchtigungen und Barrierefreiheit“ für alle Hochschulangehörigen zur Verfügung",
+      "antworten": [
+        {
+          "id": "A50",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A58",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A86",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE70",
+      "name": "Kommunizieren Sie das Thema möglichst regelmäßig über Ihre Kanäle, wie bspw. Newsletter, Social-Media, Podcasts, Flyer und Poster. Folgende Themen sind beispielsweise sinnvoll: Angebote, Veranstaltungen, Allgemeine Informationen.",
+      "antworten": [
+        {
+          "id": "A58",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A86",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A98",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE71",
+      "name": "Verbreiten Sie die Informationsmaterialien durch eine kontinuierliche Kommunikation dieser in der Hochschule.",
+      "antworten": [
+        {
+          "id": "A96",
+          "antwort": "Nein, es werden damit nur einzelne Personengruppen angesprochen.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE72",
+      "name": "Finden Sie Multiplikatoren an Ihrer Hochschule, die das Thema Barrierefreiheit verbreiten.",
+      "antworten": [
+        {
+          "id": "A60",
+          "antwort": "Ja, durch regelmäßige Infoveranstaltungen pro Semester durch die Beauftragten.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A96",
+          "antwort": "Nein, es werden damit nur einzelne Personengruppen angesprochen.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE73",
+      "name": "Veranstalten Sie Weiterbildungen zum Thema Beeinträchtigungen und Barrierefreiheit für verschiedene Hochschulangehörige (oder verweisen Sie auf extern angebotene Weiterbildungen)",
+      "antworten": [
+        {
+          "id": "A59",
+          "antwort": "Ja, durch Informationen auf der Homepage.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A87",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A89",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE74",
+      "name": "Achten Sie darauf, diese Weiterbildungen regelmäßig zur Verfügung zu stellen, um ein permanentes Angebot zu ermöglichen.",
+      "antworten": [
+        {
+          "id": "A59",
+          "antwort": "Ja, durch Informationen auf der Homepage.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A90",
+          "antwort": "Es gibt vereinzelte und unregelmäßige Angebote.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE75",
+      "name": "Bringen Sie die Perspektive von Betroffenen als Expert*innen in eigener Sache mit in Weiterbildungen ein. Laden Sie hierfür Betroffene zu Weiterbildungen ein oder lassen Sie sie selbst die Weiterbildungen durchführen.",
+      "antworten": [
+        {
+          "id": "A61",
+          "antwort": "Ja, bei den ersten Sitzungen in jeder Veranstaltung (Vorlesungen, Seminare).",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A94",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE76",
+      "name": "Bringen Sie das Thema Barrierefreiheit in passende Veranstaltungen und Aktionstage (z.B. bei einem Tag der Lehre) ein.",
+      "antworten": [
+        {
+          "id": "A91",
+          "antwort": "Die Angebote finden regelmäßig statt.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE77",
+      "name": "Bringen Sie das Thema Barrierefreiheit in allen thematisch passenden Weiterbildungen ein, um die Teilnehmenden dieser Veranstaltungen ebenfalls zu sensibilisieren.",
+      "antworten": [
+        {
+          "id": "A97",
+          "antwort": "Ja, alle Hochschulangehörigen können die Angebote nutzen.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE78",
+      "name": "Stellen Sie ein breit gefächertes und buntes Angebot an Weiterbildungen bereit.",
+      "antworten": [
+        {
+          "id": "A87",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE79",
+      "name": "Etablieren Sie neue Kanäle zur Kommunikation des Themas (z.B. einen Blog oder Podcast).",
+      "antworten": [
+        {
+          "id": "A99",
+          "antwort": "Ja, „Studieren mit Beeinträchtigung“ ist in der internen und externen Kommunikation präsent.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE80",
+      "name": "Involvieren Sie bei der Kommunikation des Themas auch Expert*innen in eigener Sache.",
+      "antworten": [
+        {
+          "id": "A95",
+          "antwort": "Ja, Angebote werden von bzw. mit Menschen mit Behinderungen durchgeführt.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A99",
+          "antwort": "Ja, „Studieren mit Beeinträchtigung“ ist in der internen und externen Kommunikation präsent.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE81",
+      "name": "Bringen Sie das Thema (digitale) Barrierefreiheit in den Prozess des Onboardings und das Berufungsverfahren bzw. Neuberufenenprogramm mit ein, um neue Hochschulangehörige direkt zu sensibilisieren.",
+      "antworten": [
+        {
+          "id": "A60",
+          "antwort": "Ja, durch regelmäßige Infoveranstaltungen pro Semester durch die Beauftragten.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE82",
+      "name": "Veranstalten Sie eigene Aktionstage oder -wochen zum Thema Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A61",
+          "antwort": "Ja, bei den ersten Sitzungen in jeder Veranstaltung (Vorlesungen, Seminare).",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A87",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A93",
+          "antwort": "Zusätzlich sind die etablierten Maßnahmen und Angebote Teil der (Diversitäts-)Strategie.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE83",
+      "name": "Integrieren Sie Sensibilisierungsmaßnahmen in Ihrer hochschulweiten Diversitätsstrategie.",
+      "antworten": [
+        {
+          "id": "A88",
+          "antwort": "Ja und es gibt umfangreiche Maßnahmen und fest etablierte Angebote zur Sensibilisierung für alle Hochschulangehörigen.",
+          "handlungsfeldId": "H7"
+        },
+        {
+          "id": "A92",
+          "antwort": "Die Angebote sind fest etabliert.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE84",
+      "name": "Tragen Sie grundlegende Informationen zur Barrierefreiheit von Dateiformaten und Lern-Management-System-Inhalten zusammen.",
+      "antworten": [
+        {
+          "id": "A110",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE85",
+      "name": "Kommunizieren Sie (z. B. auf der Webseite) die an der Hochschule zur Verfügung stehenden Tools zur Umsetzung und Unterstützung von Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A113",
+          "antwort": "Sie werden nicht getestet.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE86",
+      "name": "Stellen Sie Informationsmaterialien zur Prüfung von Dokumenten und LMS-Inhalten auf Barrierefreiheit für Lehrende zentral bereit und machen Sie darauf aufmerksam.",
+      "antworten": [
+        {
+          "id": "A102",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A105",
+          "antwort": "Sie werden nicht getestet.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE87",
+      "name": "Bieten Sie Lehrenden Schulungen und Workshops zu digitaler Barrierefreiheit an, in denen die Testung von digitalen Materialien erlernt und erprobt werden kann oder verweisen Sie auf externe Angebote (Siehe auch Indikator Training und Unterstützung).",
+      "antworten": [
+        {
+          "id": "A106",
+          "antwort": "Lehrende testen selbstständig mithilfe von Informationen.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A114",
+          "antwort": "Lehrende testen selbstständig mithilfe von Informationen.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE88",
+      "name": "Erstellen Sie eine Liste zu automatischen Prüftools und halten Sie diese aktuell. Verweisen Sie in Informationsmaterialien auf automatisierte Testmöglichkeiten.",
+      "antworten": [
+        {
+          "id": "A105",
+          "antwort": "Sie werden nicht getestet.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A113",
+          "antwort": "Sie werden nicht getestet.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE89",
+      "name": "Stellen Sie Ressourcen bereit (finanziell, personell), um einen Prüfdienst für Lehrmaterialien zu etablieren.",
+      "antworten": [
+        {
+          "id": "A104",
+          "antwort": "Ja, generell.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A107",
+          "antwort": "Lehrende testen mithilfe von Informationen und Schulungen.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A112",
+          "antwort": "Ja, generell.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A115",
+          "antwort": "Lehrende testen mithilfe von Informationen und Schulungen.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A118",
+          "antwort": "Es gibt keinen zentralen Dienst zur Unterstützung.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE90",
+      "name": "Stellen Sie in digitaler Barrierefreiheit geschulte Mitarbeitende ein oder bilden Sie bereits angestellte Mitarbeitende entsprechend fort.",
+      "antworten": [
+        {
+          "id": "A117",
+          "antwort": "Ein zentraler Dienst testet die digitalen Lernräume auf digitale Barrierefreiheit.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A118",
+          "antwort": "Es gibt keinen zentralen Dienst zur Unterstützung.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE91",
+      "name": "Machen Sie auf die Prüfung auf Barrierefreiheit als zentralen Service für Lehrende aufmerksam.",
+      "antworten": [
+        {
+          "id": "A108",
+          "antwort": "Lehrende testen mit Unterstützung durch einen zentralen Dienst.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A116",
+          "antwort": "Lehrende testen mit Unterstützung durch einen zentralen Dienst.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A120",
+          "antwort": "Der zentrale Dienst zur Unterstützung und dessen Nutzung wird evaluiert.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE92",
+      "name": "Erstellen und veröffentlichen Sie Richtlinien, dass Lehrmaterialien in allen Formaten barrierefrei gestaltet werden müssen.",
+      "antworten": [
+        {
+          "id": "A103",
+          "antwort": "Ja, vereinzelt.",
+          "handlungsfeldId": "H8"
+        },
+        {
+          "id": "A111",
+          "antwort": "Ja, vereinzelt.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE93",
+      "name": "Erinnern Sie Lehrende und Mitarbeitende an der Hochschule daran, dass sie barrierefreie Tools verwenden und dass sie verpflichtet sind, alle Dokumente barrierefrei zu erstellen.",
+      "antworten": [
+        {
+          "id": "A109",
+          "antwort": "Ein zentraler Dienst testet die Lehrmaterialien auf digitale Barrierefreiheit.",
+          "handlungsfeldId": "H8"
+        }
+      ]
+    },
+    {
+      "id": "HE94",
+      "name": "Ermöglichen Sie, Feedback über verschiedene Kanäle einreichen zu können. (z.B. Online-Formular, Briefkasten, E-Mail, persönlich). Dies sollte auch anonym möglich sein.",
+      "antworten": [
+        {
+          "id": "A126",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE95",
+      "name": "Etablieren Sie einen Prozess, wie Feedback eingereicht werden kann und wie anschließend mit den Anliegen weiter verfahren wird. Dokumentieren Sie diesen Prozess und geben Sie diesen und die Ansprechpersonen und Anlaufstellen hochschulweit bekannt.",
+      "antworten": [
+        {
+          "id": "A128",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H9"
+        },
+        {
+          "id": "A130",
+          "antwort": "Nein, es gibt keinen definierten Prozess.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE96",
+      "name": "Achten Sie im Feedback-Prozess darauf, nach konkreten Vorschlägen zur Verbesserung zu fragen.",
+      "antworten": [
+        {
+          "id": "A132",
+          "antwort": "Nein, Feedback-Gebende werde nicht einbezogen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE97",
+      "name": "Kommunizieren Sie die vorhandenen Feedback-Möglichkeiten regelmäßig und machen Sie alle Hochschulangehörigen darauf aufmerksam.",
+      "antworten": [
+        {
+          "id": "A127",
+          "antwort": "Ja, hier gibt es auch die Möglichkeit, Feedback anonym einzureichen.",
+          "handlungsfeldId": "H9"
+        },
+        {
+          "id": "A129",
+          "antwort": "Ja, eine Übersicht der Ansprechpersonen wird zur Verfügung gestellt.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE98",
+      "name": "Richten Sie eine zentrale und neutrale Beschwerdestelle ein und statten Sie diese mit den nötigen Ressourcen – sowohl personell, räumlich als auch finanziell – aus.",
+      "antworten": [
+        {
+          "id": "A121",
+          "antwort": "Es gibt die Möglichkeit, dezentral und themenabhängig Beschwerden und Feedback einzubringen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE99",
+      "name": "Vernetzen Sie die Feedbackstelle innerhalb der Hochschule. Nur so kann das eingereichte Feedback an die relevanten Stellen weitergegeben werden. Die Feedbackstelle sollte die betroffenen Bereiche im weiteren Prozess auch begleiten und überprüfen.",
+      "antworten": [
+        {
+          "id": "A122",
+          "antwort": "Es gibt eine zentrale Stelle für Feedback und Beschwerden.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE100",
+      "name": "Stellen Sie sicher, dass Feedbackstellen offen, vertraulich und unabhängig arbeiten.",
+      "antworten": []
+    },
+    {
+      "id": "HE101",
+      "name": "Holen Sie Feedback systematisch zu unterschiedlichen Zeiten ein (turnusmäßige Studierenden-, Lehrenden- oder Mitarbeiterbefragung).",
+      "antworten": [
+        {
+          "id": "A124",
+          "antwort": "Nein, es gibt nur die Möglichkeit, Feedback einzureichen (Hochschule ist passiv).",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE102",
+      "name": "Nehmen Sie Fragen zu (digitaler) Barrierefreiheit in bereits vorhandene Befragungen von Hochschulangehörigen mit auf.",
+      "antworten": [
+        {
+          "id": "A124",
+          "antwort": "Nein, es gibt nur die Möglichkeit, Feedback einzureichen (Hochschule ist passiv).",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE103",
+      "name": "Sprechen Sie für das Einreichen von Feedback gezielt unterschiedliche Zielgruppen an, z.B. Studierende, Mitarbeitende oder wissenschaftliches Personal.",
+      "antworten": [
+        {
+          "id": "A124",
+          "antwort": "Nein, es gibt nur die Möglichkeit, Feedback einzureichen (Hochschule ist passiv).",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE104",
+      "name": "Als zentrale Feedbackstelle verantworten Sie die Umsetzung von Abhilfemaßnahmen und Lösungen. Sie sollten nachverfolgen, ob das Feedback in den betroffenen Bereichen umgesetzt wurde.",
+      "antworten": [
+        {
+          "id": "A123",
+          "antwort": "Feedback wird an die richtigen Stellen weitergegeben, wo es bearbeitet wird.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE105",
+      "name": "Machen Sie den Feedback-Prozess für die Personen, die Feedback gegeben haben, transparent. Informieren Sie sie hierfür über das weitere Vorgehen und wie mit ihrem Anliegen umgegangen wird.",
+      "antworten": [
+        {
+          "id": "A131",
+          "antwort": "Es gibt einen definierten und transparenten Prozess zur Meldung und Verarbeitung von Beschwerden und Feedback, der auch an die Hochschulangehörigen kommuniziert wird.",
+          "handlungsfeldId": "H9"
+        },
+        {
+          "id": "A132",
+          "antwort": "Nein, Feedback-Gebende werde nicht einbezogen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE106",
+      "name": "Wenn es möglich und sinnvoll ist, beteiligen Sie Personen, die Feedback gegeben haben, und laden Sie diese ein, an der Verbesserung oder Lösungsfindung zu arbeiten.",
+      "antworten": [
+        {
+          "id": "A132",
+          "antwort": "Nein, Feedback-Gebende werde nicht einbezogen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE107",
+      "name": "Erfassen Sie die eingereichten Anliegen in Kennzahlen.",
+      "antworten": [
+        {
+          "id": "A125",
+          "antwort": "Ja, das Feedback wird aktiv von unterschiedlichen Zielgruppen eingeholt.",
+          "handlungsfeldId": "H9"
+        },
+        {
+          "id": "A134",
+          "antwort": "Nein, der Prozess wird nicht evaluiert.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE108",
+      "name": "Geben Sie die Erkenntnisse aus dem Monitoring der Feedbackstelle als Report an die Hochschulleitung weiter, um auf Häufungen von Problemen aufmerksam zu machen und Bedarfe aufzuzeigen.",
+      "antworten": [
+        {
+          "id": "A125",
+          "antwort": "Ja, das Feedback wird aktiv von unterschiedlichen Zielgruppen eingeholt.",
+          "handlungsfeldId": "H9"
+        },
+        {
+          "id": "A134",
+          "antwort": "Nein, der Prozess wird nicht evaluiert.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE109",
+      "name": "Erstellen Sie eine Erklärung zur Barrierefreiheit für Ihre Webseiten und Apps und veröffentlichen Sie diese.",
+      "antworten": [
+        {
+          "id": "A136",
+          "antwort": "Die Webauftritte sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A140",
+          "antwort": "Die mobilen Apps sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE110",
+      "name": "Beachten Sie die Mindestanforderungen an Barrierefreiheit für Webseiten und Apps.",
+      "antworten": [
+        {
+          "id": "A136",
+          "antwort": "Die Webauftritte sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A140",
+          "antwort": "Die mobilen Apps sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE111",
+      "name": "Aktualisieren Sie die Erklärung zur Barrierefreiheit regelmäßig.",
+      "antworten": []
+    },
+    {
+      "id": "HE112",
+      "name": "Führen Sie (entweder intern, wenn Kompetenzen zur Verfügung stehen, oder extern über eine Prüf-Agentur) eine Barrierefreiheitsprüfung Ihres zentralen Webauftritts nach WCAG-Kriterien durch.",
+      "antworten": [
+        {
+          "id": "A137",
+          "antwort": "Einige Inhalte der Webseiten sind barrierefrei erstellt oder auf Barrierefreiheit überprüft worden. Bei Problemen mit der Webseite bzw. mobilen Apps werden vereinzelt Barrieren behoben.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A141",
+          "antwort": "Einige Inhalte der Apps sind barrierefrei erstellt oder auf Barrierefreiheit überprüft worden. Bei Problemen mit der Webseite bzw. mobilen Apps werden vereinzelt Barrieren behoben.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE113",
+      "name": "Erarbeiten Sie einen Fahrplan zur Überarbeitung und Behebung von Barrieren Ihres Webauftritts und mobiler Apps. Hinweis: Das ist eine Daueraufgabe und sollte auch als solche geplant werden.",
+      "antworten": [
+        {
+          "id": "A138",
+          "antwort": "Der zentrale Webauftritt wurde mindestens einmal auf Barrierefreiheit geprüft und die gefundenen Fehler wurden behoben.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A142",
+          "antwort": "Die mobilen Apps wurden mindestens einmal auf Barrierefreiheit geprüft und die gefundenen Fehler wurden behoben.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE114",
+      "name": "Analysieren Sie die Prozesse rund um die Barrierefreiheit Ihrer Webauftritte und mobilen Apps: Welche Verantwortlichkeiten gibt es für die verschiedenen Schritte in der Entwicklung und Wartung der Webangebote?",
+      "antworten": []
+    },
+    {
+      "id": "HE115",
+      "name": "Schulen Sie alle im Prozess beteiligten Personen zum Thema digitale Barrierefreiheit. Dazu gehören neben den Administrator*innen auch die Autor*innen von Inhalten in den Webauftritten.",
+      "antworten": [
+        {
+          "id": "A144",
+          "antwort": "Nein, Autor*innen haben keine Schulungen zur Erstellung barrierefreier Inhalte erhalten.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE116",
+      "name": "Stellen Sie Autor*innen Templates zur Verfügung, um Inhalte barrierefrei zu erstellen.",
+      "antworten": [
+        {
+          "id": "A145",
+          "antwort": "Ja, Autor*innen sind im Hinblick auf die Erstellung barrierefreier Inhalte geschult. Ein IT-Support für barrierefreie Webauftritte steht zur Verfügung (z.B. für Autor*innen).",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE117",
+      "name": "Wählen Sie für die Webauftritte ein Content-Management-System aus, das die Erstellung von barrierefreien Seiten ermöglicht, und so die Plattformfehler minimiert werden.",
+      "antworten": []
+    },
+    {
+      "id": "HE118",
+      "name": "Wenn Sie für die Entwicklung von Webauftritten oder mobilen Apps mit externen Agenturen arbeiten, fordern Sie die barrierefreie Umsetzung ein. Hierfür ist auch eine Prüfung auf Barrierefreiheit der Produkte und Webseiten vor der Abnahme notwendig.",
+      "antworten": []
+    },
+    {
+      "id": "HE119",
+      "name": "Schulen Sie Administrator*innen für die Webseiten und Apps im Themenbereich digitale Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A146",
+          "antwort": "Die IT-Verantwortlichen haben keine Kompetenzen im Bereich Barrierefreiheit.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE120",
+      "name": "Entwickeln und etablieren Sie einen Prozess an der Hochschule, durch den neue Beiträge vor der Veröffentlichung immer auf Barrierefreiheit getestet werden.",
+      "antworten": [
+        {
+          "id": "A139",
+          "antwort": "Zusätzlich werden regelmäßig stichprobenartige Testungen der Webauftritte auf digitale Barrierefreiheit durchgeführt und die Barrieren werden behoben.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A143",
+          "antwort": "Zusätzlich werden regelmäßig stichprobenartige Testungen der mobilen Apps auf digitale Barrierefreiheit durchgeführt und die Barrieren werden behoben.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A145",
+          "antwort": "Ja, Autor*innen sind im Hinblick auf die Erstellung barrierefreier Inhalte geschult. Ein IT-Support für barrierefreie Webauftritte steht zur Verfügung (z.B. für Autor*innen).",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE121",
+      "name": "Führen Sie regelmäßig Testungen auf Barrierefreiheit der Webseiten und Apps durch (intern oder extern).",
+      "antworten": [
+        {
+          "id": "A138",
+          "antwort": "Der zentrale Webauftritt wurde mindestens einmal auf Barrierefreiheit geprüft und die gefundenen Fehler wurden behoben.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A142",
+          "antwort": "Die mobilen Apps wurden mindestens einmal auf Barrierefreiheit geprüft und die gefundenen Fehler wurden behoben.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE122",
+      "name": "Etablieren Sie einen IT-Support für Autor*innen, die Inhalte für Webauftritte erstellen. Hier benötigt es an der Hochschule geschulte Verantwortliche mit ausreichend Ressourcen.",
+      "antworten": [
+        {
+          "id": "A144",
+          "antwort": "Nein, Autor*innen haben keine Schulungen zur Erstellung barrierefreier Inhalte erhalten.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE123",
+      "name": "Bringen Sie neu etablierte Prozesse zur Sicherung der Barrierefreiheit der Webauftritte auch in Strategien ein, beispielsweise der Digitalisierungsstrategie.",
+      "antworten": [
+        {
+          "id": "A139",
+          "antwort": "Zusätzlich werden regelmäßig stichprobenartige Testungen der Webauftritte auf digitale Barrierefreiheit durchgeführt und die Barrieren werden behoben.",
+          "handlungsfeldId": "H10"
+        },
+        {
+          "id": "A143",
+          "antwort": "Zusätzlich werden regelmäßig stichprobenartige Testungen der mobilen Apps auf digitale Barrierefreiheit durchgeführt und die Barrieren werden behoben.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE124",
+      "name": "Beschaffen Sie Lizenzen und Software-Produkte, die für die Umsetzung von digitaler Barrierefreiheit notwendig oder sinnvoll sind.",
+      "antworten": []
+    },
+    {
+      "id": "HE125",
+      "name": "Bieten Sie Ruheräume an, in denen sich die Studierenden zurückziehen können.",
+      "antworten": []
+    },
+    {
+      "id": "HE126",
+      "name": "Richten Sie barrierearme Arbeitsplätze ein. Greifen Sie hierfür auf barrierearme Ausstattung (physisch, digital) zurück. Stellen Sie ergänzend Hilfsmittel zur Verfügung.",
+      "antworten": [
+        {
+          "id": "A149",
+          "antwort": "Nein, es gibt keine barrierefreien Arbeitsplätze.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE127",
+      "name": "Stellen Sie sicher, dass diese Arbeitsplätze jederzeit und barrierefrei für Studierende zugänglich sind.",
+      "antworten": [
+        {
+          "id": "A150",
+          "antwort": "Es gibt vereinzelte Arbeitsplätze, die durch einfache Maßnahmen barrierearm gestaltet sind.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE128",
+      "name": "Informieren Sie zentral über die Arbeitsplätze. Nutzen Sie hierfür z.B. Ihre Webseite, Newsletter, Aushängetafeln etc.",
+      "antworten": [
+        {
+          "id": "A151",
+          "antwort": "Es stehen ausreichend (d.h. dem Bedarf entsprechend) barrierearme Arbeitsplätze zur Verfügung.",
+          "handlungsfeldId": "H11"
+        },
+        {
+          "id": "A155",
+          "antwort": "Nein, die Angebote werden nicht kommuniziert.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE129",
+      "name": "Leiten Sie Informationen über die Arbeitsplätze auch an Lehrende weiter und bitten Sie diese, entsprechende Informationen in ihren Lehrveranstaltungen an Studierende weiterzugeben.",
+      "antworten": [
+        {
+          "id": "A151",
+          "antwort": "Es stehen ausreichend (d.h. dem Bedarf entsprechend) barrierearme Arbeitsplätze zur Verfügung.",
+          "handlungsfeldId": "H11"
+        },
+        {
+          "id": "A155",
+          "antwort": "Nein, die Angebote werden nicht kommuniziert.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE130",
+      "name": "Etablieren Sie einen Hilfsmittelpool, aus dem Studierende und Mitarbeitende Hilfsmittel ausleihen können",
+      "antworten": [
+        {
+          "id": "A152",
+          "antwort": "Nein, es gibt keine Hilfsmittel (Assistive Technologien).",
+          "handlungsfeldId": "H11"
+        },
+        {
+          "id": "A157",
+          "antwort": "Es gibt keinen Hilfsmittelpool.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE131",
+      "name": "Beziehen Sie Menschen mit Behinderung, die assistive Technologien nutzen, bei der Auswahl und Anschaffung von Hilfsmitteln mit ein.",
+      "antworten": [
+        {
+          "id": "A153",
+          "antwort": "Es stehen grundlegende assistive Technologien zur Verfügung.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE132",
+      "name": "Sorgen Sie für Wartung, regelmäßige Überprüfung, Aktualisierung und ggf. Erweiterung des Hilfsmittelpools und der barrierefreien Arbeitsplätze.",
+      "antworten": [
+        {
+          "id": "A150",
+          "antwort": "Es gibt vereinzelte Arbeitsplätze, die durch einfache Maßnahmen barrierearm gestaltet sind.",
+          "handlungsfeldId": "H11"
+        },
+        {
+          "id": "A153",
+          "antwort": "Es stehen grundlegende assistive Technologien zur Verfügung.",
+          "handlungsfeldId": "H11"
+        },
+        {
+          "id": "A161",
+          "antwort": "Einzelne Räume sind mit Barrierefreiheits-Technologien ausgestattet.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE133",
+      "name": "Betreuen und unterstützen Sie die Studierenden in der Nutzung und schulen Sie Mitarbeitende entsprechend.",
+      "antworten": [
+        {
+          "id": "A154",
+          "antwort": "Assistive Technologien sind in einem Hilfsmittelpool gesammelt, der bedarfsgerecht erweitert und aktualisiert wird.",
+          "handlungsfeldId": "H11"
+        },
+        {
+          "id": "A158",
+          "antwort": "Die Hilfsmittel stehen nur zur Verfügung und können beim Verantwortlichen ausgeliehen werden.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE134",
+      "name": "Statten Sie Hörsäle und Seminarräume mit Barrierefreiheits-Technologien aus wie beispielsweise FM-Anlagen oder Höranlagen.",
+      "antworten": [
+        {
+          "id": "A160",
+          "antwort": "Es gibt keine Räume, die mit Barrierefreiheits-Technologien ausgestattet sind.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE135",
+      "name": "Achten Sie sorgfältig darauf, dass in Leistungsbeschreibungen alle erforderlichen Anforderungen an die Barrierefreiheit aufgeführt und ggf. detailliert beschrieben werden.",
+      "antworten": [
+        {
+          "id": "A163",
+          "antwort": "(Digitale) Barrierefreiheit wird bei Beschaffungen nicht beachtet.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE136",
+      "name": "Bauen Sie Kenntnisse zum Thema digitale Barrierefreiheit in der Vergabestelle und bei Beschaffenden auf.",
+      "antworten": [
+        {
+          "id": "A164",
+          "antwort": "In einzelnen Ausschreibungen wird (digitale) Barrierefreiheit als Abnahmekriterium genannt.",
+          "handlungsfeldId": "H12"
+        },
+        {
+          "id": "A173",
+          "antwort": "Nein, es sind keine Kompetenzen vorhanden.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE137",
+      "name": "Beteiligen Sie Vertretungen von Betroffenen, wie Beauftragte für Studierende mit Behinderungen oder Schwerbehindertenvertretungen am Vergabe- und Beschaffungsprozess.",
+      "antworten": [
+        {
+          "id": "A164",
+          "antwort": "In einzelnen Ausschreibungen wird (digitale) Barrierefreiheit als Abnahmekriterium genannt.",
+          "handlungsfeldId": "H12"
+        },
+        {
+          "id": "A170",
+          "antwort": "Nein, Betroffene werden nicht einbezogen.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE138",
+      "name": "Achten Sie auf eine saubere Dokumentation des Entscheidungsprozesses.",
+      "antworten": []
+    },
+    {
+      "id": "HE139",
+      "name": "Entwickeln Sie einen Vergabebaustein für die gesamte Hochschule, der die Verantwortlichen dabei unterstützt, Ausschreibungsunterlagen zu erstellen.",
+      "antworten": []
+    },
+    {
+      "id": "HE140",
+      "name": "Recherchieren Sie die Expertise und Leistungen der potenziellen Verkaufs-Firmen in Bezug auf digitale Barrierefreiheit.",
+      "antworten": []
+    },
+    {
+      "id": "HE141",
+      "name": "Prüfen Sie die Produkte und Webseiten vor der Abnahme auf Barrierefreiheit anhand festgelegter Kriterien (z.B. BFIT-/WCAG-Test).",
+      "antworten": [
+        {
+          "id": "A168",
+          "antwort": "Nein, es werden keine Barrierefreiheits-Tests vor der Abnahme durchgeführt.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE142",
+      "name": "Führen Sie Testungen der Software in der Hochschule, im Idealfall mit Expert*innen in eigener Sache, durch.",
+      "antworten": [
+        {
+          "id": "A168",
+          "antwort": "Nein, es werden keine Barrierefreiheits-Tests vor der Abnahme durchgeführt.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE143",
+      "name": "Integrieren Sie die Barrierefreiheit als verbindliches Kriterium in allen Ausschreibungen und Leistungsprozessen.",
+      "antworten": [
+        {
+          "id": "A165",
+          "antwort": "Barrierefreiheit wird im Vergabeprozess grundsätzlich mitgedacht.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE144",
+      "name": "Entwickeln Sie eine Strategie für den Vergabe- und Beschaffungsprozess.",
+      "antworten": [
+        {
+          "id": "A166",
+          "antwort": "(Digitale) Barrierefreiheit ist Teil aller Ausschreibungen.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE145",
+      "name": "Verpflichten Sie alle Bereiche der Hochschule auf diese Strategie.",
+      "antworten": [
+        {
+          "id": "A167",
+          "antwort": "Zusätzlich zu den vorherigen Stufen ist eine Strategie zum Vergabe- und Beschaffungsprozess vorhanden, die Barrierefreiheit als verbindliches Kriterium definiert.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE146",
+      "name": "Entwickeln Sie eine Strategie für die Beteiligungsverfahren: Wie werden etwa die Personalräte, Schwerbehindertenvertretungen und Inklusionsbeauftragte darin eingebunden?",
+      "antworten": [
+        {
+          "id": "A171",
+          "antwort": "Vertretungen von Betroffenen werden vereinzelt am Beschaffungsprozess beteiligt (z.B. in Form von Nutzertests auf Barrierefreiheit).",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE147",
+      "name": "Stellen Sie sicher, dass Beschaffungen zu digitaler Barrierefreiheit getätigt werden können und das Budget dafür zeitnah zur Verfügung steht.",
+      "antworten": [
+        {
+          "id": "A175",
+          "antwort": "Maßnahmen können nicht umgesetzt werden, weil keine finanziellen Mittel vorhanden sind.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE148",
+      "name": "Vernetzen Sie sich an der Hochschule mit anderen Beratenden, um Ressourcen zu bündeln und optimieren.",
+      "antworten": []
+    },
+    {
+      "id": "HE149",
+      "name": "Suchen Sie proaktiv nach alternativen Finanzierungsquellen und Kooperationsmöglichkeiten mit anderen Institutionen innerhalb und außerhalb der Hochschule.",
+      "antworten": [
+        {
+          "id": "A179",
+          "antwort": "Es stehen keine finanziellen Mittel zur Verfügung.",
+          "handlungsfeldId": "H13"
+        },
+        {
+          "id": "A175",
+          "antwort": "Maßnahmen können nicht umgesetzt werden, weil keine finanziellen Mittel vorhanden sind.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE150",
+      "name": "Informieren Sie sich über mögliche Sondermittel beispielsweise auf Länderebene.",
+      "antworten": []
+    },
+    {
+      "id": "HE151",
+      "name": "Werben Sie Finanzierungen über Drittmittel an, um neue Angebote aufzubauen.",
+      "antworten": [
+        {
+          "id": "A180",
+          "antwort": "Einzelne Maßnahmen können bei Bedarf aus allgemeinen oder fachbezogenen Budgets finanziert werden.",
+          "handlungsfeldId": "H13"
+        },
+        {
+          "id": "A184",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE152",
+      "name": "Prüfen Sie, ob für Beschaffungen im Bereich digitale Barrierefreiheit finanzielle Ressourcen aus Drittmitteln bezogen werden können.",
+      "antworten": []
+    },
+    {
+      "id": "HE153",
+      "name": "Schaffen Sie ein festes Budget für die Umsetzung von Maßnahmen zur Verbesserung der (digitalen) Barrierefreiheit an der Hochschule.",
+      "antworten": [
+        {
+          "id": "A176",
+          "antwort": "Einzelne Maßnahmen können punktuell bei Bedarf umgesetzt werden.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE154",
+      "name": "Ordnen Sie der digitalen Barrierefreiheit ein festes Budget im Haushaltsplan zu und stellen Sie dessen Verfügbarkeit sicher.",
+      "antworten": [
+        {
+          "id": "A177",
+          "antwort": "Regelmäßige Umsetzungen von Maßnahmen sind möglich.",
+          "handlungsfeldId": "H13"
+        },
+        {
+          "id": "A181",
+          "antwort": "Es gibt zeitlich befristete Mittel (z.B. aus Drittmitttelprojekten oder Sonderinitiativen).",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE155",
+      "name": "Überführen Sie die Budgetplanung für digitale Barrierefreiheit in eine nachhaltige Investitionsstrategie der Hochschule.",
+      "antworten": [
+        {
+          "id": "A178",
+          "antwort": "Maßnahmen können kontinuierlich und systematisch umgesetzt werden.",
+          "handlungsfeldId": "H13"
+        },
+        {
+          "id": "A182",
+          "antwort": "Finanzielle Mittel sind im Haushaltsplan verankert.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE156",
+      "name": "Evaluieren Sie in regelmäßigen Abständen, ob das Budget für eine umfangreiche Bedarfsdeckung und ad-hoc Adaptionen ausreicht.",
+      "antworten": [
+        {
+          "id": "A183",
+          "antwort": "Es gibt eine langfristig institutionell abgesicherte Finanzierung.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE157",
+      "name": "Informieren Sie sich darüber, ob in Ihrer Hochschule bereits Personen arbeiten, die über Kenntnisse zu digitaler Barrierefreiheit verfügen (z.B. in der Beratung oder IT).",
+      "antworten": [
+        {
+          "id": "A187",
+          "antwort": "Nein, Es gibt keine zusätzlichen personellen Ressourcen für digitale Barrierefreiheit neben den gesetzlich vorgeschriebenen Beauftragten.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE158",
+      "name": "Schaffen Sie Stellen, in deren Tätigkeitsbeschreibung (digitale) Barrierefreiheit festgeschrieben ist.",
+      "antworten": [
+        {
+          "id": "A188",
+          "antwort": "Digitale Barrierefreiheit wird vereinzelt  von Einzelpersonen mitbearbeitet, ohne offizielle Zuständigkeit.",
+          "handlungsfeldId": "H14"
+        },
+        {
+          "id": "A193",
+          "antwort": "Einzelpersonen können vereinzelt an der digitalen Barrierefreiheit arbeiten.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE159",
+      "name": "Bilden Sie Personen, die in passenden Positionen (z.B. im IT-Support oder bereits im Bereich Barrierefreiheit/Inklusion) tätig sind, zu digitaler Barrierefreiheit weiter.",
+      "antworten": [
+        {
+          "id": "A147",
+          "antwort": "Es gibt einzelne IT-Verantwortliche mit Kompetenzen im Bereich Barrierefreiheit.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE160",
+      "name": "Vernetzen Sie sich an der Hochschule mit anderen Akteuren, um Ressourcen zu bündeln und optimieren.",
+      "antworten": [
+        {
+          "id": "A194",
+          "antwort": "Es existieren wiederholbare Basisprozesse, jedoch nur für ausgewählte Aufgaben.",
+          "handlungsfeldId": "H14"
+        },
+        {
+          "id": "A197",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE161",
+      "name": "Durch projektbasierte Fördermittel oder Sondermittel können (befristet) personelle Ressourcen geschaffen werden, die sich im besten Fall verstetigen lassen.",
+      "antworten": [
+        {
+          "id": "A192",
+          "antwort": "Gar nicht.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE162",
+      "name": "Stellen Sie sicher, dass personelle Ressourcen im Bereich digitale Barrierefreiheit in ausreichendem Maße vorhanden sind, beispielsweise in Bezug auf die Größe der Hochschule und den jeweiligen Bedarf.",
+      "antworten": [
+        {
+          "id": "A189",
+          "antwort": "Erste fest definierte Zuständigkeiten sind verankert (≤ 20 % Stellenanteil).",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE163",
+      "name": "Schaffen Sie eine zentrale Einrichtung, in der verschiedene Positionen zu digitaler Barrierefreiheit angesiedelt sind.",
+      "antworten": [
+        {
+          "id": "A190",
+          "antwort": "Ein vernetztes Fach-Team (z. B. ≥ 1 Vollzeitäquivalent) bearbeitet digitale Barrierefreiheit und Zuständigkeiten und Prozesse sind hochschulweit strukturell verankert.",
+          "handlungsfeldId": "H14"
+        },
+        {
+          "id": "A195",
+          "antwort": "Ein vernetztes Fach-Team (z. B. ≥ 1 Vollzeitäquivalent) bearbeitet digitale Barrierefreiheit regelhaft.",
+          "handlungsfeldId": "H14"
+        },
+        {
+          "id": "A198",
+          "antwort": "Ja, das Fach-Team ist untereinander vernetzt und koordiniert die Arbeit zu digitaler Barrierefreiheit.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE164",
+      "name": "Nutzen Sie für die Kommunikation Ihrer Angebote die passenden Kanäle der Zielgruppe.",
+      "antworten": [
+        {
+          "id": "A203",
+          "antwort": "Ja, alle Bereiche der Hochschule haben relevante Informationen und Hinweise bündig auf der Webseite zusammengetragen.",
+          "handlungsfeldId": "H15"
+        },
+        {
+          "id": "A208",
+          "antwort": "Ja, die Angebote für Studierende/Studieninteressierte werden evaluiert und angepasst.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE165",
+      "name": "Achten Sie darauf, dass Ihre Kommunikation der Angebote selbst auch barrierefrei ist.",
+      "antworten": [
+        {
+          "id": "A203",
+          "antwort": "Ja, alle Bereiche der Hochschule haben relevante Informationen und Hinweise bündig auf der Webseite zusammengetragen.",
+          "handlungsfeldId": "H15"
+        },
+        {
+          "id": "A208",
+          "antwort": "Ja, die Angebote für Studierende/Studieninteressierte werden evaluiert und angepasst.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE166",
+      "name": "Machen Sie relevante Bereiche an der Hochschule auf die Bedeutung der Zielgruppe Studierender mit Beeinträchtigungen aufmerksam, beispielsweise die Hochschulleitung, die Hochschulkommunikation oder Beratungen.",
+      "antworten": [
+        {
+          "id": "A206",
+          "antwort": "Ja, es gibt regelmäßige Angebote.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE167",
+      "name": "Erarbeiten Sie Sensibilisierungsangebote, um die Wichtigkeit des Themas und damit die Zielgruppe sichtbarer zu machen",
+      "antworten": [
+        {
+          "id": "A204",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE168",
+      "name": "Erarbeiten Sie konkrete und zielgruppengerechte Informationen zu Zulassung, Bewerbung und Studienorganisation für Studieninteressierte mit Behinderung.",
+      "antworten": [
+        {
+          "id": "A200",
+          "antwort": "Auf Nachfrage bekommen Studieninteressierte und Studierende mit Beeinträchtigungen Informationen und Beratung.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE169",
+      "name": "Überarbeiten Sie vorhandene Informationsmaterialien, sodass Studierende und Studieninteressierte mit Beeinträchtigungen direkt adressiert werden.",
+      "antworten": [
+        {
+          "id": "A200",
+          "antwort": "Auf Nachfrage bekommen Studieninteressierte und Studierende mit Beeinträchtigungen Informationen und Beratung.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE170",
+      "name": "Sammeln und bündeln Sie alle Informationen, die die Zielgruppe der Studierenden und Studieninteressierten mit Beeinträchtigungen benötigen an einer zentralen und leicht auffindbaren Stelle.",
+      "antworten": [
+        {
+          "id": "A202",
+          "antwort": "Ja, es gibt umfangreiche Informationen(z.B. für Studieninteressierte: Zulassung, Studierbarkeit, Ansprechperson. Für Studierende beispielsweise: NTA, Studienverlaufsplanung, Hilfsmittel, Übergang Studium-Beruf mit Beeinträchtigung usw.) sowie konkrete Hinweise zu Beratungsstellen.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE171",
+      "name": "Entwickeln Sie eine Übersicht über alle relevanten Ansprechpersonen explizit für die Zielgruppe der Studierenden und Studieninteressierten mit Beeinträchtigungen.",
+      "antworten": [
+        {
+          "id": "A201",
+          "antwort": "Ja, es gibt grundlegende Informationen.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE172",
+      "name": "Organisieren Sie zielgruppenspezifische Veranstaltungen für Studieninteressierte und Studierende mit Beeinträchtigungen, wie z.B. Informationstage oder Führungen für Studierende mit Sehbeeinträchtigung über den Campus.",
+      "antworten": [
+        {
+          "id": "A205",
+          "antwort": "Ja, es gibt vereinzelte (einmalige) Angebote.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE173",
+      "name": "Machen Sie auf die Zielgruppe von Studierenden und Studieninteressierten mit Beeinträchtigungen in allen Bereichen und bei allen Hochschulangehörigen aufmerksam.",
+      "antworten": [
+        {
+          "id": "A203",
+          "antwort": "Ja, alle Bereiche der Hochschule haben relevante Informationen und Hinweise bündig auf der Webseite zusammengetragen.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE174",
+      "name": "Erstellen Sie gezielte Informationsmaterialien für den gesamten Student-Lifecycle, die die besondere Situation von Studierenden mit Beeinträchtigungen berücksichtigen, z.B. Studieneingangsphase, Informationen zu Praktika, Berufsberatung, ...",
+      "antworten": [
+        {
+          "id": "A201",
+          "antwort": "Ja, es gibt grundlegende Informationen.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE175",
+      "name": "Entwickeln Sie Angebote bedarfsgerecht. Fragen Sie hierfür zum Beispiel auch Bedarfe ab oder reagieren Sie auf konkrete Anfragen.",
+      "antworten": [
+        {
+          "id": "A204",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE176",
+      "name": "Nutzen Sie Feedback, das Sie von Studierenden erhalten, um Verbesserungen umzusetzen.",
+      "antworten": [
+        {
+          "id": "A207",
+          "antwort": "Ja, es gibt etablierte zielgruppenspezifische Angebote (z.B. Informationstage, Führungen über den Campus beispielsweise für Blinde, Deaf Mentoring usw.).",
+          "handlungsfeldId": "H15"
+        }
+      ]
+    },
+    {
+      "id": "HE177",
+      "name": "Erfragen Sie bei den regelmäßig stattfindenden Studierendenbefragungen explizit, auf welche (digitalen) Barrieren Studierende stoßen und welche Lösungsvorschläge sie dafür sehen.",
+      "antworten": [
+        {
+          "id": "A209",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A210",
+          "antwort": "Ja, bei auftretenden Barrieren werden einzelne Studierende mit Beeinträchtigungen dazu befragt.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A217",
+          "antwort": "Nein, sie werden nicht eingebunden.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A248",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE178",
+      "name": "Fragen Sie auch nach Bedarfen und Bekanntheit von Unterstützungsangeboten.",
+      "antworten": [
+        {
+          "id": "A209",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE179",
+      "name": "Veröffentlichen Sie die Ergebnisse der Befragung in anonymisierter Form.",
+      "antworten": [
+        {
+          "id": "A211",
+          "antwort": "Ja, Studierende mit Beeinträchtigungen werden regelmäßig befragt.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE180",
+      "name": "Nehmen Sie die Ergebnisse als Grundlage für Entscheidungsprozesse der Hochschule.",
+      "antworten": [
+        {
+          "id": "A211",
+          "antwort": "Ja, Studierende mit Beeinträchtigungen werden regelmäßig befragt.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A249",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE181",
+      "name": "Ermöglichen Sie, dass Studierende mit Beeinträchtigungen in zentralen Gremien eine Stimme bekommen.",
+      "antworten": [
+        {
+          "id": "A212",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A218",
+          "antwort": "Sie werden vereinzelt bei auftretenden Barrierefreiheitsproblemen eingebunden.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A250",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE182",
+      "name": "Stellen Sie sicher, dass die von den Studierendenvertretungen genannten Lösungsvorschläge Gehör finden.",
+      "antworten": [
+        {
+          "id": "A213",
+          "antwort": "Ja, es gibt Vertretungen von Studierenden mit Beeinträchtigung in den zentralen Gremien. Sie werden systematisch bei Fragestellungen zu Barrierefreiheit und Diversität in Entscheidungsprozesse eingebunden.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A219",
+          "antwort": "Sie werden systematisch bei Fragestellungen zu Barrierefreiheit und Diversität eingebunden.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A251",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE183",
+      "name": "Stellen Sie sicher, dass die aktive Mitgestaltung von Studierenden mit Beeinträchtigungen in der Diversitätsstrategie festgehalten ist und daraus konkrete Aktionen folgen können.",
+      "antworten": [
+        {
+          "id": "A214",
+          "antwort": "Ja, Vertretungen von Studierenden mit Beeinträchtigungen gestalten wesentliche Entscheidungsprozesse themenübergreifend und aktiv mit. Entscheidungsprozesse sind partizipativ mit Stimm- und Vetorecht gestaltet.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A216",
+          "antwort": "Partizipation ist ein wesentlicher Teil der Diversitätsstrategie.Vertretungen von Studierenden mit Beeinträchtigungen gestalten wesentliche Entscheidungsprozesse themenübergreifend und aktiv mit.",
+          "handlungsfeldId": "H16"
+        },
+        {
+          "id": "A220",
+          "antwort": "Sie werden themenübergreifend bei wesentlichen Entscheidungsprozessen eingebunden.",
+          "handlungsfeldId": "H16"
+        }
+      ]
+    },
+    {
+      "id": "HE184",
+      "name": "Erarbeiten Sie eine Übersicht über relevante Akteur*innen im Feld der Barrierefreiheit und machen Sie diese auch für andere Hochschulangehörige zugänglich.",
+      "antworten": [
+        {
+          "id": "A221",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE185",
+      "name": "Bringen Sie das Thema Barrierefreiheit in interne Netzwerke/Formate der Hochschule ein und halten Sie es dort präsent.",
+      "antworten": [
+        {
+          "id": "A222",
+          "antwort": "Ja, loser Austausch findet statt und ermöglicht eine Kollaboration (intern) in kleinem Rahmen.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE186",
+      "name": "Informieren Sie sich über bereits existierende externe Netzwerke und Communities, nehmen Sie an Treffen teil und stellen Kontakte her.",
+      "antworten": [
+        {
+          "id": "A226",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE187",
+      "name": "Bringen Sie Vertreter*innen der verschiedenen Statusgruppen in internen Formaten zusammen (z.B. studentische Gruppen und Vertreter, Beauftragte für Studierende und Schwerbehindertenvertretung, beratende Personen, Vertreter*innen aus Prüfungsämtern und Fakultäten).",
+      "antworten": [
+        {
+          "id": "A223",
+          "antwort": "Ja, in bestehenden internen Formaten wird das Thema (digitale) Barrierefreiheit regelmäßig und koordiniert besprochen und in Aktionen umgesetzt.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE188",
+      "name": "Formalisieren Sie die Kollaboration mit Vertreter*innen in Form von Gremien und verankern Sie diese strategisch.",
+      "antworten": [
+        {
+          "id": "A224",
+          "antwort": "Ja, es gibt ein fest etabliertes Format zur Kollaboration.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE189",
+      "name": "Entwickeln Sie Strategiepapiere und Leitlinien und arbeiten Sie gemeinsam an der konkreten Umsetzung.",
+      "antworten": [
+        {
+          "id": "A225",
+          "antwort": "Ja, es gibt ein handlungsfähiges Gremium für eine regelmäßige Kollaboration aller Statusgruppen, das strategisch verankert ist.",
+          "handlungsfeldId": "H17"
+        },
+        {
+          "id": "A229",
+          "antwort": "Ja, die externe Kollaboration wird von der Hochschule gefördert.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE190",
+      "name": "Schaffen Sie gezielt Kontakte und Netzwerke mit anderen Hochschulen oder Institutionen.",
+      "antworten": [
+        {
+          "id": "A226",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H17"
+        },
+        {
+          "id": "A227",
+          "antwort": "Ja, loser Austausch findet statt und ermöglicht eine Kollaboration (extern) in kleinem Rahmen.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE191",
+      "name": "Achten Sie darauf, dass Vertreter*innen in Netzwerken aktiv sind.",
+      "antworten": [
+        {
+          "id": "A228",
+          "antwort": "Ja, es findet eine externe Zusammenarbeit zum Thema (digitale) Barrierefreiheit statt.",
+          "handlungsfeldId": "H17"
+        }
+      ]
+    },
+    {
+      "id": "HE192",
+      "name": "Sprechen Sie das Thema (digitale) Barrierefreiheit in allen Steuerungsgruppen und -gremien der Hochschule an.",
+      "antworten": [
+        {
+          "id": "A230",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE193",
+      "name": "Beziehen Sie den/die Beauftragte für Studierende mit Behinderungen in die zentralen Steuerungsgremien der Hochschule mit seiner/ihrer Expertise ein (Senat, Prüfungsausschuss etc.).",
+      "antworten": [
+        {
+          "id": "A231",
+          "antwort": "Ja, in vereinzelten Steuerungsinstrumenten.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE194",
+      "name": "Regen Sie an, Zielvereinbarungen, Aktionspläne und Strategiepapiere zur Reduzierung von (digitalen) Barrieren zu treffen bzw. zu entwickeln (Hochschulentwicklungsplan, Diversitätsstrategie etc.). Diese sollten auch konkrete Maßnahmen zur Umsetzung beinhalten.",
+      "antworten": [
+        {
+          "id": "A215",
+          "antwort": "Nein, es gibt keine Diversitätsstrategie.",
+          "handlungsfeldId": "H18"
+        },
+        {
+          "id": "A232",
+          "antwort": "Ja, grundlegend in den wesentlichen Steuerungsinstrumenten.",
+          "handlungsfeldId": "H18"
+        },
+        {
+          "id": "A236",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE195",
+      "name": "Falls bereits Strategiepapiere und Leitlinien zu (digitaler) Barrierefreiheit existieren: Regen Sie die konkrete Umsetzung an.",
+      "antworten": []
+    },
+    {
+      "id": "HE196",
+      "name": "Stellen Sie sicher, dass die gesetzlichen Vorgaben bzgl. (digitaler) Barrierefreiheit an Ihrer Hochschule umgesetzt werden.",
+      "antworten": [
+        {
+          "id": "A230",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE197",
+      "name": "Platzieren Sie das Thema (digitale) Barrierefreiheit in den Studiengangentwicklungen und berücksichtigen Sie es bei Erstellung bzw. Überarbeitung von Studien- und Prüfungsordnungen.",
+      "antworten": []
+    },
+    {
+      "id": "HE198",
+      "name": "Bereits bei der Entwicklung neuer Studiengänge oder der Überarbeitung vorhandener Studienordnungen sollte über die Studierbarkeit und mögliche Barrieren im Studiengang reflektiert werden und diese bei Bedarf möglichst beseitigt werden. Hierzu gehören nicht nur die Vorlesungen selbst sondern zum Beispiel auch (Forschungs-)Praktika, Blockkurse oder Projekte.",
+      "antworten": []
+    },
+    {
+      "id": "HE199",
+      "name": "Bringen Sie das Thema (digitale) Barrierefreiheit als Qualitätskriterium in die Akkreditierung ein.",
+      "antworten": [
+        {
+          "id": "A239",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE200",
+      "name": "Achten Sie darauf, dass Studien- und Prüfungsordnungen eine Auswahl an unterschiedlichen Prüfungsformaten zulassen.",
+      "antworten": []
+    },
+    {
+      "id": "HE201",
+      "name": "Lehrende sind mit einer Vielzahl von Aufgaben und Themen konfrontiert. Um digitaler Barrierefreiheit mehr Aufmerksamkeit und Bedeutung zu schenken, könnten Anreizsysteme deshalb ein gutes Mittel sein.",
+      "antworten": [
+        {
+          "id": "A84",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18"
+        },
+        {
+          "id": "A85",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H18"
+        },
+        {
+          "id": "A234",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE202",
+      "name": "Überprüfen Sie die konkreten Maßnahmen in Bezug auf (digitale) Barrierefreiheit regelmäßig auf ihre Wirksamkeit.",
+      "antworten": [
+        {
+          "id": "A233",
+          "antwort": "Ja, (digitale Barrierefreiheit) wird als Ziel in den wesentlichen Steuerungsinstrumenten genannt.",
+          "handlungsfeldId": "H18"
+        },
+        {
+          "id": "A237",
+          "antwort": "Ja, (digitale) Barrierefreiheit wird als Ziel mit konkreten Maßnahmen und Messkriterien in Steuerungsinstrumenten thematisiert und Handlungsmaßnahmen daraus abgeleitet.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE203",
+      "name": "Nehmen Sie den regelmäßigen Bericht der Beauftragten zur Situation Studierender mit Behinderungen in den zentralen Steuerungsgremien der Hochschule als Grundlage, um konkrete Maßnahmen abzuleiten.",
+      "antworten": [
+        {
+          "id": "A238",
+          "antwort": "Ja, die Umsetzung der genannten Maßnahmen und deren Wirkung werden kontrolliert und bei Bedarf angepasst.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE204",
+      "name": "Setzen Sie sich dafür ein, dass (digitale) Barrierefreiheit und Inklusion in den Zielvereinbarungen zwischen Land und Hochschule platziert wird.",
+      "antworten": [
+        {
+          "id": "A235",
+          "antwort": "Ja, einige Anreize und Bemühungen sind erkennbar.",
+          "handlungsfeldId": "H18"
+        }
+      ]
+    },
+    {
+      "id": "HE205",
+      "name": "Prüfen Sie, inwieweit (digitale) Barrierefreiheit in der Verordnung der (System-)Akkreditierung (StAkkrVO) Ihrer Studiengänge thematisiert wird.",
+      "antworten": [
+        {
+          "id": "A239",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE206",
+      "name": "Sprechen Sie mit den Verantwortlichen der Studiengangakkreditierung (meist Qualitätsmanagement) und nehmen Sie (digitale) Barrierefreiheit als Qualitätskriterium auf die Agenda der Monitoring-Gespräche.",
+      "antworten": [
+        {
+          "id": "A240",
+          "antwort": "Ja, (digitale) Barrierefreiheit wird als optionaler Aspekt in der Akkreditierung der Studiengänge genannt und vereinzelt behandelt.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE207",
+      "name": "Schulen Sie die Personen, die die interne Akkreditierung der Studiengänge vornehmen, zu (digitaler) Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A241",
+          "antwort": "Ja, (digitale) Barrierefreiheit ist ein obligatorischer Aspekt in der Akkreditierung der Studiengänge und wird im Prozess mit allen Studiengängen behandelt.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE208",
+      "name": "Vereinbaren Sie ein Audit bei einem Dienstleister, der Kriterien zur Barrierefreiheit in seinem Auditverfahren miteinbezieht.",
+      "antworten": [
+        {
+          "id": "A242",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE209",
+      "name": "Erheben Sie im Rahmen der Mitarbeiter*innenbefragungen auch Daten zur Barrierefreiheit der Hochschule",
+      "antworten": [
+        {
+          "id": "A248",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE210",
+      "name": "Bilden Sie die Personen im Qualitätsmanagement zum Thema Studium und Behinderung weiter.",
+      "antworten": [
+        {
+          "id": "A246",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE211",
+      "name": "Berichten Sie Ergebnisse der Akkreditierung und (externen) Audits in entscheidungsfähigen Gremien (z.B. Steuerungskreise, Senat, etc.).",
+      "antworten": [
+        {
+          "id": "A243",
+          "antwort": "Ja, die Hochschule hat schon mindestens einmal an einem externen Audit mit Themenbezug zu Barrierefreiheit teilgenommen.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE212",
+      "name": "Nehmen Sie Ergebnisse der Audits in Organisationsentwicklung und Qualitätsmanagement auf.",
+      "antworten": [
+        {
+          "id": "A244",
+          "antwort": "Ja, die Konsequenzen und Ergebnisse des externen Audits werden umgesetzt und strukturell verankert.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE213",
+      "name": "Stecken Sie sich Entwicklungsziele, die Sie durch Wiederholung der Auditverfahren überprüfen.",
+      "antworten": [
+        {
+          "id": "A245",
+          "antwort": "Ja, die Hochschule lässt sich regelmäßig extern auditieren, die Ergebnisse werden verstetigt, evaluiert und verbessert.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE214",
+      "name": "Benennen Sie Verantwortliche, die für die Überwachung der Qualitätsziele im Bereich (digitale) Barrierefreiheit zuständig sind.",
+      "antworten": [
+        {
+          "id": "A244",
+          "antwort": "Ja, die Konsequenzen und Ergebnisse des externen Audits werden umgesetzt und strukturell verankert.",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE215",
+      "name": "Evaluieren Sie diesen Prozess und nehmen Sie Verbesserungsvorschläge von Feedback-Gebenden an.",
+      "antworten": [
+        {
+          "id": "A133",
+          "antwort": "Feedback-Gebende werden über den Fortgang ihres Anliegens informiert und in den Prozess bis zum Ende einbezogen (Überprüfungsmöglichkeit).",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE216",
+      "name": "Vergleichen Sie die Ergebnisse des Monitorings in regelmäßigen Abständen und überprüfen, ob und wie sich der Prozess verändert.",
+      "antworten": [
+        {
+          "id": "A135",
+          "antwort": "Es gibt ein Monitoring des Feedbackprozesses und der daraus resultierenden Ergebnisse. Dieses wird regelmäßig in die Organisation getragen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE217",
+      "name": "Beauftragen Sie eine externe Prüf-Agentur oder schaffen Sie Ressourcen für die interne Prüfung der Webseite auf Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A136",
+          "antwort": "Die Webauftritte sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE218",
+      "name": "Beauftragen Sie eine externe Prüf-Agentur oder schaffen Sie Ressourcen für die interne Prüfung der mobilen Apps auf Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A140",
+          "antwort": "Die mobilen Apps sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE219",
+      "name": "Organisieren Sie kleine Schulungen, die dieser IT-Verantwortliche innerhalb des Teams gibt, um grundlegende Kompetenzen zu digitaler Barrierefreiheit weitergeben zu können.",
+      "antworten": [
+        {
+          "id": "A148",
+          "antwort": "Es gibt in jeder Abteilung der IT einen Verantwortlichen für digitale Barrierefreiheit mit entsprechenden Kompetenzen.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE220",
+      "name": "Schauen Sie sich dazu Leitfäden und Best Practice Beispiele anderer Hochschulen zur Ausstattung mit barrierearmen Arbeitsplätzen an.",
+      "antworten": [
+        {
+          "id": "A149",
+          "antwort": "Nein, es gibt keine barrierefreien Arbeitsplätze.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE221",
+      "name": "Achten Sie auf die Aktualität der Informationen und der Angebote und nutzen Sie auch neue Kommunikationswege.",
+      "antworten": [
+        {
+          "id": "A156",
+          "antwort": "Ja, die Angebote werden kommuniziert und sind an der Hochschule bekannt.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE222",
+      "name": "Aktualisieren Sie den Hilfsmittelpool regelmäßig.",
+      "antworten": [
+        {
+          "id": "A158",
+          "antwort": "Die Hilfsmittel stehen nur zur Verfügung und können beim Verantwortlichen ausgeliehen werden.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE223",
+      "name": "Etablieren Sie einen Prozess zur regelmäßigen, bedarfsgerechten Aktualisierung und Erweiterung des Hilfsmittelpools basierend auf dem Feedback der Fachkräfte und der Nutzenden.",
+      "antworten": [
+        {
+          "id": "A159",
+          "antwort": "Der Hilfsmittelpool wird durch Fachkräfte betreut, die auch zu assistiven Technologien beraten können.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE224",
+      "name": "Versehen Sie diese mit Anleitungen und schulen Sie verantwortliche Personen zur Nutzung und Wartung der Technologien.",
+      "antworten": [
+        {
+          "id": "A160",
+          "antwort": "Es gibt keine Räume, die mit Barrierefreiheits-Technologien ausgestattet sind.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE225",
+      "name": "Erstellen und pflegen Sie ein öffentlich einsehbares Kataster, aus dem hervorgeht, welcher Raum über welche spezifische Ausstattung verfügt, um die Veranstaltungsplanung zu erleichtern.",
+      "antworten": [
+        {
+          "id": "A162",
+          "antwort": "Hörsäle und Seminarräume sind bedarfsgerecht mit Barrierefreiheits-Technologien ausgestattet.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE226",
+      "name": "Stellen Sie durch regelmäßige, zertifizierte Weiterbildungen sicher, dass das Wissen der Mitarbeitenden stets auf dem aktuellen Stand der gesetzlichen und technischen Anforderungen bleibt.",
+      "antworten": [
+        {
+          "id": "A174",
+          "antwort": "Es sind Kompetenzen im Bereich der Barrierefreiheit in der Vergabestelle vorhanden.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE227",
+      "name": "Prüfen Sie, ob weitere Förderlinien im Bereich (digitaler) Barrierefreiheit ausgeschrieben sind und stellen Sie weitere Anträge für passende Projekte.",
+      "antworten": [
+        {
+          "id": "A185",
+          "antwort": "Ja, es gibt mindestens ein Drittmittelprojekt.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE228",
+      "name": "Nutzen Sie positive Fallbeispiele, bei denen Feedback zu konkreten Verbesserungen geführt hat, für die interne Kommunikation, um die Feedbackkultur an der Hochschule weiter zu stärken.",
+      "antworten": [
+        {
+          "id": "A133",
+          "antwort": "Feedback-Gebende werden über den Fortgang ihres Anliegens informiert und in den Prozess bis zum Ende einbezogen (Überprüfungsmöglichkeit).",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE229",
+      "name": "Leiten Sie aus den Monitoring-Ergebnissen konkrete und terminierte Maßnahmen zur Optimierung des Feedbackprozesses ab und benennen Sie Verantwortliche für die Umsetzung.",
+      "antworten": [
+        {
+          "id": "A135",
+          "antwort": "Es gibt ein Monitoring des Feedbackprozesses und der daraus resultierenden Ergebnisse. Dieses wird regelmäßig in die Organisation getragen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE230",
+      "name": "Verankern Sie die Berichterstattung des Monitorings als festen Tagesordnungspunkt in den Sitzungen der Hochschulleitung oder des Senats.",
+      "antworten": [
+        {
+          "id": "A135",
+          "antwort": "Es gibt ein Monitoring des Feedbackprozesses und der daraus resultierenden Ergebnisse. Dieses wird regelmäßig in die Organisation getragen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE231",
+      "name": "Etablieren Sie ein regelmäßiges Austausch- und Weiterbildungsformat für diese Verantwortlichen, um einen hochschulweit einheitlichen Wissensstand zu sichern und Synergien zu nutzen.",
+      "antworten": [
+        {
+          "id": "A148",
+          "antwort": "Es gibt in jeder Abteilung der IT einen Verantwortlichen für digitale Barrierefreiheit mit entsprechenden Kompetenzen.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE232",
+      "name": "Überprüfen Sie durch gezielte Befragungen, ob die Informationen auch tatsächlich bei den relevanten Zielgruppen ankommen und ob die Art der Kommunikation als hilfreich empfunden wird.",
+      "antworten": [
+        {
+          "id": "A156",
+          "antwort": "Ja, die Angebote werden kommuniziert und sind an der Hochschule bekannt.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE233",
+      "name": "Integrieren Sie die Informationen zu den Angeboten fest in die Beratungsleitfäden aller relevanten Stellen (z.B. Studienberatung, psychologische Beratung), um eine proaktive Weitergabe sicherzustellen.",
+      "antworten": [
+        {
+          "id": "A156",
+          "antwort": "Ja, die Angebote werden kommuniziert und sind an der Hochschule bekannt.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE234",
+      "name": "Führen Sie regelmäßige Wartungen und Funktionstests der installierten Technologien durch und bieten Sie Lehrenden einfache Anleitungen oder Kurzschulungen zur Nutzung an.",
+      "antworten": [
+        {
+          "id": "A162",
+          "antwort": "Hörsäle und Seminarräume sind bedarfsgerecht mit Barrierefreiheits-Technologien ausgestattet.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE235",
+      "name": "Dokumentieren Sie die Ergebnisse der Tests, um wiederkehrende Probleme zu identifizieren und diese Erkenntnisse in zukünftige Schulungen für Beschaffende und Entwickler einfließen zu lassen.",
+      "antworten": [
+        {
+          "id": "A169",
+          "antwort": "Bei der Leistungsabnahme werden Tests zur Barrierefreiheit durchgeführt und bei Bedarf Nachbesserungen verlangt.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE236",
+      "name": "Evaluieren Sie die Wirksamkeit der Strategie, indem Sie überprüfen, ob und wie das Feedback der beteiligten Vertretungen die finalen Beschaffungsentscheidungen tatsächlich beeinflusst hat.",
+      "antworten": [
+        {
+          "id": "A172",
+          "antwort": "Zusätzlich zu Stufe 1 ist eine Strategie zum Vergabe- und Beschaffungsprozess  vorhanden, die die Beteiligung von Vertretungen Betroffener festlegt.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE237",
+      "name": "Führen Sie eine gezielte Recherche nach passenden Förderprogrammen auf Landes-, Bundes- und EU-Ebene durch, die Projekte im Bereich Inklusion und digitale Barrierefreiheit unterstützen.",
+      "antworten": [
+        {
+          "id": "A184",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE238",
+      "name": "Bauen Sie interne Unterstützungsstrukturen auf (z.B. durch das Forschungsreferat), um Fachbereiche bei der Antragstellung für Drittmittelprojekte gezielt zu beraten.",
+      "antworten": [
+        {
+          "id": "A184",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE239",
+      "name": "Entwickeln Sie frühzeitig einen Plan zur Verstetigung der Projektergebnisse und -strukturen, um diese nach Auslaufen der Förderung in den Regelbetrieb zu überführen.",
+      "antworten": [
+        {
+          "id": "A185",
+          "antwort": "Ja, es gibt mindestens ein Drittmittelprojekt.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE240",
+      "name": "Nutzen Sie die erfolgreiche Drittmitteleinwerbung strategisch, um die Hochschule als Kompetenzzentrum für Barrierefreiheit zu positionieren und strategische Partnerschaften aufzubauen.",
+      "antworten": [
+        {
+          "id": "A186",
+          "antwort": "Drittmittel sind vorhanden und werden systematisch und kontinuierlich eingeworben.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE241",
+      "name": "Etablieren Sie einen Prozess, der sicherstellt, dass die Erkenntnisse aus den Projekten systematisch in die Lehre, Verwaltung und die strategische Hochschulentwicklung einfließen.",
+      "antworten": [
+        {
+          "id": "A186",
+          "antwort": "Drittmittel sind vorhanden und werden systematisch und kontinuierlich eingeworben.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE242",
+      "name": "Verankern Sie die Stabsstelle in der Hochschulverfassung oder -ordnung und sichern Sie ihre langfristige Finanzierung im Haushalt ab.",
+      "antworten": [
+        {
+          "id": "A191",
+          "antwort": "Es gibt eine zentrale Kompetenz- oder Stabsstelle mit Expert*innen.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE243",
+      "name": "Überprüfen Sie regelmäßig die personelle Ausstattung der Stabsstelle im Verhältnis zur Größe der Hochschule und dem wachsenden Aufgabenvolumen, um eine Überlastung zu vermeiden.",
+      "antworten": [
+        {
+          "id": "A196",
+          "antwort": "Eine zentrale Kompetenz- oder Stabsstelle mit Expertinnen arbeitet Vollzeit an digitaler Barrierefreiheit.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE244",
+      "name": "Richten Sie ein handlungsfähiges Gremium (z.B. einen Runden Tisch Barrierefreiheit) ein, das von der Stabsstelle geleitet wird und in dem alle relevanten Statusgruppen der Hochschule vertreten sind, um die strategische Steuerung partizipativ zu gestalten.",
+      "antworten": [
+        {
+          "id": "A199",
+          "antwort": "Ja, die Kompetenz- und Stabsstelle steuert Strategie, Audits, Schulungen und kontinuierliche Verbesserung.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE245",
+      "name": "Verankern Sie die Hinweise auf Beratungsangebote fest in den Curricula und Onboarding-Prozessen für Studierende und Lehrende, um eine strukturelle und dauerhafte Sichtbarkeit zu gewährleisten.",
+      "antworten": [
+        {
+          "id": "A12",
+          "antwort": "Die Beratungsangebote sind hochschulweit bekannt.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE246",
+      "name": "Richten Sie umgehend die gesetzlich verankerte Position eine*r Beauftragten für Studierende mit Behinderung ein und statten Sie diese mit den notwendigen Ressourcen (zeitlich, finanziell, personell) und Befugnissen aus.",
+      "antworten": [
+        {
+          "id": "A13",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE247",
+      "name": "Benennen Sie bis zur offiziellen Besetzung eine kommissarische, zentrale Ansprechperson (z.B. in der allgemeinen Studienberatung), um eine sofortige Anlaufstelle für betroffene Studierende zu schaffen.",
+      "antworten": [
+        {
+          "id": "A13",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE248",
+      "name": "Ergänzen Sie die quantitative Datenerhebung durch qualitative Methoden (z.B. Fokusgruppen, Interviews), um die Zufriedenheit mit der Beratungsqualität und die tatsächliche Wirkung der Beratung zu erfassen.",
+      "antworten": [
+        {
+          "id": "A18",
+          "antwort": "Kennzahlen zur Nutzung und Themen des Angebots werden regelmäßig erhoben und in die Organisation getragen. Das Angebot wird bedarfsgerecht gestaltet.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE249",
+      "name": "Erstellen Sie einen jährlichen, hochschulöffentlichen Bericht über die Evaluationsergebnisse, um Transparenz zu schaffen und die strategische Relevanz des Themas in Entscheidungsgremien zu verdeutlichen.",
+      "antworten": [
+        {
+          "id": "A18",
+          "antwort": "Kennzahlen zur Nutzung und Themen des Angebots werden regelmäßig erhoben und in die Organisation getragen. Das Angebot wird bedarfsgerecht gestaltet.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE250",
+      "name": "Erstellen Sie eine transparente, öffentlich zugängliche Übersicht aller verfügbaren Hilfsmittel inklusive der Ausleihmodalitäten.",
+      "antworten": [
+        {
+          "id": "A25",
+          "antwort": "Einzelne Hilfsmittel sind auf Anfrage ausleihbar.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE251",
+      "name": "Etablieren Sie einen festen Prozess und klare Zuständigkeiten für die Verwaltung, Wartung und Ausgabe der Hilfsmittel, um die unkoordinierte Anfrage-Situation abzulösen.",
+      "antworten": [
+        {
+          "id": "A25",
+          "antwort": "Einzelne Hilfsmittel sind auf Anfrage ausleihbar.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE252",
+      "name": "Erheben Sie den Bedarf an weiteren Hilfsmitteln systematisch, um den Pool schrittweise zu einem etablierten Angebot auszubauen.",
+      "antworten": [
+        {
+          "id": "A25",
+          "antwort": "Einzelne Hilfsmittel sind auf Anfrage ausleihbar.",
+          "handlungsfeldId": "H2"
+        }
+      ]
+    },
+    {
+      "id": "HE253",
+      "name": "Schaffen Sie Transparenz, indem Sie die Teilnehmenden der Austauschformate aktiv darüber informieren, welche ihrer Impulse aufgegriffen und wie diese umgesetzt wurden.",
+      "antworten": [
+        {
+          "id": "A44",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE254",
+      "name": "Benennen Sie einen Beauftragten für Studierende mit Behinderung und chronischer Erkrankung und statten Sie die Position mit den notwendigen Ressourcen und Befugnissen aus.",
+      "antworten": [
+        {
+          "id": "A13",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE255",
+      "name": "Nutzen Sie die Ergebnisse der Evaluation, um strategische Ziele für die Weiterentwicklung des Beratungsangebots zu definieren und kommunizieren Sie die Erfolge und geplanten Anpassungen hochschulweit.",
+      "antworten": [
+        {
+          "id": "A18",
+          "antwort": "Kennzahlen zur Nutzung und Themen des Angebots werden regelmäßig erhoben und in die Organisation getragen. Das Angebot wird bedarfsgerecht gestaltet.",
+          "handlungsfeldId": "H1"
+        }
+      ]
+    },
+    {
+      "id": "HE256",
+      "name": "Etablieren Sie einen formalisierten Prozess, um sicherzustellen, dass die Impulse aus den Austauschformaten systematisch erfasst, bewertet und in die strategische Hochschulentwicklung integriert werden.",
+      "antworten": [
+        {
+          "id": "A44",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H3"
+        }
+      ]
+    },
+    {
+      "id": "HE257",
+      "name": "Richten Sie eine zentrale und neutrale Beschwerdestelle ein und statten Sie diese mit den nötigen Ressourcen – sowohl personell, räumlich als auch finanziell – aus.",
+      "antworten": [
+        {
+          "id": "A121",
+          "antwort": "Es gibt die Möglichkeit, dezentral und themenabhängig Beschwerden und Feedback einzubringen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE258",
+      "name": "Holen Sie aktiv Feedback von den Feedback-Gebenden zum abgeschlossenen Prozess ein, um die Qualität und Transparenz des Beschwerdemanagements kontinuierlich zu verbessern.",
+      "antworten": [
+        {
+          "id": "A133",
+          "antwort": "Feedback-Gebende werden über den Fortgang ihres Anliegens informiert und in den Prozess bis zum Ende einbezogen (Überprüfungsmöglichkeit).",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE259",
+      "name": "Leiten Sie aus dem Monitoring konkrete Maßnahmen zur Optimierung des Feedbackprozesses ab und berichten Sie der Hochschulleitung regelmäßig über die Wirksamkeit und die durchgeführten Anpassungen.",
+      "antworten": [
+        {
+          "id": "A135",
+          "antwort": "Es gibt ein Monitoring des Feedbackprozesses und der daraus resultierenden Ergebnisse. Dieses wird regelmäßig in die Organisation getragen.",
+          "handlungsfeldId": "H9"
+        }
+      ]
+    },
+    {
+      "id": "HE260",
+      "name": "Fördern Sie den regelmäßigen Austausch und die Vernetzung der IT-Verantwortlichen, um einen einheitlichen Wissensstand sicherzustellen und Synergien abteilungsübergreifend zu nutzen.",
+      "antworten": [
+        {
+          "id": "A148",
+          "antwort": "Es gibt in jeder Abteilung der IT einen Verantwortlichen für digitale Barrierefreiheit mit entsprechenden Kompetenzen.",
+          "handlungsfeldId": "H10"
+        }
+      ]
+    },
+    {
+      "id": "HE261",
+      "name": "Evaluieren Sie regelmäßig die Wirksamkeit der Kommunikationsmaßnahmen und holen Sie Feedback von Studierenden ein, ob die Informationen zu den Angeboten verständlich und ausreichend sind.",
+      "antworten": [
+        {
+          "id": "A156",
+          "antwort": "Ja, die Angebote werden kommuniziert und sind an der Hochschule bekannt.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE262",
+      "name": "Erheben Sie Kennzahlen zur Nutzung des Hilfsmittelpools und der Beratungsleistungen, um den zukünftigen Bedarf zu prognostizieren und das Angebot strategisch weiterzuentwickeln.",
+      "antworten": [
+        {
+          "id": "A159",
+          "antwort": "Der Hilfsmittelpool wird durch Fachkräfte betreut, die auch zu assistiven Technologien beraten können.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE263",
+      "name": "Implementieren Sie einen Prozess zur regelmäßigen Wartung und technologischen Aktualisierung der Ausstattung, um die Barrierefreiheit der Lehrräume langfristig sicherzustellen.",
+      "antworten": [
+        {
+          "id": "A162",
+          "antwort": "Hörsäle und Seminarräume sind bedarfsgerecht mit Barrierefreiheits-Technologien ausgestattet.",
+          "handlungsfeldId": "H11"
+        }
+      ]
+    },
+    {
+      "id": "HE264",
+      "name": "Standardisieren Sie die Testkriterien und -verfahren für die Barrierefreiheit in einem verbindlichen Abnahmeprotokoll, das bei allen relevanten Beschaffungen eingesetzt wird.",
+      "antworten": [
+        {
+          "id": "A169",
+          "antwort": "Bei der Leistungsabnahme werden Tests zur Barrierefreiheit durchgeführt und bei Bedarf Nachbesserungen verlangt.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE265",
+      "name": "Überprüfen Sie die Umsetzung der Strategie regelmäßig und dokumentieren Sie die Ergebnisse der Beteiligungsprozesse, um deren Wirksamkeit nachzuweisen und kontinuierlich zu verbessern.",
+      "antworten": [
+        {
+          "id": "A172",
+          "antwort": "Zusätzlich zu Stufe 1 ist eine Strategie zum Vergabe- und Beschaffungsprozess  vorhanden, die die Beteiligung von Vertretungen Betroffener festlegt.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE266",
+      "name": "Stellen Sie durch regelmäßige Weiterbildungen sicher, dass die Kompetenzen in der Vergabestelle aktuell bleiben und entwickeln Sie interne Leitfäden, um das Wissen zu institutionalisieren.",
+      "antworten": [
+        {
+          "id": "A174",
+          "antwort": "Es sind Kompetenzen im Bereich der Barrierefreiheit in der Vergabestelle vorhanden.",
+          "handlungsfeldId": "H12"
+        }
+      ]
+    },
+    {
+      "id": "HE267",
+      "name": "Entwickeln Sie eine Strategie, um systematisch und kontinuierlich weitere Drittmittel für Projekte im Bereich der (digitalen) Barrierefreiheit einzuwerben.",
+      "antworten": [
+        {
+          "id": "A185",
+          "antwort": "Ja, es gibt mindestens ein Drittmittelprojekt.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE268",
+      "name": "Integrieren Sie die Drittmittelakquise in die langfristige Finanzstrategie der Hochschule, um eine nachhaltige Kofinanzierung von Daueraufgaben im Bereich Barrierefreiheit zu sichern.",
+      "antworten": [
+        {
+          "id": "A186",
+          "antwort": "Drittmittel sind vorhanden und werden systematisch und kontinuierlich eingeworben.",
+          "handlungsfeldId": "H13"
+        }
+      ]
+    },
+    {
+      "id": "HE269",
+      "name": "Verankern Sie die Stabsstelle in der Hochschul-Governance und beauftragen Sie sie mit der Entwicklung und dem Monitoring einer gesamtuniversitären Inklusionsstrategie.",
+      "antworten": [
+        {
+          "id": "A191",
+          "antwort": "Es gibt eine zentrale Kompetenz- oder Stabsstelle mit Expert*innen.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE270",
+      "name": "Stellen Sie sicher, dass die Arbeit der Stabsstelle durch klare Zielvereinbarungen gesteuert und ihre Wirksamkeit regelmäßig evaluiert wird, um den Ressourceneinsatz zu legitimieren.",
+      "antworten": [
+        {
+          "id": "A196",
+          "antwort": "Eine zentrale Kompetenz- oder Stabsstelle mit Expertinnen arbeitet Vollzeit an digitaler Barrierefreiheit.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE271",
+      "name": "Etablieren Sie einen jährlichen Berichtsturnus, in dem die Stabsstelle der Hochschulleitung über Fortschritte, Herausforderungen und strategische Empfehlungen berichtet, um die kontinuierliche Weiterentwicklung zu gewährleisten.",
+      "antworten": [
+        {
+          "id": "A199",
+          "antwort": "Ja, die Kompetenz- und Stabsstelle steuert Strategie, Audits, Schulungen und kontinuierliche Verbesserung.",
+          "handlungsfeldId": "H14"
+        }
+      ]
+    },
+    {
+      "id": "HE272",
+      "name": "Erarbeiten Sie in Zusammenarbeit mit den Beauftragten für Studierende mit Behinderungen und chronischen Erkrankungen einen grundlegenden Verfahrensvorschlag.",
+      "antworten": [
+        {
+          "id": "A46",
+          "antwort": "Es gibt kein standardisiertes Verfahren.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE273",
+      "name": "Führen Sie eine regelmäßige Infoveranstaltung pro Semester für alle Studierenden ein, um die Studierenden an verschiedenen Punkten im Student Life Cycle zu erreichen.",
+      "antworten": [
+        {
+          "id": "A59",
+          "antwort": "Ja, durch Informationen auf der Homepage.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE274",
+      "name": "Regen Sie an, dass zu Semesterbeginn in Veranstaltungen wie Vorlesungen und Seminaren darauf hingewiesen wird.",
+      "antworten": [
+        {
+          "id": "A59",
+          "antwort": "Ja, durch Informationen auf der Homepage.",
+          "handlungsfeldId": "H4"
+        },
+        {
+          "id": "A60",
+          "antwort": "Ja, durch regelmäßige Infoveranstaltungen pro Semester durch die Beauftragten.",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE275",
+      "name": "Evaluieren Sie das Beratungsangebot unter Einbezug von Studierenden.",
+      "antworten": [
+        {
+          "id": "A61",
+          "antwort": "Ja, bei den ersten Sitzungen in jeder Veranstaltung (Vorlesungen, Seminare).",
+          "handlungsfeldId": "H4"
+        }
+      ]
+    },
+    {
+      "id": "HE276",
+      "name": "Etablieren Sie einen regelmäßigen Turnus für die Evaluation und verankern Sie diesen Prozess im Qualitätsmanagement der Hochschule.",
+      "antworten": [
+        {
+          "id": "A70",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE277",
+      "name": "Veröffentlichen Sie die zentralen Ergebnisse der Evaluationen (in anonymisierter Form), um den kontinuierlichen Verbesserungsprozess für alle Hochschulangehörigen transparent zu machen.",
+      "antworten": [
+        {
+          "id": "A70",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H5"
+        }
+      ]
+    },
+    {
+      "id": "HE278",
+      "name": "Identifizieren Sie in einem ersten Schritt \"Pilot-Studiengänge\" (z.B. Lehramt, IT, Design, Kommunikationswissenschaft), in denen die Vermittlung von Barrierefreiheitskompetenzen den größten Hebel hat.",
+      "antworten": [
+        {
+          "id": "A100",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE279",
+      "name": "Entwickeln Sie ein interdisziplinäres Wahlpflichtmodul zum Thema \"Grundlagen der (digitalen) Barrierefreiheit & Universal Design\", das für Studierende aller Fachbereiche geöffnet wird.",
+      "antworten": [
+        {
+          "id": "A100",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE280",
+      "name": "Bieten Sie Lehrenden gezielte hochschuldidaktische Unterstützung und fertige Lehrmaterialien an, um die Hemmschwelle für die Integration des Themas in bestehende Lehrveranstaltungen zu senken.",
+      "antworten": [
+        {
+          "id": "A100",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE281",
+      "name": "Prüfen Sie, ob die bestehenden Wahlangebote in den relevanten Studiengängen (wie IT und Lehramt) zu Pflichtbestandteilen umgewandelt werden können, um eine verbindliche Grundkompetenz für alle Absolvent*innen sicherzustellen.",
+      "antworten": [
+        {
+          "id": "A101",
+          "antwort": "Ja, z.B. in Modulen in IT oder Pädagogik sowie Wahlbereiche.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE282",
+      "name": "Entwickeln Sie eine Strategie, um das Thema über die \"üblichen\" Fächer hinaus auch in anderen Disziplinen zu verankern (z.B. Rechtswissenschaften, Wirtschaftswissenschaften, Ingenieurwesen).",
+      "antworten": [
+        {
+          "id": "A101",
+          "antwort": "Ja, z.B. in Modulen in IT oder Pädagogik sowie Wahlbereiche.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE283",
+      "name": "Bündeln Sie die bestehenden Module zu einem studienbegleitenden Zertifikatsprogramm (z.B. \"Zertifikat Inklusives Design\"), um einen sichtbaren Qualifikationsnachweis für Studierende zu schaffen.",
+      "antworten": [
+        {
+          "id": "A101",
+          "antwort": "Ja, z.B. in Modulen in IT oder Pädagogik sowie Wahlbereiche.",
+          "handlungsfeldId": "H7"
+        }
+      ]
+    },
+    {
+      "id": "HE284",
+      "name": "Sichern Sie für das QM-Team eine kontinuierliche Weiterbildung, um der Dynamik des Feldes gerecht zu werden (z. B. neue Standards, Software, rechtliche Vorgaben) und binden Sie dabei externe Expertise ein",
+      "antworten": [
+        {
+          "id": "A 247",
+          "antwort": "",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    },
+    {
+      "id": "HE 285",
+      "name": "Stärken Sie die Multiplikatorenrolle des QM-Teams, indem die Mitarbeitenden als interne Ansprechpersonen für Barrierefreiheit wirken und andere Abteilungen (z. B. Studiengänge, Prüfungsämter, E-Learning-Services) beraten",
+      "antworten": [
+        {
+          "id": "A 247",
+          "antwort": "",
+          "handlungsfeldId": "H19"
+        }
+      ]
+    }
+  ]
+}

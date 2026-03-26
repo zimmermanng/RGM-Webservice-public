@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Card_dimensions = ({
   title,
+  description = "",
   dimensionId,
   handlungsfelder = [],
   link,
@@ -36,13 +37,11 @@ const Card_dimensions = ({
       <div className="card-content">
         <h3 id={titleId}>{title}</h3>
 
-        <div className="background_declaration">
-          <p>
-            Dieses Päckchen wird importiert, wenn in dem Referat
-            Ergebnisprodukte jeglicher Art (Software, Materialien, Content,...)
-            entstehen, die barrierefrei sein sollen.
-          </p>
-        </div>
+        {description && (
+          <div className="background_declaration">
+            <p>{description}</p>
+          </div>
+        )}
 
         <div className="dFooter">
           {showProgress && (

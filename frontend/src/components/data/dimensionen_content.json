@@ -1,0 +1,20 @@
+{
+  "dimensionen": [
+    {
+      "id": "D1",
+      "beschreibung": "Test 1"
+    },
+    {
+      "id": "D2",
+      "beschreibung": "Test 2"
+    },
+    {
+      "id": "D3",
+      "beschreibung": "Test 3"
+    },
+    {
+      "id": "D4",
+      "beschreibung": "Test 4"
+    }
+  ]
+}

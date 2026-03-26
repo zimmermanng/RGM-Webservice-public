@@ -1,0 +1,1996 @@
+{
+  "fragen": [
+    {
+      "id": "B1",
+      "frage": "Wie findet Beratung an der Hochschule statt?",
+      "antworten": [
+        {
+          "id": "A1",
+          "antwort": "Es findet Beratung nur auf Anfrage statt",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A2",
+          "antwort": "Es findet unkoordinierte Beratung durch einzelne Personen der Hochschule statt.",
+          "handlungsfeldId": "H1",
+          "stufe": 1
+        },
+        {
+          "id": "A3",
+          "antwort": "Es gibt ein verstetigtes Beratungsangebot mit definierten Zuständigkeiten.",
+          "handlungsfeldId": "H1",
+          "stufe": 2
+        },
+        {
+          "id": "A4",
+          "antwort": "Es gibt eine zentrale Einrichtung für die Beratung von Studierenden zum Thema Studium mit Behinderung. Die Beratungen erfolgen durch mehrere Personen mit unterschiedlicher Expertise, die untereinander vernetzt sind",
+          "handlungsfeldId": "H1",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "frage": "Ist eine Verweispraxis der Beratenden an der Hochschule etabliert?",
+      "antworten": [
+        {
+          "id": "A5",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A6",
+          "antwort": "Ja",
+          "handlungsfeldId": "H1",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "B3",
+      "frage": "Gibt es eine Übersicht der vorhandenen Beratungsangebote an der Hochschule?",
+      "antworten": [
+        {
+          "id": "A7",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A8",
+          "antwort": "Ja",
+          "handlungsfeldId": "H1",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "frage": "Wie werden Beratungsangebote kommuniziert?",
+      "antworten": [
+        {
+          "id": "A9",
+          "antwort": "Beratungen finden ausschließlich auf Anfrage statt und werden nicht kommuniziert.",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A10",
+          "antwort": "Die Beratungsangebote werden selten kommuniziert und sind den Studierenden kaum bekannt.",
+          "handlungsfeldId": "H1",
+          "stufe": 1
+        },
+        {
+          "id": "A11",
+          "antwort": "Die Beratungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H1",
+          "stufe": 2
+        },
+        {
+          "id": "A12",
+          "antwort": "Die Beratungsangebote sind hochschulweit bekannt.",
+          "handlungsfeldId": "H1",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "B5",
+      "frage": "Gibt es eine*n Beauftragte*n für Studierende mit Behinderung und chronischer Erkrankung an der Hochschule?",
+      "antworten": [
+        {
+          "id": "A13",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A14",
+          "antwort": "Ja",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        }
+      ]
+    },
+    {
+      "id": "B6",
+      "frage": "Bilden sich Beratende an der Hochschule zum Thema (digitale) Barrierefreiheit weiter?",
+      "antworten": [
+        {
+          "id": "A15",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A16",
+          "antwort": "Beratende in allen Bereichen bilden sich regelmäßig zum Thema (digitale) Barrierefreiheit weiter.",
+          "handlungsfeldId": "H1",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "B7",
+      "frage": "Wird das gesamte Beratungsangebot der Hochschule regelmäßig evaluiert?",
+      "antworten": [
+        {
+          "id": "A17",
+          "antwort": "Nein",
+          "handlungsfeldId": "H1",
+          "stufe": 0
+        },
+        {
+          "id": "A18",
+          "antwort": "Kennzahlen zur Nutzung und Themen des Angebots werden regelmäßig erhoben und in die Organisation getragen. Das Angebot wird bedarfsgerecht gestaltet.",
+          "handlungsfeldId": "H1",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "B8",
+      "frage": "Stehen Studierenden und/oder Lehrenden Unterstützungsangebote zur Verfügung?",
+      "antworten": [
+        {
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2",
+          "stufe": 0
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2",
+          "stufe": 1
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2",
+          "stufe": 2
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2",
+          "stufe": 3
+        },
+        {
+          "id": "A23",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
+          "handlungsfeldId": "H2",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "B9",
+      "frage": "Wie ist der Hilfsmittelpool umgesetzt?",
+      "antworten": [
+        {
+          "id": "A24",
+          "antwort": "Es ist kein Hilfemittelpool vorhanden.",
+          "handlungsfeldId": "H2",
+          "stufe": 0
+        },
+        {
+          "id": "A25",
+          "antwort": "Einzelne Hilfsmittel sind auf Anfrage ausleihbar.",
+          "handlungsfeldId": "H2",
+          "stufe": 2
+        },
+        {
+          "id": "A26",
+          "antwort": "Es gibt einen fest etablierten Hilfsmittelpool (mit Übersicht über alle Hilfsmittel und fachlicher Beratung).",
+          "handlungsfeldId": "H2",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "frage": "Wie sind die Unterstützungsangebote umgesetzt?",
+      "antworten": [
+        {
+          "id": "A27",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H2",
+          "stufe": 0
+        },
+        {
+          "id": "A28",
+          "antwort": "Mitarbeitende in Beratungsstellen können zum Thema (digitale) Barrierefreiheit vereinzelt Hilfeleistungen anbieten.",
+          "handlungsfeldId": "H2",
+          "stufe": 2
+        },
+        {
+          "id": "A29",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen für Lehrende und einen IT-Support für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2",
+          "stufe": 3
+        },
+        {
+          "id": "A30",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
+          "handlungsfeldId": "H2",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "frage": "Wie werden die Unterstützungsangebote kommuniziert?",
+      "antworten": [
+        {
+          "id": "A31",
+          "antwort": "Die Unterstützungsangebote werden hochschulweit kommuniziert.",
+          "handlungsfeldId": "H2",
+          "stufe": 2
+        },
+        {
+          "id": "A32",
+          "antwort": "Die Unterstützungsangebote sind hochschulweit bekannt und werden genutzt.",
+          "handlungsfeldId": "H2",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "frage": "Gibt es Austauschformate für Studierende mit Beeinträchtigungen an der Hochschule?",
+      "antworten": [
+        {
+          "id": "A33",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3",
+          "stufe": 0
+        },
+        {
+          "id": "A34",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H3",
+          "stufe": 1
+        }
+      ]
+    },
+    {
+      "id": "B13",
+      "frage": "Wie regelmäßig finden die Austauschformate statt?",
+      "antworten": [
+        {
+          "id": "A35",
+          "antwort": "Unregelmäßig.",
+          "handlungsfeldId": "H3",
+          "stufe": 1
+        },
+        {
+          "id": "A36",
+          "antwort": "Es gibt regelmäßige Austauschformate.",
+          "handlungsfeldId": "H3",
+          "stufe": 2
+        },
+        {
+          "id": "A37",
+          "antwort": "Es gibt regelmäßige, fest etablierte Austauschformate.",
+          "handlungsfeldId": "H3",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "B14",
+      "frage": "Wie sind diese Austauschformate verwaltet?",
+      "antworten": [
+        {
+          "id": "A38",
+          "antwort": "Selbstverwaltet aber nicht von der Hochschule initiiert oder begleitet.",
+          "handlungsfeldId": "H3",
+          "stufe": 1
+        },
+        {
+          "id": "A39",
+          "antwort": "Durch die Hochschule begleitet.",
+          "handlungsfeldId": "H3",
+          "stufe": 2
+        },
+        {
+          "id": "A40",
+          "antwort": "Von der Hochschule durch Verantwortliche und Räume strukturell unterstützt.",
+          "handlungsfeldId": "H3",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "B15",
+      "frage": "Werden die Austauschformate weiterentwickelt?",
+      "antworten": [
+        {
+          "id": "A41",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3",
+          "stufe": 0
+        },
+        {
+          "id": "A42",
+          "antwort": "Die Austauschformate werden weiterentwickelt.",
+          "handlungsfeldId": "H3",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "frage": "Werden Impulse und Anregungen aus den Austauschformaten für die Weiterentwicklung der Hochschule verwendet?",
+      "antworten": [
+        {
+          "id": "A43",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H3",
+          "stufe": 0
+        },
+        {
+          "id": "A44",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H3",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L1",
+      "frage": "Wie ist der Antrags- und Vergabeprozess von Nachteilsausgleichen an der Hochschule geregelt?",
+      "antworten": [
+        {
+          "id": "A45",
+          "antwort": "Es gibt nur intransparente, unklare Abläufe. Nachteilsausgleiche werden inkonsistent und willkürlich entschieden.",
+          "handlungsfeldId": "H4",
+          "stufe": 0
+        },
+        {
+          "id": "A46",
+          "antwort": "Es gibt kein standardisiertes Verfahren.",
+          "handlungsfeldId": "H4",
+          "stufe": 1
+        },
+        {
+          "id": "A47",
+          "antwort": "Es gibt einen definierten Prozess und klare Zuständigkeiten.",
+          "handlungsfeldId": "H4",
+          "stufe": 2
+        },
+        {
+          "id": "A48",
+          "antwort": "Es gibt klare Richtlinien auf Ebene der Hochschule oder des Studiengangs.",
+          "handlungsfeldId": "H4",
+          "stufe": 3
+        },
+        {
+          "id": "A49",
+          "antwort": "Die Prozesse werden (durch Befragung von Studierenden) evaluiert.",
+          "handlungsfeldId": "H4",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "frage": "Gibt es Informationen zur Beantragung und Vergabe von Nachteilsausgleichen (für Studierende)?",
+      "antworten": [
+        {
+          "id": "A50",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H4",
+          "stufe": 0
+        },
+        {
+          "id": "A51",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H4",
+          "stufe": 2
+        },
+        {
+          "id": "A52",
+          "antwort": "Ja und die Prozesse sind transparent und nachvollziehbar (z.B. Informationen über den Status der Bearbeitung).",
+          "handlungsfeldId": "H4",
+          "stufe": 3
+        },
+        {
+          "id": "A53",
+          "antwort": "Ja und es gibt einen übersichtlichen Leitfaden zur Beantragung mit konkreten Beispielen und Informationen zu Beratungsangeboten.",
+          "handlungsfeldId": "H4",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "frage": "Sind Lehrende über die Prozesse zur Beantragung und Vergabe informiert?",
+      "antworten": [
+        {
+          "id": "A54",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H4",
+          "stufe": 0
+        },
+        {
+          "id": "A55",
+          "antwort": "Ja, Lehrende verweisen an die Beauftragten.",
+          "handlungsfeldId": "H4",
+          "stufe": 1
+        },
+        {
+          "id": "A56",
+          "antwort": "Ja, Lehrende haben grundlegendes Wissen über alternative Prüf- und Leistungsformate.",
+          "handlungsfeldId": "H4",
+          "stufe": 2
+        },
+        {
+          "id": "A57",
+          "antwort": "Ja, es gibt zusätzlich zu Stufe 2 in jedem Institut eine zuständige Ansprechperson mit fachspezifischem Wissen.",
+          "handlungsfeldId": "H4",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "frage": "Wird auf die Möglichkeit der Beratung und Unterstützung zur Beantragung von Nachteilsausgleichen hingewiesen?",
+      "antworten": [
+        {
+          "id": "A58",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H4",
+          "stufe": 0
+        },
+        {
+          "id": "A59",
+          "antwort": "Ja, durch Informationen auf der Homepage.",
+          "handlungsfeldId": "H4",
+          "stufe": 1
+        },
+        {
+          "id": "A60",
+          "antwort": "Ja, durch regelmäßige Infoveranstaltungen pro Semester durch die Beauftragten.",
+          "handlungsfeldId": "H4",
+          "stufe": 2
+        },
+        {
+          "id": "A61",
+          "antwort": "Ja, bei den ersten Sitzungen in jeder Veranstaltung (Vorlesungen, Seminare).",
+          "handlungsfeldId": "H4",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "frage": "Gibt es Unterstützung bei der barrierefreien Umsetzung von Prüfungen?",
+      "antworten": [
+        {
+          "id": "A62",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H5",
+          "stufe": 0
+        },
+        {
+          "id": "A63",
+          "antwort": "Ja, es gibt Informationsmaterialien zur einfachen Anpassung von Prüfungen.",
+          "handlungsfeldId": "H5",
+          "stufe": 1
+        },
+        {
+          "id": "A64",
+          "antwort": "Es gibt grundlegende Beratung zur barrierefreien Erstellung und Anpassung von Prüfungen.",
+          "handlungsfeldId": "H5",
+          "stufe": 2
+        },
+        {
+          "id": "A65",
+          "antwort": "Es gibt eine Servicestelle, die individuelle Beratung und Unterstützung bei der Gestaltung von barrierefreien Prüfungen anbietet.",
+          "handlungsfeldId": "H5",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "frage": "Wie wird die Barrierefreiheit von Prüfungen umgesetzt?",
+      "antworten": [
+        {
+          "id": "A66",
+          "antwort": "Prüfungen werden nicht barrierefrei geplant oder angepasst.",
+          "handlungsfeldId": "H5",
+          "stufe": 0
+        },
+        {
+          "id": "A67",
+          "antwort": "Prüfungen werden mit einfachen Lösungen angepasst. (z.B.: Erhöhung der Bearbeitungszeit/ Bilder werden entfernt / ...)",
+          "handlungsfeldId": "H5",
+          "stufe": 1
+        },
+        {
+          "id": "A68",
+          "antwort": "Prüfungen werden barrierefrei geplant, Anpassungen werden direkt mitbedacht und Prüfungsformate flexibel gestaltet.",
+          "handlungsfeldId": "H5",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L7",
+      "frage": "Wird die Barrierefreiheit von Prüfungen unter Einbezug von Studierenden evaluiert und verbessert?",
+      "antworten": [
+        {
+          "id": "A69",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H5",
+          "stufe": 0
+        },
+        {
+          "id": "A70",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H5",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "frage": "Werden (interne wie externe) Schulungsangebote zur Umsetzung von (digitaler) Barrierefreiheit in der Lehre und im Lernmaterial für Lehrende angeboten?",
+      "antworten": [
+        {
+          "id": "A71",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6",
+          "stufe": 0
+        },
+        {
+          "id": "A72",
+          "antwort": "Nein, aber es gibt Informationen zum Selbststudium.",
+          "handlungsfeldId": "H6",
+          "stufe": 1
+        },
+        {
+          "id": "A73",
+          "antwort": "Ja, vereinzelt werden Schulungen angeboten, die unterschiedliche Themenbereiche der Barrierefreiheit abdecken.",
+          "handlungsfeldId": "H6",
+          "stufe": 2
+        },
+        {
+          "id": "A74",
+          "antwort": "Ja, es gibt umfangreiche und differenzierte Schulungsangebote in unterschiedlichen Formaten zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "H6",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L9",
+      "frage": "Wird das Schulungsangebot evaluiert und weiterentwickelt?",
+      "antworten": [
+        {
+          "id": "A75",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6",
+          "stufe": 0
+        },
+        {
+          "id": "A76",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L10",
+      "frage": "Gibt es Unterstützungsangebote zur Umsetzung von (digitaler) Barrierefreiheit in der Lehre und im Lernmaterial für Lehrende?",
+      "antworten": [
+        {
+          "id": "A77",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6",
+          "stufe": 0
+        },
+        {
+          "id": "A78",
+          "antwort": "Ja, es gibt Informationen zum Selbststudium.",
+          "handlungsfeldId": "H6",
+          "stufe": 1
+        },
+        {
+          "id": "A79",
+          "antwort": "Ja, es gibt Personen, die Lehrende zum Thema (digitale) Barrierefreiheit beraten und grundlegende Unterstützung anbieten können.",
+          "handlungsfeldId": "H6",
+          "stufe": 2
+        },
+        {
+          "id": "A80",
+          "antwort": "Ja, es gibt grundlegende Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten.",
+          "handlungsfeldId": "H6",
+          "stufe": 3
+        },
+        {
+          "id": "A81",
+          "antwort": "Ja, eine zentrale Einrichtung an der Hochschule unterstützt die Lehrenden zu allen Bereichen der (digitalen) Barrierefreiheit. Die Umsetzungsdienste gehen über die grundlegende Aufbereitung von einzelnen Dokumenten hinaus.",
+          "handlungsfeldId": "H6",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L11",
+      "frage": "Wird digitale Barrierefreiheit in der Hochschuldidaktik thematisiert?",
+      "antworten": [
+        {
+          "id": "A82",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6",
+          "stufe": 0
+        },
+        {
+          "id": "A83",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L12",
+      "frage": "Gibt es Zertifikate, Anrechnungsmöglichkeiten und/oder Anreize zu Fortbildungen für Lehrende zum Thema (digitale) Barrierefreiheit?",
+      "antworten": [
+        {
+          "id": "A84",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H6",
+          "stufe": 0
+        },
+        {
+          "id": "A85",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H6",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L13",
+      "frage": "Gibt es Maßnahmen zur Sensibilisierung?",
+      "antworten": [
+        {
+          "id": "A86",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7",
+          "stufe": 0
+        },
+        {
+          "id": "A87",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H7",
+          "stufe": 1
+        },
+        {
+          "id": "A88",
+          "antwort": "Ja und es gibt umfangreiche Maßnahmen und fest etablierte Angebote zur Sensibilisierung für alle Hochschulangehörigen.",
+          "handlungsfeldId": "H7",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L14",
+      "frage": "Wie finden die Angebote statt?",
+      "antworten": [
+        {
+          "id": "A89",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H7",
+          "stufe": 0
+        },
+        {
+          "id": "A90",
+          "antwort": "Es gibt vereinzelte und unregelmäßige Angebote.",
+          "handlungsfeldId": "H7",
+          "stufe": 1
+        },
+        {
+          "id": "A91",
+          "antwort": "Die Angebote finden regelmäßig statt.",
+          "handlungsfeldId": "H7",
+          "stufe": 2
+        },
+        {
+          "id": "A92",
+          "antwort": "Die Angebote sind fest etabliert.",
+          "handlungsfeldId": "H7",
+          "stufe": 3
+        },
+        {
+          "id": "A93",
+          "antwort": "Zusätzlich sind die etablierten Maßnahmen und Angebote Teil der (Diversitäts-)Strategie.",
+          "handlungsfeldId": "H7",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L15",
+      "frage": "Werden bei der Durchführung von Sensibilisierungsangeboten auch Menschen mit Behinderungen einbezogen?",
+      "antworten": [
+        {
+          "id": "A94",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7",
+          "stufe": 0
+        },
+        {
+          "id": "A95",
+          "antwort": "Ja, Angebote werden von bzw. mit Menschen mit Behinderungen durchgeführt.",
+          "handlungsfeldId": "H7",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L16",
+      "frage": "Stehen die Angebote hochschulweit zur Verfügung?",
+      "antworten": [
+        {
+          "id": "A96",
+          "antwort": "Nein, es werden damit nur einzelne Personengruppen angesprochen.",
+          "handlungsfeldId": "H7",
+          "stufe": 0
+        },
+        {
+          "id": "A97",
+          "antwort": "Ja, alle Hochschulangehörigen können die Angebote nutzen.",
+          "handlungsfeldId": "H7",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L17",
+      "frage": "Ist „studieren mit Beeinträchtigung“ in der internen und externen Kommunikation präsent?",
+      "antworten": [
+        {
+          "id": "A98",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7",
+          "stufe": 0
+        },
+        {
+          "id": "A99",
+          "antwort": "Ja, „Studieren mit Beeinträchtigung“ ist in der internen und externen Kommunikation präsent.",
+          "handlungsfeldId": "H7",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "L18",
+      "frage": "Werden Kompetenzen zur Umsetzung von Barrierefreiheit auch als Studieninhalt vermittelt?",
+      "antworten": [
+        {
+          "id": "A100",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H7",
+          "stufe": 0
+        },
+        {
+          "id": "A101",
+          "antwort": "Ja, z.B. in Modulen in IT oder Pädagogik sowie Wahlbereiche.",
+          "handlungsfeldId": "H7",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L19",
+      "frage": "Werden Lehrmaterialien auf (digitale) Barrierefreiheit getestet?",
+      "antworten": [
+        {
+          "id": "A102",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H8",
+          "stufe": 0
+        },
+        {
+          "id": "A103",
+          "antwort": "Ja, vereinzelt.",
+          "handlungsfeldId": "H8",
+          "stufe": 1
+        },
+        {
+          "id": "A104",
+          "antwort": "Ja, generell.",
+          "handlungsfeldId": "H8",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "L20",
+      "frage": "Wer testet die Lehrmaterialien auf digitale Barrierefreiheit?",
+      "antworten": [
+        {
+          "id": "A105",
+          "antwort": "Sie werden nicht getestet.",
+          "handlungsfeldId": "H8",
+          "stufe": 0
+        },
+        {
+          "id": "A106",
+          "antwort": "Lehrende testen selbstständig mithilfe von Informationen.",
+          "handlungsfeldId": "H8",
+          "stufe": 1
+        },
+        {
+          "id": "A107",
+          "antwort": "Lehrende testen mithilfe von Informationen und Schulungen.",
+          "handlungsfeldId": "H8",
+          "stufe": 2
+        },
+        {
+          "id": "A108",
+          "antwort": "Lehrende testen mit Unterstützung durch einen zentralen Dienst.",
+          "handlungsfeldId": "H8",
+          "stufe": 3
+        },
+        {
+          "id": "A109",
+          "antwort": "Ein zentraler Dienst testet die Lehrmaterialien auf digitale Barrierefreiheit.",
+          "handlungsfeldId": "H8",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L21",
+      "frage": "Werden digitale Lernräume auf digitale Barrierefreiheit getestet?",
+      "antworten": [
+        {
+          "id": "A110",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H8",
+          "stufe": 0
+        },
+        {
+          "id": "A111",
+          "antwort": "Ja, vereinzelt.",
+          "handlungsfeldId": "H8",
+          "stufe": 1
+        },
+        {
+          "id": "A112",
+          "antwort": "Ja, generell.",
+          "handlungsfeldId": "H8",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "L22",
+      "frage": "Wer testet die digitalen Lernräume auf digitale Barrierefreiheit?",
+      "antworten": [
+        {
+          "id": "A113",
+          "antwort": "Sie werden nicht getestet.",
+          "handlungsfeldId": "H8",
+          "stufe": 0
+        },
+        {
+          "id": "A114",
+          "antwort": "Lehrende testen selbstständig mithilfe von Informationen.",
+          "handlungsfeldId": "H8",
+          "stufe": 1
+        },
+        {
+          "id": "A115",
+          "antwort": "Lehrende testen mithilfe von Informationen und Schulungen.",
+          "handlungsfeldId": "H8",
+          "stufe": 2
+        },
+        {
+          "id": "A116",
+          "antwort": "Lehrende testen mit Unterstützung durch einen zentralen Dienst.",
+          "handlungsfeldId": "H8",
+          "stufe": 3
+        },
+        {
+          "id": "A117",
+          "antwort": "Ein zentraler Dienst testet die digitalen Lernräume auf digitale Barrierefreiheit.",
+          "handlungsfeldId": "H8",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "L23",
+      "frage": "Wenn es einen zentralen Dienst zur Unterstützung der Lehrenden bei der Testung von Lehrmaterialien und digitalen Lernräumen gibt, wird dieser regelmäßig evaluiert?",
+      "antworten": [
+        {
+          "id": "A118",
+          "antwort": "Es gibt keinen zentralen Dienst zur Unterstützung.",
+          "handlungsfeldId": "H8",
+          "stufe": 0
+        },
+        {
+          "id": "A119",
+          "antwort": "Es gibt einen zentralen Dienst, aber er wird nicht evaluiert.",
+          "handlungsfeldId": "H8",
+          "stufe": 3
+        },
+        {
+          "id": "A120",
+          "antwort": "Der zentrale Dienst zur Unterstützung und dessen Nutzung wird evaluiert.",
+          "handlungsfeldId": "H8",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk1",
+      "frage": "Wie ist das Feedback- und Beschwerdemanagement aufgebaut?",
+      "antworten": [
+        {
+          "id": "A121",
+          "antwort": "Es gibt die Möglichkeit, dezentral und themenabhängig Beschwerden und Feedback einzubringen.",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A122",
+          "antwort": "Es gibt eine zentrale Stelle für Feedback und Beschwerden.",
+          "handlungsfeldId": "H9",
+          "stufe": 1
+        },
+        {
+          "id": "A123",
+          "antwort": "Feedback wird an die richtigen Stellen weitergegeben, wo es bearbeitet wird.",
+          "handlungsfeldId": "H9",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Struk2",
+      "frage": "Wird regelmäßig auch aktiv Feedback eingeholt?",
+      "antworten": [
+        {
+          "id": "A124",
+          "antwort": "Nein, es gibt nur die Möglichkeit, Feedback einzureichen (Hochschule ist passiv).",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A125",
+          "antwort": "Ja, das Feedback wird aktiv von unterschiedlichen Zielgruppen eingeholt.",
+          "handlungsfeldId": "H9",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk3",
+      "frage": "Gibt es die Möglichkeit, auch anonym Feedback einzureichen?",
+      "antworten": [
+        {
+          "id": "A126",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A127",
+          "antwort": "Ja, hier gibt es auch die Möglichkeit, Feedback anonym einzureichen.",
+          "handlungsfeldId": "H9",
+          "stufe": 1
+        }
+      ]
+    },
+    {
+      "id": "Struk4",
+      "frage": "Gibt es an der Hochschule eine Übersicht der Ansprechpersonen, bei welchen Feedback eingereicht werden kann?",
+      "antworten": [
+        {
+          "id": "A128",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A129",
+          "antwort": "Ja, eine Übersicht der Ansprechpersonen wird zur Verfügung gestellt.",
+          "handlungsfeldId": "H9",
+          "stufe": 1
+        }
+      ]
+    },
+    {
+      "id": "Struk5",
+      "frage": "Ist der Prozess zum Feedback- und Beschwerdemanagement (zur Meldung und Verarbeitung von Feedback und Beschwerden) klar definiert?",
+      "antworten": [
+        {
+          "id": "A130",
+          "antwort": "Nein, es gibt keinen definierten Prozess.",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A131",
+          "antwort": "Es gibt einen definierten und transparenten Prozess zur Meldung und Verarbeitung von Beschwerden und Feedback, der auch an die Hochschulangehörigen kommuniziert wird.",
+          "handlungsfeldId": "H9",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Struk6",
+      "frage": "Werden Feedback-Gebende in den Feedbackprozess einbezogen?",
+      "antworten": [
+        {
+          "id": "A132",
+          "antwort": "Nein, Feedback-Gebende werde nicht einbezogen.",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A133",
+          "antwort": "Feedback-Gebende werden über den Fortgang ihres Anliegens informiert und in den Prozess bis zum Ende einbezogen (Überprüfungsmöglichkeit).",
+          "handlungsfeldId": "H9",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Struk7",
+      "frage": "Wird der Feedbackprozess regelmäßig überprüft?",
+      "antworten": [
+        {
+          "id": "A134",
+          "antwort": "Nein, der Prozess wird nicht evaluiert.",
+          "handlungsfeldId": "H9",
+          "stufe": 0
+        },
+        {
+          "id": "A135",
+          "antwort": "Es gibt ein Monitoring des Feedbackprozesses und der daraus resultierenden Ergebnisse. Dieses wird regelmäßig in die Organisation getragen.",
+          "handlungsfeldId": "H9",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk8",
+      "frage": "Wurden die Webauftritte der Hochschule schon einmal auf Barrierefreiheit überprüft?",
+      "antworten": [
+        {
+          "id": "A136",
+          "antwort": "Die Webauftritte sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10",
+          "stufe": 0
+        },
+        {
+          "id": "A137",
+          "antwort": "Einige Inhalte der Webseiten sind barrierefrei erstellt oder auf Barrierefreiheit überprüft worden. Bei Problemen mit der Webseite bzw. mobilen Apps werden vereinzelt Barrieren behoben.",
+          "handlungsfeldId": "H10",
+          "stufe": 1
+        },
+        {
+          "id": "A138",
+          "antwort": "Der zentrale Webauftritt wurde mindestens einmal auf Barrierefreiheit geprüft und die gefundenen Fehler wurden behoben.",
+          "handlungsfeldId": "H10",
+          "stufe": 2
+        },
+        {
+          "id": "A139",
+          "antwort": "Zusätzlich werden regelmäßig stichprobenartige Testungen der Webauftritte auf digitale Barrierefreiheit durchgeführt und die Barrieren werden behoben.",
+          "handlungsfeldId": "H10",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk9",
+      "frage": "Wurden die mobilen Apps der Hochschule schon einmal auf Barrierefreiheit überprüft?",
+      "antworten": [
+        {
+          "id": "A140",
+          "antwort": "Die mobilen Apps sind nicht barrierefrei und nicht auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "H10",
+          "stufe": 0
+        },
+        {
+          "id": "A141",
+          "antwort": "Einige Inhalte der Apps sind barrierefrei erstellt oder auf Barrierefreiheit überprüft worden. Bei Problemen mit der Webseite bzw. mobilen Apps werden vereinzelt Barrieren behoben.",
+          "handlungsfeldId": "H10",
+          "stufe": 1
+        },
+        {
+          "id": "A142",
+          "antwort": "Die mobilen Apps wurden mindestens einmal auf Barrierefreiheit geprüft und die gefundenen Fehler wurden behoben.",
+          "handlungsfeldId": "H10",
+          "stufe": 2
+        },
+        {
+          "id": "A143",
+          "antwort": "Zusätzlich werden regelmäßig stichprobenartige Testungen der mobilen Apps auf digitale Barrierefreiheit durchgeführt und die Barrieren werden behoben.",
+          "handlungsfeldId": "H10",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk10",
+      "frage": "Sind Content-Autor*innen zum Thema digitale Barrierefreiheit geschult?",
+      "antworten": [
+        {
+          "id": "A144",
+          "antwort": "Nein, Autor*innen haben keine Schulungen zur Erstellung barrierefreier Inhalte erhalten.",
+          "handlungsfeldId": "H10",
+          "stufe": 0
+        },
+        {
+          "id": "A145",
+          "antwort": "Ja, Autor*innen sind im Hinblick auf die Erstellung barrierefreier Inhalte geschult. Ein IT-Support für barrierefreie Webauftritte steht zur Verfügung (z.B. für Autor*innen).",
+          "handlungsfeldId": "H10",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Struk11",
+      "frage": "Sind IT-Verantwortliche im Bereich digitale Barrierefreiheit geschult?",
+      "antworten": [
+        {
+          "id": "A146",
+          "antwort": "Die IT-Verantwortlichen haben keine Kompetenzen im Bereich Barrierefreiheit.",
+          "handlungsfeldId": "H10",
+          "stufe": 0
+        },
+        {
+          "id": "A147",
+          "antwort": "Es gibt einzelne IT-Verantwortliche mit Kompetenzen im Bereich Barrierefreiheit.",
+          "handlungsfeldId": "H10",
+          "stufe": 1
+        },
+        {
+          "id": "A148",
+          "antwort": "Es gibt in jeder Abteilung der IT einen Verantwortlichen für digitale Barrierefreiheit mit entsprechenden Kompetenzen.",
+          "handlungsfeldId": "H10",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk12",
+      "frage": "Stehen in der Hochschule barrierearme Arbeitsplätze zur Verfügung?",
+      "antworten": [
+        {
+          "id": "A149",
+          "antwort": "Nein, es gibt keine barrierefreien Arbeitsplätze.",
+          "handlungsfeldId": "H11",
+          "stufe": 0
+        },
+        {
+          "id": "A150",
+          "antwort": "Es gibt vereinzelte Arbeitsplätze, die durch einfache Maßnahmen barrierearm gestaltet sind.",
+          "handlungsfeldId": "H11",
+          "stufe": 1
+        },
+        {
+          "id": "A151",
+          "antwort": "Es stehen ausreichend (d.h. dem Bedarf entsprechend) barrierearme Arbeitsplätze zur Verfügung.",
+          "handlungsfeldId": "H11",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Struk13",
+      "frage": "Werden an der Hochschule Hilfsmittel (assistive Technologien) zur Verfügung gestellt?",
+      "antworten": [
+        {
+          "id": "A152",
+          "antwort": "Nein, es gibt keine Hilfsmittel (Assistive Technologien).",
+          "handlungsfeldId": "H11",
+          "stufe": 0
+        },
+        {
+          "id": "A153",
+          "antwort": "Es stehen grundlegende assistive Technologien zur Verfügung.",
+          "handlungsfeldId": "H11",
+          "stufe": 2
+        },
+        {
+          "id": "A154",
+          "antwort": "Assistive Technologien sind in einem Hilfsmittelpool gesammelt, der bedarfsgerecht erweitert und aktualisiert wird.",
+          "handlungsfeldId": "H11",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Struk14",
+      "frage": "Werden barrierefreie Arbeitsplätze und/oder die Verfügbarkeit von Hilfsmitteln an der Hochschule kommuniziert?",
+      "antworten": [
+        {
+          "id": "A155",
+          "antwort": "Nein, die Angebote werden nicht kommuniziert.",
+          "handlungsfeldId": "H11",
+          "stufe": 0
+        },
+        {
+          "id": "A156",
+          "antwort": "Ja, die Angebote werden kommuniziert und sind an der Hochschule bekannt.",
+          "handlungsfeldId": "H11",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Struk15",
+      "frage": "Falls es einen Hilfsmittelpool gibt: Gibt es Verantwortliche für den vorhandenen Hilfsmittelpool?",
+      "antworten": [
+        {
+          "id": "A157",
+          "antwort": "Es gibt keinen Hilfsmittelpool.",
+          "handlungsfeldId": "H11",
+          "stufe": 0
+        },
+        {
+          "id": "A158",
+          "antwort": "Die Hilfsmittel stehen nur zur Verfügung und können beim Verantwortlichen ausgeliehen werden.",
+          "handlungsfeldId": "H11",
+          "stufe": 2
+        },
+        {
+          "id": "A159",
+          "antwort": "Der Hilfsmittelpool wird durch Fachkräfte betreut, die auch zu assistiven Technologien beraten können.",
+          "handlungsfeldId": "H11",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Struk16",
+      "frage": "Sind Hörsäle und Seminarräume mit Barrierefreiheits-Technologien ausgestattet?",
+      "antworten": [
+        {
+          "id": "A160",
+          "antwort": "Es gibt keine Räume, die mit Barrierefreiheits-Technologien ausgestattet sind.",
+          "handlungsfeldId": "H11",
+          "stufe": 0
+        },
+        {
+          "id": "A161",
+          "antwort": "Einzelne Räume sind mit Barrierefreiheits-Technologien ausgestattet.",
+          "handlungsfeldId": "H11",
+          "stufe": 2
+        },
+        {
+          "id": "A162",
+          "antwort": "Hörsäle und Seminarräume sind bedarfsgerecht mit Barrierefreiheits-Technologien ausgestattet.",
+          "handlungsfeldId": "H11",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk17",
+      "frage": "Wird (digitale) Barrierefreiheit bei der Beschaffung von Soft- und Hardware beachtet?",
+      "antworten": [
+        {
+          "id": "A163",
+          "antwort": "(Digitale) Barrierefreiheit wird bei Beschaffungen nicht beachtet.",
+          "handlungsfeldId": "H12",
+          "stufe": 0
+        },
+        {
+          "id": "A164",
+          "antwort": "In einzelnen Ausschreibungen wird (digitale) Barrierefreiheit als Abnahmekriterium genannt.",
+          "handlungsfeldId": "H12",
+          "stufe": 1
+        },
+        {
+          "id": "A165",
+          "antwort": "Barrierefreiheit wird im Vergabeprozess grundsätzlich mitgedacht.",
+          "handlungsfeldId": "H12",
+          "stufe": 2
+        },
+        {
+          "id": "A166",
+          "antwort": "(Digitale) Barrierefreiheit ist Teil aller Ausschreibungen.",
+          "handlungsfeldId": "H12",
+          "stufe": 3
+        },
+        {
+          "id": "A167",
+          "antwort": "Zusätzlich zu den vorherigen Stufen ist eine Strategie zum Vergabe- und Beschaffungsprozess vorhanden, die Barrierefreiheit als verbindliches Kriterium definiert.",
+          "handlungsfeldId": "H12",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk18",
+      "frage": "Werden bei der Leistungsabnahme Tests bezüglich der Barrierefreiheit durchgeführt?",
+      "antworten": [
+        {
+          "id": "A168",
+          "antwort": "Nein, es werden keine Barrierefreiheits-Tests vor der Abnahme durchgeführt.",
+          "handlungsfeldId": "H12",
+          "stufe": 0
+        },
+        {
+          "id": "A169",
+          "antwort": "Bei der Leistungsabnahme werden Tests zur Barrierefreiheit durchgeführt und bei Bedarf Nachbesserungen verlangt.",
+          "handlungsfeldId": "H12",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Struk19",
+      "frage": "Werden Betroffene in den Beschaffungsprozess einbezogen?",
+      "antworten": [
+        {
+          "id": "A170",
+          "antwort": "Nein, Betroffene werden nicht einbezogen.",
+          "handlungsfeldId": "H12",
+          "stufe": 0
+        },
+        {
+          "id": "A171",
+          "antwort": "Vertretungen von Betroffenen werden vereinzelt am Beschaffungsprozess beteiligt (z.B. in Form von Nutzertests auf Barrierefreiheit).",
+          "handlungsfeldId": "H12",
+          "stufe": 1
+        },
+        {
+          "id": "A172",
+          "antwort": "Zusätzlich zu Stufe 1 ist eine Strategie zum Vergabe- und Beschaffungsprozess  vorhanden, die die Beteiligung von Vertretungen Betroffener festlegt.",
+          "handlungsfeldId": "H12",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk20",
+      "frage": "Sind in der Vergabestelle Kompetenzen im Bereich Barrierefreiheit vorhanden?",
+      "antworten": [
+        {
+          "id": "A173",
+          "antwort": "Nein, es sind keine Kompetenzen vorhanden.",
+          "handlungsfeldId": "H12",
+          "stufe": 0
+        },
+        {
+          "id": "A174",
+          "antwort": "Es sind Kompetenzen im Bereich der Barrierefreiheit in der Vergabestelle vorhanden.",
+          "handlungsfeldId": "H12",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Struk21",
+      "frage": "Wie systematisch können Maßnahmen zur (digitalen) Barrierefreiheit umgesetzt werden?",
+      "antworten": [
+        {
+          "id": "A175",
+          "antwort": "Maßnahmen können nicht umgesetzt werden, weil keine finanziellen Mittel vorhanden sind.",
+          "handlungsfeldId": "H13",
+          "stufe": 0
+        },
+        {
+          "id": "A176",
+          "antwort": "Einzelne Maßnahmen können punktuell bei Bedarf umgesetzt werden.",
+          "handlungsfeldId": "H13",
+          "stufe": 2
+        },
+        {
+          "id": "A177",
+          "antwort": "Regelmäßige Umsetzungen von Maßnahmen sind möglich.",
+          "handlungsfeldId": "H13",
+          "stufe": 3
+        },
+        {
+          "id": "A178",
+          "antwort": "Maßnahmen können kontinuierlich und systematisch umgesetzt werden.",
+          "handlungsfeldId": "H13",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk22",
+      "frage": "Woher stammen die finanziellen Mittel zur Umsetzung?",
+      "antworten": [
+        {
+          "id": "A179",
+          "antwort": "Es stehen keine finanziellen Mittel zur Verfügung.",
+          "handlungsfeldId": "H13",
+          "stufe": 0
+        },
+        {
+          "id": "A180",
+          "antwort": "Einzelne Maßnahmen können bei Bedarf aus allgemeinen oder fachbezogenen Budgets finanziert werden.",
+          "handlungsfeldId": "H13",
+          "stufe": 1
+        },
+        {
+          "id": "A181",
+          "antwort": "Es gibt zeitlich befristete Mittel (z.B. aus Drittmitttelprojekten oder Sonderinitiativen).",
+          "handlungsfeldId": "H13",
+          "stufe": 2
+        },
+        {
+          "id": "A182",
+          "antwort": "Finanzielle Mittel sind im Haushaltsplan verankert.",
+          "handlungsfeldId": "H13",
+          "stufe": 3
+        },
+        {
+          "id": "A183",
+          "antwort": "Es gibt eine langfristig institutionell abgesicherte Finanzierung.",
+          "handlungsfeldId": "H13",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk23",
+      "frage": "Sind Drittmittelgelder vorhanden?",
+      "antworten": [
+        {
+          "id": "A184",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H13",
+          "stufe": 0
+        },
+        {
+          "id": "A185",
+          "antwort": "Ja, es gibt mindestens ein Drittmittelprojekt.",
+          "handlungsfeldId": "H13",
+          "stufe": 2
+        },
+        {
+          "id": "A186",
+          "antwort": "Drittmittel sind vorhanden und werden systematisch und kontinuierlich eingeworben.",
+          "handlungsfeldId": "H13",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Struk24",
+      "frage": "Gibt es Personen, die für digitale Barrierefreiheit an der Hochschule zuständig sind?",
+      "antworten": [
+        {
+          "id": "A187",
+          "antwort": "Nein, Es gibt keine zusätzlichen personellen Ressourcen für digitale Barrierefreiheit neben den gesetzlich vorgeschriebenen Beauftragten.",
+          "handlungsfeldId": "H14",
+          "stufe": 0
+        },
+        {
+          "id": "A188",
+          "antwort": "Digitale Barrierefreiheit wird vereinzelt  von Einzelpersonen mitbearbeitet, ohne offizielle Zuständigkeit.",
+          "handlungsfeldId": "H14",
+          "stufe": 1
+        },
+        {
+          "id": "A189",
+          "antwort": "Erste fest definierte Zuständigkeiten sind verankert (≤ 20 % Stellenanteil).",
+          "handlungsfeldId": "H14",
+          "stufe": 2
+        },
+        {
+          "id": "A190",
+          "antwort": "Ein vernetztes Fach-Team (z. B. ≥ 1 Vollzeitäquivalent) bearbeitet digitale Barrierefreiheit und Zuständigkeiten und Prozesse sind hochschulweit strukturell verankert.",
+          "handlungsfeldId": "H14",
+          "stufe": 3
+        },
+        {
+          "id": "A191",
+          "antwort": "Es gibt eine zentrale Kompetenz- oder Stabsstelle mit Expert*innen.",
+          "handlungsfeldId": "H14",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk25",
+      "frage": "In welchem Umfang können Personen sich mit digitaler Barrierefreiheit beschäftigen?",
+      "antworten": [
+        {
+          "id": "A192",
+          "antwort": "Gar nicht.",
+          "handlungsfeldId": "H14",
+          "stufe": 0
+        },
+        {
+          "id": "A193",
+          "antwort": "Einzelpersonen können vereinzelt an der digitalen Barrierefreiheit arbeiten.",
+          "handlungsfeldId": "H14",
+          "stufe": 1
+        },
+        {
+          "id": "A194",
+          "antwort": "Es existieren wiederholbare Basisprozesse, jedoch nur für ausgewählte Aufgaben.",
+          "handlungsfeldId": "H14",
+          "stufe": 2
+        },
+        {
+          "id": "A195",
+          "antwort": "Ein vernetztes Fach-Team (z. B. ≥ 1 Vollzeitäquivalent) bearbeitet digitale Barrierefreiheit regelhaft.",
+          "handlungsfeldId": "H14",
+          "stufe": 3
+        },
+        {
+          "id": "A196",
+          "antwort": "Eine zentrale Kompetenz- oder Stabsstelle mit Expertinnen arbeitet Vollzeit an digitaler Barrierefreiheit.",
+          "handlungsfeldId": "H14",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Struk26",
+      "frage": "Wird die Arbeit dieser Personen koordiniert?",
+      "antworten": [
+        {
+          "id": "A197",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H14",
+          "stufe": 0
+        },
+        {
+          "id": "A198",
+          "antwort": "Ja, das Fach-Team ist untereinander vernetzt und koordiniert die Arbeit zu digitaler Barrierefreiheit.",
+          "handlungsfeldId": "H14",
+          "stufe": 3
+        },
+        {
+          "id": "A199",
+          "antwort": "Ja, die Kompetenz- und Stabsstelle steuert Strategie, Audits, Schulungen und kontinuierliche Verbesserung.",
+          "handlungsfeldId": "H14",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat1",
+      "frage": "Gibt es zielgruppenspezifische Informationen für Studieninteressierte und Studierende mit Beeinträchtigungen?",
+      "antworten": [
+        {
+          "id": "A200",
+          "antwort": "Auf Nachfrage bekommen Studieninteressierte und Studierende mit Beeinträchtigungen Informationen und Beratung.",
+          "handlungsfeldId": "H15",
+          "stufe": 0
+        },
+        {
+          "id": "A201",
+          "antwort": "Ja, es gibt grundlegende Informationen.",
+          "handlungsfeldId": "H15",
+          "stufe": 1
+        },
+        {
+          "id": "A202",
+          "antwort": "Ja, es gibt umfangreiche Informationen(z.B. für Studieninteressierte: Zulassung, Studierbarkeit, Ansprechperson. Für Studierende beispielsweise: NTA, Studienverlaufsplanung, Hilfsmittel, Übergang Studium-Beruf mit Beeinträchtigung usw.) sowie konkrete Hinweise zu Beratungsstellen.",
+          "handlungsfeldId": "H15",
+          "stufe": 2
+        },
+        {
+          "id": "A203",
+          "antwort": "Ja, alle Bereiche der Hochschule haben relevante Informationen und Hinweise bündig auf der Webseite zusammengetragen.",
+          "handlungsfeldId": "H15",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat2",
+      "frage": "Gibt es zielgruppenspezifische Angebote für Studieninteressierte und Studierende mit Beeinträchtigungen?",
+      "antworten": [
+        {
+          "id": "A204",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H15",
+          "stufe": 0
+        },
+        {
+          "id": "A205",
+          "antwort": "Ja, es gibt vereinzelte (einmalige) Angebote.",
+          "handlungsfeldId": "H15",
+          "stufe": 1
+        },
+        {
+          "id": "A206",
+          "antwort": "Ja, es gibt regelmäßige Angebote.",
+          "handlungsfeldId": "H15",
+          "stufe": 2
+        },
+        {
+          "id": "A207",
+          "antwort": "Ja, es gibt etablierte zielgruppenspezifische Angebote (z.B. Informationstage, Führungen über den Campus beispielsweise für Blinde, Deaf Mentoring usw.).",
+          "handlungsfeldId": "H15",
+          "stufe": 3
+        },
+        {
+          "id": "A208",
+          "antwort": "Ja, die Angebote für Studierende/Studieninteressierte werden evaluiert und angepasst.",
+          "handlungsfeldId": "H15",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat3",
+      "frage": "Werden Studierende mit Beeinträchtigungen in Evaluationsmaßnahmen adressiert und zu ihren Erfahrungen an der Hochschule befragt?",
+      "antworten": [
+        {
+          "id": "A209",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16",
+          "stufe": 0
+        },
+        {
+          "id": "A210",
+          "antwort": "Ja, bei auftretenden Barrieren werden einzelne Studierende mit Beeinträchtigungen dazu befragt.",
+          "handlungsfeldId": "H16",
+          "stufe": 1
+        },
+        {
+          "id": "A211",
+          "antwort": "Ja, Studierende mit Beeinträchtigungen werden regelmäßig befragt.",
+          "handlungsfeldId": "H16",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Strat4",
+      "frage": "Gibt es studentische Vertretungen von Studierenden mit Beeinträchtigungen in zentralen Gremien der Hochschule?",
+      "antworten": [
+        {
+          "id": "A212",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H16",
+          "stufe": 0
+        },
+        {
+          "id": "A213",
+          "antwort": "Ja, es gibt Vertretungen von Studierenden mit Beeinträchtigung in den zentralen Gremien. Sie werden systematisch bei Fragestellungen zu Barrierefreiheit und Diversität in Entscheidungsprozesse eingebunden.",
+          "handlungsfeldId": "H16",
+          "stufe": 3
+        },
+        {
+          "id": "A214",
+          "antwort": "Ja, Vertretungen von Studierenden mit Beeinträchtigungen gestalten wesentliche Entscheidungsprozesse themenübergreifend und aktiv mit. Entscheidungsprozesse sind partizipativ mit Stimm- und Vetorecht gestaltet.",
+          "handlungsfeldId": "H16",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat5",
+      "frage": "Wenn es eine Diversitätsstrategie gibt, wurden/werden Studierende mit Beeinträchtigungen in ihre Gestaltung und Umsetzung mit einbezogen?",
+      "antworten": [
+        {
+          "id": "A215",
+          "antwort": "Nein, es gibt keine Diversitätsstrategie.",
+          "handlungsfeldId": "H16",
+          "stufe": 0
+        },
+        {
+          "id": "A216",
+          "antwort": "Partizipation ist ein wesentlicher Teil der Diversitätsstrategie.Vertretungen von Studierenden mit Beeinträchtigungen gestalten wesentliche Entscheidungsprozesse themenübergreifend und aktiv mit.",
+          "handlungsfeldId": "H16",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat6",
+      "frage": "Wie werden Studierende mit Beeinträchtigung in Entscheidungsprozesse eingebunden?",
+      "antworten": [
+        {
+          "id": "A217",
+          "antwort": "Nein, sie werden nicht eingebunden.",
+          "handlungsfeldId": "H16",
+          "stufe": 0
+        },
+        {
+          "id": "A218",
+          "antwort": "Sie werden vereinzelt bei auftretenden Barrierefreiheitsproblemen eingebunden.",
+          "handlungsfeldId": "H16",
+          "stufe": 1
+        },
+        {
+          "id": "A219",
+          "antwort": "Sie werden systematisch bei Fragestellungen zu Barrierefreiheit und Diversität eingebunden.",
+          "handlungsfeldId": "H16",
+          "stufe": 3
+        },
+        {
+          "id": "A220",
+          "antwort": "Sie werden themenübergreifend bei wesentlichen Entscheidungsprozessen eingebunden.",
+          "handlungsfeldId": "H16",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat7",
+      "frage": "Findet interne Kollaboration zum Thema (digitale) Barrierefreiheit statt?",
+      "antworten": [
+        {
+          "id": "A221",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H17",
+          "stufe": 0
+        },
+        {
+          "id": "A222",
+          "antwort": "Ja, loser Austausch findet statt und ermöglicht eine Kollaboration (intern) in kleinem Rahmen.",
+          "handlungsfeldId": "H17",
+          "stufe": 1
+        },
+        {
+          "id": "A223",
+          "antwort": "Ja, in bestehenden internen Formaten wird das Thema (digitale) Barrierefreiheit regelmäßig und koordiniert besprochen und in Aktionen umgesetzt.",
+          "handlungsfeldId": "H17",
+          "stufe": 2
+        },
+        {
+          "id": "A224",
+          "antwort": "Ja, es gibt ein fest etabliertes Format zur Kollaboration.",
+          "handlungsfeldId": "H17",
+          "stufe": 3
+        },
+        {
+          "id": "A225",
+          "antwort": "Ja, es gibt ein handlungsfähiges Gremium für eine regelmäßige Kollaboration aller Statusgruppen, das strategisch verankert ist.",
+          "handlungsfeldId": "H17",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat8",
+      "frage": "Findet externe Kollaboration zum Thema (digitale) Barrierefreiheit statt?",
+      "antworten": [
+        {
+          "id": "A226",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H17",
+          "stufe": 0
+        },
+        {
+          "id": "A227",
+          "antwort": "Ja, loser Austausch findet statt und ermöglicht eine Kollaboration (extern) in kleinem Rahmen.",
+          "handlungsfeldId": "H17",
+          "stufe": 1
+        },
+        {
+          "id": "A228",
+          "antwort": "Ja, es findet eine externe Zusammenarbeit zum Thema (digitale) Barrierefreiheit statt.",
+          "handlungsfeldId": "H17",
+          "stufe": 3
+        },
+        {
+          "id": "A229",
+          "antwort": "Ja, die externe Kollaboration wird von der Hochschule gefördert.",
+          "handlungsfeldId": "H17",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat9",
+      "frage": "Wird (digitale) Barrierefreiheit in Steuerungsinstrumenten aktiv benannt?",
+      "antworten": [
+        {
+          "id": "A230",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18",
+          "stufe": 0
+        },
+        {
+          "id": "A231",
+          "antwort": "Ja, in vereinzelten Steuerungsinstrumenten.",
+          "handlungsfeldId": "H18",
+          "stufe": 1
+        },
+        {
+          "id": "A232",
+          "antwort": "Ja, grundlegend in den wesentlichen Steuerungsinstrumenten.",
+          "handlungsfeldId": "H18",
+          "stufe": 2
+        },
+        {
+          "id": "A233",
+          "antwort": "Ja, (digitale Barrierefreiheit) wird als Ziel in den wesentlichen Steuerungsinstrumenten genannt.",
+          "handlungsfeldId": "H18",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Strat10",
+      "frage": "Gibt es strategische Anreize zur Umsetzung (digitaler) Barrierefreiheit?",
+      "antworten": [
+        {
+          "id": "A234",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18",
+          "stufe": 0
+        },
+        {
+          "id": "A235",
+          "antwort": "Ja, einige Anreize und Bemühungen sind erkennbar.",
+          "handlungsfeldId": "H18",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Strat11",
+      "frage": "Werden konkrete Maßnahmen und entsprechende Handlungsempfehlungen mit relevanten Messkriterien zur Umsetzung (digitaler) Barrierefreiheit festgelegt?",
+      "antworten": [
+        {
+          "id": "A236",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H18",
+          "stufe": 0
+        },
+        {
+          "id": "A237",
+          "antwort": "Ja, (digitale) Barrierefreiheit wird als Ziel mit konkreten Maßnahmen und Messkriterien in Steuerungsinstrumenten thematisiert und Handlungsmaßnahmen daraus abgeleitet.",
+          "handlungsfeldId": "H18",
+          "stufe": 3
+        },
+        {
+          "id": "A238",
+          "antwort": "Ja, die Umsetzung der genannten Maßnahmen und deren Wirkung werden kontrolliert und bei Bedarf angepasst.",
+          "handlungsfeldId": "H18",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat12",
+      "frage": "Findet (digitale) Barrierefreiheit Einzug in Akkreditierungsprozesse?",
+      "antworten": [
+        {
+          "id": "A239",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19",
+          "stufe": 0
+        },
+        {
+          "id": "A240",
+          "antwort": "Ja, (digitale) Barrierefreiheit wird als optionaler Aspekt in der Akkreditierung der Studiengänge genannt und vereinzelt behandelt.",
+          "handlungsfeldId": "H19",
+          "stufe": 1
+        },
+        {
+          "id": "A241",
+          "antwort": "Ja, (digitale) Barrierefreiheit ist ein obligatorischer Aspekt in der Akkreditierung der Studiengänge und wird im Prozess mit allen Studiengängen behandelt.",
+          "handlungsfeldId": "H19",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "Strat13",
+      "frage": "Finden externe Audits statt?",
+      "antworten": [
+        {
+          "id": "A242",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19",
+          "stufe": 0
+        },
+        {
+          "id": "A243",
+          "antwort": "Ja, die Hochschule hat schon mindestens einmal an einem externen Audit mit Themenbezug zu Barrierefreiheit teilgenommen.",
+          "handlungsfeldId": "H19",
+          "stufe": 2
+        },
+        {
+          "id": "A244",
+          "antwort": "Ja, die Konsequenzen und Ergebnisse des externen Audits werden umgesetzt und strukturell verankert.",
+          "handlungsfeldId": "H19",
+          "stufe": 3
+        },
+        {
+          "id": "A245",
+          "antwort": "Ja, die Hochschule lässt sich regelmäßig extern auditieren, die Ergebnisse werden verstetigt, evaluiert und verbessert.",
+          "handlungsfeldId": "H19",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat14",
+      "frage": "Wenn Ihre Hochschule systemakkreditiert ist, sind die Mitarbeitenden des QM-Teams in Bezug auf (digitale) Barrierefreiheit geschult?",
+      "antworten": [
+        {
+          "id": "A246",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19",
+          "stufe": 0
+        },
+        {
+          "id": "A247",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H19",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "Strat15",
+      "frage": "Werden für die Akkreditierung von Studiengängen konkrete Daten in Bezug auf (digitale) Barrierefreiheit erhoben?",
+      "antworten": [
+        {
+          "id": "A248",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19",
+          "stufe": 0
+        },
+        {
+          "id": "A249",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H19",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "Strat16",
+      "frage": "Werden Studierende mit Beeinträchtigungen in den Prozess der Akkreditierung involviert?",
+      "antworten": [
+        {
+          "id": "A250",
+          "antwort": "Nein.",
+          "handlungsfeldId": "H19",
+          "stufe": 0
+        },
+        {
+          "id": "A251",
+          "antwort": "Ja.",
+          "handlungsfeldId": "H19",
+          "stufe": 4
+        }
+      ]
+    }
+  ]
+}

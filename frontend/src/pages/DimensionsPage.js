@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import data from "../components/data/struktur.json";
+import dimensionenContent from "../components/data/dimensionen_content.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link } from "react-router-dom";
 
@@ -66,6 +67,19 @@ const DimensionsPage = ({ activeCompany }) => {
     fetchData();
   }, []);
 
+  const descriptionByDimensionId = useMemo(() => {
+    const entries = Array.isArray(dimensionenContent?.dimensionen)
+      ? dimensionenContent.dimensionen
+      : [];
+
+    return entries.reduce((acc, item) => {
+      if (item?.id) {
+        acc[item.id] = item.beschreibung || "";
+      }
+      return acc;
+    }, {});
+  }, []);
+
   const dimensionen = useMemo(() => {
     if (activeIds === null) return [];
     if (activeIds.length === 0) return data.dimensionen;
@@ -119,6 +133,7 @@ const DimensionsPage = ({ activeCompany }) => {
             <div key={dimension.id} className="gridItem">
               <Card_dimensions
                 title={dimension.name}
+                description={descriptionByDimensionId[dimension.id] || ""}
                 dimensionId={dimension.id}
                 handlungsfelder={dimension.handlungsfelder}
                 progress={progress}

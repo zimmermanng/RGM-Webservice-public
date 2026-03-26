@@ -166,8 +166,18 @@
       "name": "Informieren Sie sich, ob an der Hochschule bereits Unterstützungsdienste angeboten werden. Solche Unterstützungsangebote können beispielsweise sein: barrierefreie Arbeitsplätze, Hilfsmittelpool, Umsetzungsdienste, Untertitelungsdienst oder Mentoringprogramm",
       "antworten": [
         {
-          "id": "A19-A21",
-          "antwort": "",
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
           "handlungsfeldId": "H2"
         },
         {
@@ -187,8 +197,28 @@
       "name": "Erstellen Sie eine Übersicht, welche Unterstützungsangebote es an Ihrer Hochschule für Studierende mit Beeinträchtigungen gibt und halten Sie diese stets aktuell.",
       "antworten": [
         {
-          "id": "A19-A23",
-          "antwort": "",
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A23",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
           "handlungsfeldId": "H2"
         },
         {
@@ -203,8 +233,28 @@
       "name": "Geben Sie die Übersicht an alle Anlaufstellen/Beratungsstellen sowie an alle Hochschulangehörigen.",
       "antworten": [
         {
-          "id": "A19-A23",
-          "antwort": "",
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A23",
+          "antwort": "Es gibt eine zentrale Einrichtung an der Hochschule, die die Studierenden zu allen Bereichen der (digitalen) Barrierefreiheit unterstützt.",
           "handlungsfeldId": "H2"
         },
         {
@@ -230,8 +280,18 @@
       "name": "Stellen Sie (personelle und finanzielle) Ressourcen für Unterstützungsangebote (Hilfsmittel, Ausstattung, zuständige Personen) zur Verfügung.",
       "antworten": [
         {
-          "id": "A20-A22",
-          "antwort": "",
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A21",
+          "antwort": "Mitarbeitende in Beratungsstellen bieten im Bereich (digitale) Barrierefreiheit vereinzelt Hilfeleistungen an.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A22",
+          "antwort": "Es gibt strukturell verankerte Dienstleistungen zur Umsetzung von Barrierefreiheit in Dokumenten und Lehrinhalten an der Hochschule. Es gibt einen Hilfsmittelpool. Es gibt einen IT-Support und gezielte IT-Einführungen für Studierende mit Beeinträchtigungen.",
           "handlungsfeldId": "H2"
         },
         {
@@ -240,8 +300,13 @@
           "handlungsfeldId": "H2"
         },
         {
-          "id": "A27-A28",
-          "antwort": "",
+          "id": "A27",
+          "antwort": "Es gibt keine Angebote.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A28",
+          "antwort": "Mitarbeitende in Beratungsstellen können zum Thema (digitale) Barrierefreiheit vereinzelt Hilfeleistungen anbieten.",
           "handlungsfeldId": "H2"
         }
       ]
@@ -251,8 +316,13 @@
       "name": "Bilden Sie für den Einstieg wissenschaftliche Hilfskräfte in der barrierefreien Umsetzung von Lehrmaterialien und anderen Dokumenten aus, um einen Umsetzungsdienst anzubieten.",
       "antworten": [
         {
-          "id": "A19-A20",
-          "antwort": "",
+          "id": "A19",
+          "antwort": "Keine vorhanden.",
+          "handlungsfeldId": "H2"
+        },
+        {
+          "id": "A20",
+          "antwort": "Es gibt vereinzelte Informationsmaterialien zur (digitalen) Barrierefreiheit.",
           "handlungsfeldId": "H2"
         },
         {
@@ -1382,8 +1452,8 @@
       "name": "Achten Sie im Feedback-Prozess darauf, nach konkreten Vorschlägen zur Verbesserung zu fragen.",
       "antworten": [
         {
-          "id": "A132?",
-          "antwort": "",
+          "id": "A132",
+          "antwort": "Nein, Feedback-Gebende werde nicht einbezogen.",
           "handlungsfeldId": "H9"
         }
       ]

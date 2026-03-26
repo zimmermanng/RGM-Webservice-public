@@ -9,17 +9,11 @@
 //  2) Fragen & Antworten: Frage (ID+name) → Handlungsfeld ID → Antwort (ID+name) → Stufe
 //  3) Dimension_Beschreibung: Dimension ID → Beschreibung
 //
-// Outputs (./rgm-setup):
+// Outputs:
 //  - struktur.json
 //  - handlungsempfehlungen.json
 //  - fragen.json
 //  - dimensionen_content.json
-//
-// Notes:
-// - tolerant to header variations
-// - expands answer ranges like "A19-A21; A24; A27"
-// - strips trailing "?" from answer refs like "A132?"
-// - cross-links answer texts from sheet 3 where possible
 
 const fs = require("fs");
 const path = require("path");
@@ -27,7 +21,7 @@ const XLSX = require("xlsx");
 
 // ---------- CLI ----------
 const inputPath =
-  process.argv[2] || path.resolve(__dirname, "excel", "Daten.xlsx");
+  process.argv[2] || path.resolve(__dirname, "Daten.xlsx");
 
 if (!fs.existsSync(inputPath)) {
   console.error("❌ Excel file not found:", inputPath);
@@ -101,7 +95,6 @@ function expandAnswerRef(token) {
   const cleaned = cleanAnswerToken(token);
   if (!cleaned) return [];
 
-  // Matches ranges like A19-A21
   const rangeMatch = cleaned.match(/^([A-Za-z]+)(\d+)\s*-\s*([A-Za-z]+)?(\d+)$/);
   if (rangeMatch) {
     const prefixStart = rangeMatch[1];
@@ -153,7 +146,7 @@ function parseIdArray(val) {
           .filter(Boolean)
       );
     } catch {
-      // fall through to plain splitting
+      // fall through
     }
   }
 
@@ -183,7 +176,14 @@ const S1 = {
 const S2 = {
   heId: ["ID Handlungsempfehlung", "Handlungsempfehlungs ID"],
   heName: ["Handlungsempfehlung"],
-  antwortIds: ["Antwort Ids", "Antwort IDs", "Antworten", "Antwort ID(s)", "Antwort ID Liste", "Antwort"],
+  antwortIds: [
+    "Antwort Ids",
+    "Antwort IDs",
+    "Antworten",
+    "Antwort ID(s)",
+    "Antwort ID Liste",
+    "Antwort",
+  ],
   hfId: ["ID Handlungsfeld", "Handlungsfeld ID", "HF ID"],
 };
 
@@ -198,7 +198,12 @@ const S3 = {
 
 const S4 = {
   dimId: ["ID Dimension", "Dimension ID", "Dim ID", "DimID", "DimensionId"],
-  beschreibung: ["Beschreibung", "Description", "Dimensionsbeschreibung", "Dimension Beschreibung"],
+  beschreibung: [
+    "Beschreibung",
+    "Description",
+    "Dimension Beschreibung",
+    "Dimensionsbeschreibung",
+  ],
 };
 
 // ---------- SHEET 3 FIRST: build answer-text lookup ----------
@@ -207,13 +212,12 @@ const answerTextById = new Map();
 
 for (const r of s3) {
   const hdr = buildHeaderMap(r);
-  const aId = pick(r, hdr, S3.antwortId);
+  const aId = cleanAnswerToken(pick(r, hdr, S3.antwortId));
   const aTxt = pick(r, hdr, S3.antwort);
 
   if (aId) {
-    const cleanedId = cleanAnswerToken(aId);
-    if (!answerTextById.has(cleanedId)) answerTextById.set(cleanedId, aTxt || "");
-    if (!answerTextById.get(cleanedId) && aTxt) answerTextById.set(cleanedId, aTxt);
+    if (!answerTextById.has(aId)) answerTextById.set(aId, aTxt || "");
+    if (!answerTextById.get(aId) && aTxt) answerTextById.set(aId, aTxt);
   }
 }
 
@@ -274,12 +278,23 @@ fs.writeFileSync(
 
 // ---------- SHEET 4 → dimensionen_content.json ----------
 const s4 = sheetToJsonByIndex(wb, 3);
+
+console.log("sheet names:", wb.SheetNames);
+console.log("sheet 4 raw rows:", s4);
+console.log("sheet 4 row count:", s4.length);
+
 const dimensionenContentJson = {
   dimensionen: s4
     .map((r) => {
       const hdr = buildHeaderMap(r);
       const dimId = pick(r, hdr, S4.dimId);
       const beschreibung = pick(r, hdr, S4.beschreibung);
+
+      console.log("sheet 4 parsed row:", {
+        raw: r,
+        dimId,
+        beschreibung,
+      });
 
       if (!dimId) return null;
 
@@ -291,12 +306,16 @@ const dimensionenContentJson = {
     .filter(Boolean),
 };
 
+console.log(
+  "dimensionen_content entries:",
+  dimensionenContentJson.dimensionen.length
+);
+
 fs.writeFileSync(
   path.join(OUT_DIR, "dimensionen_content.json"),
   JSON.stringify(dimensionenContentJson, null, 2),
   "utf8"
 );
-
 // ---------- SHEET 2 → handlungsempfehlungen.json ----------
 const s2 = sheetToJsonByIndex(wb, 1);
 const heMap = new Map();
@@ -361,8 +380,7 @@ for (const r of s3) {
 
   const frageTxt = pick(r, hdr, S3.frage);
   const hfId = pick(r, hdr, S3.hfId);
-  const antwortIdRaw = pick(r, hdr, S3.antwortId);
-  const antwortId = cleanAnswerToken(antwortIdRaw);
+  const antwortId = cleanAnswerToken(pick(r, hdr, S3.antwortId));
   const antwortTxt = pick(r, hdr, S3.antwort);
   const stufe = pick(r, hdr, S3.stufe, true);
 
@@ -406,7 +424,6 @@ fs.writeFileSync(
   "utf8"
 );
 
-// ---------- Done ----------
 console.log("✅ Written:");
 console.log(" -", path.join(OUT_DIR, "struktur.json"));
 console.log(" -", path.join(OUT_DIR, "handlungsempfehlungen.json"));
