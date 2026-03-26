@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
 import struktur from "../components/data/struktur.json";
 
-const API_BASE = "http://localhost:3011";
+const API_BASE = "/api";
 
 const RawResults = () => {
   const [surveyResults, setSurveyResults] = useState(null);

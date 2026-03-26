@@ -3,7 +3,7 @@ import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link } from "react-router-dom";
 
-const API_BASE = "http://localhost:3011";
+const API_BASE = "/api";
 
 const DimensionsPage = ({ activeCompany }) => {
   const [activeIds, setActiveIds] = useState(null);
