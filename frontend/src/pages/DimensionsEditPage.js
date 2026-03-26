@@ -14,6 +14,10 @@ const DimensionsEditPage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const liveRegionRef = useRef(null);
+  const [confirmDialog, setConfirmDialog] = useState({
+    open: false,
+    card: null,
+  });
 
   const getProgress = (dimension) => {
     const answeredObj = currentAnswers[dimension.id] || {};
@@ -112,6 +116,16 @@ const DimensionsEditPage = () => {
     if (fromList === toList) return;
 
     if (fromList === "toEdit") {
+      const hasAnswers =
+        currentAnswers[card.id] &&
+        Object.keys(currentAnswers[card.id]).length > 0;
+
+      if (hasAnswers) {
+        setConfirmDialog({ open: true, card });
+        return; // ❗ STOP → erst Entscheidung abwarten
+      }
+
+      performMove(card);
       setToEdit((prev) => prev.filter((c) => c.id !== card.id));
       setNotToEdit((prev) => [...prev, card]);
       setCurrentAnswers((prev) => {
@@ -125,6 +139,28 @@ const DimensionsEditPage = () => {
       setToEdit((prev) => [...prev, card]);
       announce(`"${card.name}" verschoben in Zu bearbeiten`);
     }
+  };
+
+  const performMove = (card) => {
+    setToEdit((prev) => prev.filter((c) => c.id !== card.id));
+    setNotToEdit((prev) => [...prev, card]);
+
+    setCurrentAnswers((prev) => {
+      const next = { ...prev };
+      delete next[card.id];
+      return next;
+    });
+
+    announce(`"${card.name}" verschoben in Nicht zu bearbeiten`);
+  };
+
+  const handleConfirm = () => {
+    performMove(confirmDialog.card);
+    setConfirmDialog({ open: false, card: null });
+  };
+
+  const handleCancel = () => {
+    setConfirmDialog({ open: false, card: null });
   };
 
   const announce = (message) => {
@@ -283,6 +319,24 @@ const DimensionsEditPage = () => {
           <button className="finishEditButton">Abbrechen</button>
         </Link>
       </div>
+
+      {confirmDialog.open && (
+        <div className="modalOverlay">
+          <div className="modal">
+            <p>
+              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird bei Verschieben dieses Pakets
+              zurückgesetzt.
+            </p>
+
+            <div className="modalButtons">
+              <button onClick={handleCancel}>Abbrechen</button>
+              <button onClick={handleConfirm} className="danger">
+                Trotzdem verschieben
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
