@@ -74,7 +74,7 @@ const DimensionsPage = ({ activeCompany }) => {
 
   const allCompleted =
     dimensionen.length > 0 &&
-    dimensionen.every((dimension) => {
+    dimensionen.some((dimension) => {
       const answeredObj = currentAnswers[dimension.id] || {};
       const answeredCount = Object.keys(answeredObj).length;
 

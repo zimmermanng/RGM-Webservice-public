@@ -668,6 +668,39 @@
   padding: 1rem 1rem 1.1rem;
 }
 
+/* --- Expand / collapse indicators --- */
+.already-done-block > summary,
+.question-recommendation-card.established > summary {
+  position: relative;
+  padding-right: 3.2rem;
+}
+
+.already-done-block > summary::after,
+.question-recommendation-card.established > summary::after {
+  content: "▾";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+  font-size: 1rem;
+  line-height: 1;
+  color: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.already-done-block[open] > summary::after,
+.question-recommendation-card.established[open] > summary::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.already-done-block > summary:hover::after,
+.question-recommendation-card.established > summary:hover::after,
+.already-done-block > summary:focus-visible::after,
+.question-recommendation-card.established > summary:focus-visible::after {
+  color: var(--brand-primary-strong);
+}
+
 /* --- Access pages, dialogs, and team selection --- */
 .access-page {
   min-height: calc(100vh - var(--header-height));
