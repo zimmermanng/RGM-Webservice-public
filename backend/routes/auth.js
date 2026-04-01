@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
 
-const APP_PASSWORD = process.env.APP_PASSWORD || "change-me";
+const APP_PASSWORD = process.env.APP_PASSWORD;
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
 const SESSION_WARNING_MS =

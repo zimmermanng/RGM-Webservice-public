@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link, useNavigate } from "react-router-dom";
+import dimensionenContent from "../components/data/dimensionen_content.json";
 
-const API_BASE = "http://localhost:3011";
+const API_BASE = "/api";
 
 const DimensionsEditPage = () => {
   const navigate = useNavigate();
@@ -18,6 +19,19 @@ const DimensionsEditPage = () => {
     open: false,
     card: null,
   });
+
+    const descriptionByDimensionId = useMemo(() => {
+    const entries = Array.isArray(dimensionenContent?.dimensionen)
+      ? dimensionenContent.dimensionen
+      : [];
+
+    return entries.reduce((acc, item) => {
+      if (item?.id) {
+        acc[item.id] = item.beschreibung || "";
+      }
+      return acc;
+    }, {});
+  }, []);
 
   const getProgress = (dimension) => {
     const answeredObj = currentAnswers[dimension.id] || {};
@@ -122,7 +136,7 @@ const DimensionsEditPage = () => {
 
       if (hasAnswers) {
         setConfirmDialog({ open: true, card });
-        return; 
+        return;
       }
 
       performMove(card);
@@ -257,6 +271,7 @@ const DimensionsEditPage = () => {
                 >
                   <Card_dimensions
                     title={dimension.name}
+                    description={descriptionByDimensionId[dimension.id] || ""}
                     dimensionId={dimension.id}
                     handlungsfelder={dimension.handlungsfelder}
                     showStartButton={false}
@@ -287,6 +302,7 @@ const DimensionsEditPage = () => {
               >
                 <Card_dimensions
                   title={dimension.name}
+                  description={descriptionByDimensionId[dimension.id] || ""}
                   dimensionId={dimension.id}
                   handlungsfelder={dimension.handlungsfelder}
                   showStartButton={false}
@@ -316,8 +332,8 @@ const DimensionsEditPage = () => {
         <div className="modalOverlay">
           <div className="modal">
             <p>
-              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird bei Verschieben dieses Pakets
-              zurückgesetzt.
+              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird bei
+              Verschieben dieses Pakets zurückgesetzt.
             </p>
 
             <div className="modalButtons">

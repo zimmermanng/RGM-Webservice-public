@@ -13,8 +13,8 @@ const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
 
 app.set("trust proxy", 1);
-
-const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
+//"http://localhost:3011"
+const allowedOrigin = process.env.FRONTEND_URL || "/api";
 app.use(
   cors({
     origin: allowedOrigin,

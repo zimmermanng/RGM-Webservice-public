@@ -83,7 +83,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
         .range(['#D9D9D9', '#C4C4C4', '#AFAFAF', '#9A9A9A']);
     }
 
-    const styles = getComputedStyle(document.documentElement);
+    const styles = getComputedStyle(document.body);
 
     return d3
       .scaleOrdinal()
@@ -401,7 +401,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
         .attr('xlink:href', `#${groupPathId}`)
         .attr('startOffset', '25%')
         .attr('fill', getTextColor(groupColor))
-        .attr('font-size', '30px')
+        .attr('font-size', '26px')
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .text(group)
