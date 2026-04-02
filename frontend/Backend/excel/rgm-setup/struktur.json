@@ -2,7 +2,7 @@
   "dimensionen": [
     {
       "id": "D1",
-      "name": "Verantwortlichkeit Barrierefreiheit",
+      "name": "Barrierefreiheit (Verantwortung)",
       "handlungsfelder": [
         {
           "id": "H1",
@@ -67,12 +67,40 @@
               "name": "Gibt es einen Ansprechpartner zum Thema Barrierefreiheit für betroffene Mitarbeitende?"
             }
           ]
+        },
+        {
+          "id": "HX2",
+          "name": "Multiplikatoren",
+          "fragen": [
+            {
+              "id": "F174",
+              "name": "Gibt es in den Organisationseinheiten Ansprechpartner für Barrierefreiheit, die als Bindeglied zwischen ihrem Team und den Experten für Barrierefreiheit fungieren?"
+            },
+            {
+              "id": "F175",
+              "name": "Wie gestaltet sich der Austausch zwischen den Experten und den Ansprechpartnern in den Organisationseinheiten?"
+            },
+            {
+              "id": "F176",
+              "name": "Was sind die Aufgaben der Ansprechpartner in den Organisationseinheiten?"
+            }
+          ]
+        },
+        {
+          "id": "HX1",
+          "name": "Austausch",
+          "fragen": [
+            {
+              "id": "F177",
+              "name": "Ermöglichen die Experten für Barrierefreiheit einen unternehmensweiten Austausch der umsetzenden Mitarbeitenden zu Fragen der Barrierefreiheit?"
+            }
+          ]
         }
       ]
     },
     {
       "id": "D2",
-      "name": "Feedback Barrierefreiheit",
+      "name": "Feedback zu Barrierefreiheit",
       "handlungsfelder": [
         {
           "id": "H5",
@@ -114,7 +142,7 @@
     },
     {
       "id": "D3",
-      "name": "Testing Barrierefreiheit",
+      "name": "Prüfen auf Barrierefreiheit",
       "handlungsfelder": [
         {
           "id": "H7",
@@ -278,7 +306,7 @@
     },
     {
       "id": "D6",
-      "name": "Ergebnisprodukt",
+      "name": "Ergebnisprodukte",
       "handlungsfelder": [
         {
           "id": "H16",
@@ -354,7 +382,7 @@
     },
     {
       "id": "D7",
-      "name": "Medienprodukt",
+      "name": "Medienprodukte",
       "handlungsfelder": [
         {
           "id": "H21",
@@ -528,7 +556,7 @@
     },
     {
       "id": "D10",
-      "name": "Anbieter (Extern)",
+      "name": "Externe Kontakte",
       "handlungsfelder": [
         {
           "id": "H29",
@@ -536,11 +564,11 @@
           "fragen": [
             {
               "id": "F77",
-              "name": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Kunden?"
+              "name": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Kunden, Dienstleistern oder anderen externen Personen?"
             },
             {
               "id": "F78",
-              "name": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Kunden (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?"
+              "name": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Kunden, Dienstleistern oder anderen externen Personen (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?"
             },
             {
               "id": "F79",
@@ -554,7 +582,7 @@
           "fragen": [
             {
               "id": "F80",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Kunden (z.B. Angebote, Rechnungen, etc.) berücksichtigt?"
+              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Kunden, Dienstleister oder andere externe Personen (z.B. Angebote, Rechnungen, Verträge, etc.) berücksichtigt?"
             },
             {
               "id": "F81",
@@ -570,43 +598,11 @@
     },
     {
       "id": "D11",
-      "name": "Kunde (Extern)",
+      "name": "Einkauf",
       "handlungsfelder": [
         {
-          "id": "H31",
-          "name": "Organisation",
-          "fragen": [
-            {
-              "id": "F83",
-              "name": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Dienstleistern?"
-            },
-            {
-              "id": "F84",
-              "name": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Dienstleistern (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?"
-            }
-          ]
-        },
-        {
           "id": "H32",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F85",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Dienstleister (z.B. Verträge, etc.) berücksichtigt?"
-            },
-            {
-              "id": "F86",
-              "name": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?"
-            },
-            {
-              "id": "F87",
-              "name": "Sind die Aspekte der Barrierefreiheit von Dokumenten vereinheitlicht?"
-            }
-          ]
-        },
-        {
-          "id": "H33",
-          "name": "Einkauf",
+          "name": "Einkauf (Dienstleistung)",
           "fragen": [
             {
               "id": "F88",
@@ -619,14 +615,20 @@
             {
               "id": "F90",
               "name": "Wie wird Barrierefreiheit bei der Beauftragung von externen Dienstleistern sichergestellt?"
-            },
+            }
+          ]
+        },
+        {
+          "id": "H33",
+          "name": "Einkauf (Produkt)",
+          "fragen": [
             {
               "id": "F91",
               "name": "Wird Barrierefreiheit im Einkauf, also bei der Auswahl und Beschaffung neuer Hard- und Software, berücksichtigt?"
             },
             {
               "id": "F92",
-              "name": "Nach welchen Kriterien wird die Barrierefreiheit eines Produktes im Einkauf berücksichtigt?"
+              "name": "Wie wird die Barrierefreiheit eines Produktes im Einkauf berücksichtigt?"
             },
             {
               "id": "F93",
@@ -673,10 +675,6 @@
             {
               "id": "F99",
               "name": "Gibt es barrierefreie Kommunikationskanäle, unter denen Sie erreichbar sind?"
-            },
-            {
-              "id": "F100",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten (z.B. Verträge, Rechnungen, etc.) berücksichtigt?"
             }
           ]
         },
@@ -684,6 +682,10 @@
           "id": "H36",
           "name": "Umsetzung",
           "fragen": [
+            {
+              "id": "F100",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten (z.B. Verträge, Rechnungen, etc.) berücksichtigt?"
+            },
             {
               "id": "F101",
               "name": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?"
@@ -824,7 +826,7 @@
           "fragen": [
             {
               "id": "F125",
-              "name": "Wie wird der Bedarf an Hard- und Software ermittelt, die Mitarbeitende benötigen?"
+              "name": "Wie wird der Bedarf an Hard- und Software ermittelt, die Mitarbeitende für Barrierefreiheit benötigen?"
             },
             {
               "id": "F126",
@@ -918,7 +920,7 @@
     },
     {
       "id": "D15",
-      "name": "Weiterbildung",
+      "name": "Barrierefreiheit (Weiterbildung)",
       "handlungsfelder": [
         {
           "id": "HX11",
@@ -1113,34 +1115,130 @@
       ]
     },
     {
-      "id": "D16",
-      "name": "Zusammenarbeit",
+      "id": "D17",
+      "name": "Software",
       "handlungsfelder": [
         {
-          "id": "HX2",
-          "name": "Multiplikatoren",
+          "id": "HF1",
+          "name": "Planung",
           "fragen": [
             {
-              "id": "F174",
-              "name": "Gibt es in den Organisationseinheiten Ansprechpartner für Barrierefreiheit, die als Bindeglied zwischen ihrem Team und den Experten für Barrierefreiheit fungieren?"
+              "id": "F178",
+              "name": "Werden zu Beginn der Softwareentwicklung Anforderungen an deren Barrierefreiheit erhoben?"
             },
             {
-              "id": "F175",
-              "name": "Wie gestaltet sich der Austausch zwischen den Experten und den Ansprechpartnern in den Organisationseinheiten?"
+              "id": "F179",
+              "name": "Ist das Vorgehen zur Anforderungsanalyse vereinheitlicht?"
             },
             {
-              "id": "F176",
-              "name": "Was sind die Aufgaben der Ansprechpartner in den Organisationseinheiten?"
+              "id": "F180",
+              "name": "Welche Aspekte der Barrierefreiheit werden bei der Anforderungsanalyse berücksichtigt?"
             }
           ]
         },
         {
-          "id": "HX1",
-          "name": "Austausch",
+          "id": "HF2",
+          "name": "Umsetzung",
           "fragen": [
             {
-              "id": "F177",
-              "name": "Ermöglichen die Experten für Barrierefreiheit einen unternehmensweiten Austausch der umsetzenden Mitarbeitenden zu Fragen der Barrierefreiheit?"
+              "id": "F181",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Softwareentwicklung bzw. im Code berücksichtigt?"
+            },
+            {
+              "id": "F182",
+              "name": "Sind die Aspekte der Barrierefreiheit für Code vereinheitlicht?"
+            },
+            {
+              "id": "F183",
+              "name": "Wird der Code auf Barrierefreiheit überprüft?"
+            }
+          ]
+        },
+        {
+          "id": "HF3",
+          "name": "Feedback",
+          "fragen": [
+            {
+              "id": "F184",
+              "name": "Wird innerhalb des Softwareproduktes ein Feedbackmechanismus bzgl. Barrierefreiheit für Nutzende integriert?"
+            },
+            {
+              "id": "F185",
+              "name": "Wie wird ein solcher Feedbackmechanismus bzgl. Barrierefreiheit in Softwareprodukte integriert?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D18",
+      "name": "Recruiting",
+      "handlungsfelder": [
+        {
+          "id": "HF4",
+          "name": "Bewerbungsprozess",
+          "fragen": [
+            {
+              "id": "F186",
+              "name": "Werden Aspekte der Barrierefreiheit im Bewerbungsverfahren berücksichtigt?"
+            },
+            {
+              "id": "F187",
+              "name": "Welche Aspekte der Barrierefreiheit werden in Bewerbungsverfahren berücksichtigt?"
+            },
+            {
+              "id": "F188",
+              "name": "Wird die Barrierefreiheit des Bewerbungsprozesses überprüft?"
+            }
+          ]
+        },
+        {
+          "id": "HF5",
+          "name": "Selbstverpflichtung",
+          "fragen": [
+            {
+              "id": "F189",
+              "name": "Gibt es eine öffentlich zugängliche Selbsterklärung des Unternehmens zur Barrierefreiheit?"
+            },
+            {
+              "id": "F190",
+              "name": "Wird eine Quote zur Einstellung von Menschen mit Beeinträchtigungen eingehalten?"
+            }
+          ]
+        },
+        {
+          "id": "HF6",
+          "name": "Kompetenzen",
+          "fragen": [
+            {
+              "id": "F191",
+              "name": "Werden Kompetenzen im Bereich Barrierefreiheit in Stellenausschreibungen als wünschenswert erwähnt?"
+            },
+            {
+              "id": "F192",
+              "name": "Werden Kompetenzen im Bereich Barrierefreiheit von Bewerbenden im Bewerbungsprozess positiv berücksichtigt?"
+            }
+          ]
+        },
+        {
+          "id": "HF7",
+          "name": "Onboarding",
+          "fragen": [
+            {
+              "id": "F193",
+              "name": "Erhalten neue Mitarbeitende eine Schulung zum Thema Barrierefreiheit?"
+            },
+            {
+              "id": "F194",
+              "name": "In welchem Umfang werden Schulungen zum Thema Barrierefreiheit für neue Mitarbeitende angeboten?"
+            },
+            {
+              "id": "F195",
+              "name": "Ist die Teilnahme an den Weiterbildungsmaßnahmen für neue Mitarbeitende verpflichtend?"
+            },
+            {
+              "id": "F196",
+              "name": "Welche weiteren Informationen zum Thema Barrierefreiheit im Unternehmen erhalten neue Mitabeitende?"
             }
           ]
         }

@@ -1106,7 +1106,7 @@
       "antworten": [
         {
           "id": "A158",
-          "antwort": "Es gibt ein Dokument, in dem umfassende Best Practices für die Barrierefreiheit von Präsentationen notiert sind.",
+          "antwort": "Es gibt ein Dokument, in dem Best Practices für die Barrierefreiheit von Präsentationen notiert sind.",
           "handlungsfeldId": "H12"
         }
       ]
@@ -1432,7 +1432,7 @@
     },
     {
       "id": "HE172",
-      "name": "Setzen Sie in einzelnen Projekten gezielt nutzerzentrierte Methoden ein, die Nutzende mit Beeinträchtigungen einbeziehen. Planen Sie erste Aktivitäten und sammeln Sie praktische Erfahrungen mit diesen Methoden. Dokumentieren Sie gewonnene Erkenntnisse, um sie bei der Weiterentwicklung des Produktes zu berücksichtigen.",
+      "name": "Setzen Sie in einzelnen Projekten gezielt nutzerzentrierte Methoden ein, die Nutzende mit Beeinträchtigungen einbeziehen. Planen Sie  Aktivitäten und sammeln Sie praktische Erfahrungen mit diesen Methoden. Dokumentieren Sie gewonnene Erkenntnisse, um sie bei der Weiterentwicklung des Produktes zu berücksichtigen.",
       "antworten": [
         {
           "id": "A206",
@@ -1465,7 +1465,7 @@
     },
     {
       "id": "HE176",
-      "name": "Setzen Sie erste einfache nutzerzentrierte Methoden ein, die Nutzende mit Beeinträchtigungen einbeziehen. Sprechen Sie z.B. mit einzelnen Nutzenden in informellen Gesprächen über ihre Erfahrungen, Bedürfnisse und Schwierigkeiten im Umgang mit ähnlichen Produkten.",
+      "name": "Setzen Sie einfache nutzerzentrierte Methoden ein, die Nutzende mit Beeinträchtigungen einbeziehen. Sprechen Sie z.B. mit einzelnen Nutzenden in informellen Gesprächen über ihre Erfahrungen, Bedürfnisse und Schwierigkeiten im Umgang mit ähnlichen Produkten.",
       "antworten": [
         {
           "id": "A211",
@@ -1586,7 +1586,7 @@
     },
     {
       "id": "HE190",
-      "name": "Führen Sie erste einfache manuelle Tests auf Barrierefreiheit durch. Prüfen Sie z.B. grundlegende Aspekte wie ausreichende Farbkontraste oder die Skalierbarkeit der Inhalte. Nutzen Sie dafür vorhandene Werkzeuge des Browsers oder des Endgerätes.",
+      "name": "Führen Sie einfache manuelle Tests auf Barrierefreiheit durch. Prüfen Sie z.B. grundlegende Aspekte wie ausreichende Farbkontraste oder die Skalierbarkeit der Inhalte. Nutzen Sie dafür vorhandene Werkzeuge des Browsers oder des Endgerätes.",
       "antworten": [
         {
           "id": "A226",
@@ -2576,29 +2576,29 @@
     },
     {
       "id": "HE311",
-      "name": "Stellen Sie sicher, dass Kunden mindestens einen Kommunikationskanal nutzen können, der für viele Menschen gut zugänglich ist. Bieten Sie beispielsweise eine Kontaktaufnahme per E-Mail an. Achten Sie darauf, dass dieser Kanal zuverlässig betreut wird.",
+      "name": "Stellen Sie sicher, dass externe Personen mindestens einen Kommunikationskanal nutzen können, der für viele Menschen gut zugänglich ist. Bieten Sie beispielsweise eine Kontaktaufnahme per E-Mail an. Achten Sie darauf, dass dieser Kanal zuverlässig betreut wird.",
       "antworten": [
         {
           "id": "A381",
-          "antwort": "Bei der Kommunikation mit Kunden wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Kommunikation wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H29"
         }
       ]
     },
     {
       "id": "HE312",
-      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für Kunden. Bieten Sie neben E-Mail z.B. auch telefonischen Kontakt an. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite.",
+      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für externe Personen. Bieten Sie neben E-Mail z.B. auch telefonischen Kontakt an. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite.",
       "antworten": [
         {
           "id": "A382",
-          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail)",
+          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail).",
           "handlungsfeldId": "H29"
         }
       ]
     },
     {
       "id": "HE313",
-      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für Kunden. Bieten Sie neben E-Mail und Telefon z.B. auch ein Formular an, das mit Assistiven Technologien bedient werden kann. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite, und ergänzen Sie klare Hinweise auf alternative Kontaktmöglichkeiten (z.B. \"Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...\").",
+      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für externe Personen. Bieten Sie neben E-Mail und Telefon z.B. auch ein Formular an, das mit Assistiven Technologien bedient werden kann. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite, und ergänzen Sie klare Hinweise auf alternative Kontaktmöglichkeiten (z.B. \"Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...\").",
       "antworten": [
         {
           "id": "A383",
@@ -2609,18 +2609,18 @@
     },
     {
       "id": "HE314",
-      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für Kunden um barrierefreie oder unterstützende Kanäle, z.B. Relay Dienste. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite, und ergänzen Sie klare Hinweise auf alternative Kontaktmöglichkeiten (z.B. \"Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...\").",
+      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für externe Personen um barrierefreie oder unterstützende Kanäle, z.B. Relay Dienste. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite, und ergänzen Sie klare Hinweise auf alternative Kontaktmöglichkeiten (z.B. \"Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...\").",
       "antworten": [
         {
           "id": "A384",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...”)",
+          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...”).",
           "handlungsfeldId": "H29"
         }
       ]
     },
     {
       "id": "HE316",
-      "name": "Stellen Sie sicher, dass Kunden alternative Möglichkeiten nutzen können, wenn ein organisatorisches Tool für sie nicht zugänglich ist. Weisen Sie beispielsweise bei Terminplanern oder Ticketsystemen darauf hin, dass Kunden Sie auch per E-Mail kontaktieren können, um Termine zu buchen oder Tickets zu eröffnen.",
+      "name": "Stellen Sie sicher, dass externe Personen alternative Möglichkeiten nutzen können, wenn ein organisatorisches Tool für sie nicht zugänglich ist. Weisen Sie beispielsweise bei Terminplanern oder Ticketsystemen darauf hin, dass externe Personen Sie auch per E-Mail kontaktieren können, um Termine zu buchen oder Tickets zu eröffnen.",
       "antworten": [
         {
           "id": "A386",
@@ -2631,11 +2631,11 @@
     },
     {
       "id": "HE317",
-      "name": "Achten Sie darauf, barrierefreie organisatorische Tools einzusetzen, sobald bekannt ist, dass ein Kunde darauf angewiesen ist. Überprüfen Sie die Nutzbarkeit dieser Alternativen und informieren Sie den Kunden darüber.",
+      "name": "Achten Sie darauf, barrierefreie organisatorische Tools einzusetzen, sobald bekannt ist, dass eine externe Person darauf angewiesen ist. Überprüfen Sie die Nutzbarkeit dieser Alternativen und informieren Sie die Person darüber.",
       "antworten": [
         {
           "id": "A387",
-          "antwort": "Bei den verwendeten Tools ist Barrierefreiheit nicht explizit bedacht. Bei Problemen können Kund*innen auf alternative Wege (z.B. E-Mail) ausweichen.",
+          "antwort": "Bei den verwendeten Tools wird nicht explizit auf Barrierefreiheit geachtet. Bei Problemen können externe Personen auf alternative Wege (z.B. E-Mail) ausweichen.",
           "handlungsfeldId": "H29"
         }
       ]
@@ -2646,7 +2646,7 @@
       "antworten": [
         {
           "id": "A388",
-          "antwort": "Es werden barrierefreie Tools verwendet, wenn bekannt ist, dass ein Kunde darauf angewiesen ist.",
+          "antwort": "Es werden barrierefreie Tools verwendet, wenn bekannt ist, dass eine externe Person darauf angewiesen ist.",
           "handlungsfeldId": "H29"
         }
       ]
@@ -2697,7 +2697,7 @@
     },
     {
       "id": "HE325",
-      "name": "Stellen Sie sicher, dass Sie auf Anfrage barrierefreie Versionen von Dokumenten bereitstellen können. Reagieren Sie auf entsprechende Rückmeldungen von Kunden.",
+      "name": "Stellen Sie sicher, dass Sie auf Anfrage barrierefreie Versionen von Dokumenten bereitstellen können. Reagieren Sie auf entsprechende Rückmeldungen von Kunden, Dienstleistern oder anderen externen Personen.",
       "antworten": [
         {
           "id": "A396",
@@ -2708,7 +2708,7 @@
     },
     {
       "id": "HE326",
-      "name": "Achten Sie bei der Erstellung von bestimmten Dokumenten gezielt auf Aspekte der Barrierefreiheit. Definieren Sie dafür klare Kriterien, z.B. Dokumente, die für die Kunden besonders wichtig sind. Integrieren Sie dies in Ihren Arbeitsprozess, sodass keine nachträglichen Anpassungen erforderlich sind.",
+      "name": "Achten Sie bei der Erstellung von bestimmten Dokumenten gezielt auf Aspekte der Barrierefreiheit. Definieren Sie dafür klare Kriterien, z.B. Dokumente, die für Kunden, Dienstleister oder andere externe Personen besonders wichtig sind. Integrieren Sie dies in Ihren Arbeitsprozess, sodass keine nachträglichen Anpassungen erforderlich sind.",
       "antworten": [
         {
           "id": "A397",
@@ -2730,7 +2730,7 @@
     },
     {
       "id": "HE329",
-      "name": "Achten Sie bei der Erstellung von Dokumenten auf erste Aspekte der Barrierefreiheit. Stellen Sie z.B. sicher, dass Dokumente nicht als Bilddateien oder Scans vorliegen. Erstellen Sie Dokumente grundsätzlich in textbasierter Form, sodass Inhalte kopierbar und maschinenlesbar sind.",
+      "name": "Achten Sie bei der Erstellung von Dokumenten auf Aspekte der Barrierefreiheit. Stellen Sie z.B. sicher, dass Dokumente nicht als Bilddateien oder Scans vorliegen. Erstellen Sie Dokumente grundsätzlich in textbasierter Form, sodass Inhalte kopierbar und maschinenlesbar sind.",
       "antworten": [
         {
           "id": "A401",
@@ -2745,7 +2745,7 @@
       "antworten": [
         {
           "id": "A402",
-          "antwort": "Bei der Erstellung von Dokumenten werden erste Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
+          "antwort": "Bei der Erstellung von Dokumenten werden grundlegende Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
           "handlungsfeldId": "H30"
         }
       ]
@@ -2767,7 +2767,7 @@
       "antworten": [
         {
           "id": "A404",
-          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
+          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte).",
           "handlungsfeldId": "H30"
         }
       ]
@@ -2802,204 +2802,6 @@
           "id": "A408",
           "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
           "handlungsfeldId": "H30"
-        }
-      ]
-    },
-    {
-      "id": "HE338",
-      "name": "Stellen Sie sicher, dass Dienstleister mindestens einen Kommunikationskanal nutzen können, der für viele Menschen gut zugänglich ist. Bieten Sie beispielsweise eine Kommunikation per E-Mail an. Achten Sie darauf, dass dieser Kanal zuverlässig betreut wird.",
-      "antworten": [
-        {
-          "id": "A411",
-          "antwort": "Bei der Kommunikation mit Dienstleistern wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE339",
-      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für Dienstleister. Bieten Sie neben E-Mail z.B. auch telefonische Kommunikation an. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite.",
-      "antworten": [
-        {
-          "id": "A412",
-          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail)",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE340",
-      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für Dienstleister. Bieten Sie neben E-Mail und Telefon z.B. auch ein Formular an, das mit Assistiven Technologien bedient werden kann. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite, und ergänzen Sie klare Hinweise auf alternative Kontaktmöglichkeiten (z.B. \"Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...\").",
-      "antworten": [
-        {
-          "id": "A413",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon). Diese sind leicht auffindbar.",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE341",
-      "name": "Erweitern Sie das Angebot an Kommunikationskanälen für Dienstleister um barrierefreie oder unterstützende Kanäle, z.B. Relay Dienste. Stellen Sie sicher, dass diese Kanäle leicht auffindbar sind, etwa über eine zentrale Kontaktseite auf der Webseite, und ergänzen Sie klare Hinweise auf alternative Kontaktmöglichkeiten (z.B. \"Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...\").",
-      "antworten": [
-        {
-          "id": "A414",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE343",
-      "name": "Stellen Sie sicher, dass Dienstleister alternative Möglichkeiten nutzen können, wenn ein organisatorisches Tool für sie nicht zugänglich ist. Weisen Sie beispielsweise bei Terminplanern oder Ticketsystemen darauf hin, dass Dienstleister Sie auch per E-Mail kontaktieren können, um Termine zu buchen oder Tickets zu eröffnen.",
-      "antworten": [
-        {
-          "id": "A416",
-          "antwort": "Bei den verwendeten Tools wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE344",
-      "name": "Achten Sie darauf, barrierefreie organisatorische Tools einzusetzen, sobald bekannt ist, dass ein Dienstleister darauf angewiesen ist. Überprüfen Sie die Nutzbarkeit dieser Alternativen und informieren Sie den Dienstleister darüber.",
-      "antworten": [
-        {
-          "id": "A417",
-          "antwort": "Bei den verwendeten Tools ist Barrierefreiheit nicht explizit bedacht. Bei Problemen können Dienstleister auf alternative Wege (z.B. E-Mail) ausweichen.",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE345",
-      "name": "Achten Sie darauf, barrierefreie organisatorische Tools einzusetzen. Berücksichtigen Sie Barrierefreiheit bereits bei der Auswahl der Tools und entscheiden Sie sich für Lösungen, die von möglichst vielen Menschen genutzt werden können.",
-      "antworten": [
-        {
-          "id": "A418",
-          "antwort": "Es werden barrierefreie Tools verwendet, wenn bekannt ist, dass ein Dienstleister darauf angewiesen ist.",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE346",
-      "name": "Achten Sie darauf, barrierefreie organisatorische Tools einzusetzen. Berücksichtigen Sie Barrierefreiheit bereits bei der Auswahl der Tools und testen Sie die Nutzbarkeit (z.B. Tastaturbedienbarkeit) vor der Verwendung. Führen Sie regelmäßige Überprüfungen durch, um sicherzustellen, dass die Tools auch weiterhin barrierefrei funktionieren, etwa nach Updates.",
-      "antworten": [
-        {
-          "id": "A419",
-          "antwort": "Es werden grundsätzlich barrierefreie Tools verwendet.",
-          "handlungsfeldId": "H31"
-        }
-      ]
-    },
-    {
-      "id": "HE348",
-      "name": "Stellen Sie sicher, dass Sie auf Anfrage barrierefreie Versionen von Dokumenten bereitstellen können. Reagieren Sie auf entsprechende Rückmeldungen von Kunden.",
-      "antworten": [
-        {
-          "id": "A421",
-          "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE349",
-      "name": "Achten Sie bei der Erstellung von bestimmten Dokumenten gezielt auf Aspekte der Barrierefreiheit. Definieren Sie dafür klare Kriterien, z.B. Dokumente, die für die Kunden besonders wichtig sind. Integrieren Sie dies in Ihren Arbeitsprozess, sodass keine nachträglichen Anpassungen erforderlich sind.",
-      "antworten": [
-        {
-          "id": "A422",
-          "antwort": "Bei der Erstellung von Dokumenten wird im Einzelfall auf Barrierefreiheit geachtet, z.B. auf Anfrage.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE350",
-      "name": "Achten Sie bei der Erstellung von Dokumenten grundsätzlich gezielt auf Aspekte der Barrierefreiheit.",
-      "antworten": [
-        {
-          "id": "A423",
-          "antwort": "Bei der Erstellung von bestimmten Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet, z.B. bei besonders wichtigen Dokumenten.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE352",
-      "name": "Achten Sie bei der Erstellung von Dokumenten auf erste Aspekte der Barrierefreiheit. Stellen Sie z.B. sicher, dass Dokumente nicht als Bilddateien oder Scans vorliegen. Erstellen Sie Dokumente grundsätzlich in textbasierter Form, sodass Inhalte kopierbar und maschinenlesbar sind.",
-      "antworten": [
-        {
-          "id": "A426",
-          "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE353",
-      "name": "Achten Sie bei der Erstellung von Dokumenten auf grundlegende Aspekte der Barrierefreiheit. Stellen Sie z.B. sicher, dass Sie grundsätzlich barrierearme Dateiformate (z.B. Word, PDF) für die Erstellung von Dokumenten verwenden. Achten Sie darauf, dass Inhalte korrekt dargestellt werden.",
-      "antworten": [
-        {
-          "id": "A427",
-          "antwort": "Bei der Erstellung von Dokumenten werden erste Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE354",
-      "name": "Achten Sie bei der Erstellung von Dokumenten auf komplexere Aspekte der Barrierefreiheit. Nutzen Sie dazu die integrierten Funktionen Ihrer bestehenden Programme (z.B. Word). Verwenden Sie z.B. Formatvorlagen für Überschriften und Alternativtexte für Bilder.",
-      "antworten": [
-        {
-          "id": "A428",
-          "antwort": "Bei der Erstellung von Dokumenten werden einfache Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in barrierearmen Formaten vor (z.B. Word, PDF).",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE355",
-      "name": "Achten Sie bei der Erstellung von Dokumenten auf umfassende Aspekte der Barrierefreiheit. Nutzen Sie dazu Expertentools in einem zusätzlichen Arbeitsschritt. Erstellen Sie z.B. PDFs, die nach PDF/UA getaggt sind.",
-      "antworten": [
-        {
-          "id": "A429",
-          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE357",
-      "name": "Achten Sie bei der Erstellung von Dokumenten auf Aspekte der Barrierefreiheit. Orientieren Sie sich an vorhandenem Wissen im Team oder an bekannten Empfehlungen zur barrierefreien Erstellung von Dokumenten.",
-      "antworten": [
-        {
-          "id": "A431",
-          "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE358",
-      "name": "Sammeln Sie Erfahrungen und halten Sie bewährte Maßnahmen in einem gemeinsamen Dokument fest, z.B. in Form einer Checkliste oder Vorlage für barrierefreie Erstellung von Dokumenten. Stellen Sie das Dokument allen beteiligten Mitarbeitenden zur Verfügung und nutzen Sie es als gemeinsame Grundlage für Ihre Arbeit.",
-      "antworten": [
-        {
-          "id": "A432",
-          "antwort": "Die Barrierefreiheit von Dokumenten wird uneinheitlich bearbeitet, z.B. abhängig von Initiative und Kenntnisstand einzelner Mitarbeitender.",
-          "handlungsfeldId": "H32"
-        }
-      ]
-    },
-    {
-      "id": "HE359",
-      "name": "Überprüfen Sie das bestehende Dokument regelmäßig und passen Sie es bei Bedarf an. Sammeln Sie dazu Rückmeldungen von Mitarbeitenden, die mit dem Dokument arbeiten. Berücksichtigen Sie außerdem neue technische Möglichkeiten oder gesetzliche Anforderungen zur Barrierefreiheit. Dokumentieren Sie die Anpassung und stellen Sie sicher, dass alle Beteiligten die aktualisierte Version verwenden. Planen Sie feste Zeitpunkte für diese Überprüfung ein.",
-      "antworten": [
-        {
-          "id": "A433",
-          "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
-          "handlungsfeldId": "H32"
         }
       ]
     },
@@ -3295,7 +3097,7 @@
       "antworten": [
         {
           "id": "A492",
-          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail)",
+          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail).",
           "handlungsfeldId": "H35"
         }
       ]
@@ -3317,7 +3119,7 @@
       "antworten": [
         {
           "id": "A494",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
+          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”).",
           "handlungsfeldId": "H35"
         }
       ]
@@ -3357,7 +3159,7 @@
     },
     {
       "id": "HE406",
-      "name": "Stellen Sie sicher, dass Sie auf Anfrage barrierefreie Versionen von Dokumenten bereitstellen können. Reagieren Sie auf entsprechende Rückmeldungen von Kunden.",
+      "name": "Achten Sie bei der Erstellung von Dokumenten auf Aspekte der Barrierefreiheit. Stellen Sie z.B. sicher, dass Dokumente nicht als Bilddateien oder Scans vorliegen. Erstellen Sie Dokumente grundsätzlich in textbasierter Form, sodass Inhalte kopierbar und maschinenlesbar sind.",
       "antworten": [
         {
           "id": "A501",
@@ -3368,22 +3170,33 @@
     },
     {
       "id": "HE407",
-      "name": "Achten Sie bei der Erstellung von bestimmten Dokumenten gezielt auf Aspekte der Barrierefreiheit. Definieren Sie dafür klare Kriterien, z.B. Dokumente, die für die Kunden besonders wichtig sind. Integrieren Sie dies in Ihren Arbeitsprozess, sodass keine nachträglichen Anpassungen erforderlich sind.",
+      "name": "Achten Sie bei der Erstellung von Dokumenten auf grundlegende Aspekte der Barrierefreiheit. Stellen Sie z.B. sicher, dass Sie grundsätzlich barrierearme Dateiformate (z.B. Word, PDF) für die Erstellung von Dokumenten verwenden. Achten Sie darauf, dass Inhalte korrekt dargestellt werden.",
       "antworten": [
         {
           "id": "A502",
-          "antwort": "Bei der Erstellung von Dokumenten wird im Einzelfall auf Barrierefreiheit geachtet, z.B. auf Anfrage.",
+          "antwort": "Bei der Erstellung von Dokumenten werden grundlegende Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
           "handlungsfeldId": "H36"
         }
       ]
     },
     {
       "id": "HE408",
-      "name": "Achten Sie bei der Erstellung von Dokumenten grundsätzlich gezielt auf Aspekte der Barrierefreiheit.",
+      "name": "Achten Sie bei der Erstellung von Dokumenten auf komplexere Aspekte der Barrierefreiheit. Nutzen Sie dazu die integrierten Funktionen Ihrer bestehenden Programme (z.B. Word). Verwenden Sie z.B. Formatvorlagen für Überschriften und Alternativtexte für Bilder.",
       "antworten": [
         {
           "id": "A503",
-          "antwort": "Bei der Erstellung von bestimmten Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet, z.B. bei besonders wichtigen Dokumenten.",
+          "antwort": "Bei der Erstellung von Dokumenten werden einfache Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in barrierearmen Formaten vor (z.B. Word, PDF).",
+          "handlungsfeldId": "H36"
+        }
+      ]
+    },
+    {
+      "id": "HE409",
+      "name": "Achten Sie bei der Erstellung von Dokumenten auf umfassende Aspekte der Barrierefreiheit. Nutzen Sie dazu Expertentools in einem zusätzlichen Arbeitsschritt. Erstellen Sie z.B. PDFs, die nach PDF/UA getaggt sind.",
+      "antworten": [
+        {
+          "id": "A504",
+          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3581,7 +3394,7 @@
       "antworten": [
         {
           "id": "A537",
-          "antwort": "Einzelnen Mitarbeitenden (z.B. Softwareentwicklern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Testwerkzeuge wie Screenreader)",
+          "antwort": "Einzelnen Mitarbeitenden (z.B. Softwareentwicklern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Testwerkzeuge wie Screenreader).",
           "handlungsfeldId": "H38"
         }
       ]
@@ -3592,7 +3405,7 @@
       "antworten": [
         {
           "id": "A538",
-          "antwort": "Einigen Mitarbeitenden (z.B. Softwareentwicklern, Designern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Grafikprogramme, Testwerkzeuge wie Screenreader oder Kontrastprüfer)",
+          "antwort": "Einigen Mitarbeitenden (z.B. Softwareentwicklern, Designern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Grafikprogramme, Testwerkzeuge wie Screenreader oder Kontrastprüfer).",
           "handlungsfeldId": "H38"
         }
       ]
@@ -4384,7 +4197,7 @@
       "antworten": [
         {
           "id": "A673",
-          "antwort": "Der Austausch wird teilweise als sinnvoller Bestandteil der Projektarbeit anerkannt. Er kann in der regulären Arbeits-zeit stattfinden, wenn zufällig Kapazitäten vorhanden sind.",
+          "antwort": "Der Austausch wird teilweise als sinnvoller Bestandteil der Projektarbeit anerkannt. Er kann in der regulären Arbeitszeit stattfinden, wenn zufällig Kapazitäten vorhanden sind.",
           "handlungsfeldId": "HX14"
         }
       ]
@@ -4505,7 +4318,7 @@
       "antworten": [
         {
           "id": "A692",
-          "antwort": "Die Dokumentation geschieht uneinheitlich und schwer auffindbar (z.B. in persönlichen Notizen)",
+          "antwort": "Die Dokumentation geschieht uneinheitlich und schwer auffindbar (z.B. in persönlichen Notizen).",
           "handlungsfeldId": "HX12"
         }
       ]
@@ -4692,7 +4505,7 @@
       "antworten": [
         {
           "id": "A728",
-          "antwort": "Gravierende Fehler oder stark veraltete Informationen, die bei einer Überprüfung auffallen,  werden überarbeitet.",
+          "antwort": "Gravierende Fehler oder stark veraltete Informationen, die bei einer Überprüfung auffallen, werden überarbeitet.",
           "handlungsfeldId": "HX10"
         }
       ]
@@ -5121,7 +4934,7 @@
       "antworten": [
         {
           "id": "A802",
-          "antwort": "Die Weiterbildungsmaßnahmen stehen ausschließlich  internen Mitarbeitenden zur Verfügung.",
+          "antwort": "Die Weiterbildungsmaßnahmen stehen ausschließlich internen Mitarbeitenden zur Verfügung.",
           "handlungsfeldId": "HX6"
         }
       ]
@@ -5297,7 +5110,7 @@
       "antworten": [
         {
           "id": "A831",
-          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht  unterstützt.",
+          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht unterstützt.",
           "handlungsfeldId": "HX4"
         }
       ]
@@ -5330,7 +5143,7 @@
       "antworten": [
         {
           "id": "A836",
-          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht  unterstützt.",
+          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht unterstützt.",
           "handlungsfeldId": "HX4"
         }
       ]
@@ -5352,7 +5165,7 @@
       "antworten": [
         {
           "id": "A841",
-          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht  unterstützt.",
+          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht unterstützt.",
           "handlungsfeldId": "HX4"
         }
       ]
@@ -5385,7 +5198,7 @@
       "antworten": [
         {
           "id": "A847",
-          "antwort": "Solche Formate gibt es vereinzelt und anlassbezogen (z.B. nach Impulsen durch die Medien)",
+          "antwort": "Solche Formate gibt es vereinzelt und anlassbezogen (z.B. nach Impulsen durch die Medien).",
           "handlungsfeldId": "HX3"
         }
       ]
@@ -5451,7 +5264,7 @@
       "antworten": [
         {
           "id": "A859",
-          "antwort": "Die Leitungsebene ist bei diesen Formaten passiv beteiligt (z.B. zur Begrüßung, als Zuhörer)",
+          "antwort": "Die Leitungsebene ist bei diesen Formaten passiv beteiligt (z.B. zur Begrüßung, als Zuhörer).",
           "handlungsfeldId": "HX3"
         }
       ]
@@ -5506,7 +5319,7 @@
       "antworten": [
         {
           "id": "A868",
-          "antwort": "In einzelnen Organisationseinheiten gibt es offiziell benannte Ansprechpartner für Barrierefreiheit",
+          "antwort": "In einzelnen Organisationseinheiten gibt es offiziell benannte Ansprechpartner für Barrierefreiheit.",
           "handlungsfeldId": "HX2"
         }
       ]
@@ -5517,7 +5330,7 @@
       "antworten": [
         {
           "id": "A869",
-          "antwort": "In allen größeren Organisationseinheiten (z.B. Abteilungen) gibt es offiziell benannte Ansprechpartner für Barrierefreiheit",
+          "antwort": "In allen größeren Organisationseinheiten (z.B. Abteilungen) gibt es offiziell benannte Ansprechpartner für Barrierefreiheit.",
           "handlungsfeldId": "HX2"
         }
       ]
@@ -5618,6 +5431,545 @@
           "id": "A884",
           "antwort": "Die Experten schaffen langfristig eine persönliche Möglichkeit für einen Austausch, z.B. durch regelmäßige Gesprächsrunden.",
           "handlungsfeldId": "HX1"
+        }
+      ]
+    },
+    {
+      "id": "HE688",
+      "name": "Führen Sie in einzelnen Softwareprojekten gezielt Anforderungsanalysen bzgl. Barrierefreiheit durch. Beginnen Sie mit besonders relevanten Softwareprodukten, z.B. solchen mit relevanten Zielgruppen.",
+      "antworten": [
+        {
+          "id": "A886",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE689",
+      "name": "Führen Sie in mehr Softwareprojekten gezielt Anforderungsanalysen bzgl. Barrierefreiheit durch. Ergänzen Sie relevante Produkte, z.B. solche mit hohen Nutzerzahlen.",
+      "antworten": [
+        {
+          "id": "A887",
+          "antwort": "Bei der Entwicklung einzelner Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE690",
+      "name": "Führen Sie in allen Softwareprojekten grundsätzlich gezielt Anforderungsanalysen bzgl. Barrierefreiheit durch. Verankern Sie Anforderungsanalysen bzgl. Barrierefreiheit als festen Bestandteil des Entwicklungsprozesses.",
+      "antworten": [
+        {
+          "id": "A888",
+          "antwort": "Bei der Entwicklung der meisten Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE691",
+      "name": "Führen Sie in Softwareprojekten gezielt Anforderungsanalysen bzgl. Barrierefreiheit durch. Integrieren Sie dazu Fragen zur Barrierefreiheit in die allgemeine Anforderungsanalyse. Halten Sie die Ergebnisse zunächst formlos fest, z.B. in den Meetingnotizen.",
+      "antworten": [
+        {
+          "id": "A891",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE692",
+      "name": "Überführen Sie die bisher informellen Überlegungen zu Barrierefreiheit in eine einfache, wiederverwendbare Struktur. Erstellen Sie z.B. eine Checkliste mit zentralen Fragen zur Barrierefreiheit, die zur Anforderungsanalyse genutzt weden kann. Halten Sie identifizierte Anforderungen an ein Softwareprodukt formal fest, z.B. im Anforderungskatalog.",
+      "antworten": [
+        {
+          "id": "A892",
+          "antwort": "Die Anforderungsanalyse wird uneinheitlich durchgeführt.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE693",
+      "name": "Überprüfen Sie das bestehende Vorgehen zur Anforderungsanalyse regelmäßig und passen Sie es bei Bedarf an. Reflektieren Sie dazu Erfahrungen aus abgeschlossenen Projekten. Aktualisieren Sie das Vorgehen, wenn es in der Praxis nicht mehr anwendbar ist, wenn es neue gesetzliche Anforderungen oder technische Entwicklungen gibt.  Planen Sie feste Zeitpunkte für diese Überprüfung ein.",
+      "antworten": [
+        {
+          "id": "A893",
+          "antwort": "Die Anforderungsanalyse wird einheitlich durchgeführt.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE694",
+      "name": "Führen Sie in Softwareprojekten gezielt Anforderungsanalysen bzgl. Barrierefreiheit durch. Identifizieren Sie grundlegende Anforderungen an Ihr Softwareprodukt, z.B. in Bezug auf Wahrnehmbarkeit, Bedienbarkeit oder Verständlichkeit.",
+      "antworten": [
+        {
+          "id": "A896",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE695",
+      "name": "Erweitern Sie die Anforderungsanalyse über allgemeine Aspekte der Barrierefreiheit hinaus. Analysieren Sie die Zielgruppe des Softwareproduktes und identifizieren Sie deren individuelle Anforderungen. Nutzen Sie dazu Methoden wie z.B. Zielgruppeninterviews oder Personas.",
+      "antworten": [
+        {
+          "id": "A897",
+          "antwort": "Die Anforderungsanalyse umfasst allgemeine Best Practices der Barrierefreiheit",
+          "handlungsfeldId": "HF1"
+        }
+      ]
+    },
+    {
+      "id": "HE697",
+      "name": "Achten Sie bei der Softwareentwicklung auf grundlegende Aspekte der Barrierefreiheit im Code. Stellen Sie z.B. sicher, dass\r\ndie Codestruktur semantisch korrekt aufgebaut ist und dass\r\nkonsequent (sinnvolle) Alternativtexte vegeben werden.",
+      "antworten": [
+        {
+          "id": "A901",
+          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE698",
+      "name": "Achten Sie bei der Softwareentwicklung auf komplexere Aspekte der Barrierefreiheit im Code. Stellen Sie z.B. sicher, dass ARIA-Attribute verwendet werden, um das Softwareprodukt für assistive Technologien zugänglich zu machen.",
+      "antworten": [
+        {
+          "id": "A902",
+          "antwort": "Bei der Softwareentwicklung werden grundlegende Aspekte von Barrierefreiheit, wie Semantik, im Code beachtet.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE699",
+      "name": "Achten Sie bei der Softwareentwicklung auf umfassende Aspekte der Barrierefreiheit im Code. Stellen Sie sicher, dass alle Aspekte der Barrierefreiheit, die durch offizielle Standards (z.B. WCAG) vorgegeben werden, im Code berücksichtigt werden.",
+      "antworten": [
+        {
+          "id": "A903",
+          "antwort": "Bei der Softwareentwicklung werden komplexe Aspekte der Barrierefreiheit, wie ARIA-Attribute, im Code beachtet.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE700",
+      "name": "Achten Sie bei der Softwareentwicklung auf umfassende Aspekte der Barrierefreiheit im Code. Stellen Sie sicher, dass auch bei nachträglichen Ergänzungen oder Anpassungen die Barrierefreiheit sichergestellt ist.",
+      "antworten": [
+        {
+          "id": "A904",
+          "antwort": "Bei der Softwareentwicklung werden umfassende Aspekte der Barrierefreiheit, wie WCAG-Standards, im Code beachtet.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE702",
+      "name": "Achten Sie bei der Softwareentwicklung auf Aspekte der Barrierefreiheit im Code. Orientieren Sie sich an vorhandenem Wissen im Team.",
+      "antworten": [
+        {
+          "id": "A906",
+          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE703",
+      "name": "Recherchieren oder entwickeln Sie Standards für barrierefreien Code, die die grundlegenden Aspekte der Barrierefreiheit umfassen. Stellen Sie die Standards allen beteiligten Mitarbeitenden zur Verfügung und nutzen Sie sie als gemeinsame Grundlage für Ihre Arbeit.",
+      "antworten": [
+        {
+          "id": "A907",
+          "antwort": "Die Barrierefreiheit im Code wird uneinheitlich bearbeitet, z.B. abhängig von Initiative und Kenntnisstand einzelner Mitarbeitender.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE704",
+      "name": "Erweitern Sie die Umsetzung von Barrierefreiheit so, dass die Anforderungen der nächsthöheren Konformitätsstufe erfüllt werden, z.B. WCAG Stufe AA.",
+      "antworten": [
+        {
+          "id": "A908",
+          "antwort": "Die Barrierefreiheit im Code wird einheitlich bearbeitet. Die WCAG Konformitätsstufe A oder vergleichbare interne Anforderungen werden herangezogen.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE705",
+      "name": "Erweitern Sie die Umsetzung von  Barrierefreiheit so, dass die Anforderungen der nächsthöheren Konformitätsstufe erfüllt werden, z.B. WCAG Stufe AAA. Prüfen Sie, welche weitergehenden Anforderungen über die gesetzlichen Mindestanforderungen hinaus umgesetzt werden können.",
+      "antworten": [
+        {
+          "id": "A909",
+          "antwort": "Die Barrierefreiheit im Code wird einheitlich bearbeitet. Die WCAG Konformitätsstufe AA oder vergleichbare interne Anforderungen werden herangezogen.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE707",
+      "name": "Achten Sie bei der Softwareentwicklung auf Aspekte der Barrierefreiheit im Code.",
+      "antworten": [
+        {
+          "id": "A911",
+          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE708",
+      "name": "Führen Sie Prüfungen auf Barrierefreiheit mindestens einmalig in der Entwicklung eines Softwareproduktes durch, z.B. vor dessen Release. Beheben Sie identifizierte Probleme. Die Prüfung kann, je nach Kenntnissstand, in Eigenkontrolle oder durch weitere Teammitglieder durchgeführt werden.",
+      "antworten": [
+        {
+          "id": "A912",
+          "antwort": "Der Code wird barrierefrei umgesetzt, aber nicht geprüft.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE709",
+      "name": "Führen Sie Prüfungen auf Barrierefreiheit regelmäßig in der Entwicklung eines Softwareproduktes durch, z.B. jeweils nach der Umsetzung eines neuen Features. \r\nZiehen Sie Experten für Barrierefreiheit zur Prüfung hinzu.",
+      "antworten": [
+        {
+          "id": "A913",
+          "antwort": "Der Code wird einmalig nach Fertistellung des Softwareprojekts auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE711",
+      "name": "Integrieren Sie in einzelnen Softwareprodukten einen Feedbackmechanismus für Nutzende, um Beschwerden bzgl. Barrierefreiheit einzureichen. Beginnen Sie mit besonders relevanten Softwareprodukten, z.B. solchen mit relevanten Zielgruppen.",
+      "antworten": [
+        {
+          "id": "A916",
+          "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
+          "handlungsfeldId": "HF3"
+        }
+      ]
+    },
+    {
+      "id": "HE712",
+      "name": "Intergrieren Sie bei mehr Softwareprodukten einen Feedbackmechanismus. Ergänzen Sie relevante Produkte, z.B. solche mit hohen Nutzerzahlen.",
+      "antworten": [
+        {
+          "id": "A917",
+          "antwort": "Einzelne Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
+          "handlungsfeldId": "HF3"
+        }
+      ]
+    },
+    {
+      "id": "HE713",
+      "name": "Integrieren Sie bei allen Softwareprodukten einen Feedbackmechanismus.",
+      "antworten": [
+        {
+          "id": "A918",
+          "antwort": "Die meisten Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
+          "handlungsfeldId": "HF3"
+        }
+      ]
+    },
+    {
+      "id": "HE715",
+      "name": "Integrieren Sie in Softwareprodukten einen Feedbackmechanismus für Nutzende. Stellen Sie dazu eine einfache Möglichkeit zur Kontaktaufnahme bereit, z.B. eine E-Mail-Adresse.",
+      "antworten": [
+        {
+          "id": "A921",
+          "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
+          "handlungsfeldId": "HF3"
+        }
+      ]
+    },
+    {
+      "id": "HE716",
+      "name": "Gestalten Sie den Feedbackmechanismus barrierefrei. Achten Sie z.B. bei Formularen darauf, dass Eingabefelder verständlich beschriftet und mit verschiedenen Eingabemethoden bedienbar sind. Bieten Sie im Idealfall unterschiedliche Kontaktmöglichkeiten (z.B. E-Mail, Formular, Telefon) an.",
+      "antworten": [
+        {
+          "id": "A922",
+          "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist einfach umgesetzt.",
+          "handlungsfeldId": "HF3"
+        }
+      ]
+    },
+    {
+      "id": "HE717",
+      "name": "Kennzeichnen Sie den Feedbackmechanismus explizit als Möglichkeit, um Barrieren zu melden. Machen Sie ihn gut auffindbar, z.B. im Footer des Softwareproduktes.",
+      "antworten": [
+        {
+          "id": "A923",
+          "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist barrierefrei umgesetzt.",
+          "handlungsfeldId": "HF3"
+        }
+      ]
+    },
+    {
+      "id": "HE719",
+      "name": "Achten Sie beim Bewerbungsverfahren in einzelnen Phasen auf Aspekte der Barrierefreiheit. Stellen Sie z.B. barrierefreie Stellenausschreibungen bereit.",
+      "antworten": [
+        {
+          "id": "A926",
+          "antwort": "Im Bewerbungsverfahren wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE720",
+      "name": "Achten Sie beim Bewerbungsverfahren in allen Phasen auf Aspekte der Barrierefreiheit. Stellen Sie z.B. barrierefreie Stellenausschreibungen, sowie barrierefreie Möglichkeiten zur Onlinebewerbung, für Vorstellungsgespräche, usw. bereit. Weisen Sie die Bewerbenden proaktiv darauf hin, dass es diese Möglichkeiten gibt.",
+      "antworten": [
+        {
+          "id": "A927",
+          "antwort": "Im Bewerbungsverfahren wird punktuell (z.B. Stellenausschreibung) auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE722",
+      "name": "Stellen Sie alternative Formate bereit, wenn die üblichen Formate für Bewerbende nicht zugänglich sind. Ermöglichen Sie z.B. die Bewerbung über E-Mail statt über Formular, das Vorstellungsgespräch über Videokonferenz statt vor Ort, den Einstellungstest mündlich statt schriftlich, o.ä.",
+      "antworten": [
+        {
+          "id": "A931",
+          "antwort": "Im Bewerbungsverfahren wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE723",
+      "name": "Erlauben und unterstützen Sie die Verwendung von Hilfsmitteln durch Bewerbende. Ermöglichen Sie z.B. die Nutzung von Braillezeilen, Screenreadern, o.ä. bei Einstellungstests, Probearbeitstagen, o.ä. Stellen Sie sicher, dass Bewerbende ihre eigenen Hilfsmittel verwenden können, oder organisieren Sie die Hilfsmittel rechtzeitig.",
+      "antworten": [
+        {
+          "id": "A932",
+          "antwort": "Im Bewerbungsverfahren werden alternative Formate bereitgestellt.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE724",
+      "name": "Organisieren Sie bei Bedarf geeignete Unterstützungsmaßnahmen, z.B. Gebärdensprachdolmetschende, und übernehmen Sie die Verantwortung und Kosten für deren Umsetzung.",
+      "antworten": [
+        {
+          "id": "A933",
+          "antwort": "Im Bewerbungsverfahren wird die Nutzung von Hilfsmitteln unterstützt.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE726",
+      "name": "Prüfen Sie den Bewerbungsprozess stichprobenartig auf Barrierefreiheit. Führen Sie einen Perspektivwechsel durch und durchlaufen Sie den Bewerbungsprozess selbst.",
+      "antworten": [
+        {
+          "id": "A936",
+          "antwort": "Der Bewerbungsprozess wird nicht auf Barrierefreiheit überprüft.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE727",
+      "name": "Überprüfen Sie den Bewerbungsprozess regelmäßig auf Barrierefreiheit. Sammeln Sie dazu Rückmeldungen von Bewerbenden und ziehen Sie Experten für Barrierefreiheit hinzu.. Berücksichtigen Sie neue technische Möglichkeiten oder gesetzliche Anforderungen zur Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A938",
+          "antwort": "Der Bewerbungsprozess wird gelegentlich und stichprobenartig auf Barrierefreiheit geprüft und ggf. angepasst.",
+          "handlungsfeldId": "HF4"
+        }
+      ]
+    },
+    {
+      "id": "HE729",
+      "name": "Erstellen Sie eine Selbsterklärung des Unternehmens zur Barrierefreiheit. Nutzen Sie dazu ggf. offizielle Mustertexte und beschreiben Sie transparent, welche Rolle Barrierefreiheit in Ihrem Unternehmen spielt, in welchen Bereichen sie berücksichtigt wird und welche Maßnahmen Sie aktuell umsetzen oder planen. Machen Sie die Selbsterklärung öffentlich zugänglich, z.B. auf der Unternehmenswebseite.",
+      "antworten": [
+        {
+          "id": "A941",
+          "antwort": "Eine Selbsterklärung zur Barrierefreiheit wird nicht bereitgestellt.",
+          "handlungsfeldId": "HF5"
+        }
+      ]
+    },
+    {
+      "id": "HE731",
+      "name": "Achten Sie darauf, die gesetzliche geforderte Quote von mind. 5% Menschen mit Beeinträchtigungen einzustellen.",
+      "antworten": [
+        {
+          "id": "A946",
+          "antwort": "Nein.",
+          "handlungsfeldId": "HF5"
+        }
+      ]
+    },
+    {
+      "id": "HE732",
+      "name": "Streben Sie an, mehr als die gesetzliche geforderte Quote von mind. 5% Menschen mit Beeinträchtigungen einzustellen. Identifizieren Sie Bereiche, in denen gezielt Einstellungen von Menschen mit Beeinträchtigungen möglich sind. Passen Sie Ihre Bewerbungsprozesse so an, dass sie für Menschen mit Beeinträchtigungen zugänglich sind. Machen Sie in Ausschreibungen deutlich, dass Bewerbungen von Menschen mit Beeinträchtigungen ausdrücklich erwünscht sind.",
+      "antworten": [
+        {
+          "id": "A948",
+          "antwort": "Wie gesetzlich gefordert, wird eine Quote von 5% Menschen mit Beeinträchtigungen im Unternehmen eingestellt.",
+          "handlungsfeldId": "HF5"
+        }
+      ]
+    },
+    {
+      "id": "HE734",
+      "name": "Stellen Sie sicher, dass in besonders relevanten Stellenausschreibungen Barrierefreiheit als gewünschte Kompetenz erwähnt wird. Ergänzen Sie Stellenausschreibungen um entsprechende Anforderungen.",
+      "antworten": [
+        {
+          "id": "A951",
+          "antwort": "Barrierefreiheit wird in Stellenausschreibungen nicht als gewünschte Kompetenz erwähnt.",
+          "handlungsfeldId": "HF6"
+        }
+      ]
+    },
+    {
+      "id": "HE735",
+      "name": "Stellen Sie sicher, dass in allen relevanten Stellenausschreibungen (z.B. Softwareentwickler, Designer) Barrierefreiheit als gewünschte Kompetenz erwähnt wird. Ergänzen Sie Stellenausschreibungen um entsprechende, konkrete Anforderungen.",
+      "antworten": [
+        {
+          "id": "A952",
+          "antwort": "In manchen Stellenausschreibungen wird Barrierefreiheit als gewünschte Kompetenz erwähnt.",
+          "handlungsfeldId": "HF6"
+        }
+      ]
+    },
+    {
+      "id": "HE737",
+      "name": "Stellen Sie sicher, dass die Kompetenzen der Bewerbenden im Bereich Barrierefreiheit bei besonders relevanten Positionen positiv berücksichtigt werden. Fragen Sie diese Kompetenzen oder Erfahrungen im Bewerbungsprozess gezielt ab und berücksichtigen Sie sie bei der Bewertung der Bewerbenden.",
+      "antworten": [
+        {
+          "id": "A956",
+          "antwort": "Kompetenzen in Barrierefreiheit werden bei Bewerbungen nicht berücksichtigt.",
+          "handlungsfeldId": "HF6"
+        }
+      ]
+    },
+    {
+      "id": "HE738",
+      "name": "Stellen Sie sicher, dass die Kompetenzen der Bewerbenden im Bereich Barrierefreiheit bei allen relevanten Positionen (z.B. Softwareentwickler, Designer) neben dem Domänenwissen  positiv berücksichtigt werden. Fragen Sie diese Kompetenzen oder Erfahrungen im Bewerbungsprozess gezielt ab und berücksichtigen Sie sie bei der Bewertung der Bewerbenden.",
+      "antworten": [
+        {
+          "id": "A957",
+          "antwort": "Kompetenzen in Barrierefreiheit werden bei einzelnen Stellenausschreibungen positiv berücksichtigt.",
+          "handlungsfeldId": "HF6"
+        }
+      ]
+    },
+    {
+      "id": "HE740",
+      "name": "Bieten Sie Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende an. Informieren Sie neue Mitarbeitende darüber, wenn diese danach fragen.",
+      "antworten": [
+        {
+          "id": "A961",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE741",
+      "name": "Bieten Sie Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende an. Informieren Sie neue Mitarbeitende grundsätzlich im Zuge des Onboardingprozesses darüber. Stellen Sie die Informationen auch schriftlich bereit.",
+      "antworten": [
+        {
+          "id": "A962",
+          "antwort": "Es gibt Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende. Sie erhalten Informationen und Zugang dazu auf Anfrage.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE743",
+      "name": "Bieten Sie Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende an. Entwickeln Sie einen Selbstlernkurs, der Grundlagenwissen zu allgemeinen Themen der Barrierefreiheit abdeckt. Dazu gehören z.B. verschiedene Beeinträchtigungsformen, typische Barrieren und rechtliche Rahmenbedingungen.",
+      "antworten": [
+        {
+          "id": "A966",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE744",
+      "name": "Entwickeln Sie Selbstlernkurse, die neben allgemeinen Themen auch fachspezifische Themen der Barrierefreiheit behandeln. Dazu gehören Bereiche wie z.B. barrierefreie Dokumente, Designs und Code.",
+      "antworten": [
+        {
+          "id": "A968",
+          "antwort": "Es gibt einen Selbstlernkurs zum Thema Barrierefreiheit, der Grundlagenwissen vermittelt.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE746",
+      "name": "Bieten Sie Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende an. Gestalten Sie diese attraktiv und relevant, sodass neue Mitarbeitende freiwillig teilnehmen. Empfehlen Sie neuen Mitarbeitenden explizit eine Teilnahme.",
+      "antworten": [
+        {
+          "id": "A971",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE747",
+      "name": "Stimmen Sie sich mit Führungskräften ab und setzen Sie sich dafür ein, dass die Teilnahme an den Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitenden einmalig verpflichtend wird.",
+      "antworten": [
+        {
+          "id": "A973",
+          "antwort": "Die Teilnahme wird neuen Mitarbeitenden empfohlen.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE749",
+      "name": "Stellen Sie grundlegende Informationen zum Thema Barrierefreiheit für neue Mitarbeitende zusammen, um sie auf Anfrage auszugeben. Geben Sie z.B. einen kurzen Überblick über das Selbstverständnis und die Werte des Unternehmens bzgl. Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A976",
+          "antwort": "Neue Mitarbeitende erhalten keine Informationen zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE750",
+      "name": "Stellen Sie die Informationen zu Barrierefreiheit neuen Mitarbeitenden proaktiv bereit. Sprechen Sie das Thema z.B. im Onboardingprozess an.\r\n\r\nErwähnen Sie die Werte des Unternehmens bzgl. Barrierefreiheit. Benennen Sie den Ansprechpartner für betroffene Mitarbeitende und den Ansprechpartner für umsetzende Mitarbeitende.",
+      "antworten": [
+        {
+          "id": "A977",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit auf Anfrage.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE751",
+      "name": "Stellen Sie die Informationen zu Barrierefreiheit neuen Mitarbeitenden proaktiv bereit. Händigen Sie entsprechende Materialien z.B. im Onboardingprozess aus.\r\n\r\nErstellen Sie ein Dokument, in dem alle wichtigen Aspekte gut strukturiert und verständlich beschrieben sind, und in dem neue Mitarbeitende jederzeit nachschlagen können.\r\n\r\nErwähnen Sie darin die Werte des Unternehmens bzgl. Barrierefreiheit. Benennen Sie den Ansprechpartner für betroffene Mitarbeitende und den Ansprechpartner für umsetzende Mitarbeitende. Erläutern Sie das Vorgehen, um Hilfsmittel für den Arbeitsplatz zu beantragen. Verweisen Sie auf weitere Informationsmaterialien und Weiterbildungsmaßnahmen zur Umsetzung von Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A978",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit proaktiv. Die Informationen werden unstrukturiert vermittelt. Sie beinhalten z.B. interne Ansprechpartner.",
+          "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE752",
+      "name": "Stellen Sie die Informationen zu Barrierefreiheit neuen Mitarbeitenden proaktiv bereit. Halten Sie die entsprechenden Informationsmaterialien stets aktuell, insb. die Namen der Ansprechpartner für betroffene und umsetzende Mitarbeitende.",
+      "antworten": [
+        {
+          "id": "A979",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit proaktiv. Die Informationen werden strukturiert vermittelt, z.B. als vollständiges und verständliches Dokument. Sie beinhalten z.B. interne Ansprechpartner, interne Prozesse und Informationen zu Weiterbildungsmöglichkeiten.",
+          "handlungsfeldId": "HF7"
         }
       ]
     }

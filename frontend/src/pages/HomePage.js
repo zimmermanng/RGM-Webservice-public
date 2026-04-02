@@ -116,7 +116,7 @@ function HomePage() {
               </p>
               <p>
                 Passt eine Frage nicht zu Ihrer Arbeitsrealität, können Sie die
-                Option „nicht zutreffend“ wählen. Die Bearbeitung kann jederzeit
+                Option „keine Angabe“ wählen. Die Bearbeitung kann jederzeit
                 unterbrochen und später fortgesetzt werden; Zwischenspeicherungen
                 erfolgen automatisch. Erst nach Abschluss eines Päckchens werden
                 die Antworten in die Auswertung übernommen.

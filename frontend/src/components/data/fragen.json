@@ -978,13 +978,13 @@
         },
         {
           "id": "A158",
-          "antwort": "Es gibt ein Dokument, in dem umfassende Best Practices für die Barrierefreiheit von Präsentationen notiert sind.",
+          "antwort": "Es gibt ein Dokument, in dem Best Practices für die Barrierefreiheit von Präsentationen notiert sind.",
           "handlungsfeldId": "H12",
           "stufe": 3
         },
         {
           "id": "A159",
-          "antwort": "Es gibt ein Dokument, in dem umfassende Best Practices für die Barrierefreiheit von Präsentationen notiert sind. Es wird regelmäßig überprüft und überarbeitet.",
+          "antwort": "Es gibt ein Dokument, in dem Best Practices für die Barrierefreiheit von Präsentationen notiert sind. Es wird regelmäßig überprüft und überarbeitet.",
           "handlungsfeldId": "H12",
           "stufe": 4
         }
@@ -1722,7 +1722,7 @@
         },
         {
           "id": "A279",
-          "antwort": "Bei der Konvertierung und Digitalisierung werden komplexe Aspekte der Barrierefreihei,t wie OCR Lesbarkeit, beachtet.",
+          "antwort": "Bei der Konvertierung und Digitalisierung werden komplexe Aspekte der Barrierefreiheit, wie OCR Lesbarkeit, beachtet.",
           "handlungsfeldId": "H21",
           "stufe": 3
         }
@@ -2318,17 +2318,17 @@
     },
     {
       "id": "F77",
-      "frage": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Kunden?",
+      "frage": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Kunden, Dienstleistern oder anderen externen Personen?",
       "antworten": [
         {
           "id": "A381",
-          "antwort": "Bei der Kommunikation mit Kunden wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Kommunikation wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H29",
           "stufe": 0
         },
         {
           "id": "A382",
-          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail)",
+          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail).",
           "handlungsfeldId": "H29",
           "stufe": 1
         },
@@ -2340,13 +2340,13 @@
         },
         {
           "id": "A384",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...”)",
+          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für Sie nicht nutzbar ist, kontaktieren Sie uns...”).",
           "handlungsfeldId": "H29",
           "stufe": 3
         },
         {
           "id": "A385",
-          "antwort": "Es gibt ein bewusst vielfältiges und barrierearmes Kanalangebot (z.B. Relay Dienste). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
+          "antwort": "Es gibt ein bewusst vielfältiges und barrierearmes Kanalangebot (z.B. Relay Dienste). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”).",
           "handlungsfeldId": "H29",
           "stufe": 4
         }
@@ -2354,7 +2354,7 @@
     },
     {
       "id": "F78",
-      "frage": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Kunden (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?",
+      "frage": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Kunden, Dienstleistern oder anderen externen Personen (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?",
       "antworten": [
         {
           "id": "A386",
@@ -2364,13 +2364,13 @@
         },
         {
           "id": "A387",
-          "antwort": "Bei den verwendeten Tools ist Barrierefreiheit nicht explizit bedacht. Bei Problemen können Kund*innen auf alternative Wege (z.B. E-Mail) ausweichen.",
+          "antwort": "Bei den verwendeten Tools wird nicht explizit auf Barrierefreiheit geachtet. Bei Problemen können externe Personen auf alternative Wege (z.B. E-Mail) ausweichen.",
           "handlungsfeldId": "H29",
           "stufe": 1
         },
         {
           "id": "A388",
-          "antwort": "Es werden barrierefreie Tools verwendet, wenn bekannt ist, dass ein Kunde darauf angewiesen ist.",
+          "antwort": "Es werden barrierefreie Tools verwendet, wenn bekannt ist, dass eine externe Person darauf angewiesen ist.",
           "handlungsfeldId": "H29",
           "stufe": 2
         },
@@ -2420,7 +2420,7 @@
     },
     {
       "id": "F80",
-      "frage": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Kunden (z.B. Angebote, Rechnungen, etc.) berücksichtigt?",
+      "frage": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Kunden, Dienstleister oder andere externe Personen (z.B. Angebote, Rechnungen, Verträge, etc.) berücksichtigt?",
       "antworten": [
         {
           "id": "A396",
@@ -2460,7 +2460,7 @@
         },
         {
           "id": "A402",
-          "antwort": "Bei der Erstellung von Dokumenten werden erste Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
+          "antwort": "Bei der Erstellung von Dokumenten werden grundlegende Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
           "handlungsfeldId": "H30",
           "stufe": 1
         },
@@ -2472,13 +2472,13 @@
         },
         {
           "id": "A404",
-          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
+          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte).",
           "handlungsfeldId": "H30",
           "stufe": 3
         },
         {
           "id": "A405",
-          "antwort": "Bei der Erstellung von Dokumenten werden umfassende Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit gesonderten Maßnahmen barrierefrei gemacht (z.B. PDF-UA-Tagging)",
+          "antwort": "Bei der Erstellung von Dokumenten werden umfassende Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit gesonderten Maßnahmen barrierefrei gemacht (z.B. PDF-UA-Tagging).",
           "handlungsfeldId": "H30",
           "stufe": 4
         }
@@ -2515,193 +2515,25 @@
       ]
     },
     {
-      "id": "F83",
-      "frage": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Dienstleistern?",
-      "antworten": [
-        {
-          "id": "A411",
-          "antwort": "Bei der Kommunikation mit Dienstleistern wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H31",
-          "stufe": 0
-        },
-        {
-          "id": "A412",
-          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail)",
-          "handlungsfeldId": "H31",
-          "stufe": 1
-        },
-        {
-          "id": "A413",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon). Diese sind leicht auffindbar.",
-          "handlungsfeldId": "H31",
-          "stufe": 2
-        },
-        {
-          "id": "A414",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
-          "handlungsfeldId": "H31",
-          "stufe": 3
-        },
-        {
-          "id": "A415",
-          "antwort": "Es gibt ein bewusst vielfältiges und barrierearmes Kanalangebot (z.B. Relay Dienste). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
-          "handlungsfeldId": "H31",
-          "stufe": 4
-        }
-      ]
-    },
-    {
-      "id": "F84",
-      "frage": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Dienstleistern (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?",
-      "antworten": [
-        {
-          "id": "A416",
-          "antwort": "Bei den verwendeten Tools wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H31",
-          "stufe": 0
-        },
-        {
-          "id": "A417",
-          "antwort": "Bei den verwendeten Tools ist Barrierefreiheit nicht explizit bedacht. Bei Problemen können Dienstleister auf alternative Wege (z.B. E-Mail) ausweichen.",
-          "handlungsfeldId": "H31",
-          "stufe": 1
-        },
-        {
-          "id": "A418",
-          "antwort": "Es werden barrierefreie Tools verwendet, wenn bekannt ist, dass ein Dienstleister darauf angewiesen ist.",
-          "handlungsfeldId": "H31",
-          "stufe": 2
-        },
-        {
-          "id": "A419",
-          "antwort": "Es werden grundsätzlich barrierefreie Tools verwendet.",
-          "handlungsfeldId": "H31",
-          "stufe": 3
-        },
-        {
-          "id": "A420",
-          "antwort": "Es werden grundsätzlich barrierefreie Tools verwendet. Diese werden vor der Verwendung sowie regelmäßig auf ihre Barrierefreiheit geprüft.",
-          "handlungsfeldId": "H31",
-          "stufe": 4
-        }
-      ]
-    },
-    {
-      "id": "F85",
-      "frage": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Dienstleister (z.B. Verträge, etc.) berücksichtigt?",
-      "antworten": [
-        {
-          "id": "A421",
-          "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32",
-          "stufe": 0
-        },
-        {
-          "id": "A422",
-          "antwort": "Bei der Erstellung von Dokumenten wird im Einzelfall auf Barrierefreiheit geachtet, z.B. auf Anfrage.",
-          "handlungsfeldId": "H32",
-          "stufe": 1
-        },
-        {
-          "id": "A423",
-          "antwort": "Bei der Erstellung von bestimmten Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet, z.B. bei besonders wichtigen Dokumenten.",
-          "handlungsfeldId": "H32",
-          "stufe": 2
-        },
-        {
-          "id": "A424",
-          "antwort": "Bei der Erstellung von allen Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32",
-          "stufe": 3
-        }
-      ]
-    },
-    {
-      "id": "F86",
-      "frage": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?",
-      "antworten": [
-        {
-          "id": "A426",
-          "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32",
-          "stufe": 0
-        },
-        {
-          "id": "A427",
-          "antwort": "Bei der Erstellung von Dokumenten werden erste Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
-          "handlungsfeldId": "H32",
-          "stufe": 1
-        },
-        {
-          "id": "A428",
-          "antwort": "Bei der Erstellung von Dokumenten werden einfache Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in barrierearmen Formaten vor (z.B. Word, PDF).",
-          "handlungsfeldId": "H32",
-          "stufe": 2
-        },
-        {
-          "id": "A429",
-          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
-          "handlungsfeldId": "H32",
-          "stufe": 3
-        },
-        {
-          "id": "A430",
-          "antwort": "Bei der Erstellung von Dokumenten werden umfassende Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit gesonderten Maßnahmen barrierefrei gemacht (z.B. PDF-UA-Tagging)",
-          "handlungsfeldId": "H32",
-          "stufe": 4
-        }
-      ]
-    },
-    {
-      "id": "F87",
-      "frage": "Sind die Aspekte der Barrierefreiheit von Dokumenten vereinheitlicht?",
-      "antworten": [
-        {
-          "id": "A431",
-          "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H32",
-          "stufe": 0
-        },
-        {
-          "id": "A432",
-          "antwort": "Die Barrierefreiheit von Dokumenten wird uneinheitlich bearbeitet, z.B. abhängig von Initiative und Kenntnisstand einzelner Mitarbeitender.",
-          "handlungsfeldId": "H32",
-          "stufe": 1
-        },
-        {
-          "id": "A433",
-          "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
-          "handlungsfeldId": "H32",
-          "stufe": 2
-        },
-        {
-          "id": "A434",
-          "antwort": "Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind. Es wird regelmäßig überprüft und überarbeitet.",
-          "handlungsfeldId": "H32",
-          "stufe": 4
-        }
-      ]
-    },
-    {
       "id": "F88",
       "frage": "Wird Barrierefreiheit bei der Beauftragung und Zusammenarbeit mit externen Dienstleistern (z.B. Softwareentwickler) berücksichtigt, um die Entstehung von barrierefreien Produkten sicherzustellen?",
       "antworten": [
         {
           "id": "A436",
           "antwort": "Bei der Beauftragung externer Dienstleister wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 0
         },
         {
           "id": "A437",
           "antwort": "Bei der Beauftragung externer Dienstleister wird im Einzelfall auf Barrierefreiheit geachtet, z.B. bei bestimmten Projekten oder bestimmtem Dienstleistungen.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 1
         },
         {
           "id": "A438",
           "antwort": "Bei der Beauftragung externer Dienstleister wird grundsätzlich auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 3
         }
       ]
@@ -2713,19 +2545,19 @@
         {
           "id": "A441",
           "antwort": "Dienstleister werden nicht auf die Umsetzung von Barrierefreiheit hingewiesen.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 0
         },
         {
           "id": "A442",
           "antwort": "Dienstleister werden informell auf die Umsetzung von Barrierefreiheit hingewiesen, die Umsetzung wird nicht eingefordert.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 1
         },
         {
           "id": "A443",
           "antwort": "Dienstleister werden ausdrücklich zur Umsetzung von Barrierefreiheit aufgefordert, die Umsetzung ist vertraglich festgelegt.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 3
         }
       ]
@@ -2737,25 +2569,25 @@
         {
           "id": "A446",
           "antwort": "Die Umsetzung von Barrierefreiheit durch die Dienstleister wird nicht überprüft.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 0
         },
         {
           "id": "A447",
           "antwort": "Die Umsetzung von Barrierefreiheit durch die Dienstleister wird stichprobenartig und anlassbezogen überprüft.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 1
         },
         {
           "id": "A448",
           "antwort": "Die Umsetzung von Barrierefreiheit durch die Dienstleister wird überprüft, indem die Ergebnisse durch die Dienstleister regelmäßig präsentiert werden.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 3
         },
         {
           "id": "A449",
           "antwort": "Die Umsetzung von Barrierefreiheit durch die Dienstleister wird überprüft, indem eigene Funktionstests regelmäßig durchgeführt werden.",
-          "handlungsfeldId": "H33",
+          "handlungsfeldId": "H32",
           "stufe": 4
         }
       ]
@@ -2940,7 +2772,7 @@
         },
         {
           "id": "A483",
-          "antwort": "Die Durchführenden dürfen an internen Weiterbildungs-maßnahmen zum Thema Barrierefreiheit teilnehmen (z. B. Schulungen, Workshops).",
+          "antwort": "Die Durchführenden dürfen an internen Weiterbildungsmaßnahmen zum Thema Barrierefreiheit teilnehmen (z. B. Schulungen, Workshops).",
           "handlungsfeldId": "H34",
           "stufe": 3
         }
@@ -2976,7 +2808,7 @@
         },
         {
           "id": "A492",
-          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail)",
+          "antwort": "Es gibt mindestens einen barrierearmen Kommunikationskanal (z.B. E-Mail).",
           "handlungsfeldId": "H35",
           "stufe": 1
         },
@@ -2988,13 +2820,13 @@
         },
         {
           "id": "A494",
-          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
+          "antwort": "Es gibt mehrere bewusst barrierearme Kommunikationskanäle (z.B. E-Mail, Telefon, Tastaturbedienbares Formular). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”).",
           "handlungsfeldId": "H35",
           "stufe": 3
         },
         {
           "id": "A495",
-          "antwort": "Es gibt ein bewusst vielfältiges und barrierearmes Kanalangebot (z.B. Relay Dienste). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”)",
+          "antwort": "Es gibt ein bewusst vielfältiges und barrierearmes Kanalangebot (z.B. Relay Dienste). Diese sind leicht auffindbar und Alternativen werden explizit benannt (z.B. “Falls das Formular für sie nicht nutzbar ist, kontaktieren Sie uns...”).",
           "handlungsfeldId": "H35",
           "stufe": 4
         }
@@ -3007,25 +2839,25 @@
         {
           "id": "A496",
           "antwort": "Bei der Erstellung von Dokumenten wird nicht auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H35",
+          "handlungsfeldId": "H36",
           "stufe": 0
         },
         {
           "id": "A497",
           "antwort": "Bei der Erstellung von Dokumenten wird im Einzelfall auf Barrierefreiheit geachtet, z.B. auf Anfrage.",
-          "handlungsfeldId": "H35",
+          "handlungsfeldId": "H36",
           "stufe": 1
         },
         {
           "id": "A498",
           "antwort": "Bei der Erstellung von bestimmten Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet, z.B. bei besonders wichtigen Dokumenten.",
-          "handlungsfeldId": "H35",
+          "handlungsfeldId": "H36",
           "stufe": 2
         },
         {
           "id": "A499",
           "antwort": "Bei der Erstellung von allen Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H35",
+          "handlungsfeldId": "H36",
           "stufe": 3
         }
       ]
@@ -3042,21 +2874,27 @@
         },
         {
           "id": "A502",
-          "antwort": "Bei der Erstellung von Dokumenten wird im Einzelfall auf Barrierefreiheit geachtet, z.B. auf Anfrage.",
+          "antwort": "Bei der Erstellung von Dokumenten werden grundlegende Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in textbasierter Form vor.",
           "handlungsfeldId": "H36",
           "stufe": 1
         },
         {
           "id": "A503",
-          "antwort": "Bei der Erstellung von bestimmten Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet, z.B. bei besonders wichtigen Dokumenten.",
+          "antwort": "Bei der Erstellung von Dokumenten werden einfache Aspekte der Barrierefreiheit beachtet. Die Dokumente liegen in barrierearmen Formaten vor (z.B. Word, PDF).",
           "handlungsfeldId": "H36",
           "stufe": 2
         },
         {
           "id": "A504",
-          "antwort": "Bei der Erstellung von allen Dokumenten wird grundsätzlich auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
           "handlungsfeldId": "H36",
           "stufe": 3
+        },
+        {
+          "id": "A505",
+          "antwort": "Bei der Erstellung von Dokumenten werden umfassende Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit gesonderten Maßnahmen barrierefrei gemacht (z.B. PDF-UA-Tagging)",
+          "handlungsfeldId": "H36",
+          "stufe": null
         }
       ]
     },
@@ -3240,13 +3078,13 @@
         },
         {
           "id": "A537",
-          "antwort": "Einzelnen Mitarbeitenden (z.B. Softwareentwicklern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Testwerkzeuge wie Screenreader)",
+          "antwort": "Einzelnen Mitarbeitenden (z.B. Softwareentwicklern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Testwerkzeuge wie Screenreader).",
           "handlungsfeldId": "H38",
           "stufe": 1
         },
         {
           "id": "A538",
-          "antwort": "Einigen Mitarbeitenden (z.B. Softwareentwicklern, Designern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Grafikprogramme, Testwerkzeuge wie Screenreader oder Kontrastprüfer)",
+          "antwort": "Einigen Mitarbeitenden (z.B. Softwareentwicklern, Designern) wird entspr. Tooling zur Verfügung gestellt (z.B. Entwicklungsumgebungen, Grafikprogramme, Testwerkzeuge wie Screenreader oder Kontrastprüfer).",
           "handlungsfeldId": "H38",
           "stufe": 2
         },
@@ -3716,7 +3554,7 @@
     },
     {
       "id": "F125",
-      "frage": "Wie wird der Bedarf an Hard- und Software ermittelt, die Mitarbeitende benötigen?",
+      "frage": "Wie wird der Bedarf an Hard- und Software ermittelt, die Mitarbeitende für Barrierefreiheit benötigen?",
       "antworten": [
         {
           "id": "A621",
@@ -4002,7 +3840,7 @@
         },
         {
           "id": "A673",
-          "antwort": "Der Austausch wird teilweise als sinnvoller Bestandteil der Projektarbeit anerkannt. Er kann in der regulären Arbeits-zeit stattfinden, wenn zufällig Kapazitäten vorhanden sind.",
+          "antwort": "Der Austausch wird teilweise als sinnvoller Bestandteil der Projektarbeit anerkannt. Er kann in der regulären Arbeitszeit stattfinden, wenn zufällig Kapazitäten vorhanden sind.",
           "handlungsfeldId": "HX14",
           "stufe": 2
         },
@@ -4116,7 +3954,7 @@
         },
         {
           "id": "A692",
-          "antwort": "Die Dokumentation geschieht uneinheitlich und schwer auffindbar (z.B. in persönlichen Notizen)",
+          "antwort": "Die Dokumentation geschieht uneinheitlich und schwer auffindbar (z.B. in persönlichen Notizen).",
           "handlungsfeldId": "HX12",
           "stufe": 1
         },
@@ -4302,13 +4140,13 @@
         },
         {
           "id": "A728",
-          "antwort": "Gravierende Fehler oder stark veraltete Informationen, die bei einer Überprüfung auffallen,  werden überarbeitet.",
+          "antwort": "Gravierende Fehler oder stark veraltete Informationen, die bei einer Überprüfung auffallen, werden überarbeitet.",
           "handlungsfeldId": "HX10",
           "stufe": 2
         },
         {
           "id": "A729",
-          "antwort": "Nuancierte Fehler oder leicht veraltete Informationen, die bei einer Überprüfung auffallen,  werden überarbeitet.",
+          "antwort": "Nuancierte Fehler oder leicht veraltete Informationen, die bei einer Überprüfung auffallen, werden überarbeitet.",
           "handlungsfeldId": "HX10",
           "stufe": 3
         }
@@ -4716,7 +4554,7 @@
         },
         {
           "id": "A802",
-          "antwort": "Die Weiterbildungsmaßnahmen stehen ausschließlich  internen Mitarbeitenden zur Verfügung.",
+          "antwort": "Die Weiterbildungsmaßnahmen stehen ausschließlich internen Mitarbeitenden zur Verfügung.",
           "handlungsfeldId": "HX6",
           "stufe": 1
         },
@@ -4752,7 +4590,7 @@
         },
         {
           "id": "A809",
-          "antwort": "Es gibt klar differenzierte Zielgruppen für die Weiterbildungsmaßnahmen, z.B. Softwareentwickler, Designer)",
+          "antwort": "Es gibt klar differenzierte Zielgruppen für die Weiterbildungsmaßnahmen, z.B. Softwareentwickler, Designer, usw.",
           "handlungsfeldId": "HX5",
           "stufe": 3
         }
@@ -4848,7 +4686,7 @@
         },
         {
           "id": "A825",
-          "antwort": "Die Weiterbildungsmaßnahmen bilden verschiedene Perspektiven ab, bspw. werden  externe Experten oder Menschen mit Beeinträchtigungen als Referenten geladen.",
+          "antwort": "Die Weiterbildungsmaßnahmen bilden verschiedene Perspektiven ab, bspw. werden externe Experten oder Menschen mit Beeinträchtigungen als Referenten geladen.",
           "handlungsfeldId": "HX5",
           "stufe": 4
         }
@@ -4884,7 +4722,7 @@
       "antworten": [
         {
           "id": "A831",
-          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht  unterstützt.",
+          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht unterstützt.",
           "handlungsfeldId": "HX4",
           "stufe": 0
         },
@@ -4914,7 +4752,7 @@
       "antworten": [
         {
           "id": "A836",
-          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht  unterstützt.",
+          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht unterstützt.",
           "handlungsfeldId": "HX4",
           "stufe": 0
         },
@@ -4938,7 +4776,7 @@
       "antworten": [
         {
           "id": "A841",
-          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht  unterstützt.",
+          "antwort": "Die Teilnahme an externen Weiterbildungsmaßnahmen wird grundsätzlich nicht unterstützt.",
           "handlungsfeldId": "HX4",
           "stufe": 0
         },
@@ -4968,13 +4806,13 @@
         },
         {
           "id": "A847",
-          "antwort": "Solche Formate gibt es vereinzelt und anlassbezogen (z.B. nach Impulsen durch die Medien)",
+          "antwort": "Solche Formate gibt es vereinzelt und anlassbezogen (z.B. nach Impulsen durch die Medien).",
           "handlungsfeldId": "HX3",
           "stufe": 1
         },
         {
           "id": "A848",
-          "antwort": "Solche Formate gibt es regelmäßig (z.B. jährlich)",
+          "antwort": "Solche Formate gibt es regelmäßig (z.B. jährlich).",
           "handlungsfeldId": "HX3",
           "stufe": 2
         }
@@ -5028,7 +4866,7 @@
         },
         {
           "id": "A859",
-          "antwort": "Die Leitungsebene ist bei diesen Formaten passiv beteiligt (z.B. zur Begrüßung, als Zuhörer)",
+          "antwort": "Die Leitungsebene ist bei diesen Formaten passiv beteiligt (z.B. zur Begrüßung, als Zuhörer).",
           "handlungsfeldId": "HX3",
           "stufe": 3
         },
@@ -5082,19 +4920,19 @@
         },
         {
           "id": "A868",
-          "antwort": "In einzelnen Organisationseinheiten gibt es offiziell benannte Ansprechpartner für Barrierefreiheit",
+          "antwort": "In einzelnen Organisationseinheiten gibt es offiziell benannte Ansprechpartner für Barrierefreiheit.",
           "handlungsfeldId": "HX2",
           "stufe": 2
         },
         {
           "id": "A869",
-          "antwort": "In allen größeren Organisationseinheiten (z.B. Abteilungen) gibt es offiziell benannte Ansprechpartner für Barrierefreiheit",
+          "antwort": "In allen größeren Organisationseinheiten (z.B. Abteilungen) gibt es offiziell benannte Ansprechpartner für Barrierefreiheit.",
           "handlungsfeldId": "HX2",
           "stufe": 3
         },
         {
           "id": "A870",
-          "antwort": "In allen kleineren Organisationseinheiten (z.B. Referate) gibt es offiziell benannte Ansprechpartner für Barrierefreiheit",
+          "antwort": "In allen kleineren Organisationseinheiten (z.B. Referate) gibt es offiziell benannte Ansprechpartner für Barrierefreiheit.",
           "handlungsfeldId": "HX2",
           "stufe": 4
         }
@@ -5186,6 +5024,528 @@
           "id": "A885",
           "antwort": "Die Experten schaffen langfristig eine persönliche Möglichkeit für einen Austausch, z.B. durch regelmäßige Gesprächsrunden. Sie moderieren und protokollieren diese und spielen die Ergebnisse an alle Mitarbeitenden zurück.",
           "handlungsfeldId": "HX1",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F178",
+      "frage": "Werden zu Beginn der Softwareentwicklung Anforderungen an deren Barrierefreiheit erhoben?",
+      "antworten": [
+        {
+          "id": "A886",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "handlungsfeldId": "HF1",
+          "stufe": 0
+        },
+        {
+          "id": "A887",
+          "antwort": "Bei der Entwicklung einzelner Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "handlungsfeldId": "HF1",
+          "stufe": 1
+        },
+        {
+          "id": "A888",
+          "antwort": "Bei der Entwicklung der meisten Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "handlungsfeldId": "HF1",
+          "stufe": 2
+        },
+        {
+          "id": "A889",
+          "antwort": "Bei der Entwicklung aller Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "handlungsfeldId": "HF1",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F179",
+      "frage": "Ist das Vorgehen zur Anforderungsanalyse vereinheitlicht?",
+      "antworten": [
+        {
+          "id": "A891",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "handlungsfeldId": "HF1",
+          "stufe": 0
+        },
+        {
+          "id": "A892",
+          "antwort": "Die Anforderungsanalyse wird uneinheitlich durchgeführt.",
+          "handlungsfeldId": "HF1",
+          "stufe": 1
+        },
+        {
+          "id": "A893",
+          "antwort": "Die Anforderungsanalyse wird einheitlich durchgeführt.",
+          "handlungsfeldId": "HF1",
+          "stufe": 2
+        },
+        {
+          "id": "A895",
+          "antwort": "Die Anforderungsanalyse wird einheitlich durchgeführt. Das Vorgehen wird regelmäßig evaluiert.",
+          "handlungsfeldId": "HF1",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F180",
+      "frage": "Welche Aspekte der Barrierefreiheit werden bei der Anforderungsanalyse berücksichtigt?",
+      "antworten": [
+        {
+          "id": "A896",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "handlungsfeldId": "HF1",
+          "stufe": 0
+        },
+        {
+          "id": "A897",
+          "antwort": "Die Anforderungsanalyse umfasst allgemeine Best Practices der Barrierefreiheit",
+          "handlungsfeldId": "HF1",
+          "stufe": 1
+        },
+        {
+          "id": "A898",
+          "antwort": "Die Anforderungsanalyse umfasst spezifische Bedürfnisse der Zielgruppe.",
+          "handlungsfeldId": "HF1",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "F181",
+      "frage": "Werden Aspekte der Barrierefreiheit bei der Softwareentwicklung bzw. im Code berücksichtigt?",
+      "antworten": [
+        {
+          "id": "A901",
+          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF2",
+          "stufe": 0
+        },
+        {
+          "id": "A902",
+          "antwort": "Bei der Softwareentwicklung werden grundlegende Aspekte von Barrierefreiheit, wie Semantik, im Code beachtet.",
+          "handlungsfeldId": "HF2",
+          "stufe": 1
+        },
+        {
+          "id": "A903",
+          "antwort": "Bei der Softwareentwicklung werden komplexe Aspekte der Barrierefreiheit, wie ARIA-Attribute, im Code beachtet.",
+          "handlungsfeldId": "HF2",
+          "stufe": 2
+        },
+        {
+          "id": "A904",
+          "antwort": "Bei der Softwareentwicklung werden umfassende Aspekte der Barrierefreiheit, wie WCAG-Standards, im Code beachtet.",
+          "handlungsfeldId": "HF2",
+          "stufe": 3
+        },
+        {
+          "id": "A905",
+          "antwort": "Bei der Softwareentwicklung werden umfassende Aspekte der Barrierefreiheit im Code beachtet. Nachträgliche Ergänzungen oder Anpassungen werden ebenfalls barrierefrei umgesetzt.",
+          "handlungsfeldId": "HF2",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F182",
+      "frage": "Sind die Aspekte der Barrierefreiheit für Code vereinheitlicht?",
+      "antworten": [
+        {
+          "id": "A906",
+          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF2",
+          "stufe": 0
+        },
+        {
+          "id": "A907",
+          "antwort": "Die Barrierefreiheit im Code wird uneinheitlich bearbeitet, z.B. abhängig von Initiative und Kenntnisstand einzelner Mitarbeitender.",
+          "handlungsfeldId": "HF2",
+          "stufe": 1
+        },
+        {
+          "id": "A908",
+          "antwort": "Die Barrierefreiheit im Code wird einheitlich bearbeitet. Die WCAG Konformitätsstufe A oder vergleichbare interne Anforderungen werden herangezogen.",
+          "handlungsfeldId": "HF2",
+          "stufe": 2
+        },
+        {
+          "id": "A909",
+          "antwort": "Die Barrierefreiheit im Code wird einheitlich bearbeitet. Die WCAG Konformitätsstufe AA oder vergleichbare interne Anforderungen werden herangezogen.",
+          "handlungsfeldId": "HF2",
+          "stufe": 3
+        },
+        {
+          "id": "A910",
+          "antwort": "Die Barrierefreiheit im Code wird einheitlich bearbeitet. Die WCAG Konformitätsstufe AAA oder vergleichbare interne Anforderungen werden, wo möglich, über gesetzliche Mindestanforderungen hinaus herangezogen.",
+          "handlungsfeldId": "HF2",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F183",
+      "frage": "Wird der Code auf Barrierefreiheit überprüft?",
+      "antworten": [
+        {
+          "id": "A911",
+          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF2",
+          "stufe": 0
+        },
+        {
+          "id": "A912",
+          "antwort": "Der Code wird barrierefrei umgesetzt, aber nicht geprüft.",
+          "handlungsfeldId": "HF2",
+          "stufe": 1
+        },
+        {
+          "id": "A913",
+          "antwort": "Der Code wird einmalig nach Fertistellung des Softwareprojekts auf Barrierefreiheit geprüft.",
+          "handlungsfeldId": "HF2",
+          "stufe": 2
+        },
+        {
+          "id": "A914",
+          "antwort": "Der Code wird regelmäßig im Entwicklungsprozess auf Barrierefreiheit überprüft. Dazu werden Experten für Barrierefreiheit herangezogen.",
+          "handlungsfeldId": "HF2",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F184",
+      "frage": "Wird innerhalb des Softwareproduktes ein Feedbackmechanismus bzgl. Barrierefreiheit für Nutzende integriert?",
+      "antworten": [
+        {
+          "id": "A916",
+          "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
+          "handlungsfeldId": "HF3",
+          "stufe": 0
+        },
+        {
+          "id": "A917",
+          "antwort": "Einzelne Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
+          "handlungsfeldId": "HF3",
+          "stufe": 1
+        },
+        {
+          "id": "A918",
+          "antwort": "Die meisten Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
+          "handlungsfeldId": "HF3",
+          "stufe": 2
+        },
+        {
+          "id": "A919",
+          "antwort": "Alle Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
+          "handlungsfeldId": "HF3",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F185",
+      "frage": "Wie wird ein solcher Feedbackmechanismus bzgl. Barrierefreiheit in Softwareprodukte integriert?",
+      "antworten": [
+        {
+          "id": "A921",
+          "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
+          "handlungsfeldId": "HF3",
+          "stufe": 0
+        },
+        {
+          "id": "A922",
+          "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist einfach umgesetzt.",
+          "handlungsfeldId": "HF3",
+          "stufe": 2
+        },
+        {
+          "id": "A923",
+          "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist barrierefrei umgesetzt.",
+          "handlungsfeldId": "HF3",
+          "stufe": 3
+        },
+        {
+          "id": "A924",
+          "antwort": "Es handelt sich um einen gesonderten Feedbackmechanismus, der speziell für Fragen und Beschwerden bezüglich Barrierefreiheit ausgelegt ist. Er ist barrierefrei umgesetzt.",
+          "handlungsfeldId": "HF3",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F186",
+      "frage": "Werden Aspekte der Barrierefreiheit im Bewerbungsverfahren berücksichtigt?",
+      "antworten": [
+        {
+          "id": "A926",
+          "antwort": "Im Bewerbungsverfahren wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF4",
+          "stufe": 0
+        },
+        {
+          "id": "A927",
+          "antwort": "Im Bewerbungsverfahren wird punktuell (z.B. Stellenausschreibung) auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF4",
+          "stufe": 1
+        },
+        {
+          "id": "A928",
+          "antwort": "Im Bewerbungsverfahren wird grundsätzlich (z.B. Stellenausschreibung, Onlinebewerbung, Vorstellungsgespäch) auf Barrierefreiheit geachtet. Der gesamte Bewerbungsprozess ist barrierefrei.",
+          "handlungsfeldId": "HF4",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "F187",
+      "frage": "Welche Aspekte der Barrierefreiheit werden in Bewerbungsverfahren berücksichtigt?",
+      "antworten": [
+        {
+          "id": "A931",
+          "antwort": "Im Bewerbungsverfahren wird nicht auf Barrierefreiheit geachtet.",
+          "handlungsfeldId": "HF4",
+          "stufe": 0
+        },
+        {
+          "id": "A932",
+          "antwort": "Im Bewerbungsverfahren werden alternative Formate bereitgestellt.",
+          "handlungsfeldId": "HF4",
+          "stufe": 2
+        },
+        {
+          "id": "A933",
+          "antwort": "Im Bewerbungsverfahren wird die Nutzung von Hilfsmitteln unterstützt.",
+          "handlungsfeldId": "HF4",
+          "stufe": 3
+        },
+        {
+          "id": "A934",
+          "antwort": "Im Bewerbungsverfahren werden Unterstützungsmaßnahmen organisiert.",
+          "handlungsfeldId": "HF4",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F188",
+      "frage": "Wird die Barrierefreiheit des Bewerbungsprozesses überprüft?",
+      "antworten": [
+        {
+          "id": "A936",
+          "antwort": "Der Bewerbungsprozess wird nicht auf Barrierefreiheit überprüft.",
+          "handlungsfeldId": "HF4",
+          "stufe": 0
+        },
+        {
+          "id": "A938",
+          "antwort": "Der Bewerbungsprozess wird gelegentlich und stichprobenartig auf Barrierefreiheit geprüft und ggf. angepasst.",
+          "handlungsfeldId": "HF4",
+          "stufe": 2
+        },
+        {
+          "id": "A940",
+          "antwort": "Der Bewerbungsprozess wird regelmäßig und vollständig auf Barrierefreiheit geprüft und ggf. angepasst",
+          "handlungsfeldId": "HF4",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F189",
+      "frage": "Gibt es eine öffentlich zugängliche Selbsterklärung des Unternehmens zur Barrierefreiheit?",
+      "antworten": [
+        {
+          "id": "A941",
+          "antwort": "Eine Selbsterklärung zur Barrierefreiheit wird nicht bereitgestellt.",
+          "handlungsfeldId": "HF5",
+          "stufe": 0
+        },
+        {
+          "id": "A945",
+          "antwort": "Eine Selbsterklärung zur Barrierefreiheit wird bereitgestellt und ist öffentlich zugänglich.",
+          "handlungsfeldId": "HF5",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F190",
+      "frage": "Wird eine Quote zur Einstellung von Menschen mit Beeinträchtigungen eingehalten?",
+      "antworten": [
+        {
+          "id": "A946",
+          "antwort": "Nein.",
+          "handlungsfeldId": "HF5",
+          "stufe": 0
+        },
+        {
+          "id": "A948",
+          "antwort": "Wie gesetzlich gefordert, wird eine Quote von 5% Menschen mit Beeinträchtigungen im Unternehmen eingestellt.",
+          "handlungsfeldId": "HF5",
+          "stufe": 2
+        },
+        {
+          "id": "A950",
+          "antwort": "Über die gesetzliche Forderung hinaus, wird eine Quote von mehr als 5% Menschen mit Beeinträchtigungen im Unternehmen eingestellt.",
+          "handlungsfeldId": "HF5",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F191",
+      "frage": "Werden Kompetenzen im Bereich Barrierefreiheit in Stellenausschreibungen als wünschenswert erwähnt?",
+      "antworten": [
+        {
+          "id": "A951",
+          "antwort": "Barrierefreiheit wird in Stellenausschreibungen nicht als gewünschte Kompetenz erwähnt.",
+          "handlungsfeldId": "HF6",
+          "stufe": 0
+        },
+        {
+          "id": "A952",
+          "antwort": "In manchen Stellenausschreibungen wird Barrierefreiheit als gewünschte Kompetenz erwähnt.",
+          "handlungsfeldId": "HF6",
+          "stufe": 1
+        },
+        {
+          "id": "A954",
+          "antwort": "In allen relevanten Stellenausschreibungen wird Barrierefreiheit als gewünschte Kompetenz erwähnt.",
+          "handlungsfeldId": "HF6",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F192",
+      "frage": "Werden Kompetenzen im Bereich Barrierefreiheit von Bewerbenden im Bewerbungsprozess positiv berücksichtigt?",
+      "antworten": [
+        {
+          "id": "A956",
+          "antwort": "Kompetenzen in Barrierefreiheit werden bei Bewerbungen nicht berücksichtigt.",
+          "handlungsfeldId": "HF6",
+          "stufe": 0
+        },
+        {
+          "id": "A957",
+          "antwort": "Kompetenzen in Barrierefreiheit werden bei einzelnen Stellenausschreibungen positiv berücksichtigt.",
+          "handlungsfeldId": "HF6",
+          "stufe": 1
+        },
+        {
+          "id": "A959",
+          "antwort": "Kompetenzen in Barrierefreiheit werden bei allen relevanten Stellenausschreibungen positiv berücksichtigt.",
+          "handlungsfeldId": "HF6",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F193",
+      "frage": "Erhalten neue Mitarbeitende eine Schulung zum Thema Barrierefreiheit?",
+      "antworten": [
+        {
+          "id": "A961",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "handlungsfeldId": "HF7",
+          "stufe": 0
+        },
+        {
+          "id": "A962",
+          "antwort": "Es gibt Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende. Sie erhalten Informationen und Zugang dazu auf Anfrage.",
+          "handlungsfeldId": "HF7",
+          "stufe": 1
+        },
+        {
+          "id": "A963",
+          "antwort": "Es gibt Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende. Sie erhalten Informationen und Zugang dazu proaktiv.",
+          "handlungsfeldId": "HF7",
+          "stufe": 2
+        }
+      ]
+    },
+    {
+      "id": "F194",
+      "frage": "In welchem Umfang werden Schulungen zum Thema Barrierefreiheit für neue Mitarbeitende angeboten?",
+      "antworten": [
+        {
+          "id": "A966",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "handlungsfeldId": "HF7",
+          "stufe": 0
+        },
+        {
+          "id": "A968",
+          "antwort": "Es gibt einen Selbstlernkurs zum Thema Barrierefreiheit, der Grundlagenwissen vermittelt.",
+          "handlungsfeldId": "HF7",
+          "stufe": 2
+        },
+        {
+          "id": "A969",
+          "antwort": "Es gibt fachspezifische Selbstlernkurse zum Thema Barrierefreiheit, die verschiedene relevante Bereiche abdecken.",
+          "handlungsfeldId": "HF7",
+          "stufe": 3
+        }
+      ]
+    },
+    {
+      "id": "F195",
+      "frage": "Ist die Teilnahme an den Weiterbildungsmaßnahmen für neue Mitarbeitende verpflichtend?",
+      "antworten": [
+        {
+          "id": "A971",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "handlungsfeldId": "HF7",
+          "stufe": 0
+        },
+        {
+          "id": "A973",
+          "antwort": "Die Teilnahme wird neuen Mitarbeitenden empfohlen.",
+          "handlungsfeldId": "HF7",
+          "stufe": 2
+        },
+        {
+          "id": "A975",
+          "antwort": "Die Teilnahme ist für neue Mitarbeitende verpflichtend und wird kontrolliert.",
+          "handlungsfeldId": "HF7",
+          "stufe": 4
+        }
+      ]
+    },
+    {
+      "id": "F196",
+      "frage": "Welche weiteren Informationen zum Thema Barrierefreiheit im Unternehmen erhalten neue Mitabeitende?",
+      "antworten": [
+        {
+          "id": "A976",
+          "antwort": "Neue Mitarbeitende erhalten keine Informationen zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "HF7",
+          "stufe": 0
+        },
+        {
+          "id": "A977",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit auf Anfrage.",
+          "handlungsfeldId": "HF7",
+          "stufe": 1
+        },
+        {
+          "id": "A978",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit proaktiv. Die Informationen werden unstrukturiert vermittelt. Sie beinhalten z.B. interne Ansprechpartner.",
+          "handlungsfeldId": "HF7",
+          "stufe": 2
+        },
+        {
+          "id": "A979",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit proaktiv. Die Informationen werden strukturiert vermittelt, z.B. als vollständiges und verständliches Dokument. Sie beinhalten z.B. interne Ansprechpartner, interne Prozesse und Informationen zu Weiterbildungsmöglichkeiten.",
+          "handlungsfeldId": "HF7",
+          "stufe": 3
+        },
+        {
+          "id": "A980",
+          "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit proaktiv. Die Materialien werden stets aktuell gehalten.",
+          "handlungsfeldId": "HF7",
           "stufe": 4
         }
       ]

@@ -42,7 +42,7 @@
     },
     {
       "id": "D11",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Einkäufe von Produkten (z.B. Software, Hardware, Medien, …), Dienstleistungen (z.B. Softwareentwicklung, Design, …) oder Referenten (z.B. Schulungen, …) getätigt werden. Dies umfasst auch die Recherche zu Produkten, das Einholen von Angeboten, usw."
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Einkäufe von Produkten (z.B. Software, Hardware, Medien, …), Dienstleistungen (z.B. Softwareentwicklung, Design, …) oder Referenten (z.B. Schulungen, …) getätigt werden. Dies umfasst auch die Recherche zu Produkten, das Einholen von Angeboten, die Kommunikation mit Referenten, usw."
     },
     {
       "id": "D12",
@@ -58,11 +58,19 @@
     },
     {
       "id": "D15",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Verantwortung für die Expertise zu Barrierefreiheit im Unternehmen übernommen wird."
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Verantwortung für die Expertise zu Barrierefreiheit im Unternehmen übernommen wird. Dies gilt nicht, wenn Sie angebotene Weiterbildungsmaßnahmen lediglich wahrnehmen."
     },
     {
       "id": "D16",
-      "beschreibung": "Importieren Sie dieses Päckchen,wenn das Referat für das Thema Barrierefreiheit im Unternehmen verantwortlich ist."
+      "beschreibung": ""
+    },
+    {
+      "id": "D17",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Software entwickelt oder weiterentwickelt wird."
+    },
+    {
+      "id": "D18",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Aufgaben der Personalgewinnung (z.B. Stellenausschreibungen, Bewerbungsgespräche, Onboarding, …) übernommen werden."
     }
   ]
 }

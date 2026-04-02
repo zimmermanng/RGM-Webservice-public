@@ -3,7 +3,7 @@ const router = express.Router();
 const prisma = require("../db/prisma");
 
 const SESSION_TIMEOUT_MS =
-  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
+  Number(process.env.SESSION_TIMEOUT_MS) || 100000 * 60 * 60;
 
 function getLockExpiryDate() {
   return new Date(Date.now() + SESSION_TIMEOUT_MS);
