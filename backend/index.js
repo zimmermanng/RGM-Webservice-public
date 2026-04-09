@@ -7,13 +7,13 @@ const sessionRoutes = require("./routes/session");
 const authRoutes = require("./routes/auth");
 
 const app = express();
-const port = 3011;
+const port = 3013;
 
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
 
 app.set("trust proxy", 1);
-//"http://localhost:3011"
+//"http://localhost:3013"
 const allowedOrigin = process.env.FRONTEND_URL || "/api";
 app.use(
   cors({

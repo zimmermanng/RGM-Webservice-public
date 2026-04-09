@@ -6,7 +6,7 @@ services:
     env_file:
       - ./backend/.env
     ports:
-      - "127.0.0.1:3011:3011"
+      - "127.0.0.1:3013:3013"
 
   frontend:
     build:
@@ -15,6 +15,6 @@ services:
     container_name: lmz-frontend
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3010:8080"
+      - "127.0.0.1:3012:8080"
     depends_on:
       - backend
