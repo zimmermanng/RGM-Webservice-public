@@ -21,9 +21,13 @@ export default function QuestionnairePage({ activeCompany }) {
   const [pageMessage, setPageMessage] = useState({ text: "", type: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const currentDimension = struktur.dimensionen.find((d) => d.id === dimensionId);
+  const currentDimension = struktur.dimensionen.find(
+    (d) => d.id === dimensionId,
+  );
   const handlungsfelder = currentDimension?.handlungsfelder || [];
-  const currentHFIndex = handlungsfelder.findIndex((h) => h.id === handlungsfeldId);
+  const currentHFIndex = handlungsfelder.findIndex(
+    (h) => h.id === handlungsfeldId,
+  );
   const currentHandlungsfeld = handlungsfelder[currentHFIndex];
   const commentsEnabled = activeCompany === "Shuffle";
 
@@ -48,25 +52,31 @@ export default function QuestionnairePage({ activeCompany }) {
   function buildAggregatedResults(allAnswersByDimension) {
     const mergedRows = new Map();
 
-    Object.entries(allAnswersByDimension).forEach(([dimId, answersForDimension]) => {
-      if (!answersForDimension || Object.keys(answersForDimension).length === 0) {
-        return;
-      }
+    Object.entries(allAnswersByDimension).forEach(
+      ([dimId, answersForDimension]) => {
+        if (
+          !answersForDimension ||
+          Object.keys(answersForDimension).length === 0
+        ) {
+          return;
+        }
 
-      const rows = answersToResultsWithRecommendations({
-        selectedAnswers: answersForDimension,
-        struktur,
-        fragen,
-        handlEmpf,
-        dimensionId: dimId,
-      });
+        const rows = answersToResultsWithRecommendations({
+          selectedAnswers: answersForDimension,
+          struktur,
+          fragen,
+          handlEmpf,
+          dimensionId: dimId,
+        });
 
-      (Array.isArray(rows) ? rows : []).forEach((row, index) => {
-        const key =
-          row?.id || `${row?.group || "group"}__${row?.category || "category"}__${index}`;
-        mergedRows.set(key, row);
-      });
-    });
+        (Array.isArray(rows) ? rows : []).forEach((row, index) => {
+          const key =
+            row?.id ||
+            `${row?.group || "group"}__${row?.category || "category"}__${index}`;
+          mergedRows.set(key, row);
+        });
+      },
+    );
 
     return Array.from(mergedRows.values());
   }
@@ -83,7 +93,7 @@ export default function QuestionnairePage({ activeCompany }) {
 
     const totalQuestions = dimension.handlungsfelder.reduce(
       (sum, hf) => sum + (hf.fragen?.length || 0),
-      0
+      0,
     );
 
     const answeredCount = Object.keys(answersByDimension[dimId] || {}).length;
@@ -111,7 +121,7 @@ export default function QuestionnairePage({ activeCompany }) {
     if (response.status === 401) {
       setStatusMessage(
         "Ihre Sitzung ist nicht mehr gültig. Sie werden zur Anmeldung weitergeleitet.",
-        "error"
+        "error",
       );
       navigate("/login");
       return false;
@@ -120,7 +130,7 @@ export default function QuestionnairePage({ activeCompany }) {
     if (response.status === 403) {
       setStatusMessage(
         "Bitte zuerst ein Team auswählen. Sie werden zur Teamauswahl weitergeleitet.",
-        "error"
+        "error",
       );
       navigate("/team-select");
       return false;
@@ -148,7 +158,7 @@ export default function QuestionnairePage({ activeCompany }) {
         if (stateResponse.status === 401 || settingsResponse.status === 401) {
           setStatusMessage(
             "Ihre Sitzung ist nicht mehr gültig. Sie werden zur Anmeldung weitergeleitet.",
-            "error"
+            "error",
           );
           navigate("/login");
           return;
@@ -157,7 +167,7 @@ export default function QuestionnairePage({ activeCompany }) {
         if (stateResponse.status === 403 || settingsResponse.status === 403) {
           setStatusMessage(
             "Bitte zuerst ein Team auswählen. Sie werden zur Teamauswahl weitergeleitet.",
-            "error"
+            "error",
           );
           navigate("/team-select");
           return;
@@ -175,7 +185,8 @@ export default function QuestionnairePage({ activeCompany }) {
         const settingsData = await settingsResponse.json();
 
         const loadedAnswers =
-          stateData.currentAnswers && typeof stateData.currentAnswers === "object"
+          stateData.currentAnswers &&
+          typeof stateData.currentAnswers === "object"
             ? stateData.currentAnswers
             : {};
 
@@ -184,7 +195,7 @@ export default function QuestionnairePage({ activeCompany }) {
         setActiveDimensionIds(
           Array.isArray(settingsData.activeDimensions)
             ? settingsData.activeDimensions
-            : []
+            : [],
         );
         setStatusMessage("", "");
       } catch (error) {
@@ -194,7 +205,7 @@ export default function QuestionnairePage({ activeCompany }) {
         setActiveDimensionIds([]);
         setStatusMessage(
           "Der aktuelle Zustand konnte nicht geladen werden.",
-          "error"
+          "error",
         );
       } finally {
         setLoading(false);
@@ -205,8 +216,8 @@ export default function QuestionnairePage({ activeCompany }) {
   }, [dimensionId, handlungsfeldId, navigate]);
 
   useEffect(() => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}, [dimensionId, handlungsfeldId]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [dimensionId, handlungsfeldId]);
 
   if (!currentDimension || !currentHandlungsfeld) {
     return <p>Handlungsfeld nicht gefunden.</p>;
@@ -270,8 +281,8 @@ export default function QuestionnairePage({ activeCompany }) {
     const snapshotType = isTeamComplete(currentAnswers)
       ? "team_complete"
       : isDimensionComplete(dimensionId, currentAnswers)
-      ? "dimension_complete"
-      : null;
+        ? "dimension_complete"
+        : null;
 
     return {
       dimensionId,
@@ -300,7 +311,7 @@ export default function QuestionnairePage({ activeCompany }) {
       if (response.status === 401) {
         setStatusMessage(
           "Ihre Sitzung ist nicht mehr gültig. Sie werden zur Anmeldung weitergeleitet.",
-          "error"
+          "error",
         );
         navigate("/login");
         return;
@@ -309,7 +320,7 @@ export default function QuestionnairePage({ activeCompany }) {
       if (response.status === 403) {
         setStatusMessage(
           "Bitte zuerst ein Team auswählen. Sie werden zur Teamauswahl weitergeleitet.",
-          "error"
+          "error",
         );
         navigate("/team-select");
         return;
@@ -321,14 +332,14 @@ export default function QuestionnairePage({ activeCompany }) {
 
       setStatusMessage(
         "Fragebogen erfolgreich gespeichert. Weiterleitung zur Paketübersicht.",
-        "status"
+        "status",
       );
       navigate("/dimensions");
     } catch (error) {
       console.error("Fehler beim Senden:", error);
       setStatusMessage(
         "Backend nicht erreichbar oder Fehler beim Speichern.",
-        "error"
+        "error",
       );
     } finally {
       setIsSubmitting(false);
@@ -343,7 +354,7 @@ export default function QuestionnairePage({ activeCompany }) {
     if (!inputs.user || !inputs.text) {
       setStatusMessage(
         "Bitte geben Sie Nutzername und Kommentar ein, bevor Sie senden.",
-        "error"
+        "error",
       );
       return;
     }
@@ -365,12 +376,19 @@ export default function QuestionnairePage({ activeCompany }) {
   return (
     <div className="mainContainer" id="top">
       <div className="top-buttons">
-        <button onClick={() => navigate("/dimensions")}>← Zurück zur Übersicht</button>
+        <button onClick={() => navigate("/dimensions")}>
+          ← Zurück zur Übersicht
+        </button>
       </div>
 
       <div className="questions-container">
         <h1>{currentDimension?.name}</h1>
         <h2>{currentHandlungsfeld?.name}</h2>
+        <p>
+          Nehmen Sie eine realistische Selbsteinschätzung vor. <br /> Beziehen Sie die
+          Fragen ausschließlich auf Ihre Organisationseinheit. <br />Falls eine Frage
+          für Sie nicht zutrifft, wählen Sie „Keine Angabe“.
+        </p>
 
         {pageMessage.text && (
           <div
@@ -399,7 +417,8 @@ export default function QuestionnairePage({ activeCompany }) {
                     frage: frage.frage,
                   },
                 ].map((antwort) => {
-                  const isSelected = selectedAnswers[frage.id]?.antwortId === antwort.id;
+                  const isSelected =
+                    selectedAnswers[frage.id]?.antwortId === antwort.id;
 
                   return (
                     <button
