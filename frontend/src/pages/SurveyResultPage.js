@@ -605,7 +605,12 @@ function getRecommendationSectionsForRow({
         stufe,
       };
     })
-    .filter((item) => typeof item.stufe === "number");
+    .filter(
+      (item) =>
+        typeof item.stufe === "number" &&
+        item.stufe >= 0 &&
+        item.selection?.antwortId
+    );
 
   const currentCategoryLevel =
     selectionsWithLevel.length > 0
