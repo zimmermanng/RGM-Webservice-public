@@ -456,8 +456,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           ) : (
             <div className="recommendation-empty-state">
               <p>
-                Herzlichen Glückwunsch – in den aktuell beantworteten Fragen
-                wurde bereits die höchstmögliche erreichbare Stufe abgedeckt.
+                Aktuell keine Handlungsempfehlungen verfügbar. Sie haben entweder die höchste Stufe erreicht oder das Handlungsfeld mit "keine Angabe" beantwortet.
               </p>
             </div>
           )}
