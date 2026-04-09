@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
 
-const API_BASE = "http://localhost:3011";
+const API_BASE = "/api";
 
 export default function QuestionnairePage({ activeCompany }) {
   const { dimensionId, handlungsfeldId } = useParams();
