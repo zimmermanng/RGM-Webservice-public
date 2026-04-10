@@ -1,7 +1,7 @@
 services:
   backend:
     build: ./backend
-    container_name: lmz-backend
+    container_name: ue-backend
     restart: unless-stopped
     env_file:
       - ./backend/.env
@@ -12,7 +12,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: lmz-frontend
+    container_name: ue-frontend
     restart: unless-stopped
     ports:
       - "127.0.0.1:3012:8080"
