@@ -16,7 +16,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY --chown=nginx:nginx --from=build /app/build /usr/share/nginx/html
 
 USER nginx
-EXPOSE 8080
+EXPOSE 8081
 
 ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
 CMD ["-g", "daemon off;"]
