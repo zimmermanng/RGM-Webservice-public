@@ -1,3 +1,4 @@
+name: ue-test
 services:
   backend:
     build: ./backend
