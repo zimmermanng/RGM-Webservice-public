@@ -20,7 +20,7 @@ const DimensionsEditPage = () => {
     card: null,
   });
 
-    const descriptionByDimensionId = useMemo(() => {
+  const descriptionByDimensionId = useMemo(() => {
     const entries = Array.isArray(dimensionenContent?.dimensionen)
       ? dimensionenContent.dimensionen
       : [];
@@ -88,12 +88,16 @@ const DimensionsEditPage = () => {
             ? stateResult.currentAnswers
             : {};
 
+        const filteredDimensions = data.dimensionen.filter(
+          (d) => d.name !== "Allgemein",
+        );
+
         const initialToEdit =
           activeIds.length > 0
-            ? data.dimensionen.filter((d) => activeIds.includes(d.id))
-            : data.dimensionen;
+            ? filteredDimensions.filter((d) => activeIds.includes(d.id))
+            : filteredDimensions;
 
-        const initialNotToEdit = data.dimensionen.filter(
+        const initialNotToEdit = filteredDimensions.filter(
           (d) => !initialToEdit.some((x) => x.id === d.id),
         );
 
@@ -102,8 +106,8 @@ const DimensionsEditPage = () => {
         setCurrentAnswers(loadedAnswers);
       } catch (error) {
         console.error("Fehler beim Laden der Konfiguration:", error);
-        setToEdit(data.dimensionen);
-        setNotToEdit([]);
+        setToEdit([]);
+        setNotToEdit(data.dimensionen);
         setCurrentAnswers({});
       } finally {
         setLoading(false);
@@ -117,7 +121,6 @@ const DimensionsEditPage = () => {
     setDraggedCard({ card, fromList });
     e.dataTransfer.effectAllowed = "move";
   };
-
   const handleDrop = (e, targetList) => {
     e.preventDefault();
     if (!draggedCard) return;
@@ -128,7 +131,6 @@ const DimensionsEditPage = () => {
 
   const moveCard = (card, fromList, toList) => {
     if (fromList === toList) return;
-
     if (fromList === "toEdit") {
       const hasAnswers =
         currentAnswers[card.id] &&
@@ -258,11 +260,9 @@ const DimensionsEditPage = () => {
           <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">
             Zu bearbeiten
           </h4>
-
           <div className="editGrid">
             {toEdit.map((dimension) => {
               const progress = getProgress(dimension);
-
               return (
                 <div
                   key={dimension.id}
