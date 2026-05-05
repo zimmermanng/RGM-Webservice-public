@@ -257,30 +257,32 @@ const DimensionsEditPage = () => {
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => handleDrop(e, "toEdit")}
         >
-          <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">
-            Zu bearbeiten
-          </h4>
+          <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">Ausgewählt</h4>
           <div className="editGrid">
-            {toEdit.map((dimension) => {
-              const progress = getProgress(dimension);
-              return (
-                <div
-                  key={dimension.id}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
-                >
-                  <Card_dimensions
-                    title={dimension.name}
-                    description={descriptionByDimensionId[dimension.id] || ""}
-                    dimensionId={dimension.id}
-                    handlungsfelder={dimension.handlungsfelder}
-                    showStartButton={false}
-                    showProgress={true}
-                    progress={progress}
-                  />
-                </div>
-              );
-            })}
+            {toEdit.length === 0 ? (
+              <div className="emptyState">Bis jetzt wurden noch keine Pakete ausgewählt</div>
+            ) : (
+              toEdit.map((dimension) => {
+                const progress = getProgress(dimension);
+                return (
+                  <div
+                    key={dimension.id}
+                    draggable
+                    onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
+                  >
+                    <Card_dimensions
+                      title={dimension.name}
+                      description={descriptionByDimensionId[dimension.id] || ""}
+                      dimensionId={dimension.id}
+                      handlungsfelder={dimension.handlungsfelder}
+                      showStartButton={false}
+                      showProgress={true}
+                      progress={progress}
+                    />
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
 
@@ -290,7 +292,7 @@ const DimensionsEditPage = () => {
           onDrop={(e) => handleDrop(e, "notToEdit")}
         >
           <h4 title="Alle Pakete, die nicht zu Ihrer Abteilung passen">
-            Nicht zu bearbeiten
+            Nicht ausgewählt
           </h4>
 
           <div className="editGrid">
