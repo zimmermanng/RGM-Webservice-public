@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_BASE = "/api";
+import { API_BASE } from "../config.ts";
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',

@@ -3,8 +3,7 @@ import data from "../components/data/struktur.json";
 import dimensionenContent from "../components/data/dimensionen_content.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link } from "react-router-dom";
-
-const API_BASE = "/api";
+import { API_BASE } from "../config.ts";
 
 const DimensionsPage = ({ activeCompany }) => {
   const [activeIds, setActiveIds] = useState(null);

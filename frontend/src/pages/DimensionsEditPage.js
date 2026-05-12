@@ -3,8 +3,7 @@ import data from "../components/data/struktur.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link, useNavigate } from "react-router-dom";
 import dimensionenContent from "../components/data/dimensionen_content.json";
-
-const API_BASE = "/api";
+import { API_BASE } from "../config.ts";
 
 const DimensionsEditPage = () => {
   const navigate = useNavigate();
