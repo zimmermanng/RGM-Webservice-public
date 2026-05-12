@@ -5,8 +5,7 @@ import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import { useParams, useNavigate } from "react-router-dom";
 import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 import CommentBox from "./CommentFunction";
-
-const API_BASE = "/api";
+import { API_BASE } from "../config.ts";
 
 export default function QuestionnairePage({ activeCompany }) {
   const { dimensionId, handlungsfeldId } = useParams();
