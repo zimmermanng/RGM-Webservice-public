@@ -89,8 +89,8 @@ const DimensionsEditPage = () => {
 
         const initialToEdit =
           activeIds.length > 0
-            ? filteredDimensions.filter((d) => activeIds.includes(d.id))
-            : filteredDimensions;
+            ? data.dimensionen.filter((d) => activeIds.includes(d.id))
+            : data.dimensionen;
 
         const initialNotToEdit = data.dimensionen.filter(
           (d) => !initialToEdit.some((x) => x.id === d.id),
@@ -177,15 +177,8 @@ const DimensionsEditPage = () => {
     }
   };
 
-  const allgemeinDimension = data.dimensionen.find(
-    (d) => d.name === "Allgemein",
-  );
-
   const handleSave = async () => {
-    const activeDimensions = [
-      allgemeinDimension?.id,
-      ...toEdit.map((d) => d.id),
-    ].filter(Boolean);
+    const activeDimensions = toEdit.map((d) => d.id);
     setSaving(true);
 
     try {
@@ -266,30 +259,27 @@ const DimensionsEditPage = () => {
           </h4>
 
           <div className="editGrid">
-            {toEdit.length === 0 ? (
-              <div className="emptyState">Bis jetzt wurden noch keine Pakete ausgewählt</div>
-            ) : (
-              toEdit.map((dimension) => {
-                const progress = getProgress(dimension);
-                return (
-                  <div
-                    key={dimension.id}
-                    draggable
-                    onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
-                  >
-                    <Card_dimensions
-                      title={dimension.name}
-                      description={descriptionByDimensionId[dimension.id] || ""}
-                      dimensionId={dimension.id}
-                      handlungsfelder={dimension.handlungsfelder}
-                      showStartButton={false}
-                      showProgress={true}
-                      progress={progress}
-                    />
-                  </div>
-                );
-              })
-            )}
+            {toEdit.map((dimension) => {
+              const progress = getProgress(dimension);
+
+              return (
+                <div
+                  key={dimension.id}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
+                >
+                  <Card_dimensions
+                    title={dimension.name}
+                    description={descriptionByDimensionId[dimension.id] || ""}
+                    dimensionId={dimension.id}
+                    handlungsfelder={dimension.handlungsfelder}
+                    showStartButton={false}
+                    showProgress={true}
+                    progress={progress}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
 
