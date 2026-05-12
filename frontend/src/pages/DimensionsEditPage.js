@@ -276,6 +276,9 @@ const DimensionsEditPage = () => {
   return (
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
+      <p>
+       Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten möchten.<br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder mit der Tastatur (Tab- und Enter-Taste).
+      </p>
 
       {/* Unsichtbare Live-Region für Screenreader */}
       <div

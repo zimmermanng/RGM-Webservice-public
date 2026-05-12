@@ -5,7 +5,7 @@ function HomePage() {
     <div className="homePage" id="top">
       <section className="homeHero">
         <div className="homeHeroInner">
-          <span className="homeEyebrow">Pilotphase</span>
+          <span className="homeEyebrow">LMZ</span>
           <h1 className="homeTitle">Reifegradmodell digitale Barrierefreiheit</h1>
           <p className="homeLead">
             Der Webservice unterstützt Organisationseinheiten des LMZ dabei,
@@ -49,19 +49,12 @@ function HomePage() {
         </section>
 
         <section className="homeGrid">
-          <article className="infoCard infoCardAccent">
-            <h3>Pilotphase</h3>
+{/*           <article className="infoCard infoCardAccent">
+            <h3>Lesemodus</h3>
             <p>
-              In der aktuellen Pilotphase werden das Reifegradmodell und der
-              zugehörige Webservice in der Praxis erprobt. Im Mittelpunkt steht
-              die Frage, ob das Modell verständlich aufgebaut ist, gut bedient
-              werden kann und in der Anwendung als hilfreich wahrgenommen wird.
+              Der Lesemodus bieten Ihnen die Möglichkeit die Bearbeitungsstände anderer Organisationseinheiten einzusehen. Dabei haben Sie Einsicht auf die bereits beantworteten Fragen und auch auf ggf. vorhandene Ergebnisse
             </p>
-            <p>
-              Ihre Rückmeldungen fließen direkt in die Weiterentwicklung des
-              Modells ein.
-            </p>
-          </article>
+          </article>  */}
 
           <article className="infoCard">
             <h3>So ist der Webservice aufgebaut</h3>
@@ -160,7 +153,7 @@ function HomePage() {
             </article>
 
             <article className="infoCard">
-              <h3>Konkrete Empfehlungen</h3>
+              <h3>Konkrete Handlungsempfehlungen</h3>
               <p>
                 Ergänzend zu den Ergebnissen werden konkrete,
                 kontextbezogene Handlungsempfehlungen ausgegeben. Diese zeigen
