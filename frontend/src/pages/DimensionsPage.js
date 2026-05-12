@@ -47,12 +47,14 @@ const DimensionsPage = ({ activeCompany }) => {
         const state = await stateRes.json();
 
         setActiveIds(
-          Array.isArray(settings.activeDimensions) ? settings.activeDimensions : []
+          Array.isArray(settings.activeDimensions)
+            ? settings.activeDimensions
+            : [],
         );
         setCurrentAnswers(
           state.currentAnswers && typeof state.currentAnswers === "object"
             ? state.currentAnswers
-            : {}
+            : {},
         );
       } catch (error) {
         console.error("Fehler beim Laden der Übersicht:", error);
@@ -93,7 +95,7 @@ const DimensionsPage = ({ activeCompany }) => {
 
       const totalQuestions = dimension.handlungsfelder.reduce(
         (sum, hf) => sum + (hf.fragen?.length || 0),
-        0
+        0,
       );
 
       return totalQuestions > 0 && answeredCount === totalQuestions;
@@ -122,14 +124,17 @@ const DimensionsPage = ({ activeCompany }) => {
 
           const totalQuestions = dimension.handlungsfelder.reduce(
             (sum, hf) => sum + (hf.fragen?.length || 0),
-            0
+            0,
           );
 
           const progress =
             totalQuestions > 0 ? answeredCount / totalQuestions : 0;
 
           return (
-            <div key={dimension.id} className="gridItem">
+            <div
+              key={dimension.id}
+              className={`gridItem ${dimension.name === "Allgemein" ? "allgemein" : ""}`}
+            >
               <Card_dimensions
                 title={dimension.name}
                 description={descriptionByDimensionId[dimension.id] || ""}

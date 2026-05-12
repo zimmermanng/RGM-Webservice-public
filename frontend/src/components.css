@@ -65,6 +65,11 @@ word-break: break-word;
 color: var(--color-text-muted);
 }
 
+.allgemein .card {
+  background-color: rgb(255, 237, 220);
+  border-color:darkgrey;
+}
+
 .card-content p {
 margin: 0 0 var(--space-3);
 }
@@ -179,6 +184,21 @@ box-shadow: var(--shadow-md);
 .comment-box button:active,
 .access-button:active {
 transform: translateY(1px);
+}
+
+.startButton{
+  background-color: var(--brand-accent);
+  color: black;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.startButton:hover {
+background: var(--brand-accent-strong);
+box-shadow: var(--shadow-md);
+color: black;
 }
 
 .access-button.secondary {
@@ -1300,13 +1320,14 @@ min-height: 23rem;
 padding: var(--space-5);
 }
 
-.dropZone:first-child,
 .dropZone:last-child {
 background: color-mix(
 in srgb,
 var(--color-surface) 92%,
 var(--brand-primary-soft)
 );
+background-color: rgba(165, 165, 165, 0.214);
+border-color:black;
 }
 
 .dropZone .card,
@@ -1446,4 +1467,11 @@ progress::-webkit-progress-value {
 progress::-moz-progress-bar {
   background-color: var(--footer-color);
   border-radius: 20px;
+}
+.emptyState {
+  width: 100%;
+  display: flex;
+  padding-top: 90px;
+  justify-content: center;
+  color: #888;
 }
