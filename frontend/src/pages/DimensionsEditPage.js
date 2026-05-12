@@ -94,7 +94,7 @@ const DimensionsEditPage = () => {
         const initialToEdit =
           activeIds.length > 0
             ? filteredDimensions.filter((d) => activeIds.includes(d.id))
-            : filteredDimensions;
+            : [];
 
         const initialNotToEdit = filteredDimensions.filter(
           (d) => !initialToEdit.some((x) => x.id === d.id),
@@ -180,7 +180,15 @@ const DimensionsEditPage = () => {
   };
 
   const handleSave = async () => {
-    const activeDimensions = toEdit.map((d) => d.id);
+    const allgemeinDimension = data.dimensionen.find(
+      (d) => d.name === "Allgemein",
+    );
+
+    const activeDimensions = [
+      allgemeinDimension?.id,
+      ...toEdit.map((d) => d.id),
+    ].filter(Boolean);
+
     setSaving(true);
 
     try {
@@ -259,7 +267,9 @@ const DimensionsEditPage = () => {
           <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">Ausgewählt</h4>
           <div className="editGrid">
             {toEdit.length === 0 ? (
-              <div className="emptyState">Bis jetzt wurden noch keine Pakete ausgewählt</div>
+              <div className="emptyState">
+                Bis jetzt wurden noch keine Pakete ausgewählt
+              </div>
             ) : (
               toEdit.map((dimension) => {
                 const progress = getProgress(dimension);

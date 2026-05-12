@@ -46,6 +46,10 @@ const DimensionsPage = ({ activeCompany }) => {
         const settings = await settingsRes.json();
         const state = await stateRes.json();
 
+        const loadedIds = Array.isArray(settings.activeDimensions)
+          ? settings.activeDimensions
+          : [];
+
         setActiveIds(
           Array.isArray(settings.activeDimensions)
             ? settings.activeDimensions
@@ -83,8 +87,17 @@ const DimensionsPage = ({ activeCompany }) => {
 
   const dimensionen = useMemo(() => {
     if (activeIds === null) return [];
-    if (activeIds.length === 0) return data.dimensionen;
-    return data.dimensionen.filter((d) => activeIds.includes(d.id));
+
+    const filtered =
+      activeIds.length === 0
+        ? data.dimensionen.filter((d) => d.name === "Allgemein")
+        : data.dimensionen.filter((d) => activeIds.includes(d.id));
+
+    return filtered.sort((a, b) => {
+      if (a.name === "Allgemein") return -1;
+      if (b.name === "Allgemein") return 1;
+      return 0;
+    });
   }, [activeIds]);
 
   const allCompleted =
