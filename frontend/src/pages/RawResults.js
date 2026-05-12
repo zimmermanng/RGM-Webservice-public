@@ -2,30 +2,26 @@ import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
 
 const API_BASE = "http://localhost:3011";
+const RESULTS_STORAGE_KEY = "shuffleResults";
 
 /**
  * RawResults
  *
- * Purpose of this version:
- * - Accept different backend response shapes.
- * - Merge multiple saved result entries into one combined result object.
- * - Keep the newest answer per question if multiple submissions exist.
- *
- * Why this matters for multi-package flows:
- * Even if the backend currently stores multiple POST submissions separately,
- * the result page should still be able to show one coherent overall picture.
+ * Loads saved questionnaire results from the backend when available.
+ * If the backend is unavailable or returns no usable data, it uses the latest
+ * locally saved result. It should not block the results page because of old
+ * login/session errors.
  */
 const RawResults = () => {
   const [surveyResults, setSurveyResults] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchResults = async () => {
+      const localResults = readLocalResults();
+
       try {
-        const res = await fetch(`${API_BASE}/session/results`, {
-          credentials: "include",
-        });
+        const res = await fetch(`${API_BASE}/session/results`);
 
         if (!res.ok) {
           throw new Error(`Server antwortete mit Status ${res.status}`);
@@ -37,13 +33,15 @@ const RawResults = () => {
         const normalizedEntries = normalizeResponseToEntries(data);
         const combined = combineEntries(normalizedEntries);
 
-        console.log("Resolved combined surveyResults for page:", combined);
-        console.log("Resolved combined selections:", combined?.selections);
+        if (combined) {
+          setSurveyResults(combined);
+          return;
+        }
 
-        setSurveyResults(combined);
+        setSurveyResults(localResults);
       } catch (err) {
-        console.error("Fehler beim Laden der Session-Daten:", err);
-        setError("Ergebnisse konnten nicht geladen werden.");
+        console.warn("Backend-Ergebnisse konnten nicht geladen werden:", err);
+        setSurveyResults(localResults);
       } finally {
         setLoading(false);
       }
@@ -52,12 +50,35 @@ const RawResults = () => {
     fetchResults();
   }, []);
 
-  if (loading) return <p>Lade Ergebnisse...</p>;
-  if (error) return <p>{error}</p>;
-  if (!surveyResults) return <p>Noch keine Ergebnisse vorhanden.</p>;
+  if (loading) {
+    return (
+      <div className="mainContainer" id="top">
+        <p>Lade Ergebnisse...</p>
+      </div>
+    );
+  }
+
+  if (!surveyResults) {
+    return (
+      <div className="mainContainer" id="top">
+        <p>Noch keine Ergebnisse vorhanden.</p>
+      </div>
+    );
+  }
 
   return <SurveyResultPage surveyResults={surveyResults} />;
 };
+
+function readLocalResults() {
+  try {
+    const raw = localStorage.getItem(RESULTS_STORAGE_KEY);
+    const parsed = JSON.parse(raw || "null");
+    return parsed && typeof parsed === "object" ? parsed : null;
+  } catch (error) {
+    console.error("Lokale Ergebnisse konnten nicht gelesen werden:", error);
+    return null;
+  }
+}
 
 function normalizeResponseToEntries(data) {
   if (Array.isArray(data?.results)) {

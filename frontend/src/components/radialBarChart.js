@@ -14,7 +14,6 @@ const CATEGORY_FONT_SIZE = 16;
 const CATEGORY_LINE_HEIGHT = 20;
 
 const COMPANY_LOGOS = {
-  LMZ: '/LMZ-Logo-rund.png',
   Shuffle: '/shuffle-logo.svg',
 };
 
@@ -73,7 +72,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
 
   const radius = Math.min(WIDTH, HEIGHT) / 2 - MARGIN;
   const resolvedCompany = useMemo(() => normalizeCompany(activeCompany), [activeCompany]);
-  const centerLogo = COMPANY_LOGOS[resolvedCompany] || COMPANY_LOGOS.LMZ;
+  const centerLogo = '/shuffle-logo.svg';
 
   const colorScale = useMemo(() => {
     if (typeof window === 'undefined') {

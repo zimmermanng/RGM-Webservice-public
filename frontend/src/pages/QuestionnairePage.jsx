@@ -3,16 +3,13 @@ import struktur from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  answersToResultsWithRecommendations,
-  setDebug,
-} from "../services/questionnaireToResults";
-import CommentBox from "./CommentFunction";
+import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 
 const API_BASE = "http://localhost:3011";
 const ANSWERS_STORAGE_KEY = "answers";
+const RESULTS_STORAGE_KEY = "shuffleResults";
 
-export default function QuestionnairePage({ activeCompany }) {
+export default function QuestionnairePage() {
   const { dimensionId, handlungsfeldId } = useParams();
   const navigate = useNavigate();
 
@@ -24,7 +21,6 @@ export default function QuestionnairePage({ activeCompany }) {
   const handlungsfelder = currentDimension?.handlungsfelder || [];
   const currentHFIndex = handlungsfelder.findIndex((h) => h.id === handlungsfeldId);
   const currentHandlungsfeld = handlungsfelder[currentHFIndex];
-  const commentsEnabled = activeCompany === "Shuffle";
 
   const filteredFragen = useMemo(() => {
     if (!currentHandlungsfeld) return [];
@@ -34,7 +30,6 @@ export default function QuestionnairePage({ activeCompany }) {
       .filter(Boolean);
   }, [currentHandlungsfeld]);
 
-  setDebug(true);
 
   function readStoredAnswers() {
     try {
@@ -89,7 +84,11 @@ export default function QuestionnairePage({ activeCompany }) {
   }, [dimensionId, handlungsfeldId]);
 
   if (!currentDimension || !currentHandlungsfeld) {
-    return <p>Handlungsfeld nicht gefunden.</p>;
+    return (
+      <main className="mainContainer questionnaire-page" id="top">
+        <p>Handlungsfeld nicht gefunden.</p>
+      </main>
+    );
   }
 
   const handleAnswerClick = (frage, antwort) => {
@@ -122,15 +121,6 @@ export default function QuestionnairePage({ activeCompany }) {
     });
   };
 
-  const buildCommentsExport = () => ({
-    dimensionId,
-    handlungsfeldId,
-    dimensionName: currentDimension?.name || "",
-    handlungsfeldName: currentHandlungsfeld?.name || "",
-    timestamp: new Date().toISOString(),
-    comments: postedComments,
-  });
-
   const buildFullPayload = () => {
     const allStoredAnswers = readStoredAnswers();
 
@@ -157,24 +147,17 @@ export default function QuestionnairePage({ activeCompany }) {
     console.log("Submitting aggregated payload:", payload);
 
     try {
+      localStorage.setItem(RESULTS_STORAGE_KEY, JSON.stringify(payload));
+    } catch (error) {
+      console.warn("Konnte Ergebnisse nicht lokal speichern:", error);
+    }
+
+    try {
       const response = await fetch(`${API_BASE}/session/results`, {
         method: "POST",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      if (response.status === 401) {
-        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
-        navigate("/login");
-        return;
-      }
-
-      if (response.status === 403) {
-        alert("Bitte zuerst ein Team auswählen.");
-        navigate("/team-select");
-        return;
-      }
 
       if (!response.ok) {
         throw new Error(`Server antwortete mit Status ${response.status}`);
@@ -182,43 +165,18 @@ export default function QuestionnairePage({ activeCompany }) {
 
       const data = await response.json();
       console.log("Backend-Antwort:", data);
-      navigate("/rawresults");
     } catch (error) {
-      console.error("Fehler beim Senden:", error);
-      alert("Backend nicht erreichbar oder Fehler beim Senden");
+      console.warn(
+        "Backend nicht erreichbar. Ergebnisse wurden lokal gespeichert:",
+        error
+      );
+    } finally {
+      navigate("/rawresults");
     }
-  };
-
-  const downloadJSON = (data, filename = "results.json") => {
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json;charset=utf-8",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleDownload = () => {
-    const payload = buildFullPayload();
-    const commentsExport = buildCommentsExport();
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-
-    downloadJSON(payload, `results_${dimensionId}_${handlungsfeldId}_${ts}.json`);
-    downloadJSON(
-      commentsExport,
-      `comments_${dimensionId}_${handlungsfeldId}_${ts}.json`
-    );
   };
 
   const allQuestionIds = filteredFragen.map((f) => f.id);
   const allAnswered = allQuestionIds.every((id) => !!selectedAnswers[id]);
-  const anyAnswered = Object.keys(selectedAnswers).length > 0;
-
   const handleInputChange = (field, value) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
   };
@@ -239,60 +197,74 @@ export default function QuestionnairePage({ activeCompany }) {
   const handlePrev = () => navigateToHandlungsfeld(currentHFIndex - 1);
 
   return (
-    <div className="mainContainer" id="top">
-      <div className="top-buttons">
-        <button onClick={() => navigate("/dimensions")}>← Zurück zur Übersicht</button>
-      </div>
+    <main className="mainContainer questionnaire-page" id="top">
+      <nav className="top-buttons" aria-label="Fragebogen-Navigation">
+        <button type="button" onClick={() => navigate("/dimensions")}>← Zurück zur Übersicht</button>
+      </nav>
 
-      <div className="questions-container">
-        <h1>{currentDimension?.name}</h1>
-        <h2>{currentHandlungsfeld?.name}</h2>
+      <section
+        className="questions-container"
+        aria-labelledby="questionnaire-title"
+        aria-describedby="questionnaire-subtitle questionnaire-progress"
+      >
+        <header className="questionnaire-header">
+          <h1 id="questionnaire-title">{currentDimension?.name}</h1>
+          <h2 id="questionnaire-subtitle">{currentHandlungsfeld?.name}</h2>
+          <p id="questionnaire-progress" className="progress-text">
+            {currentHFIndex + 1} / {handlungsfelder.length}
+          </p>
+        </header>
 
         {filteredFragen.length === 0 ? (
           <p>Keine Fragen für dieses Handlungsfeld gefunden.</p>
         ) : (
-          filteredFragen.map((frage) => (
-            <div key={frage.id} className="question-box">
-              <p className="question-text">{frage.frage}</p>
+          <ol className="question-list" aria-label="Fragen in diesem Handlungsfeld">
+            {filteredFragen.map((frage, frageIndex) => {
+              const questionTitleId = `question-${frage.id}-title`;
 
-              <div className="answers">
-                {[
-                  ...(frage.antworten || []),
-                  {
-                    id: "",
-                    antwort: "Keine Angabe",
-                    stufe: -1,
-                    frage: frage.frage,
-                  },
-                ].map((antwort) => {
-                  const isSelected = selectedAnswers[frage.id]?.antwortId === antwort.id;
+              return (
+                <li key={frage.id} className="question-list-item">
+                  <section className="question-box" aria-labelledby={questionTitleId}>
+                    <h3 id={questionTitleId} className="question-text">
+                      {frage.frage}
+                    </h3>
 
-                  return (
-                    <button
-                      key={`${frage.id}-${antwort.id || "none"}`}
-                      className={`answer-button ${isSelected ? "selected" : ""}`}
-                      onClick={() => handleAnswerClick(frage, antwort)}
-                    >
-                      {antwort.antwort}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))
+                    <div className="answers" role="group" aria-labelledby={questionTitleId}>
+                      {[
+                        ...(frage.antworten || []),
+                        {
+                          id: "",
+                          antwort: "Keine Angabe",
+                          stufe: -1,
+                          frage: frage.frage,
+                        },
+                      ].map((antwort) => {
+                        const isSelected = selectedAnswers[frage.id]?.antwortId === antwort.id;
+
+                        return (
+                          <button
+                            key={`${frage.id}-${antwort.id || "none"}`}
+                            type="button"
+                            className={`answer-button ${isSelected ? "selected" : ""}`}
+                            onClick={() => handleAnswerClick(frage, antwort)}
+                            aria-pressed={isSelected}
+                            aria-label={`Frage ${frageIndex + 1}: ${antwort.antwort}`}
+                          >
+                            {antwort.antwort}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </section>
+                </li>
+              );
+            })}
+          </ol>
         )}
 
-        {commentsEnabled && (
-          <CommentBox
-            inputs={inputs}
-            comments={postedComments}
-            onInputChange={handleInputChange}
-            onPost={handlePost}
-          />
-        )}
-
-        <div className="hf-navigation">
+        <nav className="hf-navigation" aria-label="Handlungsfeld wechseln">
           <button
+            type="button"
             onClick={handlePrev}
             disabled={currentHFIndex === 0}
             className="nav-button"
@@ -300,29 +272,26 @@ export default function QuestionnairePage({ activeCompany }) {
             Zurück
           </button>
 
-          <span>
+          <span aria-current="step">
             {currentHFIndex + 1} / {handlungsfelder.length}
           </span>
 
           <button
+            type="button"
             onClick={handleNext}
             disabled={currentHFIndex === handlungsfelder.length - 1}
             className="nav-button"
           >
             Weiter
           </button>
-        </div>
+        </nav>
 
         <div className="submit-buttons">
-          <button className="submit-button" onClick={handleSubmit} disabled={!allAnswered}>
+          <button type="button" className="submit-button" onClick={handleSubmit} disabled={!allAnswered}>
             Auswerten & anzeigen
           </button>
-
-          <button className="submit-button" onClick={handleDownload} disabled={!anyAnswered}>
-            JSON herunterladen (Debug)
-          </button>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

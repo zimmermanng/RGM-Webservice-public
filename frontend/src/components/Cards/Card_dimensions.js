@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 const Card_dimensions = ({
   title,
   dimensionId,
@@ -7,34 +8,32 @@ const Card_dimensions = ({
   link,
   showStartButton = true,
   showProgress = true,
-  progress= 0,
+  progress = 0,
 }) => {
   const titleId = `card-title-${dimensionId}`;
-  const currDate = new Date().toLocaleDateString();
-  const currTime = new Date().toLocaleTimeString();
+  const progressId = `card-progress-${dimensionId}`;
   const firstHF = handlungsfelder[0];
+  const progressPercent = Math.round(progress * 100);
 
-  // 🔹 Edit-Modus: link vorhanden
   if (link) {
     return (
-      <div className="card_dimension" role="article">
+      <article className="card_dimension" aria-labelledby={titleId}>
         <div className="card-content">
           <h2 id={titleId}>{title}</h2>
           <Link to={link} className="hf-button">
             Fragebogen öffnen
           </Link>
         </div>
-      </div>
+      </article>
     );
   }
 
-  // 🔹 Wenn keine Handlungsfelder vorhanden
   if (!handlungsfelder.length) return null;
 
   return (
-    <div className="card" role="article" aria-labelledby={titleId}>
-      <div className="card-content">
-        <h3 id={titleId}>{title}</h3>
+    <article className="card dimensionCard" aria-labelledby={titleId}>
+      <div className="card-content dimensionCardContent">
+        <h2 id={titleId}>{title}</h2>
 
         <div className="background_declaration">
           <p>
@@ -46,26 +45,31 @@ const Card_dimensions = ({
 
         <div className="dFooter">
           {showProgress && (
-            <>
-              <progress value={progress} max={1} />
-              <div className="progress-text">
-                Fortschritt: {Math.round(progress * 100)}%
+            <div className="dimensionProgress" aria-labelledby={progressId}>
+              <progress
+                value={progress}
+                max={1}
+                aria-label={`Fortschritt ${title}: ${progressPercent}%`}
+              />
+              <div className="progress-text" id={progressId}>
+                Fortschritt: {progressPercent}%
               </div>
-            </>
+            </div>
           )}
-          {/*   <div className="change">
-            Zuletzt aktualisiert am {currDate} um {currTime}
-          </div> */}
+
           {showStartButton && firstHF && (
             <div className="dFooterButtons">
-              <Link to={`/questionnaire/${dimensionId}/${firstHF.id}`}>
-                <button className="startButton">Start</button>
+              <Link
+                to={`/questionnaire/${dimensionId}/${firstHF.id}`}
+                className="startButton"
+              >
+                Start
               </Link>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

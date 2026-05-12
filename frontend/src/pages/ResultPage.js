@@ -33,6 +33,10 @@ const ResultPage = ({ data, activeCompany}) => {
     });
   };
 
+  const chartPanelId = "uploaded-results-chart-panel";
+  const tablePanelId = "uploaded-results-table-panel";
+  const filterPanelId = "uploaded-results-filter-panel";
+
   // --- helper: render mixed recommendations with nested bullets ---
   // Top-level bullets: lines starting with "." or "·"
   // Sub-bullets: lines starting with optional quote then "o", e.g.  o ...  or  "o ...
@@ -104,21 +108,27 @@ const ResultPage = ({ data, activeCompany}) => {
   // --- end helper ---
 
   return (
-    <div>
-      <div className="mainContainer" id="top">
+    <main className="results-page">
+      <div className="mainContainer results-hero" id="top">
         <h1>Ergebnisse</h1>
         <p>Hier finden Sie eine detaillierte Erklärung der Dimensionen und ihrer Stufen.</p>
 
-        <div className="toggle-container">
+        <div className="toggle-container" role="group" aria-label="Darstellung auswählen">
           <button
+            type="button"
             className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
             onClick={() => setViewMode("chart")}
+            aria-pressed={viewMode === "chart"}
+            aria-controls={chartPanelId}
           >
             Diagramm anzeigen
           </button>
           <button
+            type="button"
             className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
             onClick={() => setViewMode("table")}
+            aria-pressed={viewMode === "table"}
+            aria-controls={tablePanelId}
           >
             Tabelle anzeigen
           </button>
@@ -130,26 +140,38 @@ const ResultPage = ({ data, activeCompany}) => {
         Diagramm und Tabelle überspringen
       </a>
 
-      <div>
+      <section className="results-visual-section" aria-live="polite" aria-relevant="additions text">
         {viewMode === "chart" ? (
-          <div className="chart-container">
+          <div
+            id={chartPanelId}
+            className="chart-container"
+            role="region"
+            aria-label="Diagramm"
+          >
             <RadialBarChart data={data} activeCompany={activeCompany}/>
           </div>
         ) : (
-          <div className="table-container">
+          <div
+            id={tablePanelId}
+            className="table-container"
+            role="region"
+            aria-label="Tabelle"
+          >
             <DataTable data={data} />
           </div>
         )}
-      </div>
+      </section>
 
       <div id="ext">
         <h2>Erläuterungen</h2>
-        <div className="tabs-container" id="ext">
+        <div className="tabs-container" role="group" aria-label="Dimension auswählen">
           {Object.keys(dimensionData).map((dimension) => (
             <button
               key={dimension}
+              type="button"
               className={`tab-button ${selectedTab === dimension ? "active" : ""}`}
               onClick={() => setSelectedTab(dimension)}
+              aria-pressed={selectedTab === dimension}
             >
               {dimension}
             </button>
@@ -157,16 +179,20 @@ const ResultPage = ({ data, activeCompany}) => {
 
           {/* Filter button */}
           <button
+            type="button"
             className="filter-toggle-button"
             onClick={() => setIsFilterOpen(!isFilterOpen)}
+            aria-expanded={isFilterOpen}
+            aria-controls={filterPanelId}
           >
             Filter
           </button>
         </div>
 
         {isFilterOpen && (
-          <div className="filter-container">
-            <div className="filter-options">
+          <div className="filter-container" id={filterPanelId}>
+            <fieldset className="filter-options">
+              <legend className="sr-only">Stufen filtern</legend>
               {[...Array(5).keys()].map((level) => (
                 <label key={level} className="filter-option">
                   <input
@@ -177,14 +203,14 @@ const ResultPage = ({ data, activeCompany}) => {
                   Stufe {level}
                 </label>
               ))}
-            </div>
+            </fieldset>
           </div>
         )}
       </div>
 
       {/* Content per selected dimension, using ONLY row-level recommendations */}
       {selectedTab && (
-        <div className="tab-content">
+        <section className="tab-content" aria-live="polite">
           <h3>{selectedTab}</h3>
           {data
             .filter((row) => row.group === selectedTab)
@@ -211,9 +237,9 @@ const ResultPage = ({ data, activeCompany}) => {
                 </div>
               );
             })}
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 };
 

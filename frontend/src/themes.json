@@ -1,15 +1,4 @@
 {
-  "LMZ": {
-    "footer": "#F69E2F",     
-    "navBar": "#ebebe2",
-    "range_1": "#F6B700",
-    "range_2": "#FA4730",
-    "range_3": "#F08811",
-    "range_4": "#5E5F4F",
-    "letter":"#000000",
-    "button":"#F08811",
-    "details":"#5E5F4F"
-  },
   "Shuffle": {
     "footer": "#E6ECF3",
     "navBar": "#E6ECF3",
@@ -17,8 +6,8 @@
     "range_2": "#1E7F5E",
     "range_3": "#FEC705",
     "range_4": "#324B8C",
-    "letter":"#FFFFFF",
-    "button":"#004a94",
-    "details":"#324B8C"
+    "letter": "#FFFFFF",
+    "button": "#004a94",
+    "details": "#324B8C"
   }
 }

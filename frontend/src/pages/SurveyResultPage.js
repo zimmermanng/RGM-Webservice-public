@@ -101,62 +101,20 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   };
 
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
-    const isTodo = variant === "todo";
-
-    if (isTodo) {
-      return (
-        <div
-          key={`${groupItem.frageId}-${variant}-${index}`}
-          className={`question-recommendation-card ${variant}`}
-        >
-          <div className="question-recommendation-summary static">
-            <div className="question-recommendation-summary-text">
-              <span className="question-recommendation-kicker">Frage</span>
-              <h6>{groupItem.frageText}</h6>
-              <p>
-                <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
-              </p>
-            </div>
-
-            {typeof groupItem.stufe === "number" && (
-              <span className="question-recommendation-stage">
-                Stufe {groupItem.stufe}
-              </span>
-            )}
-          </div>
-
-          <div className="question-recommendation-panel always-open">
-            <p className="question-recommendation-panel-label">
-              Zugehörige Handlungsempfehlungen
-            </p>
-            <ul className="question-recommendation-list">
-              {groupItem.recommendations.map((rec, recIndex) => (
-                <li
-                  key={rec?.id ?? `${groupItem.frageId}-rec-${recIndex}`}
-                  className="question-recommendation-list-item"
-                >
-                  <div className="question-recommendation-list-row">
-                    <span>{rec?.text ?? String(rec)}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      );
-    }
-
     return (
-      <details
+      <div
         key={`${groupItem.frageId}-${variant}-${index}`}
         className={`question-recommendation-card ${variant}`}
       >
-        <summary className="question-recommendation-summary">
+        <div className="question-recommendation-summary static">
           <div className="question-recommendation-summary-text">
             <span className="question-recommendation-kicker">Frage</span>
             <h6>{groupItem.frageText}</h6>
             <p>
-              <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
+              <strong>
+                {groupItem.detailLabel || "Ausgewählte Antwort:"}
+              </strong>{" "}
+              {groupItem.antwortText}
             </p>
           </div>
 
@@ -165,9 +123,9 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
               Stufe {groupItem.stufe}
             </span>
           )}
-        </summary>
+        </div>
 
-        <div className="question-recommendation-panel">
+        <div className="question-recommendation-panel always-open">
           <p className="question-recommendation-panel-label">
             Zugehörige Handlungsempfehlungen
           </p>
@@ -184,6 +142,44 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             ))}
           </ul>
         </div>
+      </div>
+    );
+  };
+
+  const renderCompactRecommendationList = (recommendations) => {
+    const uniqueRecommendations = dedupeRecommendations(recommendations);
+
+    if (!uniqueRecommendations.length) {
+      return null;
+    }
+
+    return (
+      <ul className="recommendation-main-list">
+        {uniqueRecommendations.map((rec, index) => (
+          <li
+            key={rec?.id ?? rec?.text ?? `main-rec-${index}`}
+            className="recommendation-main-item"
+          >
+            {rec?.text ?? String(rec)}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  const renderRecommendationDetails = (groups, variant) => {
+    if (!groups.length) return null;
+
+    return (
+      <details className="recommendation-detail-block">
+        <summary>
+          Details zu auslösenden Antworten ({groups.length})
+        </summary>
+        <div className="question-recommendation-grid">
+          {groups.map((groupItem, index) =>
+            renderRecommendationGroupCard(groupItem, index, variant)
+          )}
+        </div>
       </details>
     );
   };
@@ -193,12 +189,17 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       todoGroups,
       establishedHigherGroups,
       nextTargetLevel,
+      hasHigherOptions,
     } = getRecommendationSectionsForRow({
       row,
       selections,
       questionMap,
       recommendationMap,
     });
+
+    const todoRecommendations = dedupeRecommendations(
+      todoGroups.flatMap((groupItem) => groupItem.recommendations)
+    );
 
     return (
       <>
@@ -209,11 +210,17 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
               : "Nächster Entwicklungsschritt"}
           </h5>
 
-          {todoGroups.length > 0 ? (
-            <div className="question-recommendation-grid">
-              {todoGroups.map((groupItem, index) =>
-                renderRecommendationGroupCard(groupItem, index, "todo")
-              )}
+          {todoRecommendations.length > 0 ? (
+            <>
+              {renderCompactRecommendationList(todoRecommendations)}
+              {renderRecommendationDetails(todoGroups, "todo")}
+            </>
+          ) : hasHigherOptions ? (
+            <div className="recommendation-empty-state">
+              <p>
+                Für den nächsten Entwicklungsschritt sind in den hinterlegten
+                Daten keine direkten Handlungsempfehlungen verknüpft.
+              </p>
             </div>
           ) : (
             <div className="recommendation-empty-state">
@@ -248,85 +255,11 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     );
   };
 
-  const renderQuestionCrosscheck = () => {
-    if (selections.length === 0) {
-      return <p>Es wurden noch keine Fragen beantwortet.</p>;
-    }
 
-    return selections.map((selection, index) => {
-      const question = questionMap?.[selection?.frageId];
-      const answers = Array.isArray(question?.antworten)
-        ? question.antworten
-        : [];
-
-      return (
-        <div
-          key={`${selection?.frageId ?? "frage"}-${index}`}
-          className="question-reference-card"
-        >
-          <h4 className="question-reference-title">
-            {selection?.frageText || question?.frage || "Frage"}
-          </h4>
-
-          <p className="question-reference-area">
-            <strong>Bereich:</strong> {selection?.group} –{" "}
-            {selection?.category}
-          </p>
-
-          <ul className="question-answer-list">
-            {answers.map((answer) => {
-              const isSelected = answer?.id === selection?.antwortId;
-              const linkedRecommendations = dedupeRecommendations(
-                recommendationMap[answer?.id] ?? []
-              );
-
-              return (
-                <li
-                  key={answer?.id}
-                  className={`question-answer-item ${
-                    isSelected ? "question-answer-selected" : ""
-                  }`}
-                >
-                  <p>
-                    <strong>{isSelected ? "Ausgewählt:" : "Antwort:"}</strong>{" "}
-                    {answer?.antwort}
-                  </p>
-
-                  <p>
-                    <strong>Stufe:</strong>{" "}
-                    {typeof answer?.stufe === "number"
-                      ? answer.stufe
-                      : "Keine Stufe"}
-                  </p>
-
-                  {linkedRecommendations.length > 0 ? (
-                    <div className="question-linked-recommendations">
-                      <strong>Verknüpfte Handlungsempfehlungen:</strong>
-                      <ul>
-                        {linkedRecommendations.map((rec, recIndex) => (
-                          <li key={rec?.id ?? `${answer?.id}-${recIndex}`}>
-                            {rec?.text ?? String(rec)}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <p className="question-no-recommendations">
-                      Keine verknüpften Handlungsempfehlungen.
-                    </p>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      );
-    });
-  };
 
   return (
-    <div>
-      <div className="mainContainer" id="top">
+    <div className="resultsPage">
+      <div className="mainContainer resultsHeader" id="top">
         <h1>Ergebnisse</h1>
         <p>
           Hier finden Sie eine detaillierte Auswertung der Survey-Ergebnisse
@@ -335,13 +268,17 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
 
         <div className="toggle-container">
           <button
+            type="button"
             className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
+            aria-pressed={viewMode === "chart"}
             onClick={() => setViewMode("chart")}
           >
             Diagramm anzeigen
           </button>
           <button
+            type="button"
             className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
+            aria-pressed={viewMode === "table"}
             onClick={() => setViewMode("table")}
           >
             Tabelle anzeigen
@@ -365,8 +302,8 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         )}
       </div>
 
-      <div id="ext">
-        <h2>Erläuterungen</h2>
+      <section id="ext" className="resultsDetails" aria-labelledby="results-details-title">
+        <h2 id="results-details-title">Erläuterungen</h2>
         <div className="category-box">
           <p>
             <strong>Hinweis:</strong> Je nach Fragenlogik, Antwortoptionen und
@@ -384,9 +321,11 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           {Object.keys(dimensionData).map((dimension) => (
             <button
               key={dimension}
+              type="button"
               className={`tab-button ${
                 selectedTab === dimension ? "active" : ""
               }`}
+              aria-pressed={selectedTab === dimension}
               onClick={() => setSelectedTab(dimension)}
             >
               {dimension}
@@ -394,7 +333,10 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           ))}
 
           <button
+            type="button"
             className="filter-toggle-button"
+            aria-expanded={isFilterOpen}
+            aria-controls="results-filter-options"
             onClick={() => setIsFilterOpen(!isFilterOpen)}
           >
             Filter
@@ -402,7 +344,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         </div>
 
         {isFilterOpen && (
-          <div className="filter-container">
+          <div className="filter-container" id="results-filter-options">
             <div className="filter-options">
               {[-1, 0, 1, 2, 3, 4].map((level) => (
                 <label key={level} className="filter-option">
@@ -417,7 +359,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             </div>
           </div>
         )}
-      </div>
+      </section>
 
       {selectedTab && (
         <div className="tab-content">
@@ -444,26 +386,6 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             })}
         </div>
       )}
-
-      <div className="question-reference-section">
-        <details className="question-reference-accordion">
-          <summary className="question-reference-summary">
-            <span>Fragen- und Antwortübersicht zum Abgleich</span>
-            <span className="question-reference-badge">
-              {selections.length} beantwortet
-            </span>
-          </summary>
-
-          <div className="question-reference-panel">
-            <p className="question-reference-intro">
-              Hier sehen Sie alle verwendeten Fragen, alle Antwortoptionen und
-              die jeweils verknüpften Handlungsempfehlungen. Die gewählte Antwort
-              ist markiert.
-            </p>
-            {renderQuestionCrosscheck()}
-          </div>
-        </details>
-      </div>
     </div>
   );
 };
@@ -570,7 +492,7 @@ function getRecommendationSectionsForRow({
 }) {
   const relevantSelections = getSelectionsForRow(selections, row);
 
-  const selectionsWithLevel = relevantSelections
+  const selectionsWithQuestion = relevantSelections
     .map((selection) => {
       const question = questionMap?.[selection?.frageId];
       const selectedAnswer = getSelectedAnswer(question, selection?.antwortId);
@@ -586,34 +508,62 @@ function getRecommendationSectionsForRow({
         stufe,
       };
     })
-    .filter((item) => typeof item.stufe === "number");
+    .filter((item) => item.question && typeof item.stufe === "number");
 
   const currentCategoryLevel =
-    selectionsWithLevel.length > 0
-      ? Math.min(...selectionsWithLevel.map((item) => item.stufe))
+    selectionsWithQuestion.length > 0
+      ? Math.min(...selectionsWithQuestion.map((item) => item.stufe))
       : -1;
 
-  const todoGroups = selectionsWithLevel
-    .filter((item) => item.stufe === currentCategoryLevel)
-    .map(({ selection, question, selectedAnswer, stufe }) => {
-      const selectedRecommendations = dedupeRecommendations(
-        recommendationMap[selection?.antwortId] ?? []
-      );
+  const blockingSelections = selectionsWithQuestion.filter(
+    (item) => item.stufe === currentCategoryLevel
+  );
 
-      if (!selectedRecommendations.length) return null;
+  const higherAnswerGroups = blockingSelections.flatMap(
+    ({ selection, question, selectedAnswer }) => {
+      const answers = Array.isArray(question?.antworten) ? question.antworten : [];
 
-      return {
-        frageId: selection?.frageId,
-        frageText: selection?.frageText || question?.frage || "Frage",
-        antwortText:
-          selectedAnswer?.antwort || selection?.antwortText || "Antwort",
-        stufe,
-        recommendations: selectedRecommendations,
-      };
-    })
-    .filter(Boolean);
+      return answers
+        .filter(
+          (answer) =>
+            typeof answer?.stufe === "number" &&
+            answer.stufe > currentCategoryLevel
+        )
+        .map((answer) => {
+          const recommendations = dedupeRecommendations(
+            recommendationMap[answer?.id] ?? []
+          );
 
-  const establishedHigherGroups = selectionsWithLevel
+          return {
+            frageId: selection?.frageId,
+            frageText: selection?.frageText || question?.frage || "Frage",
+            antwortId: answer?.id,
+            antwortText: answer?.antwort || "Antwort",
+            selectedAnswerText:
+              selectedAnswer?.antwort || selection?.antwortText || "Antwort",
+            stufe: answer?.stufe,
+            recommendations,
+            detailLabel: "Zugehörige Antwort:",
+          };
+        });
+    }
+  );
+
+  const groupsWithRecommendations = higherAnswerGroups.filter(
+    (group) => group.recommendations.length > 0
+  );
+
+  const nextTargetLevel = groupsWithRecommendations.length
+    ? Math.min(...groupsWithRecommendations.map((group) => group.stufe))
+    : higherAnswerGroups.length
+      ? Math.min(...higherAnswerGroups.map((group) => group.stufe))
+      : null;
+
+  const todoGroups = groupsWithRecommendations.filter(
+    (group) => group.stufe === nextTargetLevel
+  );
+
+  const establishedHigherGroups = selectionsWithQuestion
     .filter((item) => item.stufe > currentCategoryLevel)
     .map(({ selection, question, selectedAnswer, stufe }) => {
       const selectedRecommendations = dedupeRecommendations(
@@ -629,6 +579,7 @@ function getRecommendationSectionsForRow({
           selectedAnswer?.antwort || selection?.antwortText || "Antwort",
         stufe,
         recommendations: selectedRecommendations,
+        detailLabel: "Ausgewählte Antwort:",
       };
     })
     .filter(Boolean);
@@ -636,7 +587,8 @@ function getRecommendationSectionsForRow({
   return {
     todoGroups,
     establishedHigherGroups,
-    nextTargetLevel: currentCategoryLevel >= 0 ? currentCategoryLevel : null,
+    nextTargetLevel,
+    hasHigherOptions: higherAnswerGroups.length > 0,
   };
 }
 

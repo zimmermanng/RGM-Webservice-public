@@ -1,53 +1,28 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const NAV_ITEMS = {
-  default: [
-    { label: "Startseite", to: "/start" },
-    { label: "Downloads", to: "/download" },
-    { label: "Upload", to: "/upload" },
-    { label: "Dimensionen", to: "/dimensions" },
-  ],
-  LMZ: [
-    { label: "Startseite", to: "/" },
-    { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
-    { label: "Fragebogen", to: "/dimensions" },
-  ],
-};
+const NAV_ITEMS = [
+  { label: "Startseite", to: "/start" },
+  { label: "Downloads", to: "/download" },
+  { label: "Upload", to: "/upload" },
+  { label: "Dimensionen", to: "/dimensions" },
+];
 
-const LOGO_BY_COMPANY = {
-  LMZ: "/LMZ-Logo.jpg",
-  Shuffle: "/shuffle-logo.svg",
-  default: "/LMZ-Logo.jpg",
-};
+const LOGO_SRC = "/shuffle-logo.svg";
 
-function HeaderDesktop({ activeCompany, onLogout, team }) {
+function HeaderDesktop({ onLogout, team }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-
-  const navItems = useMemo(() => {
-    return NAV_ITEMS[activeCompany] || NAV_ITEMS.default;
-  }, [activeCompany]);
-
-  const logoSrc = LOGO_BY_COMPANY[activeCompany] || LOGO_BY_COMPANY.default;
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
   const isActive = (path) => {
-    if (path === "/") {
-      return location.pathname === "/";
-    }
-
     if (path === "/dimensions") {
       return (
         location.pathname === "/dimensions" ||
         location.pathname.startsWith("/questionnaire")
       );
-    }
-
-    if (path === "/dimensions/bearbeiten") {
-      return location.pathname.startsWith("/dimensions/bearbeiten");
     }
 
     return location.pathname === path || location.pathname.startsWith(`${path}/`);
@@ -60,21 +35,19 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     }
   };
 
-  const homeTarget = activeCompany === "LMZ" ? "/" : "/start";
-
   return (
     <header className="Header">
       <div className="header-inner">
         <div className="logo">
-          <Link className="logotext" to={homeTarget} onClick={closeMenu}>
-            <img src={logoSrc} alt={`${activeCompany || "LMZ"} Logo`} />
+          <Link className="logotext" to="/start" onClick={closeMenu}>
+            <img src={LOGO_SRC} alt="Shuffle Logo" />
             <span>RGM-Prüfwerkzeug</span>
           </Link>
         </div>
 
         <nav className="nav-desktop" aria-label="Hauptnavigation">
           <ul>
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
@@ -90,14 +63,6 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
         <div className="header-actions">
           {team && <span className="team-indicator">{team}</span>}
-
-          <button
-            type="button"
-            className="logout-button"
-            onClick={handleLogoutClick}
-          >
-            Logout
-          </button>
 
           <button
             className="HamburgerMenu"
@@ -119,7 +84,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           aria-label="Mobile Hauptnavigation"
         >
           <ul>
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
@@ -131,19 +96,23 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
               </li>
             ))}
 
-            <li className="mobile-team-row">
-              {team && <span className="team-indicator">{team}</span>}
-            </li>
+            {team && (
+              <li className="mobile-team-row">
+                <span className="team-indicator">{team}</span>
+              </li>
+            )}
 
-            <li>
-              <button
-                type="button"
-                className="logout-button logout-button--mobile"
-                onClick={handleLogoutClick}
-              >
-                Logout
-              </button>
-            </li>
+            {onLogout && (
+              <li>
+                <button
+                  type="button"
+                  className="logout-button logout-button--mobile"
+                  onClick={handleLogoutClick}
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       )}

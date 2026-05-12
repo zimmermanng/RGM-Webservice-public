@@ -1,17 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = ({ activeCompany, onLoginSuccess }) => {
+const LoginPage = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const logoPath = useMemo(() => {
-    return activeCompany === "LMZ" ? "/lmz-logo.jpg" : "/shuffle-logo.svg";
-  }, [activeCompany]);
-
-  const companyLabel = activeCompany === "LMZ" ? "LMZ" : "Shuffle";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,11 +47,7 @@ const LoginPage = ({ activeCompany, onLoginSuccess }) => {
   return (
     <div className="access-page">
       <div className="access-card">
-        <img
-          src={logoPath}
-          alt={`${companyLabel} Logo`}
-          className="access-logo"
-        />
+        <img src="/shuffle-logo.svg" alt="Shuffle Logo" className="access-logo" />
 
         <h1 className="access-title">Willkommen</h1>
         <p className="access-subtitle">
