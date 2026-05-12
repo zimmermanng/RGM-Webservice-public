@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
 import struktur from "../components/data/struktur.json";
+import { API_BASE } from "../config.ts";
 
-const API_BASE = "/api";
 
 const RawResults = () => {
   const [surveyResults, setSurveyResults] = useState(null);

@@ -28,11 +28,11 @@ import DimensionsEditPage from "./pages/DimensionsEditPage";
 import LoginPage from "./pages/LoginPage";
 import TeamSelectionPage from "./pages/TeamSelectionPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { API_BASE } from "./config.ts";
 
 import { applyTheme } from "./theme";
 import "./App.css";
 
-const API_BASE = "/api";
 const CLIENT_WARNING_FALLBACK_MS = 1000 * 60 * 5;
 const CLIENT_TIMEOUT_FALLBACK_MS = 1000 * 60 * 60;
 const KEEPALIVE_DEBOUNCE_MS = 1000 * 60;
