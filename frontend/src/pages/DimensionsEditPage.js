@@ -13,7 +13,11 @@ const DimensionsEditPage = () => {
   const [currentAnswers, setCurrentAnswers] = useState({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const toastTimeoutRef = useRef(null);
+
   const liveRegionRef = useRef(null);
+
   const [confirmDialog, setConfirmDialog] = useState({
     open: false,
     card: null,
@@ -120,12 +124,21 @@ const DimensionsEditPage = () => {
     setDraggedCard({ card, fromList });
     e.dataTransfer.effectAllowed = "move";
   };
+
   const handleDrop = (e, targetList) => {
     e.preventDefault();
     if (!draggedCard) return;
 
     moveCard(draggedCard.card, draggedCard.fromList, targetList);
     setDraggedCard(null);
+  };
+
+  // Tastatur-Handler für barrierefreies Verschieben
+  const handleKeyDown = (e, card, fromList, targetList) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault(); // Verhindert das Scrollen der Seite bei der Leertaste
+      moveCard(card, fromList, targetList);
+    }
   };
 
   const moveCard = (card, fromList, toList) => {
@@ -144,7 +157,7 @@ const DimensionsEditPage = () => {
     } else {
       setNotToEdit((prev) => prev.filter((c) => c.id !== card.id));
       setToEdit((prev) => [...prev, card]);
-      announce(`"${card.name}" verschoben in Zu bearbeiten`);
+      announce(`Paket "${card.name}" wurde nach "Ausgewählt" verschoben.`);
     }
   };
 
@@ -158,12 +171,14 @@ const DimensionsEditPage = () => {
       return next;
     });
 
-    announce(`"${card.name}" verschoben in Nicht zu bearbeiten`);
+    announce(`Paket "${card.name}" wurde nach "Nicht ausgewählt" verschoben.`);
   };
 
   const handleConfirm = () => {
     performMove(confirmDialog.card);
     setConfirmDialog({ open: false, card: null });
+    // Nach Bestätigung den Fokus idealerweise auf etwas Sinnvolles setzen
+    document.getElementById("editGrid-notToEdit")?.focus();
   };
 
   const handleCancel = () => {
@@ -177,6 +192,16 @@ const DimensionsEditPage = () => {
         liveRegionRef.current.textContent = message;
       }, 50);
     }
+
+    setToastMessage(message);
+
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMessage("");
+    }, 3000);
   };
 
   const handleSave = async () => {
@@ -242,7 +267,7 @@ const DimensionsEditPage = () => {
 
   if (loading) {
     return (
-      <div className="mainContainer">
+      <div className="mainContainer" aria-busy="true" aria-live="polite">
         <p>Lade Konfiguration...</p>
       </div>
     );
@@ -252,22 +277,48 @@ const DimensionsEditPage = () => {
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
 
+      {/* Unsichtbare Live-Region für Screenreader */}
       <div
         ref={liveRegionRef}
         aria-live="polite"
-        style={{ position: "absolute", left: "-9999px" }}
+        aria-atomic="true"
+        className="sr-only" // Empfohlen: CSS-Klasse für Visually Hidden anstelle von Inline-Styles
+        style={{
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          padding: 0,
+          margin: "-1px",
+          overflow: "hidden",
+          clip: "rect(0, 0, 0, 0)",
+          border: 0,
+        }}
       />
 
       <div className="editModeWrapper">
+        {/* --- ZONE: AUSGEWÄHLT --- */}
         <div
           className="dropZone"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => handleDrop(e, "toEdit")}
+          aria-labelledby="heading-toEdit"
         >
-          <h4 title="Alle Pakete, die zu Ihrer Abteilung passen">Ausgewählt</h4>
-          <div className="editGrid">
+          <h4
+            id="heading-toEdit"
+            title="Alle Pakete, die zu Ihrer Abteilung passen"
+          >
+            Ausgewählt
+          </h4>
+
+          <div
+            className="editGrid"
+            role="list"
+            id="editGrid-toEdit"
+            tabIndex={-1}
+            aria-label="Liste der ausgewählten Pakete"
+          >
             {toEdit.length === 0 ? (
-              <div className="emptyState">
+              <div className="emptyState" role="listitem">
                 Bis jetzt wurden noch keine Pakete ausgewählt
               </div>
             ) : (
@@ -276,8 +327,16 @@ const DimensionsEditPage = () => {
                 return (
                   <div
                     key={dimension.id}
+                    role="listitem"
                     draggable
+                    tabIndex={0} // Macht das Element per Tab fokussierbar
+                    aria-roledescription="Verschiebbares Element"
+                    aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Nicht ausgewählt' zu verschieben.`}
                     onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, dimension, "toEdit", "notToEdit")
+                    }
+                    style={{ cursor: "grab" }}
                   >
                     <Card_dimensions
                       title={dimension.name}
@@ -295,21 +354,40 @@ const DimensionsEditPage = () => {
           </div>
         </div>
 
+        {/* --- ZONE: NICHT AUSGEWÄHLT --- */}
         <div
           className="dropZone"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => handleDrop(e, "notToEdit")}
+          aria-labelledby="heading-notToEdit"
         >
-          <h4 title="Alle Pakete, die nicht zu Ihrer Abteilung passen">
+          <h4
+            id="heading-notToEdit"
+            title="Alle Pakete, die nicht zu Ihrer Abteilung passen"
+          >
             Nicht ausgewählt
           </h4>
 
-          <div className="editGrid">
+          <div
+            className="editGrid"
+            role="list"
+            id="editGrid-notToEdit"
+            tabIndex={-1}
+            aria-label="Liste der nicht ausgewählten Pakete"
+          >
             {notToEdit.map((dimension) => (
               <div
                 key={dimension.id}
+                role="listitem"
                 draggable
+                tabIndex={0} // Fokussierbar machen
+                aria-roledescription="Verschiebbares Element"
+                aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Ausgewählt' zu verschieben.`}
                 onDragStart={(e) => handleDragStart(e, dimension, "notToEdit")}
+                onKeyDown={(e) =>
+                  handleKeyDown(e, dimension, "notToEdit", "toEdit")
+                }
+                style={{ cursor: "grab" }}
               >
                 <Card_dimensions
                   title={dimension.name}
@@ -330,6 +408,7 @@ const DimensionsEditPage = () => {
           className="finishEditButton"
           onClick={handleSave}
           disabled={saving}
+          aria-busy={saving}
         >
           {saving ? "Speichern..." : "Fertig"}
         </button>
@@ -339,21 +418,34 @@ const DimensionsEditPage = () => {
         </Link>
       </div>
 
+      {/* --- CONFIRM DIALOG --- */}
       {confirmDialog.open && (
-        <div className="modalOverlay">
+        <div
+          className="modalOverlay"
+          role="dialog"
+          aria-labelledby="modal-title"
+          aria-modal="true"
+        >
           <div className="modal">
-            <p>
-              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird bei
+            <p id="modal-title">
+              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird beim
               Verschieben dieses Pakets zurückgesetzt.
             </p>
 
             <div className="modalButtons">
-              <button onClick={handleCancel}>Abbrechen</button>
+              <button onClick={handleCancel} autoFocus>
+                Abbrechen
+              </button>
               <button onClick={handleConfirm} className="danger">
                 Trotzdem verschieben
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {toastMessage && (
+        <div className="toast" aria-hidden="true">
+          {toastMessage}
         </div>
       )}
     </div>
