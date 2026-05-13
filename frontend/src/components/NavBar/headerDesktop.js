@@ -13,6 +13,10 @@ const NAV_ITEMS = {
     { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
     { label: "Fragebogen", to: "/dimensions" },
   ],
+  ADMIN: [
+    { label: "Struktur", to: "/"},
+    { label: "Evaluationsrunden", to: "/placeholder"}
+  ]
 };
 
 const LOGO_BY_COMPANY = {
@@ -27,7 +31,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   const hamburgerButtonRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
 
+  console.log(team)
+
   const navItems = useMemo(() => {
+    if (team === "Administration") return NAV_ITEMS.ADMIN
     return NAV_ITEMS[activeCompany] || NAV_ITEMS.default;
   }, [activeCompany]);
 
