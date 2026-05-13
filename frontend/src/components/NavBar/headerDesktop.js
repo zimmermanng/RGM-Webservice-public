@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { API_BASE } from "../../config.ts";
 
 const NAV_ITEMS = {
   default: [
@@ -26,6 +27,8 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   const location = useLocation();
   const hamburgerButtonRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
+  const [relevantTeams, setRelevantTeams] = useState([]);
+  const [loadingRelevantTeams, setLoadingRelevantTeams] = useState(true);
 
   const navItems = useMemo(() => {
     return NAV_ITEMS[activeCompany] || NAV_ITEMS.default;
@@ -99,12 +102,43 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/auth/teams`, {
+          credentials: "include",
+        });
+        const data = await res.json();
+        if (Array.isArray(data.teams)) {
+          data.teams[0].children.forEach(element => {
+            if (element.children.length !== 0 && element.children.map(({ name }) => name.includes(team)).includes(true)) {
+              setRelevantTeams(element)
+              return
+            } else if (element.name.includes(team)) {
+              setRelevantTeams(element)
+              return
+            }
+          })
+        } else setRelevantTeams([])
+      } catch (err) {
+        console.error("Fehler beim Laden der Teamstruktur:", err);
+      } finally {
+        setLoadingRelevantTeams(false);
+      }
+    }
+    fetchTeams()
+  }, [team]);
+
   const handleLogoutClick = async () => {
     closeMenu(false);
     if (onLogout) {
       await onLogout();
     }
   };
+
+  const changeTeam = async (event) => {
+    console.log("Change Team to", event.target.value)
+  }
 
   const homeTarget = activeCompany === "LMZ" ? "/" : "/start";
 
@@ -145,13 +179,21 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
         <div className="header-actions">
           {team && (
-            <p
+            <select
+              id="team-select"
               className="team-indicator desktop-team-indicator"
               aria-label={`Aktuelle Organisationseinheit: ${team}`}
+              value={`${team}`}
+              onChange={changeTeam}
             >
-              <span className="team-indicator-label">Organisationseinheit:</span>
-              <span className="team-indicator-value">{team}</span>
-            </p>
+              {loadingRelevantTeams ? (
+                <option></option>
+              ) : (
+                relevantTeams.children && relevantTeams.children.length > 0 ? relevantTeams.children.map(relevantTeam => (
+                  <option key={relevantTeam.name} value={relevantTeam.name} className="team-indicator-value">{relevantTeams.name} | {relevantTeam.name}</option>
+                )) : <option key={relevantTeams.name} value={relevantTeams.name}>{relevantTeams.name}</option>
+              )}
+            </select>
           )}
 
           <button
