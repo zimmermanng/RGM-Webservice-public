@@ -5,7 +5,7 @@ const NAV_ITEMS = [
   { label: "Startseite", to: "/start" },
   { label: "Downloads", to: "/download" },
   { label: "Upload", to: "/upload" },
-  { label: "Dimensionen", to: "/dimensions" },
+  { label: "Fragebogen", to: "/dimensions" },
 ];
 
 const LOGO_SRC = "/shuffle-logo.svg";

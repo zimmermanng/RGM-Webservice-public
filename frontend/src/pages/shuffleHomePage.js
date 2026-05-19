@@ -13,12 +13,11 @@ function HomePage() {
           />
 
           <h1 id="home-title" className="homeTitle">
-            Shuffle RGM-Prüfwerkzeug
+            SHUFFLE-RGM-Prüfwerkzeug
           </h1>
 
           <p className="homeLead">
-            Prüfwerkzeug zur Selbstbewertung des Refegrads Ihrer Hochschule. Über den folgenden Button erreichen Sie direkt einen Fragebogen, welcher der Selbstbewertung dienen kann. Alternativ können Sie über die Downloads eine Bewertungsmatrix laden.
-          </p>
+            Dieses Prüfwerkzeug dient der Selbstbewertung des Reifegrads der digitalen Barrierefreiheit an Ihrer Hochschule. Über den folgenden Button erreichen Sie den Fragebogen, den Sie direkt online ausfüllen können. Alternativ steht Ihnen eine Bewertungsmatrix zum Download zur Verfügung, mit der die Selbstbewertung offline durchgeführt werden kann.</p>
 
           <div className="homeHeroActions">
             <Link to="/dimensions" className="homeButton">
@@ -33,18 +32,22 @@ function HomePage() {
           <article className="homeIntroCard">
             <h2 id="welcome-title">Willkommen!</h2>
             <p>
-              In SHUFFLE werden Maßnahmen auf technischer, struktureller und didaktischer Ebene zur Verbesserung von digitaler Barrierefreiheit an Hochschulen entwickelt, erprobt und dauerhaft als Open-Source-Lösungen bereitgestellt. Damit setzt SHUFFLE an den Forderungen des Hochschulrahmengesetzes an, eine chancengerechte digitale Teilhabe für alle Studierenden zu gewährleisten.
-              <br />
-              Wir beziehen Lehrende und Studierende in die Entwicklungen ein. Ebenso arbeiten wir nach dem Universal Design for Learning (UDL) Ansatz, um allen Studierenden zugängliche Lernmaterialien und -umgebungen zu bieten.
-              <br />
-              Dieses Werkzeug unterstützt Hochschulen dabei,
-              ihren Reifegrad systematisch zu erfassen
-              und sich gezielt weiterzuentwickeln.
+              Das SHUFFLE-Reifegradmodell ist ein Unterstützungstool
+              zur Verbesserung der digitalen Barrierefreiheit an Hochschulen.
+              Es hilft Verantwortlichen, relevante Daten strukturiert zu erheben
+              und zu bündeln.
               <br />
               Durch die Beantwortung der Fragen in den
-              unterschiedlichen Dimensionen entsteht ein
-              individuelles Profil, das als Grundlage für
+              unterschiedlichen Dimensionen
+              ("Beratung und Support", "Lehren und Lernen", "Strategie" und "Struktur")
+              entsteht ein individuelles Profil, das als Grundlage für
               strategische Entwicklungsprozesse dient.
+              <br />
+              Mithilfe des fünfstufigen Modells können sich Hochschulen
+              einen Überblick über den Stand ihrer digitalen Barrierefreiheit verschaffen.
+              Das Reifegradmodell unterstützt dann bei dessen systematischen Ausbau,
+              indem es Optimierungspotentiale aufzeigt und
+              konkrete Handlungsempfehlungen dafür gibt.
             </p>
           </article>
 

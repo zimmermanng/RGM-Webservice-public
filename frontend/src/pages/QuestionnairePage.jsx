@@ -288,7 +288,7 @@ export default function QuestionnairePage() {
 
         <div className="submit-buttons">
           <button type="button" className="submit-button" onClick={handleSubmit} disabled={!allAnswered}>
-            Auswerten & anzeigen
+            Auswertung
           </button>
         </div>
       </section>

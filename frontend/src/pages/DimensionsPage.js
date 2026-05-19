@@ -23,10 +23,10 @@ const DimensionsPage = () => {
   return (
     <div className="mainContainer dimensionsPage" aria-labelledby="dimensions-title">
       <div className="dimensionsIntro">
-        <h1 id="dimensions-title">Übersicht</h1>
+        <h1 id="dimensions-title">Fragebogen</h1>
         <p id="dimensions-description">
-          Hier finden Sie ihre zuvor gewählten Pakete Ihres persönlichen
-          Reifegradmodells.
+          Hier können Sie die Selbstbewertung bequem online vornehmen.<br />
+          Beantworten Sie die Fragen jeweils durch Auswahl der passenden Antwortoption.
         </p>
       </div>
 

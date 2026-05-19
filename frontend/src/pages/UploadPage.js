@@ -61,8 +61,9 @@ const UploadPage = ({ onUpload }) => {
     <main className="uploadPage mainContainer outline" id="top">
       <header className="uploadHeader">
         <h1>Upload</h1>
-        <h2>Selbstauswertung und Visualisierung des RGM</h2>
-        <p id="upload-instructions">Bitte laden Sie eine Datei hoch und bestätigen Sie die Auswahl.</p>
+        <p id="upload-instructions">
+          Hier können Sie sich die Auswertung der Selbstbewertung, die Sie offline ausgefüllt haben, anzeigen lassen. <br />
+          Laden Sie dafür die ausgefüllte Datei hoch und bestätigen Sie die Auswahl.</p>
       </header>
 
       <section className="upload-box" aria-labelledby="upload-box-title" aria-describedby="upload-instructions">

@@ -37,9 +37,7 @@ const Card_dimensions = ({
 
         <div className="background_declaration">
           <p>
-            Dieses Päckchen wird importiert, wenn in dem Referat
-            Ergebnisprodukte jeglicher Art (Software, Materialien, Content,...)
-            entstehen, die barrierefrei sein sollen.
+            In dieser Dimension beantworten Sie Fragen zu den Handlungsfeldern „Beschwerdemanagement“, „Webauftritt“, „Infrastruktur“, „Beschaffung“, „Finanzielle Ressourcen“ und „Personelle Ressourcen“.
           </p>
         </div>
 
