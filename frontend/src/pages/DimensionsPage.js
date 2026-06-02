@@ -1,6 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import data from "../components/data/struktur.json";
+import fragen from "../components/data/fragen.json";
+import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
+import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
+
+const API_BASE = "http://localhost:3011";
+const ANSWERS_STORAGE_KEY = "answers";
+const RESULTS_STORAGE_KEY = "shuffleResults";
 
 const readJsonFromStorage = (key, fallback) => {
   try {
@@ -12,13 +20,76 @@ const readJsonFromStorage = (key, fallback) => {
   }
 };
 
+const writeJsonToStorage = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.warn(`Konnte ${key} nicht in localStorage speichern:`, error);
+  }
+};
+
+const flattenSelections = (allAnswersByDimension) =>
+  Object.values(allAnswersByDimension || {})
+    .flatMap((dimensionAnswers) => Object.values(dimensionAnswers || {}))
+    .filter(Boolean);
+
+const buildAggregatedResults = (allAnswersByDimension) => {
+  const mergedRows = new Map();
+
+  Object.entries(allAnswersByDimension || {}).forEach(([dimensionId, answersForDimension]) => {
+    if (!answersForDimension || Object.keys(answersForDimension).length === 0) {
+      return;
+    }
+
+    const rows = answersToResultsWithRecommendations({
+      selectedAnswers: answersForDimension,
+      struktur: data,
+      fragen,
+      handlEmpf,
+      dimensionId,
+    });
+
+    (Array.isArray(rows) ? rows : []).forEach((row, index) => {
+      const key =
+        row?.id || `${row?.group || "group"}__${row?.category || "category"}__${index}`;
+      mergedRows.set(key, row);
+    });
+  });
+
+  return Array.from(mergedRows.values());
+};
+
 const DimensionsPage = () => {
+  const navigate = useNavigate();
   const activeIds = readJsonFromStorage("activeDimensions", null);
-  const storedAnswers = readJsonFromStorage("answers", {});
+  const storedAnswers = readJsonFromStorage(ANSWERS_STORAGE_KEY, {});
 
   const dimensionen = Array.isArray(activeIds)
     ? data.dimensionen.filter((d) => activeIds.includes(d.id))
     : data.dimensionen;
+
+  const handleShowResults = async () => {
+    const payload = {
+      timestamp: new Date().toISOString(),
+      results: buildAggregatedResults(storedAnswers),
+      selections: flattenSelections(storedAnswers),
+      comments: [],
+    };
+
+    writeJsonToStorage(RESULTS_STORAGE_KEY, payload);
+
+    try {
+      await fetch(`${API_BASE}/session/results`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      console.warn("Backend-Ergebnisse konnten nicht gespeichert werden:", error);
+    }
+
+    navigate("/rawresults");
+  };
 
   return (
     <div className="mainContainer dimensionsPage" aria-labelledby="dimensions-title">
@@ -57,6 +128,12 @@ const DimensionsPage = () => {
             </div>
           );
         })}
+      </div>
+
+      <div className="dimensionsActions">
+        <button type="button" className="homeButton dimensionsResultsButton" onClick={handleShowResults}>
+          Auswertung
+        </button>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 import NavBar from "./components/NavBar/navBar";
 import Footer from "./components/Footer/footer";
 
+import ScrollToTop from "./components/ScrollToTop";
 import UploadPage from "./pages/UploadPage";
 import ResultPage from "./pages/ResultPage";
 import Download from "./pages/DownloadPage";
@@ -29,6 +30,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <NavBar />
 
       <main>

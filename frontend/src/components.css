@@ -539,6 +539,7 @@
 .upload-box {
   width: min(100%, 28rem);
   padding: var(--space-6);
+  margin-top: var(--space-6);
   text-align: center;
   border-style: dashed;
   border-width: 2px;

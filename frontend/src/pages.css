@@ -1246,3 +1246,132 @@ footer.siteFooter a:focus-visible {
 .questionnaire-page .question-box {
   padding-bottom: clamp(2rem, 4vw, 2.75rem);
 }
+
+/* --- Non-invasive heading consistency layer ---
+   Based on the homepage hero heading scale. This targets only existing page
+   header/title areas so card internals and result content stay stable. */
+.homeTitle,
+.dimensionsIntro h1,
+.downloadHeader h1,
+.uploadHeader h1,
+.questionnaire-header h1,
+.resultsHeader h1,
+.results-hero h1,
+.access-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(2rem, 3vw, 3.1rem);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.downloadHeader,
+.uploadHeader,
+.dimensionsIntro,
+.questionnaire-header,
+.resultsHeader,
+.results-hero {
+  text-align: center;
+}
+
+.homeLead,
+.downloadHeader h2,
+.uploadHeader p,
+.dimensionsIntro p,
+.questionnaire-header h2,
+.questionnaire-header p,
+.resultsHeader p,
+.results-hero p,
+.access-subtitle {
+  max-width: 48rem;
+  margin: var(--space-3) auto 0;
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  line-height: 1.65;
+}
+
+.downloadHeader h2,
+.questionnaire-header h2 {
+  color: var(--color-text-muted);
+  font-weight: 650;
+}
+
+.homeIntroCard h2,
+.infoCard h3,
+.downloadNotes h3,
+#ext h2,
+.resultsDetails > h2,
+.tab-content > h3 {
+  color: var(--color-text);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.homeIntroCard h2,
+.downloadNotes h3,
+#ext h2,
+.resultsDetails > h2 {
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.infoCard h3,
+.tab-content > h3 {
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+}
+
+.downloadNotes h4,
+.category-box h4,
+.recommendation-section-title,
+.question-reference-title,
+.dimensionCardContent h2 {
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+
+@media (max-width: 640px) {
+  .homeTitle,
+  .dimensionsIntro h1,
+  .downloadHeader h1,
+  .uploadHeader h1,
+  .questionnaire-header h1,
+  .resultsHeader h1,
+  .results-hero h1,
+  .access-title {
+    font-size: clamp(1.85rem, 8vw, 2.35rem);
+  }
+}
+
+/* --- Page background and header alignment corrections ---
+   Keeps the existing heading system, but aligns Download/Upload/Fragebogen top spacing. */
+.downloadPage,
+.uploadPage,
+.dimensionsPage {
+  background:
+    radial-gradient(circle at top right, var(--brand-accent-soft), transparent 28%),
+    linear-gradient(180deg, var(--brand-bg) 0%, var(--color-surface-subtle) 100%);
+}
+
+/* Download had top spacing on both the page (#top) and the header. Reset the page and let the header control spacing. */
+.downloadPage#top {
+  padding-top: 0;
+}
+
+.downloadHeader,
+.uploadPage,
+.dimensionsPage {
+  padding-top: calc(var(--header-height) + var(--space-8));
+}
+
+.uploadHeader {
+  width: min(var(--content-narrow), calc(100% - (var(--page-gutter) * 2)));
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .downloadHeader,
+  .uploadPage,
+  .dimensionsPage {
+    padding-top: calc(var(--header-height) + var(--space-6));
+  }
+}
