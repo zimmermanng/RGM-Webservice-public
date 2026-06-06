@@ -394,7 +394,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
             </button>
           </div>
 
-          { 
+          {teamView &&
             <nav className="nav-desktop-secondary" aria-label="Admin Navigation">
               <ul>
                 <li key="/dimensions/bearbeiten">
