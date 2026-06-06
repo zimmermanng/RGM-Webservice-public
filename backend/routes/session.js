@@ -83,6 +83,9 @@ async function requireActiveTeamLock(req, res, next) {
 }
 
 router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => {
+  const viewTeam = await retrieveTeamView(req.session.teamId)
+  const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
+  const teamName = viewTeam && req.session.teamId === 57 ? viewTeam.name : req.session.team
   try {
     const submittedAt = req.body.timestamp
       ? new Date(req.body.timestamp)
@@ -90,20 +93,20 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
 
     const snapshotType =
       req.body.snapshotType === "dimension_complete" ||
-      req.body.snapshotType === "team_complete"
+        req.body.snapshotType === "team_complete"
         ? req.body.snapshotType
         : null;
 
     const payloadWithMeta = {
       ...req.body,
-      team: req.session.team,
-      teamId: req.session.teamId,
+      team: teamName,
+      teamId: teamId,
       savedAt: new Date().toISOString(),
     };
 
     await prisma.surveyRun.updateMany({
       where: {
-        teamId: req.session.teamId,
+        teamId: teamId,
         isLatest: true,
       },
       data: {
@@ -113,7 +116,7 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
 
     const createdRun = await prisma.surveyRun.create({
       data: {
-        teamId: req.session.teamId,
+        teamId: teamId,
         submittedAt,
         dimensionId: req.body.dimensionId || null,
         handlungsfeldId: req.body.handlungsfeldId || null,
@@ -125,7 +128,7 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
     if (snapshotType) {
       await prisma.surveySnapshot.create({
         data: {
-          teamId: req.session.teamId,
+          teamId: teamId,
           snapshotType,
           dimensionId: req.body.dimensionId || null,
           handlungsfeldId: req.body.handlungsfeldId || null,
@@ -137,13 +140,13 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
 
     await prisma.teamCurrentState.upsert({
       where: {
-        teamId: req.session.teamId,
+        teamId: teamId,
       },
       update: {
         latestSurveyRunId: createdRun.id,
       },
       create: {
-        teamId: req.session.teamId,
+        teamId: teamId,
         latestSurveyRunId: createdRun.id,
         currentAnswers: null,
       },
@@ -151,7 +154,7 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
 
     return res.json({
       ok: true,
-      team: req.session.team,
+      team: teamId,
       surveyRunId: createdRun.id,
       snapshotStored: !!snapshotType,
       snapshotType,
@@ -166,10 +169,13 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
 });
 
 router.get("/results", requireAuth, async (req, res) => {
+  const viewTeam = await retrieveTeamView(req.session.teamId)
+  const teamId = viewTeam ? viewTeam.id : req.session.teamId
+  const teamName = viewTeam ? viewTeam.name : req.session.team
   try {
     const latestRun = await prisma.surveyRun.findFirst({
       where: {
-        teamId: req.session.teamId,
+        teamId: teamId,
         isLatest: true,
       },
       orderBy: {
@@ -178,8 +184,8 @@ router.get("/results", requireAuth, async (req, res) => {
     });
 
     return res.json({
-      sessionId: req.session.id,
-      team: req.session.team,
+      sessionId: teamId,
+      team: teamName,
       results: latestRun ? [latestRun.payload] : [],
     });
   } catch (error) {
@@ -192,14 +198,17 @@ router.get("/results", requireAuth, async (req, res) => {
 });
 
 router.get("/settings", requireAuth, async (req, res) => {
+  const viewTeam = await retrieveTeamView(req.session.teamId)
+  const teamId = viewTeam ? viewTeam.id : req.session.teamId
+  const teamName = viewTeam ? viewTeam.name : req.session.team
   try {
     const settings = await prisma.teamSettings.findUnique({
-      where: { teamId: req.session.teamId },
+      where: { teamId: teamId },
     });
 
     return res.json({
       ok: true,
-      team: req.session.team,
+      team: teamName,
       activeDimensions: Array.isArray(settings?.activeDimensions)
         ? settings.activeDimensions
         : [],
@@ -214,23 +223,26 @@ router.get("/settings", requireAuth, async (req, res) => {
 });
 
 router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) => {
+  const viewTeam = await retrieveTeamView(req.session.teamId)
+  const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
+  const teamName = viewTeam && req.session.teamId === 57 ? viewTeam.name : req.session.team
   try {
     const activeDimensions = Array.isArray(req.body.activeDimensions)
       ? req.body.activeDimensions
       : [];
 
     const savedSettings = await prisma.teamSettings.upsert({
-      where: { teamId: req.session.teamId },
+      where: { teamId: teamId },
       update: { activeDimensions },
       create: {
-        teamId: req.session.teamId,
+        teamId: teamId,
         activeDimensions,
       },
     });
 
     return res.json({
       ok: true,
-      team: req.session.team,
+      team: teamName,
       activeDimensions: savedSettings.activeDimensions,
     });
   } catch (error) {
@@ -243,17 +255,19 @@ router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) =>
 });
 
 router.get("/current-state", requireAuth, async (req, res) => {
+  let viewTeam = await retrieveTeamView(req.session.teamId)
+  const teamId = viewTeam ? viewTeam.id : req.session.teamId
+  const teamName = viewTeam ? viewTeam.name : req.session.team
   try {
     const currentState = await prisma.teamCurrentState.findUnique({
-      where: { teamId: req.session.teamId },
+      where: { teamId: teamId },
     });
-
     return res.json({
       ok: true,
-      team: req.session.team,
+      team: teamName,
       currentAnswers:
         currentState?.currentAnswers &&
-        typeof currentState.currentAnswers === "object"
+          typeof currentState.currentAnswers === "object"
           ? currentState.currentAnswers
           : {},
     });
@@ -271,6 +285,9 @@ router.post(
   requireAuth,
   requireActiveTeamLock,
   async (req, res) => {
+    const viewTeam = await retrieveTeamView(req.session.teamId)
+    const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
+    const teamName = viewTeam && req.session.teamId === 57 ? viewTeam.name : req.session.team
     try {
       const currentAnswers =
         req.body.currentAnswers && typeof req.body.currentAnswers === "object"
@@ -278,10 +295,10 @@ router.post(
           : {};
 
       const savedState = await prisma.teamCurrentState.upsert({
-        where: { teamId: req.session.teamId },
+        where: { teamId: teamId },
         update: { currentAnswers },
         create: {
-          teamId: req.session.teamId,
+          teamId: teamId,
           currentAnswers,
           latestSurveyRunId: null,
         },
@@ -289,7 +306,7 @@ router.post(
 
       return res.json({
         ok: true,
-        team: req.session.team,
+        team: teamName,
         currentAnswers: savedState.currentAnswers || {},
       });
     } catch (error) {
@@ -337,5 +354,108 @@ router.get("/research-summary", requireAuth, async (req, res) => {
     });
   }
 });
+
+router.get("/selected-user", requireAuth, async (req, res) => {
+  const teamId = req.session.teamId
+  try {
+    const teamRecord = await prisma.team.findUnique({
+      where: { id: teamId }
+    });
+
+    if (!teamRecord) return res.status(404).json({ message: "Team nicht gefunden" });
+
+    const tempView = await prisma.teamView.findUnique({
+      where: { sessionTeamId: req.session.teamId },
+      include: {
+        viewTeam: true,
+      },
+    })
+    const teamName = tempView ? tempView.viewTeam.name : teamRecord.name 
+    res.status(200).json({ message: "Nutzer wurde geladen.", teamName: teamName })
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
+});
+
+router.post("/temporary-view", requireAuth, async (req, res) => {
+  const viewTeamId = Number(req.body.viewTeamId)
+  try {
+    const teamRecord = await prisma.team.findUnique({
+      where: { id: req.session.teamId }
+    });
+    const viewTeamRecord = await prisma.team.findUnique({
+      where: { id: viewTeamId }
+    });
+
+    if (!teamRecord || !viewTeamRecord) return res.status(404).json({ message: "Team nicht gefunden" });
+
+    if (req.session.teamId === 57 || teamRecord.parentId === viewTeamRecord.parentId) {
+      const tempView = await prisma.teamView.upsert({
+        where: { sessionTeamId: req.session.teamId },
+        update: { viewingTeamId: viewTeamId },
+        create: {
+          sessionTeamId: req.session.teamId,
+          viewingTeamId: viewTeamId,
+        }
+      })
+      res.status(200).json({ message: "Temporäre Einsicht wurde erstellt." })
+    } else {
+      res.status(401).json({ message: "Zugriff auf das Team ist nicht erlaubt." })
+    }
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
+});
+
+router.delete("/temporary-view", requireAuth, async (req, res) => {
+  try {
+    const existingTeamView = await prisma.teamView.findUnique({
+      where: { sessionTeamId: req.session.teamId }
+    })
+
+    if (!existingTeamView) return res.status(200).json({ message: "Es wurde kein Eintrag gefunden" })
+
+    const teamRecord = await prisma.team.findUnique({
+      where: { id: req.session.teamId }
+    });
+    const viewTeamRecord = await prisma.team.findUnique({
+      where: { id: existingTeamView.viewingTeamId }
+    });
+
+    if (!teamRecord || !viewTeamRecord) return res.status(404).json({ message: "Team wurde nicht gefunden." });
+
+    if (req.session.teamId === 57 || teamRecord.parentId === viewTeamRecord.parentId) {
+      const deleteTeamView = await prisma.teamView.delete({
+        where: {
+          sessionTeamId: req.session.teamId,
+        }
+      })
+      res.status(200).json({ message: "Team wurde erfolgreich gelöscht." })
+    } else {
+      res.status(401).json({ message: "Zugriff auf das Team ist nicht erlaubt." })
+    }
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
+});
+
+async function retrieveTeamView(teamId) {
+  try {
+    const teamViewRecord = await prisma.teamView.findUnique({
+      where: { sessionTeamId: teamId }
+    });
+    if (!teamViewRecord) return null
+    const teamRecord = await prisma.team.findUnique({
+      where: { id: teamId }
+    });
+    const viewTeamRecord = await prisma.team.findUnique({
+      where: { id: teamViewRecord.viewingTeamId }
+    });
+    if (teamId === 57 || teamRecord.parentId === viewTeamRecord.parentId) return viewTeamRecord;
+    else throw new Error("Unbefugter Zugriff auf das Team!");
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
+}
 
 module.exports = router;

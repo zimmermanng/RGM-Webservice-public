@@ -166,6 +166,25 @@ async function refreshLock(teamId, sessionId) {
   });
 }
 
+async function deleteTeamView(teamId) {
+  try {
+    if (!teamId) return
+    const existingTeamView = await prisma.teamView.findUnique({
+      where: { sessionTeamId: teamId }
+    })
+
+    if (existingTeamView) {
+      const deleteTempView = await prisma.teamView.delete({
+        where: {
+          sessionTeamId: teamId,
+        }
+      })
+    }
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
+}
+
 // Login
 router.post("/login", async (req, res) => {
   const { password } = req.body;
@@ -384,7 +403,7 @@ router.post("/team", async (req, res) => {
       });
     }
 
-    await releaseSessionLocks(req.session.id, dbTeam.id);
+    if (req.session.teamId !== 57 || team === "Administration") await releaseSessionLocks(req.session.id, dbTeam.id);
 
     let lock;
 
@@ -394,8 +413,10 @@ router.post("/team", async (req, res) => {
       lock = await acquireTeamLock(dbTeam.id, req.session.id);
     }
 
-    req.session.team = dbTeam.name;
-    req.session.teamId = dbTeam.id;
+    if (req.session.teamId !== 57 || team === "Administration") {
+      req.session.team = dbTeam.name;
+      req.session.teamId = dbTeam.id;
+    }
 
     await prisma.teamLoginEvent.create({
       data: {
@@ -505,6 +526,7 @@ router.post("/keepalive", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     await releaseSessionLocks(req.session.id);
+    await deleteTeamView(req.session.teamId);
   } catch (error) {
     console.error("Fehler beim Freigeben der Team-Sperre beim Logout:", error);
   }
@@ -523,6 +545,25 @@ router.post("/logout", async (req, res) => {
       ok: true,
     });
   });
+});
+
+router.delete("/logout-team-view", async (req, res) => {
+  try {
+    const teamViewRecord = await prisma.teamView.findUnique({
+      where: { sessionTeamId: req.session.teamId }
+    });
+    if (!teamViewRecord) return res.json({ ok: true })
+    
+    const deleteSessionLock = await prisma.teamSessionLock.delete({
+      where: {
+        teamId: teamViewRecord.viewingTeamId,
+      }
+    })
+
+    return res.json({ ok: true })
+  } catch (error) {
+    console.error("Fehler beim Freigeben der Team-Sperre beim Logout:", error);
+  }
 });
 
 module.exports = router;

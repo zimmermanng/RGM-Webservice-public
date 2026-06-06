@@ -26,7 +26,8 @@ model Team {
   loginEvents     TeamLoginEvent[]
   snapshots       SurveySnapshot[]
   sessionLock     TeamSessionLock?
-
+  teamView        TeamView[]
+  
   @@index([parentId])
   @@index([isSelectable])
   @@index([isActive])
@@ -110,4 +111,14 @@ model TeamSessionLock {
 
   @@index([sessionId])
   @@index([expiresAt])
+}
+
+model TeamView {
+  id                    Int      @id @default(autoincrement())
+  sessionTeamId         Int      @unique
+  viewingTeamId         Int      @unique
+
+  viewTeam Team @relation(fields: [viewingTeamId], references: [id], onDelete: Cascade)
+
+  @@index([sessionTeamId])
 }
