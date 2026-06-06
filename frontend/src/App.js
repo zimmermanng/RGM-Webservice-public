@@ -24,6 +24,7 @@ import HomePage from "./pages/HomePage";
 import ShuffleHomePage from "./pages/shuffleHomePage";
 import RawResults from "./pages/RawResults";
 import DimensionsEditPage from "./pages/DimensionsEditPage";
+import ResultPageReadOnly from "./pages/ResultPageReadOnly.js";
 
 import LoginPage from "./pages/LoginPage";
 import TeamSelectionPage from "./pages/TeamSelectionPage";
@@ -699,6 +700,19 @@ const App = () => {
                   team={team}
                 >
                   <DimensionsPage activeCompany={activeCompany} />
+                </ProtectedRoute>
+              }
+            />
+
+                        <Route
+              path="/resultReadOnly"
+              element={
+                <ProtectedRoute
+                  authChecked={authChecked}
+                  isAuthenticated={isAuthenticated}
+                  team={team}
+                >
+                  <ResultPageReadOnly activeCompany={activeCompany} />
                 </ProtectedRoute>
               }
             />
