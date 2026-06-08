@@ -126,7 +126,7 @@ const DimensionsPage = ({ activeCompany }) => {
     <div className="mainContainer">
       <h2>Übersicht</h2>
       <p>
-        Hier finden Sie ihre zuvor gewählten Pakete Ihres persönlichen
+        Hier finden Sie die zuvor gewählten Pakete Ihres persönlichen
         Reifegradmodells.
       </p>
 

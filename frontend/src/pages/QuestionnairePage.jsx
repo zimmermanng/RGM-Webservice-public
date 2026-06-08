@@ -185,7 +185,7 @@ export default function QuestionnairePage({ activeCompany }) {
 
         const loadedAnswers =
           stateData.currentAnswers &&
-          typeof stateData.currentAnswers === "object"
+            typeof stateData.currentAnswers === "object"
             ? stateData.currentAnswers
             : {};
 
@@ -384,9 +384,10 @@ export default function QuestionnairePage({ activeCompany }) {
         <h1>{currentDimension?.name}</h1>
         <h2>{currentHandlungsfeld?.name}</h2>
         <p>
-          Nehmen Sie eine realistische Selbsteinschätzung vor. <br /> Beziehen Sie die
-          Fragen ausschließlich auf Ihre Organisationseinheit. <br />Falls eine Frage
-          für Sie nicht zutrifft, wählen Sie „Keine Angabe“.
+          Nehmen Sie eine realistische Selbsteinschätzung vor. <br />
+          Beziehen Sie die Fragen ausschließlich auf Ihre Organisationseinheit. <br />
+          Falls mehrere Antworten für Sie zutreffen, wählen Sie die unterste zutreffende Antwort. <br />
+          Falls eine Frage für Sie nicht zutrifft, wählen Sie „Keine Angabe“.
         </p>
 
         {pageMessage.text && (

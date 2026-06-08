@@ -8,7 +8,7 @@ function HomePage() {
           <span className="homeEyebrow">LMZ</span>
           <h1 className="homeTitle">Reifegradmodell digitale Barrierefreiheit</h1>
           <p className="homeLead">
-            Der Webservice unterstützt Organisationseinheiten des LMZ dabei,
+            Der Webservice unterstützt die Organisationseinheiten des LMZ dabei,
             den Stand der Umsetzung digitaler Barrierefreiheit strukturiert zu
             reflektieren, einzuordnen und gezielt weiterzuentwickeln.
           </p>
@@ -25,31 +25,33 @@ function HomePage() {
         <section className="homeIntroCard">
           <h2>Worum geht es?</h2>
           <p>
-            Ein Reifegradmodell ist ein strukturiertes Instrument, mit dem
+            Ein Reifegradmodell (RGM) ist ein strukturiertes Instrument, mit dem
             Organisationen ihren aktuellen Entwicklungsstand in einem bestimmten
-            Themenfeld erfassen und reflektieren können. Es hilft dabei,
+            Themenfeld erfassen und gemeinsam im Dialog reflektieren können. Es hilft dabei,
             systematisch einzuordnen, wo eine Organisation aktuell steht,
-            welche Bereiche bereits gut entwickelt sind und wo noch
-            Weiterentwicklungsbedarf besteht.
+            welche Bereiche bereits „gut entwickelt“ sind und wo noch
+            „Weiterentwicklungsbedarf“ besteht.
           </p>
           <p>
             Die Grundlage dafür sind mehrere aufeinander aufbauende
             Reifegradstufen, die einen typischen oder angestrebten
-            Entwicklungspfad abbilden. Durch eine wiederholte Anwendung wird es
-            möglich, Entwicklungen über einen längeren Zeitraum hinweg
-            nachzuvollziehen.
+            Entwicklungspfad abbilden. Jede Reifegradstufe beschreibt
+            einen Entwicklungsstand mit charakteristischen Merkmalen,
+            anhand derer die Einordnung erfolgt. Die höchste Reifegradstufe
+            stellt eine Exzellenzstufe dar.
           </p>
           <p>
             Das vorliegende Reifegradmodell dient dazu, den Stand der Umsetzung
             digitaler Barrierefreiheit innerhalb des LMZ ganzheitlich zu
-            betrachten. Im Fokus stehen dabei nicht nur technische Maßnahmen,
-            sondern auch organisationelle Strukturen, Prozesse und
-            Zuständigkeiten.
+            betrachten. Dabei geht es nicht nur um einzelne technische Maßnahmen,
+            sondern auch um organisatorische Strukturen, Prozesse und Zuständigkeiten.
+            Durch eine wiederholte Anwendung des Reifegradmodells wird es möglich,
+            die Entwicklung der Organisation über einen längeren Zeitraum hinweg nachzuvollziehen.
           </p>
         </section>
 
         <section className="homeGrid">
-{/*           <article className="infoCard infoCardAccent">
+          {/*           <article className="infoCard infoCardAccent">
             <h3>Lesemodus</h3>
             <p>
               Der Lesemodus bieten Ihnen die Möglichkeit die Bearbeitungsstände anderer Organisationseinheiten einzusehen. Dabei haben Sie Einsicht auf die bereits beantworteten Fragen und auch auf ggf. vorhandene Ergebnisse
@@ -58,11 +60,13 @@ function HomePage() {
 
           <article className="infoCard">
             <h3>So ist der Webservice aufgebaut</h3>
+            <p>Der Webservice zur Anwendung des Reifegradmodells besteht aus mehreren
+              aufeinander aufbauenden Schritten.
+            </p>
             <ul className="featureList">
-              <li>Päckchen auswählen und importieren</li>
-              <li>Fragen realistisch für die eigene Einheit beantworten</li>
-              <li>Ergebnisse grafisch auswerten</li>
-              <li>Konkrete Handlungsempfehlungen ableiten</li>
+              <li>Auswahl und Import der Fragenpäckchen</li>
+              <li>Beantwortung der Fragen für die eigene Organisationseinheit</li>
+              <li>Sichtung der Ergebnisse im Dialog in der Organisationseinheit</li>
             </ul>
           </article>
         </section>
@@ -89,9 +93,16 @@ function HomePage() {
               </p>
               <p>
                 Bitte importieren Sie alle Päckchen, die für Ihre
-                Organisationseinheit relevant sind. So bearbeiten Sie nur
-                Fragen, die Ihre Arbeitsrealität tatsächlich abbilden.
+                Organisationseinheit relevant sind, wenn der beschriebene Tätigkeitsbereich
+                bei Ihnen schwerpunktmäßig bearbeitet wird.
+                Einzelne Berührungspunkte mit einem Tätigkeitsbereich müssen in der Regel
+                nicht berücksichtigt werden.
+                So bearbeiten Sie nur Fragen, die Ihre Arbeitsrealität abbilden.
               </p>
+              <p>
+                Sollten Sie beim Beantworten der Fragen feststellen, dass das gewählte Päckchen doch nicht
+                Ihren Aufgabenbereichen entspricht, können Sie das Päckchen im Konfigurationsmodus
+                aus Ihrer Auswahlliste löschen. </p>
             </article>
 
             <article className="stepCard">
@@ -99,19 +110,30 @@ function HomePage() {
               <h3>Fragebogen bearbeiten</h3>
               <p>
                 Innerhalb eines Päckchens werden mehrere Fragen gestellt, die
-                sich auf etablierte Strukturen, Prozesse oder Maßnahmen in
+                sich auf bereits etablierte Strukturen, Prozesse oder Maßnahmen in
                 Ihrer Organisationseinheit beziehen.
               </p>
               <p>
-                Zu jeder Frage stehen fünf Antwortoptionen zur Verfügung. Im
-                Vordergrund steht eine möglichst realistische Selbsteinschätzung
-                des aktuellen Zustands.
+                Zu jeder Frage stehen fünf Antwortoptionen zur Verfügung.
+                Gehen Sie in Ihrer Organisationseinheit in den Dialog miteinander und
+                wählen Sie die Option, die den aktuellen Zustand in Ihrer Organisationseinheit
+                am besten beschreibt. Im Fokus steht dabei die realistische Beschreibung,
+                nicht die Bewertung dieses Zustands.
+              </p>
+              <p>
+                Die in den Antwortoptionen genannten Maßnahmen oder Tools dienen als Beispiele.
+                Prüfen Sie, ob diese oder vergleichbare Maßnahmen oder Tools in Ihrer Organisationseinheit
+                verwendet werden, um eine Antwortoption als zutreffend zu bewerten.
               </p>
               <p>
                 Passt eine Frage nicht zu Ihrer Arbeitsrealität, können Sie die
-                Option „keine Angabe“ wählen. Die Bearbeitung kann jederzeit
-                unterbrochen und später fortgesetzt werden; Zwischenspeicherungen
-                erfolgen automatisch. Erst nach Abschluss eines Päckchens werden
+                Option „Keine Angabe“ wählen. Diese ist eine vollwertige Antwortoption,
+                um irrelevante Fragen bei der Berechnung des Reifegrads nicht einzubeziehen.
+              </p>
+              <p>
+                Die Bearbeitung des Fragebogens kann jederzeit unterbrochen und zu einem
+                späteren Zeitpunkt fortgesetzt werden, eine Zwischenspeicherung der eingegebenen
+                Daten erfolgt automatisch. Erst nach Abschluss eines Päckchens werden
                 die Antworten in die Auswertung übernommen.
               </p>
             </article>
@@ -120,7 +142,7 @@ function HomePage() {
               <div className="stepNumber">3</div>
               <h3>Ergebnisse verstehen</h3>
               <p>
-                Die Ergebnisse werden grafisch als Balkendiagramm aufbereitet.
+                Die Ergebnisse des Reifegradmodells werden grafisch als Balkendiagramm aufbereitet.
                 Die importierten Päckchen sind farblich voneinander abgesetzt
                 und bilden die übergeordneten Dimensionen, anhand derer Ihre
                 Organisationseinheit bewertet wurde.
@@ -132,43 +154,16 @@ function HomePage() {
                 Reifegradstufe sich Ihre Organisationseinheit innerhalb eines
                 Handlungsfeldes aktuell befindet.
               </p>
-            </article>
-          </div>
-        </section>
-
-        <section className="sectionBlock">
-          <div className="sectionHeading">
-            <span className="sectionKicker">Ergebnisnutzung</span>
-            <h2>Was Sie aus den Ergebnissen mitnehmen können</h2>
-          </div>
-
-          <div className="insightGrid">
-            <article className="infoCard">
-              <h3>Schneller Überblick</h3>
               <p>
                 Die Visualisierung ermöglicht einen schnellen Überblick über
                 Stärken und Entwicklungsbedarfe in den jeweiligen
                 Handlungsfeldern.
               </p>
-            </article>
-
-            <article className="infoCard">
-              <h3>Konkrete Handlungsempfehlungen</h3>
               <p>
                 Ergänzend zu den Ergebnissen werden konkrete,
                 kontextbezogene Handlungsempfehlungen ausgegeben. Diese zeigen
                 auf, welche Maßnahmen geeignet sein können, um den nächsten
-                Reifegrad zu erreichen.
-              </p>
-            </article>
-
-            <article className="infoCard">
-              <h3>Aktueller Pilotumfang</h3>
-              <p>
-                In der aktuellen Pilotphase sind ausschließlich die Ergebnisse
-                Ihrer eigenen Organisationseinheit sichtbar. Diagramme anderer
-                Organisationseinheiten sowie eine organisationsübergreifende
-                Übersicht stehen derzeit noch nicht zur Verfügung.
+                Reifegrad zu erreichen und die digitale Barrierefreiheit innerhalb eines Handlungsfeldes zu verbessern.
               </p>
             </article>
           </div>

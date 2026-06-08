@@ -323,14 +323,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         <h2>Erläuterungen</h2>
         <div className="category-box">
           <p>
-            <strong>Hinweis:</strong> Je nach Fragenlogik, Antwortoptionen und
-            bereits erreichten Synergien kann es vorkommen, dass keine direkte
-            Zwischenstufe angezeigt wird. Das bedeutet nicht automatisch, dass
-            alle Maßnahmen dieser Stufe bereits vollständig umgesetzt sind. Es
-            bedeutet nur, dass in den aktuell beantworteten Fragen für diese
-            Zwischenstufe keine eigenen Handlungsempfehlungen hinterlegt sind
-            oder dass der nächste sinnvolle Entwicklungsschritt erst auf einer
-            höher erreichbaren Stufe sichtbar wird.
+            <strong>Legende:</strong> Die importierten Päckchen der Organisationseinheit sind im Ergebnisdiagramm farblich voneinander abgegrenzt dargestellt. Innerhalb jedes Päckchens werden thematische Handlungsfelder unterschieden, die den einzelnen Seiten des Fragebogens entsprechen. Der farbige Balkenausschlag zeigt den erreichten Reifegrad (0–4) pro Handlungsfeld an. Ein fehlender Ausschlag bedeutet, dass das entsprechende Handlungsfeld als nicht relevant bewertet wurde.
           </p>
         </div>
 
