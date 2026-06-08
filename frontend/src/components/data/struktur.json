@@ -2,6 +2,952 @@
   "dimensionen": [
     {
       "id": "D1",
+      "name": "Allgemein",
+      "handlungsfelder": [
+        {
+          "id": "H13",
+          "name": "Planung",
+          "fragen": [
+            {
+              "id": "F33",
+              "name": "Wird Barrierefreiheit in der Planung von Projekten, Produkten oder Aufgaben berücksichtigt?"
+            },
+            {
+              "id": "F34",
+              "name": "Gibt es ein einheitliches Vorgehen zur Berücksichtigung von Barrierefreiheit und wird dieses verbindlich angewendet?"
+            }
+          ]
+        },
+        {
+          "id": "H14",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F35",
+              "name": "Wird Barrierefreiheit in den verschiedenen Aufgaben- bzw. Arbeitsbereichen Ihres Teams berücksichtigt?"
+            },
+            {
+              "id": "F36",
+              "name": "Gibt es einheitliche Vorgehensweisen, um Barrierefreiheit in die Arbeitsabläufe Ihres Teams zu integrieren?"
+            },
+            {
+              "id": "F39",
+              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit in Ihrem Arbeitsbereich sichergestellt?"
+            }
+          ]
+        },
+        {
+          "id": "H15",
+          "name": "Feedback",
+          "fragen": [
+            {
+              "id": "F37",
+              "name": "Wie gehen Sie mit Hinweisen auf Barrieren um, die im Rahmen von internen Barrierefreiheitsprüfungen identifiziert werden?"
+            },
+            {
+              "id": "F38",
+              "name": "Gibt es ein einheitliches Vorgehen, um Hinweise auf Barrieren zu bearbeiten?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "Ergebnisprodukte",
+      "handlungsfelder": [
+        {
+          "id": "H16",
+          "name": "Planung",
+          "fragen": [
+            {
+              "id": "F40",
+              "name": "Werden zu Beginn der Umsetzung eines Ergebnisproduktes (d.h. ein Produkt oder Inhalt, der in Ihrer Arbeit entsteht und von anderen genutzt oder konsumiert wird) Anforderungen an dessen Barrierefreiheit erhoben?"
+            },
+            {
+              "id": "F41",
+              "name": "Wird die Realisierung von Barrierefreiheit in der Umsetzung eines Ergebnisproduktes zeitlich berücksichtigt?"
+            }
+          ]
+        },
+        {
+          "id": "H17",
+          "name": "Nutzerzentrierung",
+          "fragen": [
+            {
+              "id": "F42",
+              "name": "Werden in der Umsetzung eines Ergebnisproduktes nutzerzentrierte Methoden angewendet, die ihren Fokus auf Nutzende mit Beeinträchtigungen legen?"
+            },
+            {
+              "id": "F43",
+              "name": "Welche nutzerzentrierten Methoden werden angewendet?"
+            }
+          ]
+        },
+        {
+          "id": "H18",
+          "name": "Überprüfung",
+          "fragen": [
+            {
+              "id": "F44",
+              "name": "Werden in der Umsetzung eines Ergebnisproduktes manuelle Tests auf Barrierefreiheit (d.h. Tests durch Menschen, z.B. Ausprobieren der Tastaturbedienung, Qualitätskontrolle der Alternativtexte, o.ä.) durchgeführt?"
+            },
+            {
+              "id": "F45",
+              "name": "Sind diese Tests vereinheitlicht?"
+            },
+            {
+              "id": "F46",
+              "name": "Welche Tests werden durchgeführt?"
+            }
+          ]
+        },
+        {
+          "id": "H20",
+          "name": "Unterstützung",
+          "fragen": [
+            {
+              "id": "F49",
+              "name": "Wird qualifiziertes Personal mit Expertise in Barrierefreiheit bei der Umsetzung eines Ergebnisproduktes einbezogen?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "Medienprodukte",
+      "handlungsfelder": [
+        {
+          "id": "H21",
+          "name": "Medienproduktion (Vorproduktion)",
+          "fragen": [
+            {
+              "id": "F50",
+              "name": "Existiert ein Styleguide oder ein vergleichbares Dokument, in dem Aspekte der Barrierefreiheit (z. B. Kontraste, Schriftgrößen, etc.) für Medienprodukte festgelegt sind?"
+            },
+            {
+              "id": "F51",
+              "name": "Wird bei der Erstellung von Printprodukten eine digitale Alternative bereitgestellt?"
+            },
+            {
+              "id": "F55",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Digitalisierung und Konvertierung von Medien, d.h. bei der Umwandlung in ein anderes Dateiformat (z.B. Print zu Digital, PNG zu JPG, WAV zu MP3), beachtet?"
+            },
+            {
+              "id": "F56",
+              "name": "Welche Aspekte der Barrierefreiheit werden bei der Digitalisierung und Konvertierung beachtet?"
+            },
+            {
+              "id": "F57",
+              "name": "Sind die Aspekte der Barrierefreiheit bei der Digitalisierung und Konvertierung vereinheitlicht?"
+            }
+          ]
+        },
+        {
+          "id": "H22",
+          "name": "Medienproduktion (Live)",
+          "fragen": [
+            {
+              "id": "F52",
+              "name": "Werden Aspekte der Barrierefreiheit im medialen Live Betrieb - also bei einer Medienproduktion in Echtzeit, z.B. Livestreams - berücksichtigt und nicht erst nachträglich ergänzt?"
+            },
+            {
+              "id": "F53",
+              "name": "Welche Aspekte der Barrierefreiheit werden im medialen Live Betrieb beachtet?"
+            },
+            {
+              "id": "F54",
+              "name": "Sind die Aspekte der Barrierefreiheit im medialen Live Betrieb vereinheitlicht?"
+            }
+          ]
+        },
+        {
+          "id": "H23",
+          "name": "Überprüfung",
+          "fragen": [
+            {
+              "id": "F58",
+              "name": "Werden Medien vor ihrer Veröffentlichung auf Barrierefreiheit getestet?"
+            },
+            {
+              "id": "F59",
+              "name": "Ist diese Überprüfung vereinheitlicht?"
+            }
+          ]
+        },
+        {
+          "id": "H24",
+          "name": "Medienbereitstellung",
+          "fragen": [
+            {
+              "id": "F60",
+              "name": "Werden Medien, die in Datenbanken erfasst und bereitgestellt werden, als barrierefrei oder barrierebehaftet gekennzeichnet?"
+            },
+            {
+              "id": "F61",
+              "name": "Ist diese Kennzeichnung vereinheitlicht?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "name": "Projektmanagement",
+      "handlungsfelder": [
+        {
+          "id": "HX14",
+          "name": "Austausch",
+          "fragen": [
+            {
+              "id": "F134",
+              "name": "Wird der Austausch zwischen Mitarbeitenden zur praktischen Umsetzung von Barrierefreiheit von den Projektmanagern projekt- oder teamübergreifend ermöglicht und gefördert?"
+            },
+            {
+              "id": "F135",
+              "name": "Wie wird dieser Austausch ermöglicht oder gefördert?"
+            }
+          ]
+        },
+        {
+          "id": "HX15",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F130",
+              "name": "Werden Aspekte der Barrierefreiheit systematisch in bestehende Leitlinien, Prozesse oder Vorgaben der Teams integriert (z.B. Styleguides, Vorgehensmodelle wie SCRUM, etc.)?"
+            },
+            {
+              "id": "F131",
+              "name": "Stellen Projektmanager sicher, dass Barrierefreiheit ein Bestandteil von Ergebnisprodukten ist?"
+            },
+            {
+              "id": "F132",
+              "name": "Unter welchen Bedingungen bzgl. Barrierefreiheit wird ein Ergebnisprodukt durch Projektmanager freigegeben?"
+            },
+            {
+              "id": "F133",
+              "name": "Wie werden die Anforderungen an die Barrierefreiheit eines Ergebnisprodukts durch Projektmanager festgelegt?"
+            }
+          ]
+        },
+        {
+          "id": "HX12",
+          "name": "Dokumentation",
+          "fragen": [
+            {
+              "id": "F138",
+              "name": "Werden Erkenntnisse aus der Umsetzung von Barrierefreiheit im Projekt (z.B. Probleme, Entscheidungen, Erkenntnisse) so dokumentiert, dass sie für zukünftige Projekte nutzbar sind?"
+            },
+            {
+              "id": "F139",
+              "name": "Wie gestaltet sich diese Dokumentation?"
+            }
+          ]
+        },
+        {
+          "id": "HX13",
+          "name": "Evaluation",
+          "fragen": [
+            {
+              "id": "F136",
+              "name": "Wird durch die Projektmanager erfasst und reflektiert, wenn Maßnahmen zur Barrierefreiheit im Arbeitsalltag der Mitarbeitenden als schwer verständlich oder schwer umsetzbar wahrgenommen werden?"
+            },
+            {
+              "id": "F137",
+              "name": "Wie wird mit den Ergebnissen dieser Reflektion umgegangen?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "name": "Marketing",
+      "handlungsfelder": [
+        {
+          "id": "H25",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F62",
+              "name": "Werden Aspekte der Barrierefreiheit von veröffentlichtem Content, z.B. Social Media Posts, Blog Posts, Newsletter, ... beachtet?"
+            },
+            {
+              "id": "F63",
+              "name": "Sind die Aspekte der Barrierefreiheit von veröffentlichtem Content vereinheitlicht?"
+            },
+            {
+              "id": "F64",
+              "name": "Welche Aspekte der Barrierefreiheit von veröffentlichtem Content werden berücksichtigt?"
+            },
+            {
+              "id": "F65",
+              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit von Content sichergestellt?"
+            }
+          ]
+        },
+        {
+          "id": "H26",
+          "name": "Kommunikation",
+          "fragen": [
+            {
+              "id": "F66",
+              "name": "Wird die umgesetzte oder mangelnde Barrierefreiheit des Contents öffentlich hervorgehoben?"
+            },
+            {
+              "id": "F67",
+              "name": "Wird Barrierefreiheit bewusst als Alleinstellungsmerkmal des Unternehmens kommuniziert, also wird mit Barrierefreiheit geworben?"
+            },
+            {
+              "id": "F68",
+              "name": "Wird das Engagement des Unternehmens für Barrierefreiheit intern an Mitarbeitende kommuniziert?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D6",
+      "name": "Lehrmaterialien",
+      "handlungsfelder": [
+        {
+          "id": "H10",
+          "name": "Inhalt",
+          "fragen": [
+            {
+              "id": "F26",
+              "name": "Wird Barrierefreiheit - sofern sinnvoll - zu einem inhaltlichen Bestandteil von Lehrmaterialien (Lehrmedien, Selbstlernkurse, Schulungen, etc.) gemacht?"
+            },
+            {
+              "id": "F27",
+              "name": "Werden die Lehrmaterialien zur Barrierefreiheit regelmäßig auf die Aktualität der Inhalte überprüft?"
+            }
+          ]
+        },
+        {
+          "id": "H11",
+          "name": "Umsetzung (Vorproduktion)",
+          "fragen": [
+            {
+              "id": "F28",
+              "name": "Werden Aspekte der Barrierefreiheit beim Erstellen von Lehrmaterialien (Lehrmedien, Selbstlernkurse, Vortragsfolien, etc.) beachtet?"
+            },
+            {
+              "id": "F29",
+              "name": "Welche Aspekte der Barrierefreiheit von Lehrmaterialien werden berücksichtigt?"
+            }
+          ]
+        },
+        {
+          "id": "H12",
+          "name": "Umsetzung (Live)",
+          "fragen": [
+            {
+              "id": "F30",
+              "name": "Werden Aspekte der Barrierefreiheit beim Durchführen von Präsentationen (Vorträge, Schulungen, etc.), etc. beachtet?"
+            },
+            {
+              "id": "F31",
+              "name": "Welche Aspekte der Barrierefreiheit werden beim Durchführen von Präsentationen berücksichtigt?"
+            },
+            {
+              "id": "F32",
+              "name": "Sind die Aspekte der Barrierefreiheit beim Durchführen von Präsentationen vereinheitlicht?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D7",
+      "name": "Prüfen auf Barrierefreiheit",
+      "handlungsfelder": [
+        {
+          "id": "H7",
+          "name": "Automatisierte Tests",
+          "fragen": [
+            {
+              "id": "F17",
+              "name": "Werden Produkte und Systeme automatisiert  - d.h. objektiv durch Tools, z.B. Linter - auf ihre Barrierefreiheit getestet?"
+            },
+            {
+              "id": "F18",
+              "name": "Gibt es ein einheitliches Vorgehen zur Durchführung von automatisierten Tests?"
+            },
+            {
+              "id": "F19",
+              "name": "Wie häufig werden die automatisierten Tests durchgeführt?"
+            }
+          ]
+        },
+        {
+          "id": "H8",
+          "name": "Manuelle Tests",
+          "fragen": [
+            {
+              "id": "F20",
+              "name": "Werden Produkte und Systeme manuell - d.h. subjektiv durch Menschen, z.B. Tastaturbedienung - auf ihre Barrierefreiheit getestet?"
+            },
+            {
+              "id": "F21",
+              "name": "Gibt es ein einheitliches Vorgehen zur Durchführung von manuellen Tests?"
+            },
+            {
+              "id": "F22",
+              "name": "Wie häufig werden die manuellen Tests durchgeführt?"
+            }
+          ]
+        },
+        {
+          "id": "H9",
+          "name": "Nutzertests",
+          "fragen": [
+            {
+              "id": "F23",
+              "name": "Werden Produkte und Systeme in Nutzertests mit Menschen mit Beeinträchtigungen auf ihre Barrierefreiheit getestet?"
+            },
+            {
+              "id": "F24",
+              "name": "Gibt es ein methodisches Vorgehen zur Durchführung von Nutzertests?"
+            },
+            {
+              "id": "F25",
+              "name": "Wie häufig werden die Nutzertests durchgeführt?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D8",
+      "name": "Feedback zu Barrierefreiheit",
+      "handlungsfelder": [
+        {
+          "id": "H5",
+          "name": "Feedback",
+          "fragen": [
+            {
+              "id": "F11",
+              "name": "Können externe Beschwerden bzgl. der Barrierefreiheit eines Produktes im Team eigenständig bearbeitet werden?"
+            },
+            {
+              "id": "F12",
+              "name": "Wie werden externe Beschwerden bearbeitet?"
+            },
+            {
+              "id": "F13",
+              "name": "In welchen Fällen wird ein Produkt auf Basis einer externen Beschwerde bzgl. der Barrierefreiheit überarbeitet?"
+            }
+          ]
+        },
+        {
+          "id": "H6",
+          "name": "Support",
+          "fragen": [
+            {
+              "id": "F14",
+              "name": "Bekommen Kunden, die sich an die Supportmitarbeitenden eines Produktes wenden, auch Unterstützung bzgl. Barrierefreiheit?"
+            },
+            {
+              "id": "F15",
+              "name": "In welchem Umfang wird dieser Support angeboten?"
+            },
+            {
+              "id": "F16",
+              "name": "Gibt es eine dokumentierte Hilfestellungen für die Bearbeitung von Supportanfragen zur Barrierefreiheit?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D9",
+      "name": "Software",
+      "handlungsfelder": [
+        {
+          "id": "HF1",
+          "name": "Planung",
+          "fragen": [
+            {
+              "id": "F178",
+              "name": "Werden zu Beginn der Softwareentwicklung Anforderungen an deren Nutzbarkeit durch Menschen mit Beeinträchtigungen und mit assistiven Technologien erhoben?"
+            },
+            {
+              "id": "F179",
+              "name": "Ist das Vorgehen zur Anforderungsanalyse vereinheitlicht?"
+            },
+            {
+              "id": "F180",
+              "name": "Welche Aspekte der Barrierefreiheit werden bei der Anforderungsanalyse berücksichtigt?"
+            }
+          ]
+        },
+        {
+          "id": "HF2",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F181",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Softwareentwicklung bzw. im Code berücksichtigt?"
+            },
+            {
+              "id": "F182",
+              "name": "Sind die Aspekte der Barrierefreiheit für Code vereinheitlicht?"
+            },
+            {
+              "id": "F183",
+              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit von Softwareprodukten sichergestellt?"
+            }
+          ]
+        },
+        {
+          "id": "HF3",
+          "name": "Dokumentation",
+          "fragen": [
+            {
+              "id": "F47",
+              "name": "Werden umgesetzte Aspekte der Barrierefreiheit für spätere Nutzer des Softwareproduktes dokumentiert?"
+            },
+            {
+              "id": "F48",
+              "name": "Wie werden umgesetzte Aspekte der Barrierefreiheit für spätere Nutzer des Softwareproduktes dokumentiert?"
+            }
+          ]
+        },
+        {
+          "id": "HF31",
+          "name": "Feedback",
+          "fragen": [
+            {
+              "id": "F184",
+              "name": "Wird innerhalb des Softwareproduktes ein Feedbackmechanismus bzgl. Barrierefreiheit für Nutzende integriert?"
+            },
+            {
+              "id": "F185",
+              "name": "Wie wird ein solcher Feedbackmechanismus bzgl. Barrierefreiheit in Softwareprodukte integriert?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D10",
+      "name": "Webseiten",
+      "handlungsfelder": [
+        {
+          "id": "H27",
+          "name": "Erklärung zur Barrierefreiheit",
+          "fragen": [
+            {
+              "id": "F69",
+              "name": "Wird für die von Ihnen verantworteten Webseiten jeweils eine Erklärung zur Barrierefreiheit (EZB) bereitgestellt und aktuell gehalten?"
+            },
+            {
+              "id": "F70",
+              "name": "Wie wird die Erklärung zur Barrierefreiheit (EZB) bereitgestellt?"
+            }
+          ]
+        },
+        {
+          "id": "H28",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F71",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung und Aktualisierung von Webseiten berücksichtigt?"
+            },
+            {
+              "id": "F72",
+              "name": "Ist die barrierefreie Umsetzung von Webseiten vereinheitlicht?"
+            },
+            {
+              "id": "F73",
+              "name": "Welche Aspekte der Barrierefreiheit von Webseiten werden umgesetzt?"
+            },
+            {
+              "id": "F74",
+              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit von Webseiten sichergestellt?"
+            },
+            {
+              "id": "F75",
+              "name": "Werden zur Umsetzung von Barrierefreiheit auf Webseiten anerkannte Leitlinien (z.B. WCAG, EN 301549, o.ä.) herangezogen?"
+            },
+            {
+              "id": "F76",
+              "name": "In welchem Umfang werden diese Leitlinien erfüllt?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "name": "IT",
+      "handlungsfelder": [
+        {
+          "id": "H38",
+          "name": "Ausstattung für Umsetzende",
+          "fragen": [
+            {
+              "id": "F108",
+              "name": "Wird umsetzenden Mitarbeitenden geeignetes Tooling (Hardware und Software) zur Verfügung gestellt, um Barrierefreiheit in ihren jeweiligen Aufgaben realisieren und prüfen zu können?"
+            },
+            {
+              "id": "F109",
+              "name": "In welchem Umfang wird den Mitarbeitenden entspr. Tooling zur Verfügung gestellt?"
+            },
+            {
+              "id": "F110",
+              "name": "Wie können die Mitarbeitenden entspr. Tooling beantragen?"
+            }
+          ]
+        },
+        {
+          "id": "H39",
+          "name": "Ausstattung für Betroffene",
+          "fragen": [
+            {
+              "id": "F111",
+              "name": "Wird betroffenen Mitarbeitenden notwendige Ausstattung (Hardware und Software) zur Verfügung gestellt, um ihre jeweiligen Aufgaben barrierefrei erledigen zu können?"
+            },
+            {
+              "id": "F118",
+              "name": "Wie können Mitarbeitende ihre Probleme bzgl. digitaler Barrierefreiheit melden?"
+            },
+            {
+              "id": "F119",
+              "name": "Wie werden die Probleme der Mitarbeitenden bzgl. digitaler Barrierefreiheit gelöst?"
+            }
+          ]
+        },
+        {
+          "id": "H40",
+          "name": "Software",
+          "fragen": [
+            {
+              "id": "F112",
+              "name": "Wird Barrierefreiheit beim Ausrollen von neuer Software, die intern von Mitarbeitenden genutzt werden wird, beachtet?"
+            },
+            {
+              "id": "F113",
+              "name": "Welche Aspekte der Barrierefreiheit von neuer Software werden beachtet?"
+            },
+            {
+              "id": "F115",
+              "name": "Wird bei Software- und Systemupdates sichergestellt, dass bestehende Barrierefreiheitsanforderungen der Mitarbeitenden weiterhin erfüllt werden?"
+            },
+            {
+              "id": "F116",
+              "name": "Bei welchen Updates wird dies sichergestellt?"
+            },
+            {
+              "id": "F117",
+              "name": "Welche Maßnahmen werden vor dem Update getroffen?"
+            }
+          ]
+        },
+        {
+          "id": "H41",
+          "name": "Leihgeräte und Lernräume",
+          "fragen": [
+            {
+              "id": "F120",
+              "name": "Werden bei der Ausgabe von IT-Verleihgeräten Einstellungen der Barrierefreiheit für die leihende Person berücksichtigt und bei Bedarf vorgenommen?"
+            },
+            {
+              "id": "F121",
+              "name": "Werden in öffentlich zugänglichen Lernräumen, die Sie betreuen (z.B. Maker Space, Lernraum der Zukunft, …), barrierefreie Arbeitsplätze oder Hilfsmittel zur barrierefreien Nutzung der Arbeitsplätze bereitgestellt?"
+            },
+            {
+              "id": "F122",
+              "name": "Ist dieses Angebot bekannt?"
+            },
+            {
+              "id": "F123",
+              "name": "Welchen Umfang hat dieses Angebot?"
+            },
+            {
+              "id": "F124",
+              "name": "Sind die Mitarbeitenden im Umgang mit den bereitgestellten Mitteln geschult, um Nutzende beraten zu können?"
+            }
+          ]
+        },
+        {
+          "id": "H42",
+          "name": "Bedarfserhebung",
+          "fragen": [
+            {
+              "id": "F125",
+              "name": "Wie wird der Bedarf an Hard- und Software ermittelt, die Mitarbeitende für Barrierefreiheit benötigen?"
+            },
+            {
+              "id": "F126",
+              "name": "Wie wird die Erhebung durchgeführt?"
+            },
+            {
+              "id": "F127",
+              "name": "Welche Bedarfe deckt die Erhebung ab?"
+            },
+            {
+              "id": "F128",
+              "name": "Welche Nutzungskontexte deckt die Erhebung ab?"
+            },
+            {
+              "id": "F129",
+              "name": "Welche Auswirkungen hat die Erhebung?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D12",
+      "name": "Verwaltung",
+      "handlungsfelder": [
+        {
+          "id": "H35",
+          "name": "Organisation",
+          "fragen": [
+            {
+              "id": "F99",
+              "name": "Gibt es barrierefreie Kommunikationskanäle, unter denen Sie erreichbar sind?"
+            }
+          ]
+        },
+        {
+          "id": "H36",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F100",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten (z.B. Verträge, Rechnungen, etc.) berücksichtigt?"
+            },
+            {
+              "id": "F101",
+              "name": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?"
+            },
+            {
+              "id": "F102",
+              "name": "Sind die Aspekte der Barrierefreiheit von Dokumenten vereinheitlicht?"
+            },
+            {
+              "id": "F103",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Digitalisierung und Konvertierung von Dokumenten, d.h. bei der Umwandlung in ein anderes Dateiformat (z.B. Print zu Digital, DOC zu PDF), beachtet?"
+            },
+            {
+              "id": "F104",
+              "name": "Welche Aspekte der Barrierefreiheit werden bei der Digitalisierung und Konvertierung beachtet?"
+            },
+            {
+              "id": "F105",
+              "name": "Sind die Aspekte der Barrierefreiheit bei der Digitalisierung und Konvertierung vereinheitlicht?"
+            }
+          ]
+        },
+        {
+          "id": "H37",
+          "name": "Inhalt",
+          "fragen": [
+            {
+              "id": "F106",
+              "name": "Wird die inhaltliche Barrierefreiheit fachlicher Dokumente durch verständliche Sprache und den bewussten Umgang mit Fachjargon sichergestellt?"
+            },
+            {
+              "id": "F107",
+              "name": "In welchem Umfang wird die inhaltliche Barrierefreiheit sichergestellt?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D13",
+      "name": "Recruiting",
+      "handlungsfelder": [
+        {
+          "id": "HF4",
+          "name": "Bewerbungsprozess",
+          "fragen": [
+            {
+              "id": "F186",
+              "name": "Werden Aspekte der Barrierefreiheit im Bewerbungsverfahren berücksichtigt?"
+            },
+            {
+              "id": "F187",
+              "name": "Welche Aspekte der Barrierefreiheit werden in Bewerbungsverfahren berücksichtigt?"
+            },
+            {
+              "id": "F188",
+              "name": "Wird die Barrierefreiheit des Bewerbungsprozesses überprüft?"
+            }
+          ]
+        },
+        {
+          "id": "HF5",
+          "name": "Selbstverpflichtung",
+          "fragen": [
+            {
+              "id": "F189",
+              "name": "Gibt es eine öffentlich zugängliche Selbsterklärung des Unternehmens zur Barrierefreiheit?"
+            },
+            {
+              "id": "F190",
+              "name": "Wird eine Quote zur Einstellung von Menschen mit Beeinträchtigungen eingehalten?"
+            }
+          ]
+        },
+        {
+          "id": "HF6",
+          "name": "Kompetenzen",
+          "fragen": [
+            {
+              "id": "F191",
+              "name": "Werden Kompetenzen im Bereich Barrierefreiheit in Stellenausschreibungen als wünschenswert erwähnt?"
+            },
+            {
+              "id": "F192",
+              "name": "Werden Kompetenzen im Bereich Barrierefreiheit von Bewerbenden im Bewerbungsprozess positiv berücksichtigt?"
+            }
+          ]
+        },
+        {
+          "id": "HF7",
+          "name": "Onboarding",
+          "fragen": [
+            {
+              "id": "F193",
+              "name": "Erhalten neue Mitarbeitende eine Schulung zum Thema Barrierefreiheit?"
+            },
+            {
+              "id": "F194",
+              "name": "In welchem Umfang werden Schulungen zum Thema Barrierefreiheit für neue Mitarbeitende angeboten?"
+            },
+            {
+              "id": "F195",
+              "name": "Ist die Teilnahme an den Weiterbildungsmaßnahmen für neue Mitarbeitende verpflichtend?"
+            },
+            {
+              "id": "F196",
+              "name": "Welche weiteren Informationen zum Thema Barrierefreiheit im Unternehmen erhalten neue Mitabeitende?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D14",
+      "name": "Einkauf",
+      "handlungsfelder": [
+        {
+          "id": "H32",
+          "name": "Einkauf (Dienstleistung)",
+          "fragen": [
+            {
+              "id": "F88",
+              "name": "Wird Barrierefreiheit bei der Beauftragung und Zusammenarbeit mit externen Dienstleistern (z.B. Softwareentwickler) berücksichtigt, um die Entstehung von barrierefreien Produkten sicherzustellen?"
+            },
+            {
+              "id": "F89",
+              "name": "Wie wird Barrierefreiheit bei der Beauftragung von externen Dienstleistern eingefordert?"
+            },
+            {
+              "id": "F90",
+              "name": "Wie wird Barrierefreiheit bei der Beauftragung von externen Dienstleistern sichergestellt?"
+            }
+          ]
+        },
+        {
+          "id": "H33",
+          "name": "Einkauf (Produkt)",
+          "fragen": [
+            {
+              "id": "F91",
+              "name": "Wird Barrierefreiheit im Einkauf, also bei der Auswahl und Beschaffung neuer Hard- und Software, berücksichtigt?"
+            },
+            {
+              "id": "F92",
+              "name": "Wie wird die Barrierefreiheit eines Produktes im Einkauf berücksichtigt?"
+            },
+            {
+              "id": "F93",
+              "name": "Wie wird die Barrierefreiheit eines Produktes im Einkauf überprüft?"
+            },
+            {
+              "id": "F94",
+              "name": "Werden Anbieter von Produkten oder Medien, die vom Unternehmen weiterverbreitet oder bereitgestellt werden, auf festgestellte Mängel in der Barrierefreiheit hingewiesen?"
+            },
+            {
+              "id": "F95",
+              "name": "Wird beim Einkauf von Produkten oder Medien (z.B. Bildungsmedien), die vom Unternehmen weiterverbreitet oder bereitgestellt werden, deren inhaltliche Auseinandersetzung mit dem Thema Barrierefreiheit berücksichtigt?"
+            }
+          ]
+        },
+        {
+          "id": "H34",
+          "name": "Referenten",
+          "fragen": [
+            {
+              "id": "F96",
+              "name": "Wird externen Durchführenden (z.B. Tutoren), die im Auftrag des Unternehmens Schulungen oder Bildungsangebote umsetzen, Unterstützung zur barrierefreien Gestaltung ihrer Angebote bereitgestellt?"
+            },
+            {
+              "id": "F97",
+              "name": "In welchem Umfang wird externen Durchführenden diese Unterstützung zur barrierefreien Gestaltung ihrer Angebote bereitgestellt?"
+            },
+            {
+              "id": "F98",
+              "name": "Wird externen Durchführenden (z.B. Tutoren), die im Auftrag des Unternehmens Schulungen oder Bildungsangebote umsetzen, nahegelegt, Barrierefreiheit als Themenschwerpunkt in ihre Angebote aufzunehmen?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D15",
+      "name": "Externe Kontakte",
+      "handlungsfelder": [
+        {
+          "id": "H29",
+          "name": "Organisation",
+          "fragen": [
+            {
+              "id": "F77",
+              "name": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Kunden, Dienstleistern oder anderen externen Personen?"
+            },
+            {
+              "id": "F78",
+              "name": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Kunden, Dienstleistern oder anderen externen Personen (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?"
+            },
+            {
+              "id": "F79",
+              "name": "Welche Aspekte der Barrierefreiheit von organisatorischen Tools werden beachtet?"
+            }
+          ]
+        },
+        {
+          "id": "H30",
+          "name": "Umsetzung",
+          "fragen": [
+            {
+              "id": "F80",
+              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Kunden, Dienstleister oder andere externe Personen (z.B. Angebote, Rechnungen, Verträge, etc.) berücksichtigt?"
+            },
+            {
+              "id": "F81",
+              "name": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?"
+            },
+            {
+              "id": "F82",
+              "name": "Sind die Aspekte der Barrierefreiheit von Dokumenten vereinheitlicht?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D16",
       "name": "Barrierefreiheit (Verantwortung)",
       "handlungsfelder": [
         {
@@ -99,827 +1045,7 @@
       ]
     },
     {
-      "id": "D2",
-      "name": "Feedback zu Barrierefreiheit",
-      "handlungsfelder": [
-        {
-          "id": "H5",
-          "name": "Feedback",
-          "fragen": [
-            {
-              "id": "F11",
-              "name": "Können externe Beschwerden bzgl. der Barrierefreiheit eines Produktes im Team eigenständig bearbeitet werden?"
-            },
-            {
-              "id": "F12",
-              "name": "Wie werden externe Beschwerden bearbeitet?"
-            },
-            {
-              "id": "F13",
-              "name": "In welchen Fällen wird ein Produkt auf Basis einer externen Beschwerde bzgl. der Barrierefreiheit überarbeitet?"
-            }
-          ]
-        },
-        {
-          "id": "H6",
-          "name": "Support",
-          "fragen": [
-            {
-              "id": "F14",
-              "name": "Bekommen Kunden, die sich an die Supportmitarbeitenden eines Produktes wenden, auch Unterstützung bzgl. Barrierefreiheit?"
-            },
-            {
-              "id": "F15",
-              "name": "In welchem Umfang wird dieser Support angeboten?"
-            },
-            {
-              "id": "F16",
-              "name": "Gibt es eine dokumentierte Hilfestellungen für die Bearbeitung von Supportanfragen zur Barrierefreiheit?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D3",
-      "name": "Prüfen auf Barrierefreiheit",
-      "handlungsfelder": [
-        {
-          "id": "H7",
-          "name": "Automatisierte Tests",
-          "fragen": [
-            {
-              "id": "F17",
-              "name": "Werden Produkte und Systeme automatisiert  - also objektiv durch Tools - auf ihre Barrierefreiheit getestet?"
-            },
-            {
-              "id": "F18",
-              "name": "Gibt es ein einheitliches Vorgehen zur Durchführung von automatisierten Tests?"
-            },
-            {
-              "id": "F19",
-              "name": "Wie häufig werden die automatisierten Tests durchgeführt?"
-            }
-          ]
-        },
-        {
-          "id": "H8",
-          "name": "Manuelle Tests",
-          "fragen": [
-            {
-              "id": "F20",
-              "name": "Werden Produkte und Systeme manuell - also subjektiv durch Menschen - auf ihre Barrierefreiheit getestet?"
-            },
-            {
-              "id": "F21",
-              "name": "Gibt es ein einheitliches Vorgehen zur Durchführung von manuellen Tests?"
-            },
-            {
-              "id": "F22",
-              "name": "Wie häufig werden die manuellen Tests durchgeführt?"
-            }
-          ]
-        },
-        {
-          "id": "H9",
-          "name": "Nutzertests",
-          "fragen": [
-            {
-              "id": "F23",
-              "name": "Werden Produkte und Systeme in Nutzertests mit Menschen mit Beeinträchtigungen auf ihre Barrierefreiheit getestet?"
-            },
-            {
-              "id": "F24",
-              "name": "Gibt es ein methodisches Vorgehen zur Durchführung von Benutzertests?"
-            },
-            {
-              "id": "F25",
-              "name": "Wie häufig werden die Nutzertests durchgeführt?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D4",
-      "name": "Lehrmaterialien",
-      "handlungsfelder": [
-        {
-          "id": "H10",
-          "name": "Inhalt",
-          "fragen": [
-            {
-              "id": "F26",
-              "name": "Wird Barrierefreiheit - sofern sinnvoll - zu einem inhaltlichen Bestandteil von Lehrmaterialien (Lehrmedien, Selbstlernkurse, Schulungen, etc.) gemacht?"
-            },
-            {
-              "id": "F27",
-              "name": "Werden die Lehrmaterialien zur Barrierefreiheit regelmäßig auf die Aktualität der Inhalte überprüft?"
-            }
-          ]
-        },
-        {
-          "id": "H11",
-          "name": "Umsetzung (Preproduktion)",
-          "fragen": [
-            {
-              "id": "F28",
-              "name": "Werden Aspekte der Barrierefreiheit beim Erstellen von Lehrmaterialien (Lehrmedien, Selbstlernkurse, Vortragsfolien, etc.) beachtet?"
-            },
-            {
-              "id": "F29",
-              "name": "Welche Aspekte der Barrierefreiheit von Lehrmaterialien werden berücksichtigt?"
-            }
-          ]
-        },
-        {
-          "id": "H12",
-          "name": "Umsetzung (Live)",
-          "fragen": [
-            {
-              "id": "F30",
-              "name": "Werden Aspekte der Barrierefreiheit beim Durchführen von Präsentationen (Vorträge, Schulungen, etc.), etc. beachtet?"
-            },
-            {
-              "id": "F31",
-              "name": "Welche Aspekte der Barrierefreiheit werden beim Durchführen von Präsentationen berücksichtigt?"
-            },
-            {
-              "id": "F32",
-              "name": "Sind die Aspekte der Barrierefreiheit beim Durchführen von Präsentationen vereinheitlicht?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D5",
-      "name": "Allgemein",
-      "handlungsfelder": [
-        {
-          "id": "H13",
-          "name": "Planung",
-          "fragen": [
-            {
-              "id": "F33",
-              "name": "Wird Barrierefreiheit in der Planung von Projekten, Produkten oder Aufgaben berücksichtigt?"
-            },
-            {
-              "id": "F34",
-              "name": "Gibt es ein einheitliches Vorgehen zur Berücksichtigung von Barrierefreiheit und wird dieses verbindlich angewendet?"
-            }
-          ]
-        },
-        {
-          "id": "H14",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F35",
-              "name": "Wird Barrierefreiheit in den verschiedenen Aufgaben- bzw. Arbeitsbereichen Ihres Teams berücksichtigt?"
-            },
-            {
-              "id": "F36",
-              "name": "Gibt es einheitliche Vorgehensweisen, um Barrierefreiheit in die Arbeitsabläufe Ihres Teams zu integrieren?"
-            },
-            {
-              "id": "F39",
-              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit in Ihrem Arbeitsbereich sichergestellt?"
-            }
-          ]
-        },
-        {
-          "id": "H15",
-          "name": "Feedback",
-          "fragen": [
-            {
-              "id": "F37",
-              "name": "Wie gehen Sie mit Hinweisen auf Barrieren um, die im Rahmen von internen Barrierefreiheitsprüfungen identifiziert werden?"
-            },
-            {
-              "id": "F38",
-              "name": "Gibt es ein einheitliches Vorgehen, um Hinweise auf Barrieren zu bearbeiten?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D6",
-      "name": "Ergebnisprodukte",
-      "handlungsfelder": [
-        {
-          "id": "H16",
-          "name": "Planung",
-          "fragen": [
-            {
-              "id": "F40",
-              "name": "Werden zu Beginn einer Produktentwicklung Anforderungen an dessen Barrierefreiheit erhoben?"
-            },
-            {
-              "id": "F41",
-              "name": "Wird die Umsetzung von Barrierefreiheit in der Produktentwicklung zeitlich berücksichtigt?"
-            }
-          ]
-        },
-        {
-          "id": "H17",
-          "name": "Nutzerzentrierung",
-          "fragen": [
-            {
-              "id": "F42",
-              "name": "Werden in der Produktentwicklung nutzerzentrierte Methoden angewendet, die ihren Fokus auf Nutzende mit Beeinträchtigungen legen?"
-            },
-            {
-              "id": "F43",
-              "name": "Welche nutzerzentrierten Methoden werden angewendet?"
-            }
-          ]
-        },
-        {
-          "id": "H18",
-          "name": "Überprüfung",
-          "fragen": [
-            {
-              "id": "F44",
-              "name": "Werden in der Produktentwicklung manuelle Tests auf Barrierefreiheit durchgeführt?"
-            },
-            {
-              "id": "F45",
-              "name": "Sind diese Tests vereinheitlicht?"
-            },
-            {
-              "id": "F46",
-              "name": "Welche Tests werden durchgeführt?"
-            }
-          ]
-        },
-        {
-          "id": "H19",
-          "name": "Dokumentation",
-          "fragen": [
-            {
-              "id": "F47",
-              "name": "Werden umgesetzte Aspekte der Barrierefreiheit für spätere Nutzer dokumentiert?"
-            },
-            {
-              "id": "F48",
-              "name": "Wie werden umgesetzte Aspekte der Barrierefreiheit für spätere Nutzer dokumentiert?"
-            }
-          ]
-        },
-        {
-          "id": "H20",
-          "name": "Unterstützung",
-          "fragen": [
-            {
-              "id": "F49",
-              "name": "Wird qualifiziertes Personal mit Expertise in Barrierefreiheit bei der Produktentwicklung einbezogen?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D7",
-      "name": "Medienprodukte",
-      "handlungsfelder": [
-        {
-          "id": "H21",
-          "name": "Medienproduktion (Preproduktion)",
-          "fragen": [
-            {
-              "id": "F50",
-              "name": "Existiert ein Styleguide oder ein vergleichbares Dokument, in dem Aspekte der Barrierefreiheit (z. B. Kontraste, Schriftgrößen, etc.) für Medienprodukte festgelegt sind?"
-            },
-            {
-              "id": "F51",
-              "name": "Wird bei der Erstellung von Printprodukten eine digitale Alternative bereitgestellt?"
-            },
-            {
-              "id": "F55",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Konvertierung und Digitalisierung berücksichtigt?"
-            },
-            {
-              "id": "F56",
-              "name": "Welche Aspekte der Barrierefreiheit werden bei der Konvertierung und Digitalisierung beachtet?"
-            },
-            {
-              "id": "F57",
-              "name": "Sind die Aspekte der Barrierefreiheit bei der Konvertierung und Digitalisierung vereinheitlicht?"
-            }
-          ]
-        },
-        {
-          "id": "H22",
-          "name": "Medienproduktion (Live)",
-          "fragen": [
-            {
-              "id": "F52",
-              "name": "Werden Aspekte der Barrierefreiheit im medialen Live Betrieb - also bei einer Medienproduktion in Echtzeit, z.B. Livestreams - berücksichtigt und nicht erst nachträglich ergänzt?"
-            },
-            {
-              "id": "F53",
-              "name": "Welche Aspekte der Barrierefreiheit werden im medialen Live Betrieb beachtet?"
-            },
-            {
-              "id": "F54",
-              "name": "Sind die Aspekte der Barrierefreiheit im medialen Live Betrieb vereinheitlicht?"
-            }
-          ]
-        },
-        {
-          "id": "H23",
-          "name": "Überprüfung",
-          "fragen": [
-            {
-              "id": "F58",
-              "name": "Werden Medien vor ihrer Veröffentlichung auf Barrierefreiheit getestet?"
-            },
-            {
-              "id": "F59",
-              "name": "Ist diese Überprüfung vereinheitlicht?"
-            }
-          ]
-        },
-        {
-          "id": "H24",
-          "name": "Medienbereitstellung",
-          "fragen": [
-            {
-              "id": "F60",
-              "name": "Werden veröffentlichte Medien als barrierefrei oder barrierebehaftet gekennzeichnet?"
-            },
-            {
-              "id": "F61",
-              "name": "Ist diese Kennzeichnung vereinheitlicht?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D8",
-      "name": "Marketing",
-      "handlungsfelder": [
-        {
-          "id": "H25",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F62",
-              "name": "Werden Aspekte der Barrierefreiheit von veröffentlichtem Content, z.B. Social Media Posts, Blog Posts, Newsletter, ... beachtet?"
-            },
-            {
-              "id": "F63",
-              "name": "Sind die Aspekte der Barrierefreiheit von veröffentlichtem Content vereinheitlicht?"
-            },
-            {
-              "id": "F64",
-              "name": "Welche Aspekte der Barrierefreiheit von veröffentlichtem Content werden berücksichtigt?"
-            },
-            {
-              "id": "F65",
-              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit von Content sichergestellt?"
-            }
-          ]
-        },
-        {
-          "id": "H26",
-          "name": "Kommunikation",
-          "fragen": [
-            {
-              "id": "F66",
-              "name": "Wird die umgesetzte oder mangelnde Barrierefreiheit des Contents hervorgehoben?"
-            },
-            {
-              "id": "F67",
-              "name": "Wird Barrierefreiheit bewusst als Alleinstellungsmerkmal des Unternehmens kommuniziert, also wird mit Barrierefreiheit geworben?"
-            },
-            {
-              "id": "F68",
-              "name": "Wird das Engagement des Unternehmens für Barrierefreiheit intern an Mitarbeitende kommuniziert?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D9",
-      "name": "Webseiten",
-      "handlungsfelder": [
-        {
-          "id": "H27",
-          "name": "Erklärung zur Barrierefreiheit",
-          "fragen": [
-            {
-              "id": "F69",
-              "name": "Wird für die von Ihnen verantworteten Webseiten jeweils eine Erklärung zur Barrierefreiheit (EZB) bereitgestellt und aktuell gehalten?"
-            },
-            {
-              "id": "F70",
-              "name": "Wie wird die Erklärung zur Barrierefreiheit (EZB) bereitgestellt?"
-            }
-          ]
-        },
-        {
-          "id": "H28",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F71",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung und Aktualisierung von Webseiten berücksichtigt?"
-            },
-            {
-              "id": "F72",
-              "name": "Ist die barrierefreie Umsetzung von Webseiten vereinheitlicht?"
-            },
-            {
-              "id": "F73",
-              "name": "Welche Aspekte der Barrierefreiheit von Webseiten werden umgesetzt?"
-            },
-            {
-              "id": "F74",
-              "name": "Wird die Einhaltung von rechtlichen Vorgaben zur Barrierefreiheit von Webseiten sichergestellt?"
-            },
-            {
-              "id": "F75",
-              "name": "Werden zur Umsetzung von Barrierefreiheit auf Webseiten anerkannte Leitlinien (z.B. WCAG, EN 301549, o.ä.) herangezogen?"
-            },
-            {
-              "id": "F76",
-              "name": "In welchem Umfang werden diese Leitlinien erfüllt?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D10",
-      "name": "Externe Kontakte",
-      "handlungsfelder": [
-        {
-          "id": "H29",
-          "name": "Organisation",
-          "fragen": [
-            {
-              "id": "F77",
-              "name": "Gibt es barrierefreie Kommunikationskanäle für den Kontakt mit Kunden, Dienstleistern oder anderen externen Personen?"
-            },
-            {
-              "id": "F78",
-              "name": "Wird bei der Verwendung von organisatorischen Tools im Kontakt mit Kunden, Dienstleistern oder anderen externen Personen (z.B. Ticketsystem, Terminplaner,...) auf deren Barrierefreiheit geachtet?"
-            },
-            {
-              "id": "F79",
-              "name": "Welche Aspekte der Barrierefreiheit von organisatorischen Tools werden beachtet?"
-            }
-          ]
-        },
-        {
-          "id": "H30",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F80",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten für Kunden, Dienstleister oder andere externe Personen (z.B. Angebote, Rechnungen, Verträge, etc.) berücksichtigt?"
-            },
-            {
-              "id": "F81",
-              "name": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?"
-            },
-            {
-              "id": "F82",
-              "name": "Sind die Aspekte der Barrierefreiheit von Dokumenten vereinheitlicht?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D11",
-      "name": "Einkauf",
-      "handlungsfelder": [
-        {
-          "id": "H32",
-          "name": "Einkauf (Dienstleistung)",
-          "fragen": [
-            {
-              "id": "F88",
-              "name": "Wird Barrierefreiheit bei der Beauftragung und Zusammenarbeit mit externen Dienstleistern (z.B. Softwareentwickler) berücksichtigt, um die Entstehung von barrierefreien Produkten sicherzustellen?"
-            },
-            {
-              "id": "F89",
-              "name": "Wie wird Barrierefreiheit bei der Beauftragung von externen Dienstleistern eingefordert?"
-            },
-            {
-              "id": "F90",
-              "name": "Wie wird Barrierefreiheit bei der Beauftragung von externen Dienstleistern sichergestellt?"
-            }
-          ]
-        },
-        {
-          "id": "H33",
-          "name": "Einkauf (Produkt)",
-          "fragen": [
-            {
-              "id": "F91",
-              "name": "Wird Barrierefreiheit im Einkauf, also bei der Auswahl und Beschaffung neuer Hard- und Software, berücksichtigt?"
-            },
-            {
-              "id": "F92",
-              "name": "Wie wird die Barrierefreiheit eines Produktes im Einkauf berücksichtigt?"
-            },
-            {
-              "id": "F93",
-              "name": "Wie wird die Barrierefreiheit eines Produktes im Einkauf überprüft?"
-            },
-            {
-              "id": "F94",
-              "name": "Werden Anbieter von Produkten oder Medien, die vom Unternehmen weiterverbreitet oder bereitgestellt werden, auf festgestellte Mängel in der Barrierefreiheit hingewiesen?"
-            },
-            {
-              "id": "F95",
-              "name": "Wird beim Einkauf von Produkten oder Medien (z.B. Bildungsmedien), die vom Unternehmen weiterverbreitet oder bereitgestellt werden, deren inhaltliche Auseinandersetzung mit dem Thema Barrierefreiheit berücksichtigt?"
-            }
-          ]
-        },
-        {
-          "id": "H34",
-          "name": "Referenten",
-          "fragen": [
-            {
-              "id": "F96",
-              "name": "Wird externen Durchführenden (z.B. Tutor*innen), die im Auftrag des Unternehmens Schulungen oder Bildungsangebote umsetzen, Unterstützung zur barrierefreien Gestaltung ihrer Angebote bereitgestellt?"
-            },
-            {
-              "id": "F97",
-              "name": "In welchem Umfang wird externen Durchführenden diese Unterstützung zur barrierefreien Gestaltung ihrer Angebote bereitgestellt?"
-            },
-            {
-              "id": "F98",
-              "name": "Wird externen Durchführenden (z.B. Tutor*innen), die im Auftrag des Unternehmens Schulungen oder Bildungsangebote umsetzen, nahegelegt, Barrierefreiheit als Themenschwerpunkt in ihre Angebote aufzunehmen?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D12",
-      "name": "Verwaltung",
-      "handlungsfelder": [
-        {
-          "id": "H35",
-          "name": "Organisation",
-          "fragen": [
-            {
-              "id": "F99",
-              "name": "Gibt es barrierefreie Kommunikationskanäle, unter denen Sie erreichbar sind?"
-            }
-          ]
-        },
-        {
-          "id": "H36",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F100",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Erstellung von Dokumenten (z.B. Verträge, Rechnungen, etc.) berücksichtigt?"
-            },
-            {
-              "id": "F101",
-              "name": "Welche Aspekte der Barrierefreiheit von Dokumenten werden umgesetzt?"
-            },
-            {
-              "id": "F102",
-              "name": "Sind die Aspekte der Barrierefreiheit von Dokumenten vereinheitlicht?"
-            },
-            {
-              "id": "F103",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Konvertierung und Digitalisierung von Dokumenten beachtet?"
-            },
-            {
-              "id": "F104",
-              "name": "Welche Aspekte der Barrierefreiheit werden bei der Konvertierung und Digitalisierung beachtet?"
-            },
-            {
-              "id": "F105",
-              "name": "Sind die Aspekte der Barrierefreiheit bei der Konvertierung und Digitalisierung vereinheitlicht?"
-            }
-          ]
-        },
-        {
-          "id": "H37",
-          "name": "Inhalt",
-          "fragen": [
-            {
-              "id": "F106",
-              "name": "Wird die inhaltliche Barrierefreiheit fachlicher Dokumente durch verständliche Sprache und den bewussten Umgang mit Fachjargon sichergestellt?"
-            },
-            {
-              "id": "F107",
-              "name": "In welchem Umfang wird die inhaltliche Barrierefreiheit sichergestellt?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D13",
-      "name": "IT",
-      "handlungsfelder": [
-        {
-          "id": "H38",
-          "name": "Ausstattung für Umsetzende",
-          "fragen": [
-            {
-              "id": "F108",
-              "name": "Wird umsetzenden Mitarbeitenden geeignetes Tooling (Hardware und Software) zur Verfügung gestellt, um Barrierefreiheit in ihren jeweiligen Aufgaben realisieren und prüfen zu können?"
-            },
-            {
-              "id": "F109",
-              "name": "In welchem Umfang wird den Mitarbeitenden entspr. Tooling zur Verfügung gestellt?"
-            },
-            {
-              "id": "F110",
-              "name": "Wie können die Mitarbeitenden entspr. Tooling beantragen?"
-            }
-          ]
-        },
-        {
-          "id": "H39",
-          "name": "Ausstattung für Betroffene",
-          "fragen": [
-            {
-              "id": "F111",
-              "name": "Wird betroffenen Mitarbeitenden notwendige Ausstattung (Hardware und Software) zur Verfügung gestellt, um ihre jeweiligen Aufgaben barrierefrei erledigen zu können?"
-            },
-            {
-              "id": "F118",
-              "name": "Wie können Mitarbeitende ihre Probleme bzgl. digitaler Barrierefreiheit melden?"
-            },
-            {
-              "id": "F119",
-              "name": "Wie werden die Probleme der Mitarbeitenden bzgl. digitaler Barrierefreiheit gelöst?"
-            }
-          ]
-        },
-        {
-          "id": "H40",
-          "name": "Software",
-          "fragen": [
-            {
-              "id": "F112",
-              "name": "Wird Barrierefreiheit beim Ausrollen von neuer Software, die intern von Mitarbeitenden genutzt werden wird, beachtet?"
-            },
-            {
-              "id": "F113",
-              "name": "Welche Aspekte der Barrierefreiheit von neuer Software werden beachtet?"
-            },
-            {
-              "id": "F114",
-              "name": "Wie wird die Barrierefreiheit der neuen Software überprüft?"
-            },
-            {
-              "id": "F115",
-              "name": "Wird bei Software- und Systemupdates sichergestellt, dass bestehende Barrierefreiheitsanforderungen der Mitarbeitenden weiterhin erfüllt werden?"
-            },
-            {
-              "id": "F116",
-              "name": "Bei welchen Updates wird dies sichergestellt?"
-            },
-            {
-              "id": "F117",
-              "name": "Welche Maßnahmen werden vor dem Update getroffen?"
-            }
-          ]
-        },
-        {
-          "id": "H41",
-          "name": "Leihgeräte und Lernräume",
-          "fragen": [
-            {
-              "id": "F120",
-              "name": "Werden bei der Ausgabe von IT-Verleihgeräten Einstellungen der Barrierefreiheit für die leihende Person berücksichtigt und bei Bedarf vorgenommen?"
-            },
-            {
-              "id": "F121",
-              "name": "Werden in öffentlich zugänglichen Lernräumen, die Sie betreuen (z.B. Maker Space, Lernraum der Zukunft, …), barrierefreie Arbeitsplätze oder Hilfsmittel zur barrierefreien Nutzung der Arbeitsplätze bereitgestellt?"
-            },
-            {
-              "id": "F122",
-              "name": "Ist dieses Angebot bekannt?"
-            },
-            {
-              "id": "F123",
-              "name": "Welchen Umfang hat dieses Angebot?"
-            },
-            {
-              "id": "F124",
-              "name": "Sind die Mitarbeitenden im Umgang mit den bereitgestellten Mitteln geschult, um Nutzende beraten zu können?"
-            }
-          ]
-        },
-        {
-          "id": "H42",
-          "name": "Bedarfserhebung",
-          "fragen": [
-            {
-              "id": "F125",
-              "name": "Wie wird der Bedarf an Hard- und Software ermittelt, die Mitarbeitende für Barrierefreiheit benötigen?"
-            },
-            {
-              "id": "F126",
-              "name": "Wie wird die Erhebung durchgeführt?"
-            },
-            {
-              "id": "F127",
-              "name": "Welche Bedarfe deckt die Erhebung ab?"
-            },
-            {
-              "id": "F128",
-              "name": "Welche Nutzungskontexte deckt die Erhebung ab?"
-            },
-            {
-              "id": "F129",
-              "name": "Welche Auswirkungen hat die Erhebung?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D14",
-      "name": "Projektmanagement",
-      "handlungsfelder": [
-        {
-          "id": "HX15",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F130",
-              "name": "Werden Aspekte der Barrierefreiheit systematisch in bestehende Leitlinien, Prozesse oder Vorgaben der Teams integriert (z.B. Styleguides, Vorgehensmodelle wie SCRUM, etc.)?"
-            },
-            {
-              "id": "F131",
-              "name": "Stellen Projektmanager sicher, dass Barrierefreiheit ein Bestandteil von Ergebnisprodukten ist?"
-            },
-            {
-              "id": "F132",
-              "name": "Unter welchen Bedingungen bzgl. Barrierefreiheit wird ein Ergebnisprodukt durch Projektmanager freigegeben?"
-            },
-            {
-              "id": "F133",
-              "name": "Wie werden die Anforderungen an die Barrierefreiheit eines Ergebnisprodukts durch Projektmanager festgelegt?"
-            }
-          ]
-        },
-        {
-          "id": "HX14",
-          "name": "Austausch",
-          "fragen": [
-            {
-              "id": "F134",
-              "name": "Wird der Austausch zwischen Mitarbeitenden zur praktischen Umsetzung von Barrierefreiheit von den Projektmanagern projekt- oder teamübergreifend ermöglicht und gefördert?"
-            },
-            {
-              "id": "F135",
-              "name": "Wie wird dieser Austausch ermöglicht oder gefördert?"
-            }
-          ]
-        },
-        {
-          "id": "HX13",
-          "name": "Evaluation",
-          "fragen": [
-            {
-              "id": "F136",
-              "name": "Wird durch die Projektmanager erfasst und reflektiert, wenn Maßnahmen zur Barrierefreiheit im Arbeitsalltag der Mitarbeitenden als schwer verständlich oder schwer umsetzbar wahrgenommen werden?"
-            },
-            {
-              "id": "F137",
-              "name": "Wie wird mit den Ergebnissen dieser Reflektion umgegangen?"
-            }
-          ]
-        },
-        {
-          "id": "HX12",
-          "name": "Dokumentation",
-          "fragen": [
-            {
-              "id": "F138",
-              "name": "Werden Erkenntnisse aus der Umsetzung von Barrierefreiheit im Projekt (z.B. Probleme, Entscheidungen, Erkenntnisse) so dokumentiert, dass sie für zukünftige Projekte nutzbar sind?"
-            },
-            {
-              "id": "F139",
-              "name": "Wie gestaltet sich diese Dokumentation?"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "D15",
+      "id": "D17",
       "name": "Barrierefreiheit (Weiterbildung)",
       "handlungsfelder": [
         {
@@ -963,6 +1089,36 @@
             {
               "id": "F147",
               "name": "Werden die Inhalte für Weiterbildungen zur Barrierefreiheit öffentlich zur Verfügung gestellt?"
+            }
+          ]
+        },
+        {
+          "id": "HX5",
+          "name": "Durchführung",
+          "fragen": [
+            {
+              "id": "F162",
+              "name": "Wie sind die Weiterbildungsmaßnahmen zur Barrierefreiheit bzgl. der Zielgruppe ausgestaltet?"
+            },
+            {
+              "id": "F163",
+              "name": "Wie sind die Weiterbildungsmaßnahmen zur Barrierefreiheit bzgl. des Inhalts ausgestaltet?"
+            },
+            {
+              "id": "F164",
+              "name": "Wie sind die Weiterbildungsmaßnahmen zur Barrierefreiheit methodisch umgesetzt?"
+            },
+            {
+              "id": "F165",
+              "name": "Werden verschiedene Referenten geladen, um ihre Perspektiven in den Weiterbildungsmaßnahmen abzubilden?"
+            },
+            {
+              "id": "F166",
+              "name": "Werden die Weiterbildungsmaßnahmen um Reflexionsformate ergänzt?"
+            },
+            {
+              "id": "F158",
+              "name": "Wie häufig finden Weiterbildungsmaßnahmen zur Barrierefreiheit statt?"
             }
           ]
         },
@@ -1021,36 +1177,6 @@
             {
               "id": "F157",
               "name": "Wie wird die Teilnahme an Weiterbildungen zur Barrierefreiheit bestätigt?"
-            }
-          ]
-        },
-        {
-          "id": "HX5",
-          "name": "Durchführung",
-          "fragen": [
-            {
-              "id": "F158",
-              "name": "Wie häufig finden Weiterbildungsmaßnahmen zur Barrierefreiheit statt?"
-            },
-            {
-              "id": "F162",
-              "name": "Wie sind die Weiterbildungsmaßnahmen zur Barrierefreiheit bzgl. der Zielgruppe ausgestaltet?"
-            },
-            {
-              "id": "F163",
-              "name": "Wie sind die Weiterbildungsmaßnahmen zur Barrierefreiheit bzgl. des Inhalts ausgestaltet?"
-            },
-            {
-              "id": "F164",
-              "name": "Wie sind die Weiterbildungsmaßnahmen zur Barrierefreiheit methodisch umgesetzt?"
-            },
-            {
-              "id": "F165",
-              "name": "Werden verschiedene Referenten geladen, um ihre Perspektiven in den Weiterbildungsmaßnahmen abzubilden?"
-            },
-            {
-              "id": "F166",
-              "name": "Werden die Weiterbildungsmaßnahmen um Reflexionsformate ergänzt?"
             }
           ]
         },
@@ -1115,130 +1241,60 @@
       ]
     },
     {
-      "id": "D17",
-      "name": "Software",
-      "handlungsfelder": [
-        {
-          "id": "HF1",
-          "name": "Planung",
-          "fragen": [
-            {
-              "id": "F178",
-              "name": "Werden zu Beginn der Softwareentwicklung Anforderungen an deren Barrierefreiheit erhoben?"
-            },
-            {
-              "id": "F179",
-              "name": "Ist das Vorgehen zur Anforderungsanalyse vereinheitlicht?"
-            },
-            {
-              "id": "F180",
-              "name": "Welche Aspekte der Barrierefreiheit werden bei der Anforderungsanalyse berücksichtigt?"
-            }
-          ]
-        },
-        {
-          "id": "HF2",
-          "name": "Umsetzung",
-          "fragen": [
-            {
-              "id": "F181",
-              "name": "Werden Aspekte der Barrierefreiheit bei der Softwareentwicklung bzw. im Code berücksichtigt?"
-            },
-            {
-              "id": "F182",
-              "name": "Sind die Aspekte der Barrierefreiheit für Code vereinheitlicht?"
-            },
-            {
-              "id": "F183",
-              "name": "Wird der Code auf Barrierefreiheit überprüft?"
-            }
-          ]
-        },
-        {
-          "id": "HF3",
-          "name": "Feedback",
-          "fragen": [
-            {
-              "id": "F184",
-              "name": "Wird innerhalb des Softwareproduktes ein Feedbackmechanismus bzgl. Barrierefreiheit für Nutzende integriert?"
-            },
-            {
-              "id": "F185",
-              "name": "Wie wird ein solcher Feedbackmechanismus bzgl. Barrierefreiheit in Softwareprodukte integriert?"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "D18",
-      "name": "Recruiting",
+      "name": "Direktion",
       "handlungsfelder": [
         {
-          "id": "HF4",
-          "name": "Bewerbungsprozess",
+          "id": "HF8",
+          "name": "Positionierung",
           "fragen": [
             {
-              "id": "F186",
-              "name": "Werden Aspekte der Barrierefreiheit im Bewerbungsverfahren berücksichtigt?"
+              "id": "F197",
+              "name": "Wie positioniert sich die Geschäftsleitung offiziell zum Thema digitale Barrierefreiheit?"
             },
             {
-              "id": "F187",
-              "name": "Welche Aspekte der Barrierefreiheit werden in Bewerbungsverfahren berücksichtigt?"
-            },
-            {
-              "id": "F188",
-              "name": "Wird die Barrierefreiheit des Bewerbungsprozesses überprüft?"
+              "id": "F198",
+              "name": "Wie positioniert sich die Geschäftsleitung darüber hinaus zum Thema digitale Barrierefreiheit?"
             }
           ]
         },
         {
-          "id": "HF5",
-          "name": "Selbstverpflichtung",
+          "id": "HF9",
+          "name": "Strategie",
           "fragen": [
             {
-              "id": "F189",
-              "name": "Gibt es eine öffentlich zugängliche Selbsterklärung des Unternehmens zur Barrierefreiheit?"
+              "id": "F199",
+              "name": "Berücksichtigt die Geschäftsleitung das Ziel der digitalen Barrierefreiheit bei strategischen Entscheidungen?"
             },
             {
-              "id": "F190",
-              "name": "Wird eine Quote zur Einstellung von Menschen mit Beeinträchtigungen eingehalten?"
+              "id": "F200",
+              "name": "Auf welcher fachlichen Grundlage berücksichtigt die Geschäftsleitung das Ziel der digitalen Barrierefreiheit bei strategischen Entscheidungen?"
+            },
+            {
+              "id": "F201",
+              "name": "Wird die Entwicklung der Barrierefreiheit im jährlichen Geschäftsbericht des Unternehmens dargestellt?"
+            },
+            {
+              "id": "F202",
+              "name": "Wird das Thema Barrierefreiheit in Vorstandssitzungen oder vergleichbaren Formaten thematisiert?"
             }
           ]
         },
         {
-          "id": "HF6",
-          "name": "Kompetenzen",
+          "id": "HF10",
+          "name": "Organisationseinheit",
           "fragen": [
             {
-              "id": "F191",
-              "name": "Werden Kompetenzen im Bereich Barrierefreiheit in Stellenausschreibungen als wünschenswert erwähnt?"
+              "id": "F203",
+              "name": "Gibt es eine Person oder Organisationseinheit im Unternehmen, die gezielt für das Thema Barrierefreiheit zuständig ist?"
             },
             {
-              "id": "F192",
-              "name": "Werden Kompetenzen im Bereich Barrierefreiheit von Bewerbenden im Bewerbungsprozess positiv berücksichtigt?"
-            }
-          ]
-        },
-        {
-          "id": "HF7",
-          "name": "Onboarding",
-          "fragen": [
-            {
-              "id": "F193",
-              "name": "Erhalten neue Mitarbeitende eine Schulung zum Thema Barrierefreiheit?"
+              "id": "F204",
+              "name": "Was sind die Aufgaben dieser Person oder Organisationseinheit?"
             },
             {
-              "id": "F194",
-              "name": "In welchem Umfang werden Schulungen zum Thema Barrierefreiheit für neue Mitarbeitende angeboten?"
-            },
-            {
-              "id": "F195",
-              "name": "Ist die Teilnahme an den Weiterbildungsmaßnahmen für neue Mitarbeitende verpflichtend?"
-            },
-            {
-              "id": "F196",
-              "name": "Welche weiteren Informationen zum Thema Barrierefreiheit im Unternehmen erhalten neue Mitabeitende?"
+              "id": "F205",
+              "name": "Wid eine dauerhafte Besetzung der Organisationseinheit für Barrierefreiheit angestrebt?"
             }
           ]
         }
