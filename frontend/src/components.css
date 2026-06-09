@@ -234,6 +234,7 @@ display: inline-flex;
 align-items: center;
 justify-content: center;
 min-height: 2.5rem;
+min-width: 12.5rem;
 padding: 0.7rem 1rem;
 border-radius: var(--radius-md);
 border: 1px solid var(--color-border-strong);
@@ -257,6 +258,11 @@ box-shadow 0.2s ease;
 .dFooter button:hover {
 background: var(--color-surface-muted);
 border-color: var(--brand-primary);
+}
+
+.toggle-button.active{
+  background-color: var(--footer-color);
+  border-color:var(--brand-accent-strong);
 }
 
 .answer-button {
@@ -1215,7 +1221,7 @@ gap: var(--space-6);
 }
 
 .question-box {
-padding: clamp(1.25rem, 2vw, 1.75rem);
+padding: clamp(1.5rem, 1vw, 1.5rem);
 gap: var(--space-5);
 background: linear-gradient(
 180deg,
@@ -1474,4 +1480,30 @@ progress::-moz-progress-bar {
   padding-top: 90px;
   justify-content: center;
   color: #888;
+}
+
+.readOnlyTag {
+  top: 80px;
+  right: 60px;
+
+  padding: 8px 14px;
+
+  background-color:var(--brand-accent-soft);
+
+  border: 1px solid var(--brand-accent);
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
+.icon-lock {
+  width: 30px !important;  
+  align-self:center;
+  align-items: end;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }

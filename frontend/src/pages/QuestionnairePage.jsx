@@ -185,7 +185,7 @@ export default function QuestionnairePage({ activeCompany }) {
 
         const loadedAnswers =
           stateData.currentAnswers &&
-            typeof stateData.currentAnswers === "object"
+          typeof stateData.currentAnswers === "object"
             ? stateData.currentAnswers
             : {};
 
@@ -385,8 +385,10 @@ export default function QuestionnairePage({ activeCompany }) {
         <h2>{currentHandlungsfeld?.name}</h2>
         <p>
           Nehmen Sie eine realistische Selbsteinschätzung vor. <br />
-          Beziehen Sie die Fragen ausschließlich auf Ihre Organisationseinheit. <br />
-          Falls mehrere Antworten für Sie zutreffen, wählen Sie die unterste zutreffende Antwort. <br />
+          Beziehen Sie die Fragen ausschließlich auf Ihre Organisationseinheit.{" "}
+          <br />
+          Falls mehrere Antworten für Sie zutreffen, wählen Sie die unterste
+          zutreffende Antwort. <br />
           Falls eine Frage für Sie nicht zutrifft, wählen Sie „Keine Angabe“.
         </p>
 
@@ -405,6 +407,11 @@ export default function QuestionnairePage({ activeCompany }) {
         ) : (
           filteredFragen.map((frage) => (
             <div key={frage.id} className="question-box">
+              <div className="homeEyebrowright">
+                <p className="homeEyebrow">
+                  {currentHandlungsfeld?.name}
+                </p>
+              </div>
               <p className="question-text">{frage.frage}</p>
 
               <div className="answers">
@@ -433,15 +440,6 @@ export default function QuestionnairePage({ activeCompany }) {
               </div>
             </div>
           ))
-        )}
-
-        {commentsEnabled && (
-          <CommentBox
-            inputs={inputs}
-            comments={postedComments}
-            onInputChange={handleInputChange}
-            onPost={handlePost}
-          />
         )}
 
         <div className="hf-navigation">
