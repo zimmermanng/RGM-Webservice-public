@@ -112,7 +112,7 @@ const DimensionsEditPage = () => {
     };
   }, [navigate]);
 
-  // centralisierungs-Funktion für das Speichern im Backend
+  // Zentralisierungs-Funktion für das Speichern im Backend
   const saveData = async (nextToEdit, nextAnswers) => {
     const allgemeinDimension = data.dimensionen.find((d) => d.name === "Allgemein");
     const activeDimensions = [
@@ -357,6 +357,8 @@ const DimensionsEditPage = () => {
                       showStartButton={false}
                       showProgress={true}
                       progress={progress}
+                      isLocked={false}
+                      //showLock={true} --> einbauen mit der Adminrolle
                     />
                   </div>
                 );

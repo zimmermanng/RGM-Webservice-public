@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Card_dimensions = ({
@@ -10,10 +10,33 @@ const Card_dimensions = ({
   showStartButton = true,
   showProgress = true,
   progress = 0,
+  isLocked: initialIsLocked = false,
+  showLock = false,
 }) => {
+  const [isLocked, setIsLocked] = useState(initialIsLocked);
   const titleId = `card-title-${dimensionId}`;
   const progressId = `card-progress-${dimensionId}`;
   const firstHF = handlungsfelder[0];
+
+  const handleToggle = (e) => {
+    e.stopPropagation(); // Verhindert, dass Drag-Events der übergeordneten Liste feuern
+    setIsLocked((prev) => !prev);
+  };
+  const renderStatusIcon = () => {
+    const iconSrc = isLocked ? "/lock-closed.svg" : "/lock_open.svg";
+    const iconAlt = isLocked ? "Paket fixiert." : "Paket nicht fixiert.";
+    return (
+      <button
+        type="button"
+        className="icon-lock"
+        onClick={handleToggle}
+        aria-label={iconAlt}
+        title={isLocked ? "Freischalten" : "Sperren"}
+      >
+        <img src={iconSrc} alt="" className="card-lock-icon" />
+      </button>
+    );
+  };
 
   // Edit-Modus: link vorhanden
   if (link) {
@@ -54,6 +77,11 @@ const Card_dimensions = ({
               <div id={progressId} className="progress-text">
                 Fortschritt: {Math.round(progress * 100)}%
               </div>
+             {showLock && (
+              <div>
+                {renderStatusIcon()}
+              </div>
+            )}
             </>
           )}
 
