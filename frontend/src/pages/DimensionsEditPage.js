@@ -15,7 +15,7 @@ const DimensionsEditPage = () => {
   const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const toastTimeoutRef = useRef(null);
-
+  const scrollIntervalRef = useRef(null);
   const liveRegionRef = useRef(null);
 
   const [confirmDialog, setConfirmDialog] = useState({
@@ -118,6 +118,17 @@ const DimensionsEditPage = () => {
     };
 
     fetchData();
+    window.addEventListener("dragover", handleDragOverWindow);
+    window.addEventListener("drop", stopAutoScroll);
+    window.addEventListener("dragend", stopAutoScroll);
+
+    return () => {
+      window.removeEventListener("dragover", handleDragOverWindow);
+      window.removeEventListener("drop", stopAutoScroll);
+      window.removeEventListener("dragend", stopAutoScroll);
+
+      clearInterval(scrollIntervalRef.current);
+    };
   }, [navigate]);
 
   const handleDragStart = (e, card, fromList) => {
@@ -193,6 +204,7 @@ const DimensionsEditPage = () => {
       }, 50);
     }
 
+
     setToastMessage(message);
 
     if (toastTimeoutRef.current) {
@@ -265,6 +277,31 @@ const DimensionsEditPage = () => {
     }
   };
 
+  const handleDragOverWindow = (e) => {
+  const scrollZone = 350;
+  const scrollSpeed = 50;
+
+  const mouseY = e.clientY;
+  const windowHeight = window.innerHeight;
+
+  clearInterval(scrollIntervalRef.current);
+
+  if (mouseY < scrollZone) {
+    scrollIntervalRef.current = setInterval(() => {
+      window.scrollBy(0, -scrollSpeed);
+    }, 16);
+  } else if (mouseY > windowHeight - scrollZone) {
+    scrollIntervalRef.current = setInterval(() => {
+      window.scrollBy(0, scrollSpeed);
+    }, 16);
+  }
+};
+
+const stopAutoScroll = () => {
+  clearInterval(scrollIntervalRef.current);
+};
+
+
   if (loading) {
     return (
       <div className="mainContainer" aria-busy="true" aria-live="polite">
@@ -277,7 +314,10 @@ const DimensionsEditPage = () => {
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
       <p>
-       Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten möchten.<br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder mit der Tastatur (Tab- und Enter-Taste).
+        Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
+        möchten.
+        <br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder
+        mit der Tastatur (Tab- und Enter-Taste).
       </p>
 
       {/* Unsichtbare Live-Region für Screenreader */}
