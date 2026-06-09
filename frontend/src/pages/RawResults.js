@@ -1,53 +1,25 @@
 import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
+import struktur from "../components/data/struktur.json";
 
-const API_BASE = "http://localhost:3011";
+const ANSWERS_STORAGE_KEY = "answers";
 const RESULTS_STORAGE_KEY = "shuffleResults";
+const ACTIVE_DIMENSIONS_STORAGE_KEY = "activeDimensions";
 
 /**
  * RawResults
  *
- * Loads saved questionnaire results from the backend when available.
- * If the backend is unavailable or returns no usable data, it uses the latest
- * locally saved result. It should not block the results page because of old
- * login/session errors.
+ * Uses only locally saved questionnaire results. Nothing is loaded from or
+ * written to the backend, so each browser/device keeps its own independent
+ * result state.
  */
 const RawResults = () => {
   const [surveyResults, setSurveyResults] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchResults = async () => {
-      const localResults = readLocalResults();
-
-      try {
-        const res = await fetch(`${API_BASE}/session/results`);
-
-        if (!res.ok) {
-          throw new Error(`Server antwortete mit Status ${res.status}`);
-        }
-
-        const data = await res.json();
-        console.log("GET /session/results:", data);
-
-        const normalizedEntries = normalizeResponseToEntries(data);
-        const combined = combineEntries(normalizedEntries);
-
-        if (combined) {
-          setSurveyResults(combined);
-          return;
-        }
-
-        setSurveyResults(localResults);
-      } catch (err) {
-        console.warn("Backend-Ergebnisse konnten nicht geladen werden:", err);
-        setSurveyResults(localResults);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchResults();
+    setSurveyResults(readLocalResults());
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -71,71 +43,84 @@ const RawResults = () => {
 
 function readLocalResults() {
   try {
-    const raw = localStorage.getItem(RESULTS_STORAGE_KEY);
-    const parsed = JSON.parse(raw || "null");
-    return parsed && typeof parsed === "object" ? parsed : null;
+    const answers = readJsonFromStorage(ANSWERS_STORAGE_KEY, {});
+
+    if (!hasStoredAnswers(answers)) {
+      localStorage.removeItem(RESULTS_STORAGE_KEY);
+      return null;
+    }
+
+    const parsed = readJsonFromStorage(RESULTS_STORAGE_KEY, null);
+
+    if (!isUsableResultPayload(parsed)) {
+      return null;
+    }
+
+    return filterToActiveDimensions(parsed);
   } catch (error) {
     console.error("Lokale Ergebnisse konnten nicht gelesen werden:", error);
     return null;
   }
 }
 
-function normalizeResponseToEntries(data) {
-  if (Array.isArray(data?.results)) {
-    return data.results.map((entry) => entry?.data ?? entry).filter(Boolean);
+function readJsonFromStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (error) {
+    console.warn(`Konnte ${key} nicht aus localStorage lesen:`, error);
+    return fallback;
   }
-
-  if (Array.isArray(data)) {
-    return data.map((entry) => entry?.data ?? entry).filter(Boolean);
-  }
-
-  if (data?.data) {
-    return [data.data].filter(Boolean);
-  }
-
-  return data ? [data] : [];
 }
 
-function combineEntries(entries) {
-  if (!Array.isArray(entries) || entries.length === 0) return null;
+function hasStoredAnswers(answers) {
+  if (!answers || typeof answers !== "object") return false;
 
-  const sortedEntries = [...entries].sort((a, b) => {
-    const ta = new Date(a?.timestamp || a?.savedAt || 0).getTime();
-    const tb = new Date(b?.timestamp || b?.savedAt || 0).getTime();
-    return ta - tb;
-  });
+  return Object.values(answers).some(
+    (dimensionAnswers) =>
+      dimensionAnswers &&
+      typeof dimensionAnswers === "object" &&
+      Object.keys(dimensionAnswers).length > 0
+  );
+}
 
-  const resultsByKey = new Map();
-  const selectionsByQuestionId = new Map();
-  const allComments = [];
+function isUsableResultPayload(payload) {
+  return (
+    payload &&
+    typeof payload === "object" &&
+    Array.isArray(payload.results) &&
+    payload.results.length > 0 &&
+    Array.isArray(payload.selections) &&
+    payload.selections.length > 0
+  );
+}
 
-  sortedEntries.forEach((entry) => {
-    (Array.isArray(entry?.results) ? entry.results : []).forEach((row, index) => {
-      const key =
-        row?.id || `${row?.group || "group"}__${row?.category || "category"}__${index}`;
-      resultsByKey.set(key, row);
-    });
+function filterToActiveDimensions(payload) {
+  const activeIds = readJsonFromStorage(ACTIVE_DIMENSIONS_STORAGE_KEY, null);
 
-    (Array.isArray(entry?.selections) ? entry.selections : []).forEach((selection, index) => {
-      const key =
-        selection?.frageId ||
-        `${selection?.group || "group"}__${selection?.category || "category"}__${index}`;
-      selectionsByQuestionId.set(key, selection);
-    });
+  if (!Array.isArray(activeIds) || activeIds.length === 0) {
+    return payload;
+  }
 
-    if (Array.isArray(entry?.comments) && entry.comments.length > 0) {
-      allComments.push(...entry.comments);
-    }
-  });
+  const idToName = struktur.dimensionen.reduce((acc, dimension) => {
+    acc[dimension.id] = dimension.name;
+    return acc;
+  }, {});
 
-  const latest = sortedEntries[sortedEntries.length - 1] || null;
+  const activeNames = activeIds.map((id) => idToName[id]).filter(Boolean);
+
+  if (!activeNames.length) {
+    return payload;
+  }
 
   return {
-    ...latest,
-    results: Array.from(resultsByKey.values()),
-    selections: Array.from(selectionsByQuestionId.values()),
-    comments: allComments,
-    timestamp: latest?.timestamp || latest?.savedAt || new Date().toISOString(),
+    ...payload,
+    results: (payload.results || []).filter((row) =>
+      activeNames.includes(row?.group)
+    ),
+    selections: (payload.selections || []).filter((selection) =>
+      activeNames.includes(selection?.group)
+    ),
   };
 }
 

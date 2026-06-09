@@ -6,7 +6,6 @@ import handlEmpf from "../components/data/handlungsempfehlungen.json";
 import Card_dimensions from "../components/Cards/Card_dimensions";
 import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 
-const API_BASE = "http://localhost:3011";
 const ANSWERS_STORAGE_KEY = "answers";
 const RESULTS_STORAGE_KEY = "shuffleResults";
 
@@ -68,7 +67,7 @@ const DimensionsPage = () => {
     ? data.dimensionen.filter((d) => activeIds.includes(d.id))
     : data.dimensionen;
 
-  const handleShowResults = async () => {
+  const handleShowResults = () => {
     const payload = {
       timestamp: new Date().toISOString(),
       results: buildAggregatedResults(storedAnswers),
@@ -77,16 +76,6 @@ const DimensionsPage = () => {
     };
 
     writeJsonToStorage(RESULTS_STORAGE_KEY, payload);
-
-    try {
-      await fetch(`${API_BASE}/session/results`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-    } catch (error) {
-      console.warn("Backend-Ergebnisse konnten nicht gespeichert werden:", error);
-    }
 
     navigate("/rawresults");
   };

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 import fragenData from "../components/data/fragen.json";
@@ -11,6 +11,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     new Set([-1, 0, 1, 2, 3, 4])
   );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const tabRefs = useRef({});
 
   const questionMap = useMemo(() => buildQuestionMap(fragenData), []);
   const recommendationMap = useMemo(
@@ -24,7 +25,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   );
 
   const data = useMemo(() => {
-    const rows = surveyResults?.results ?? [];
+    const rows = Array.isArray(surveyResults?.results) ? surveyResults.results : [];
 
     return rows
       .filter(
@@ -67,29 +68,26 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       });
   }, [surveyResults, selections, questionMap]);
 
-  if (!surveyResults || !Array.isArray(surveyResults.results)) {
-    return (
-      <div className="mainContainer" id="top">
-        <h1>Fehler: Ergebnisse</h1>
-        <p>Keine gültigen Survey-Ergebnisse gefunden.</p>
-      </div>
-    );
-  }
+  const dimensionData = useMemo(() => {
+    return data.reduce((acc, row) => {
+      if (!acc[row.group]) acc[row.group] = {};
+      acc[row.group][row.category] = row.value;
+      return acc;
+    }, {});
+  }, [data]);
 
-  if (!data.length) {
-    return (
-      <div className="mainContainer" id="top">
-        <h1>Fehler: Ergebnisse</h1>
-        <p>Die Survey-Ergebnisse enthalten keine anzeigbaren Einträge.</p>
-      </div>
-    );
-  }
+  const dimensionKeys = useMemo(() => Object.keys(dimensionData), [dimensionData]);
 
-  const dimensionData = data.reduce((acc, row) => {
-    if (!acc[row.group]) acc[row.group] = {};
-    acc[row.group][row.category] = row.value;
-    return acc;
-  }, {});
+  useEffect(() => {
+    if (!dimensionKeys.length) {
+      setSelectedTab(null);
+      return;
+    }
+
+    if (!selectedTab || !dimensionKeys.includes(selectedTab)) {
+      setSelectedTab(dimensionKeys[0]);
+    }
+  }, [dimensionKeys, selectedTab]);
 
   const handleCheckboxChange = (level) => {
     setVisibleLevels((prev) => {
@@ -100,21 +98,99 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     });
   };
 
+  const focusTab = (dimension) => {
+    const tab = tabRefs.current[dimension];
+    if (tab) tab.focus();
+  };
+
+  const handleTabKeyDown = (event, currentDimension) => {
+    const currentIndex = dimensionKeys.indexOf(currentDimension);
+    if (currentIndex === -1) return;
+
+    let nextIndex = null;
+
+    switch (event.key) {
+      case "ArrowRight":
+      case "Right":
+        nextIndex = (currentIndex + 1) % dimensionKeys.length;
+        break;
+      case "ArrowLeft":
+      case "Left":
+        nextIndex = (currentIndex - 1 + dimensionKeys.length) % dimensionKeys.length;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = dimensionKeys.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    const nextDimension = dimensionKeys[nextIndex];
+    setSelectedTab(nextDimension);
+    focusTab(nextDimension);
+  };
+
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
+    const isTodo = variant === "todo";
+
+    if (isTodo) {
+      return (
+        <div
+          key={`${groupItem.frageId}-${variant}-${index}`}
+          className={`question-recommendation-card ${variant}`}
+        >
+          <div className="question-recommendation-summary static">
+            <div className="question-recommendation-summary-text">
+              <span className="question-recommendation-kicker">Frage</span>
+              <h6>{groupItem.frageText}</h6>
+              <p>
+                <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
+              </p>
+            </div>
+
+            {typeof groupItem.stufe === "number" && (
+              <span className="question-recommendation-stage">
+                Stufe {groupItem.stufe}
+              </span>
+            )}
+          </div>
+
+          <div className="question-recommendation-panel always-open">
+            <p className="question-recommendation-panel-label">
+              Zugehörige Handlungsempfehlungen
+            </p>
+            <ul className="question-recommendation-list">
+              {groupItem.recommendations.map((rec, recIndex) => (
+                <li
+                  key={rec?.id ?? `${groupItem.frageId}-rec-${recIndex}`}
+                  className="question-recommendation-list-item"
+                >
+                  <div className="question-recommendation-list-row">
+                    <span>{rec?.text ?? String(rec)}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div
+      <details
         key={`${groupItem.frageId}-${variant}-${index}`}
         className={`question-recommendation-card ${variant}`}
       >
-        <div className="question-recommendation-summary static">
+        <summary className="question-recommendation-summary">
           <div className="question-recommendation-summary-text">
             <span className="question-recommendation-kicker">Frage</span>
             <h6>{groupItem.frageText}</h6>
             <p>
-              <strong>
-                {groupItem.detailLabel || "Ausgewählte Antwort:"}
-              </strong>{" "}
-              {groupItem.antwortText}
+              <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
             </p>
           </div>
 
@@ -123,9 +199,9 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
               Stufe {groupItem.stufe}
             </span>
           )}
-        </div>
+        </summary>
 
-        <div className="question-recommendation-panel always-open">
+        <div className="question-recommendation-panel">
           <p className="question-recommendation-panel-label">
             Zugehörige Handlungsempfehlungen
           </p>
@@ -142,44 +218,6 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             ))}
           </ul>
         </div>
-      </div>
-    );
-  };
-
-  const renderCompactRecommendationList = (recommendations) => {
-    const uniqueRecommendations = dedupeRecommendations(recommendations);
-
-    if (!uniqueRecommendations.length) {
-      return null;
-    }
-
-    return (
-      <ul className="recommendation-main-list">
-        {uniqueRecommendations.map((rec, index) => (
-          <li
-            key={rec?.id ?? rec?.text ?? `main-rec-${index}`}
-            className="recommendation-main-item"
-          >
-            {rec?.text ?? String(rec)}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
-  const renderRecommendationDetails = (groups, variant) => {
-    if (!groups.length) return null;
-
-    return (
-      <details className="recommendation-detail-block">
-        <summary>
-          Details zu auslösenden Antworten ({groups.length})
-        </summary>
-        <div className="question-recommendation-grid">
-          {groups.map((groupItem, index) =>
-            renderRecommendationGroupCard(groupItem, index, variant)
-          )}
-        </div>
       </details>
     );
   };
@@ -189,17 +227,12 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       todoGroups,
       establishedHigherGroups,
       nextTargetLevel,
-      hasHigherOptions,
     } = getRecommendationSectionsForRow({
       row,
       selections,
       questionMap,
       recommendationMap,
     });
-
-    const todoRecommendations = dedupeRecommendations(
-      todoGroups.flatMap((groupItem) => groupItem.recommendations)
-    );
 
     return (
       <>
@@ -210,23 +243,16 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
               : "Nächster Entwicklungsschritt"}
           </h5>
 
-          {todoRecommendations.length > 0 ? (
-            <>
-              {renderCompactRecommendationList(todoRecommendations)}
-              {renderRecommendationDetails(todoGroups, "todo")}
-            </>
-          ) : hasHigherOptions ? (
-            <div className="recommendation-empty-state">
-              <p>
-                Für den nächsten Entwicklungsschritt sind in den hinterlegten
-                Daten keine direkten Handlungsempfehlungen verknüpft.
-              </p>
+          {todoGroups.length > 0 ? (
+            <div className="question-recommendation-grid">
+              {todoGroups.map((groupItem, index) =>
+                renderRecommendationGroupCard(groupItem, index, "todo")
+              )}
             </div>
           ) : (
             <div className="recommendation-empty-state">
               <p>
-                Herzlichen Glückwunsch – in den aktuell beantworteten Fragen
-                wurde bereits die höchstmögliche erreichbare Stufe abgedeckt.
+                Aktuell keine Handlungsempfehlungen verfügbar. Sie haben entweder die höchste Stufe erreicht oder das Handlungsfeld mit "keine Angabe" beantwortet.
               </p>
             </div>
           )}
@@ -255,7 +281,25 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     );
   };
 
+  const hasValidResults = !!surveyResults && Array.isArray(surveyResults.results);
 
+  if (!hasValidResults) {
+    return (
+      <div className="mainContainer" id="top">
+        <h1>Fehler: Ergebnisse</h1>
+        <p>Keine gültigen Survey-Ergebnisse gefunden.</p>
+      </div>
+    );
+  }
+
+  if (!data.length) {
+    return (
+      <div className="mainContainer" id="top">
+        <h1>Fehler: Ergebnisse</h1>
+        <p>Die Survey-Ergebnisse enthalten keine anzeigbaren Einträge.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="resultsPage">
@@ -266,7 +310,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           nach Dimensionen und Handlungsfeldern.
         </p>
 
-        <div className="toggle-container">
+        <div className="toggle-container" role="group" aria-label="Darstellung auswählen">
           <button
             type="button"
             className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
@@ -318,25 +362,40 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         </div>
 
         <div className="tabs-container">
-          {Object.keys(dimensionData).map((dimension) => (
-            <button
-              key={dimension}
-              type="button"
-              className={`tab-button ${
-                selectedTab === dimension ? "active" : ""
-              }`}
-              aria-pressed={selectedTab === dimension}
-              onClick={() => setSelectedTab(dimension)}
-            >
-              {dimension}
-            </button>
-          ))}
+          <div className="tabs-list" role="tablist" aria-label="Dimensionen">
+            {dimensionKeys.map((dimension) => {
+              const isSelected = selectedTab === dimension;
+              const slug = slugifyId(dimension);
+              const tabId = `survey-dimension-tab-${slug}`;
+              const panelId = `survey-dimension-panel-${slug}`;
+
+              return (
+                <button
+                  key={dimension}
+                  id={tabId}
+                  ref={(node) => {
+                    tabRefs.current[dimension] = node;
+                  }}
+                  role="tab"
+                  type="button"
+                  className={`tab-button ${isSelected ? "active" : ""}`}
+                  aria-selected={isSelected ? "true" : "false"}
+                  aria-controls={panelId}
+                  tabIndex={isSelected ? 0 : -1}
+                  onClick={() => setSelectedTab(dimension)}
+                  onKeyDown={(event) => handleTabKeyDown(event, dimension)}
+                >
+                  {dimension}
+                </button>
+              );
+            })}
+          </div>
 
           <button
             type="button"
             className="filter-toggle-button"
-            aria-expanded={isFilterOpen}
-            aria-controls="results-filter-options"
+            aria-expanded={isFilterOpen ? "true" : "false"}
+            aria-controls="survey-dimension-filter-panel"
             onClick={() => setIsFilterOpen(!isFilterOpen)}
           >
             Filter
@@ -344,7 +403,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         </div>
 
         {isFilterOpen && (
-          <div className="filter-container" id="results-filter-options">
+          <div id="survey-dimension-filter-panel" className="filter-container">
             <div className="filter-options">
               {[-1, 0, 1, 2, 3, 4].map((level) => (
                 <label key={level} className="filter-option">
@@ -362,7 +421,12 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       </section>
 
       {selectedTab && (
-        <div className="tab-content">
+        <div
+          id={`survey-dimension-panel-${slugifyId(selectedTab)}`}
+          className="tab-content"
+          role="tabpanel"
+          aria-labelledby={`survey-dimension-tab-${slugifyId(selectedTab)}`}
+        >
           <h3>{selectedTab}</h3>
 
           {data
@@ -492,7 +556,7 @@ function getRecommendationSectionsForRow({
 }) {
   const relevantSelections = getSelectionsForRow(selections, row);
 
-  const selectionsWithQuestion = relevantSelections
+  const selectionsWithLevel = relevantSelections
     .map((selection) => {
       const question = questionMap?.[selection?.frageId];
       const selectedAnswer = getSelectedAnswer(question, selection?.antwortId);
@@ -508,62 +572,39 @@ function getRecommendationSectionsForRow({
         stufe,
       };
     })
-    .filter((item) => item.question && typeof item.stufe === "number");
+    .filter(
+      (item) =>
+        typeof item.stufe === "number" &&
+        item.stufe >= 0 &&
+        item.selection?.antwortId
+    );
 
   const currentCategoryLevel =
-    selectionsWithQuestion.length > 0
-      ? Math.min(...selectionsWithQuestion.map((item) => item.stufe))
+    selectionsWithLevel.length > 0
+      ? Math.min(...selectionsWithLevel.map((item) => item.stufe))
       : -1;
 
-  const blockingSelections = selectionsWithQuestion.filter(
-    (item) => item.stufe === currentCategoryLevel
-  );
+  const todoGroups = selectionsWithLevel
+    .filter((item) => item.stufe === currentCategoryLevel)
+    .map(({ selection, question, selectedAnswer, stufe }) => {
+      const selectedRecommendations = dedupeRecommendations(
+        recommendationMap[selection?.antwortId] ?? []
+      );
 
-  const higherAnswerGroups = blockingSelections.flatMap(
-    ({ selection, question, selectedAnswer }) => {
-      const answers = Array.isArray(question?.antworten) ? question.antworten : [];
+      if (!selectedRecommendations.length) return null;
 
-      return answers
-        .filter(
-          (answer) =>
-            typeof answer?.stufe === "number" &&
-            answer.stufe > currentCategoryLevel
-        )
-        .map((answer) => {
-          const recommendations = dedupeRecommendations(
-            recommendationMap[answer?.id] ?? []
-          );
+      return {
+        frageId: selection?.frageId,
+        frageText: selection?.frageText || question?.frage || "Frage",
+        antwortText:
+          selectedAnswer?.antwort || selection?.antwortText || "Antwort",
+        stufe,
+        recommendations: selectedRecommendations,
+      };
+    })
+    .filter(Boolean);
 
-          return {
-            frageId: selection?.frageId,
-            frageText: selection?.frageText || question?.frage || "Frage",
-            antwortId: answer?.id,
-            antwortText: answer?.antwort || "Antwort",
-            selectedAnswerText:
-              selectedAnswer?.antwort || selection?.antwortText || "Antwort",
-            stufe: answer?.stufe,
-            recommendations,
-            detailLabel: "Zugehörige Antwort:",
-          };
-        });
-    }
-  );
-
-  const groupsWithRecommendations = higherAnswerGroups.filter(
-    (group) => group.recommendations.length > 0
-  );
-
-  const nextTargetLevel = groupsWithRecommendations.length
-    ? Math.min(...groupsWithRecommendations.map((group) => group.stufe))
-    : higherAnswerGroups.length
-      ? Math.min(...higherAnswerGroups.map((group) => group.stufe))
-      : null;
-
-  const todoGroups = groupsWithRecommendations.filter(
-    (group) => group.stufe === nextTargetLevel
-  );
-
-  const establishedHigherGroups = selectionsWithQuestion
+  const establishedHigherGroups = selectionsWithLevel
     .filter((item) => item.stufe > currentCategoryLevel)
     .map(({ selection, question, selectedAnswer, stufe }) => {
       const selectedRecommendations = dedupeRecommendations(
@@ -579,7 +620,6 @@ function getRecommendationSectionsForRow({
           selectedAnswer?.antwort || selection?.antwortText || "Antwort",
         stufe,
         recommendations: selectedRecommendations,
-        detailLabel: "Ausgewählte Antwort:",
       };
     })
     .filter(Boolean);
@@ -587,8 +627,7 @@ function getRecommendationSectionsForRow({
   return {
     todoGroups,
     establishedHigherGroups,
-    nextTargetLevel,
-    hasHigherOptions: higherAnswerGroups.length > 0,
+    nextTargetLevel: currentCategoryLevel >= 0 ? currentCategoryLevel : null,
   };
 }
 
@@ -602,6 +641,14 @@ function dedupeRecommendations(recommendations) {
       return true;
     }
   );
+}
+
+function slugifyId(value) {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9_-]/g, "");
 }
 
 export default SurveyResultPage;

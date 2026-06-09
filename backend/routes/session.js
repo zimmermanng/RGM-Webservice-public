@@ -1,45 +1,26 @@
 const express = require("express");
 const router = express.Router();
 
-let savedResults = [];
-
+/**
+ * The questionnaire results are intentionally not stored on the backend.
+ * Results live only in the user's browser localStorage so multiple users can
+ * use the same deployed backend without seeing or overwriting each other's data.
+ */
 router.post("/results", (req, res) => {
-  if (!req.body || typeof req.body !== "object") {
-    return res.status(400).json({
-      ok: false,
-      message: "Keine Ergebnisdaten erhalten",
-    });
-  }
-
-  const payload = {
-    ...req.body,
-    savedAt: new Date().toISOString(),
-  };
-
-  savedResults.push(payload);
-
-  console.log("Ergebnisse gespeichert:", savedResults.length);
-
-  return res.json({
-    ok: true,
-    savedAt: payload.savedAt,
-    resultCount: savedResults.length,
-  });
+  return res.status(204).send();
 });
 
 router.get("/results", (req, res) => {
   return res.json({
     ok: true,
-    results: savedResults,
+    results: [],
   });
 });
 
 router.delete("/results", (req, res) => {
-  savedResults = [];
-
   return res.json({
     ok: true,
-    resultCount: savedResults.length,
+    results: [],
   });
 });
 
