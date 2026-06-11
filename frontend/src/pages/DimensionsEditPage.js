@@ -9,11 +9,13 @@ const DimensionsEditPage = () => {
   const navigate = useNavigate();
   const [toEdit, setToEdit] = useState([]);
   const [notToEdit, setNotToEdit] = useState([]);
+  const [lockedCards, setLockedCards] = useState([]);
   const [draggedCard, setDraggedCard] = useState(null);
   const [currentAnswers, setCurrentAnswers] = useState({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false); // Zeigt nun "Live-Speichern" an
   const [toastMessage, setToastMessage] = useState("");
+  const [showLock, setShowLock] = useState(false)
   const toastTimeoutRef = useRef(null);
   const scrollIntervalRef = useRef(null);
   const liveRegionRef = useRef(null);
@@ -68,10 +70,16 @@ const DimensionsEditPage = () => {
         if (!settingsRes.ok || !stateRes.ok) throw new Error("Ladefehler");
 
         const settingsResult = await settingsRes.json();
-        const stateResult = await stateRes.json();
+        const stateResult = await stateRes.json()
+
+        console.log(settingsResult)
 
         const activeIds = Array.isArray(settingsResult.activeDimensions)
           ? settingsResult.activeDimensions
+          : [];
+
+        const lockedIds = Array.isArray(settingsResult.lockedDimensions)
+          ? settingsResult.lockedDimensions
           : [];
 
         const loadedAnswers = stateResult.currentAnswers && typeof stateResult.currentAnswers === "object"
@@ -85,10 +93,15 @@ const DimensionsEditPage = () => {
             : [];
 
         const initialNotToEdit = filteredDimensions.filter((d) => !initialToEdit.some((x) => x.id === d.id));
+        
+        console.log(initialToEdit)
+        console.log(lockedIds)
 
         setToEdit(initialToEdit);
         setNotToEdit(initialNotToEdit);
         setCurrentAnswers(loadedAnswers);
+        setLockedCards(lockedIds)
+        setShowLock(settingsResult.privilegedAccess);
       } catch (error) {
         console.error("Fehler beim Laden der Konfiguration:", error);
         setToEdit([]);
@@ -357,8 +370,8 @@ const DimensionsEditPage = () => {
                       showStartButton={false}
                       showProgress={true}
                       progress={progress}
-                      isLocked={false}
-                      //showLock={true} --> einbauen mit der Adminrolle
+                      isLocked={lockedCards.includes(dimension.id)? true : false}
+                      showLock={showLock}
                     />
                   </div>
                 );

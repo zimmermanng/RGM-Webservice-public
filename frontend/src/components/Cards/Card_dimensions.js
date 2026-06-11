@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE } from "../../config.ts";
 
 const Card_dimensions = ({
   title,
@@ -21,6 +22,21 @@ const Card_dimensions = ({
   const handleToggle = (e) => {
     e.stopPropagation(); // Verhindert, dass Drag-Events der übergeordneten Liste feuern
     setIsLocked((prev) => !prev);
+    console.log("Lock Status:", !isLocked)
+    console.log("Selected Card:", dimensionId)
+    try {
+      fetch(`${API_BASE}/session/locking-dimension`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dimensionId: dimensionId,
+          lockStatus: !isLocked,
+        }),
+      });
+    } catch (error) {
+      console.error("Fehler beim Speichern des Status:", error)
+    }
   };
   const renderStatusIcon = () => {
     const iconSrc = isLocked ? "/lock-closed.svg" : "/lock_open.svg";
@@ -77,11 +93,11 @@ const Card_dimensions = ({
               <div id={progressId} className="progress-text">
                 Fortschritt: {Math.round(progress * 100)}%
               </div>
-             {showLock && (
-              <div>
-                {renderStatusIcon()}
-              </div>
-            )}
+              {showLock && (
+                <div>
+                  {renderStatusIcon()}
+                </div>
+              )}
             </>
           )}
 
