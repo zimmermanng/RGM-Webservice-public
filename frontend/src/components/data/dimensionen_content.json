@@ -1,76 +1,76 @@
 {
   "dimensionen": [
     {
-      "id": "D1",
+      "id": "D16",
       "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Verantwortung für die Umsetzung von Barrierefreiheit im Unternehmen übernommen wird."
     },
     {
-      "id": "D2",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Feedback zur Barrierefreiheit eines Softwareproduktes eingehen kann. Das ist in der Regel der Fall, sobald ein Produkt von anderen genutzt wird. Dies gilt auch für, ist aber nicht beschränkt auf Supporttätigkeiten."
-    },
-    {
-      "id": "D3",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Prüfungen auf Barrierefreiheit für Softwareprodukte erforderlich sind. Das ist in der Regel der Fall, sobald ein Produkt von anderen genutzt wird. Dies gilt auch, wenn diese Prüfungen derzeit von anderen Stellen durchgeführt werden."
-    },
-    {
-      "id": "D4",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Lehrmaterialien, Schulungen oder Präsentationen konzipiert, erstellt oder durchgeführt werden. Dies umfasst analoge und digitale Formate zu beliebigen Themen."
-    },
-    {
-      "id": "D5",
-      "beschreibung": "Dieses Päckchen behandelt für alle Abteilungen relevante Themen"
-    },
-    {
-      "id": "D6",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Ergebnisprodukte jeglicher Art erstellt werden (z.B. Software, Designs, Dokumente, …)."
+      "id": "D8",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Feedback zur Barrierefreiheit eines Softwareproduktes eingehen kann. Das ist in der Regel der Fall, sobald ein Produkt von anderen Personen (intern oder extern) genutzt wird. Dies gilt auch für, ist aber nicht beschränkt auf Supporttätigkeiten."
     },
     {
       "id": "D7",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Medienprodukte jeglicher Art erstellt oder verbreitet werden (z.B. Grafiken, Tonspuren, Videos, Artikel, …). Dies umfasst auch die Bereitstellung von Medien in Datenbanken."
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Prüfungen auf Barrierefreiheit für Softwareprodukte erforderlich sind. Das ist in der Regel der Fall, sobald ein Produkt von anderen Personen (intern oder extern) genutzt wird. Dies gilt auch, wenn diese Prüfungen derzeit von anderen Stellen durchgeführt werden."
     },
     {
-      "id": "D8",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Marketingmaßnahmen für Produkte, Dienstleistungen oder Unternehmen durchgeführt werden (z.B. Instagram, Newsletter, …). Dies umfasst auch die öffentliche Vorstellung Ihrer Projekte oder Ergebnisse."
+      "id": "D6",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Lehrmaterialien, Schulungen, Präsentationen oder Nutzungsanleitungen für Produkte konzipiert, erstellt oder durchgeführt werden. Dies umfasst analoge und digitale Formate zu beliebigen Themen."
     },
     {
-      "id": "D9",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Webseiten erstellt, verwaltet oder gepflegt werden."
+      "id": "D1",
+      "beschreibung": "Importieren Sie dieses Päckchen."
+    },
+    {
+      "id": "D2",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Produkte, Inhalte oder Lösungen konzipiert, gestaltet oder entwickelt werden, die von anderen Personen genutzt oder konsumiert werden sollen (z.B. Software, Designs, Dokumente, …). Dieses Päckchen betrachtet allgemeine Aspekte der Produkterstellung (z.B. Ressourcenplanung, ...). Je nach Art der von Ihnen erstellten Produkte sollten zusätzlich weitere, spezialisierte Päckchen importiert werden."
+    },
+    {
+      "id": "D3",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Inhalte in verschiedenen Medienformaten erstellt, bearbeitet oder verbreitet werden, die von anderen Personen benutzt oder konsumiert werden sollen (z.B. Grafiken, Audios, Videos, Artikel, …). Dies umfasst auch die Erfassung, Verwaltung und Bereitstellung von selbst erstellten und nicht selbst erstellten Medien in Datenbanken."
+    },
+    {
+      "id": "D5",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Marketingmaßnahmen für Produkte, Dienstleistungen oder Organisationen durchgeführt werden (z.B. Instagram, Newsletter, …). Dies umfasst auch die öffentliche Vorstellung von Projekten oder Ergebnissen."
     },
     {
       "id": "D10",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Webseiten erstellt, verwaltet oder gepflegt werden. Dies gilt nicht, wenn Sie die Erstellung, Verwaltung oder Pflege von Webseiten extern in Auftrag geben."
+    },
+    {
+      "id": "D15",
       "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Kontakt zu externen Personen oder Organisationen besteht. Dies gilt unabhängig davon, ob Sie als Anbieter (z.B. von Produkten) oder als Kunde (z.B. von Dienstleistungen) auftreten."
     },
     {
-      "id": "D11",
+      "id": "D14",
       "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Einkäufe von Produkten (z.B. Software, Hardware, Medien, …), Dienstleistungen (z.B. Softwareentwicklung, Design, …) oder Referenten (z.B. Schulungen, …) getätigt werden. Dies umfasst auch die Recherche zu Produkten, das Einholen von Angeboten, die Kommunikation mit Referenten, usw."
     },
     {
       "id": "D12",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Aufgaben der Verwaltung (z.B. Finanzen, Personal, …) oder der Governance (z.B. Datenschutz, Juristik, …) übernommen werden."
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Aufgaben der Verwaltung (z.B. Finanzen, Personal, …) oder der Governance (z.B. Datenschutz, Juristik, …) übernommen werden, bei denen regelmäßig komplexe Dokumente, Formulare oder Unterlagen erstellt, bearbeitet oder bereitgestellt werden (z.B. Rechnungen, Angebote, Verträge, ...)."
     },
     {
-      "id": "D13",
+      "id": "D11",
       "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit administrative IT-Tätigkeiten ausgeführt werden, z.B. die Verwaltung von Konten und Geräten, das Ausspielen und Aktualisieren von Software. Dies umfasst sowohl Geräte für interne Mitarbeitende als auch für externe Personen, z.B. in öffentlichen Lernräumen."
     },
     {
-      "id": "D14",
+      "id": "D4",
       "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Projekte geplant, gesteuert oder verantwortet werden. Dies gilt unabhängig davon, ob es sich um das eigene oder fremde Projekte handelt."
     },
     {
-      "id": "D15",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Verantwortung für die Expertise zu Barrierefreiheit im Unternehmen übernommen wird. Dies gilt nicht, wenn Sie angebotene Weiterbildungsmaßnahmen lediglich wahrnehmen."
-    },
-    {
-      "id": "D16",
-      "beschreibung": ""
-    },
-    {
       "id": "D17",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Software entwickelt oder weiterentwickelt wird."
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Verantwortung für die Weiterbildung zu Barrierefreiheit im Unternehmen übernommen wird. Dies gilt nicht, wenn Sie angebotene Weiterbildungsmaßnahmen lediglich wahrnehmen."
+    },
+    {
+      "id": "D9",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Software entwickelt oder weiterentwickelt wird. Dies gilt nicht, wenn Sie die Entwicklung von Software extern in Auftrag geben."
+    },
+    {
+      "id": "D13",
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Aufgaben der Personalgewinnung (z.B. Veröffentlichung von Stellenausschreibungen, Koordinierung von Bewerbungsgesprächen, Durchführung von Onboarding, …) übernommen werden."
     },
     {
       "id": "D18",
-      "beschreibung": "Importieren Sie dieses Päckchen, wenn in der Organisationseinheit Aufgaben der Personalgewinnung (z.B. Stellenausschreibungen, Bewerbungsgespräche, Onboarding, …) übernommen werden."
+      "beschreibung": "Importieren Sie dieses Päckchen, wenn Sie als Geschäftsleitung agieren."
     }
   ]
 }

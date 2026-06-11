@@ -384,9 +384,12 @@ export default function QuestionnairePage({ activeCompany }) {
         <h1>{currentDimension?.name}</h1>
         <h2>{currentHandlungsfeld?.name}</h2>
         <p>
-          Nehmen Sie eine realistische Selbsteinschätzung vor. <br /> Beziehen Sie die
-          Fragen ausschließlich auf Ihre Organisationseinheit. <br />Falls eine Frage
-          für Sie nicht zutrifft, wählen Sie „Keine Angabe“.
+          Nehmen Sie eine realistische Selbsteinschätzung vor. <br />
+          Beziehen Sie die Fragen ausschließlich auf Ihre Organisationseinheit.{" "}
+          <br />
+          Falls mehrere Antworten für Sie zutreffen, wählen Sie die unterste
+          zutreffende Antwort. <br />
+          Falls eine Frage für Sie nicht zutrifft, wählen Sie „Keine Angabe“.
         </p>
 
         {pageMessage.text && (
@@ -404,6 +407,11 @@ export default function QuestionnairePage({ activeCompany }) {
         ) : (
           filteredFragen.map((frage) => (
             <div key={frage.id} className="question-box">
+              <div className="homeEyebrowright">
+                <p className="homeEyebrow">
+                  {currentHandlungsfeld?.name}
+                </p>
+              </div>
               <p className="question-text">{frage.frage}</p>
 
               <div className="answers">
@@ -432,15 +440,6 @@ export default function QuestionnairePage({ activeCompany }) {
               </div>
             </div>
           ))
-        )}
-
-        {commentsEnabled && (
-          <CommentBox
-            inputs={inputs}
-            comments={postedComments}
-            onInputChange={handleInputChange}
-            onPost={handlePost}
-          />
         )}
 
         <div className="hf-navigation">

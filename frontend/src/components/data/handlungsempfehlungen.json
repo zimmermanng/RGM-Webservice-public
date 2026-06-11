@@ -116,7 +116,7 @@
       "antworten": [
         {
           "id": "A13",
-          "antwort": "Die Unterstützung bei der Durchführung von Barrierefreiheitstests wird jedem Team zu Projektbeginn proaktiv angeboten.",
+          "antwort": "Die Unterstützung bei der Umsetzung von Barrierefreiheit wird jedem Team zu Projektbeginn proaktiv angeboten.",
           "handlungsfeldId": "H3"
         }
       ]
@@ -149,7 +149,7 @@
       "antworten": [
         {
           "id": "A17",
-          "antwort": "Das Engagement für Barrierefreiheit wird in einem internen Barrierefreiheits-Newsletter bei relevanten Geschehnissen kommuniziert.",
+          "antwort": "Das Engagement für Barrierefreiheit wird bei relevanten Geschehnissen kommuniziert.",
           "handlungsfeldId": "H2"
         }
       ]
@@ -160,7 +160,7 @@
       "antworten": [
         {
           "id": "A18",
-          "antwort": "Das Engagement für Barrierefreiheit wird in einem internen Barrierefreiheits-Newsletter regelmäßig kommuniziert. Mitarbeitende erhalten den Newsletter, wenn Sie sich dazu anmelden.",
+          "antwort": "Das Engagement für Barrierefreiheit wird regelmäßig kommuniziert, z.B. über einen internen Newsletter. Mitarbeitende erhalten diesen Newsletter bzw. diese Informationen, wenn Sie sich dazu anmelden.",
           "handlungsfeldId": "H2"
         }
       ]
@@ -347,7 +347,7 @@
       "antworten": [
         {
           "id": "A46",
-          "antwort": "Der Bedarf an Hard- und Software wird nicht erhoben.",
+          "antwort": "Der Bedarf an Hard- und Software im Kontext von Barrierefreiheit wird nicht erhoben.",
           "handlungsfeldId": "H2"
         }
       ]
@@ -369,7 +369,7 @@
       "antworten": [
         {
           "id": "A48",
-          "antwort": "Der Bedarf wird zu bestimmten Anlässen erhoben, z.B. beim Onboarding eines neuen Mitarbeiters oder bei der geplanten Einführung eines neuen Tools.",
+          "antwort": "Der Bedarf wird zu bestimmten Anlässen erhoben, z.B. beim Onboarding eines neuen Mitarbeitenden oder bei der geplanten Einführung eines neuen Tools.",
           "handlungsfeldId": "H2"
         }
       ]
@@ -666,7 +666,7 @@
       "antworten": [
         {
           "id": "A88",
-          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument, in dem festgelegt ist, welche automatisierten Tests durchgeführt werden, um die grundlegenden technischen Aspekte der Barrierefreiheit abzudecken.",
+          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument o.ä., in dem festgelegt ist, welche automatisierten Tests durchgeführt werden, um die grundlegenden technischen Aspekte der Barrierefreiheit abzudecken.",
           "handlungsfeldId": "H7"
         }
       ]
@@ -677,7 +677,7 @@
       "antworten": [
         {
           "id": "A89",
-          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument, in dem festgelegt ist, welche automatisierten Tests durchgeführt werden, um alle relevanten technischen Aspekte der Barrierefreiheit und gesetzlich geforderte Bestimmungen abzudecken.",
+          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument o.ä., in dem festgelegt ist, welche automatisierten Tests durchgeführt werden, um alle relevanten technischen Aspekte der Barrierefreiheit und gesetzlich geforderte Bestimmungen abzudecken.",
           "handlungsfeldId": "H7"
         }
       ]
@@ -772,11 +772,11 @@
     },
     {
       "id": "HE91",
-      "name": "Ergänzen Sie das Dokument so, dass die beschriebenen manuellen Tests alle relevanten Nutzungsszenarien sowie gesetzlich geforderte Bestimmungen abdecken. Orientieren SIe sich bspw. an den BIK-BITV Prüfschritten. Stellen Sie das Dokument allen beteiligten Mitarbeitenden zur Verfügung und nutzen Sie es als gemeinsame Grundlage für Ihre Arbeit. Verwenden Sie Assistive Technologien (z.B. Screenreader) zur Prüfung, um vielfältige Nutzungsszenarien abzudecken.",
+      "name": "Ergänzen Sie das Dokument so, dass die beschriebenen manuellen Tests alle relevanten Nutzungsszenarien sowie gesetzlich geforderte Bestimmungen abdecken. Orientieren SIe sich z.B. an den BIK-BITV Prüfschritten. Stellen Sie das Dokument allen beteiligten Mitarbeitenden zur Verfügung und nutzen Sie es als gemeinsame Grundlage für Ihre Arbeit. Verwenden Sie Assistive Technologien (z.B. Screenreader) zur Prüfung, um vielfältige Nutzungsszenarien abzudecken.",
       "antworten": [
         {
           "id": "A103",
-          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument, in dem festgelegt ist, welche manuellen Tests durchgeführt werden, um die grundlegenden Nutzungsszenarien abzudecken.",
+          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument o.ä., in dem festgelegt ist, welche manuellen Tests durchgeführt werden, um die grundlegenden Nutzungsszenarien abzudecken.",
           "handlungsfeldId": "H8"
         }
       ]
@@ -787,7 +787,7 @@
       "antworten": [
         {
           "id": "A104",
-          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument, in dem festgelegt ist, welche manuellen Tests durchgeführt werden, um alle relevanten Nutzungsszenarien und gesetzlich geforderte Bestimmungen abzudecken.",
+          "antwort": "Die Tests werden einheitlich durchgeführt. Es gibt ein Dokument o.ä., in dem festgelegt ist, welche manuellen Tests durchgeführt werden, um alle relevanten Nutzungsszenarien und gesetzlich geforderte Bestimmungen abzudecken.",
           "handlungsfeldId": "H8"
         }
       ]
@@ -882,7 +882,7 @@
     },
     {
       "id": "HE104",
-      "name": "Sammeln Sie Erfahrungen und halten Sie bewährte Methodiken zur Durchführung von Benutzertests in einem gemeinsamen Dokument fest. Beschreiben Sie darin z.B., wie Testpersonen ausgewählt, Aufgaben formuliert und Testergebnisse festgehalten werden können. Stellen Sie das Dokument allen beteiligten Mitarbeitenden zur Verfügung und nutzen Sie es als gemeinsame Grundlage für Ihre Arbeit.",
+      "name": "Sammeln Sie Erfahrungen und halten Sie bewährte Methodiken zur Durchführung von Nutzertests in einem gemeinsamen Dokument fest. Beschreiben Sie darin z.B., wie Testpersonen ausgewählt, Aufgaben formuliert und Testergebnisse festgehalten werden können. Stellen Sie das Dokument allen beteiligten Mitarbeitenden zur Verfügung und nutzen Sie es als gemeinsame Grundlage für Ihre Arbeit.",
       "antworten": [
         {
           "id": "A117",
@@ -897,7 +897,7 @@
       "antworten": [
         {
           "id": "A118",
-          "antwort": "Die Tests werden methodisch fundiert durchgeführt. Es gibt ein Dokument, in dem grundlegende Methodiken zur Planung und Durchführung von Nutzertests beschrieben sind.",
+          "antwort": "Die Tests werden methodisch fundiert durchgeführt. Es gibt ein Dokument o.ä., in dem grundlegende Methodiken zur Planung und Durchführung von Nutzertests beschrieben sind.",
           "handlungsfeldId": "H9"
         }
       ]
@@ -908,7 +908,7 @@
       "antworten": [
         {
           "id": "A119",
-          "antwort": "Die Tests werden methodisch fundiert durchgeführt. Es gibt ein Dokument, in dem umfassende Methodiken zur Planung und Durchführung von Nutzertests beschrieben sind.",
+          "antwort": "Die Tests werden methodisch fundiert durchgeführt. Es gibt ein Dokument o.ä., in dem umfassende Methodiken zur Planung und Durchführung von Nutzertests beschrieben sind.",
           "handlungsfeldId": "H9"
         }
       ]
@@ -1018,7 +1018,7 @@
       "antworten": [
         {
           "id": "A142",
-          "antwort": "Bei der Erstellung und Veröffentlichung von Content werden einfache Aspekte der Barrierefreiheit, wie Schriftgrößen und Kontraste, beachtet.",
+          "antwort": "Bei der Erstellung von Lehrmaterialien werden einfache Aspekte der Barrierefreiheit, z.B. Schriftgrößen und Kontraste, beachtet.",
           "handlungsfeldId": "H11"
         }
       ]
@@ -1062,7 +1062,7 @@
       "antworten": [
         {
           "id": "A152",
-          "antwort": "Beim Halten von Präsentationen werden einfache Aspekte der Barrierefreiheit, wie ein sichtbares Mundbild und Verbalisierungen, beachtet, die keine technischen Anpassungen voraussetzen.",
+          "antwort": "Beim Halten von Präsentationen werden einfache Aspekte der Barrierefreiheit, z.B. ein sichtbares Mundbild und Verbalisierungen, beachtet, die keine technischen Anpassungen voraussetzen.",
           "handlungsfeldId": "H12"
         }
       ]
@@ -1073,7 +1073,7 @@
       "antworten": [
         {
           "id": "A153",
-          "antwort": "Beim Halten von Präsentationen werden komplexe Aspekte der Barrierefreiheit, wie gute Beleuchtung und Lautstärke, beachtet, die technische Anpassungen voraussetzen.",
+          "antwort": "Beim Halten von Präsentationen werden komplexe Aspekte der Barrierefreiheit, z.B. gute Beleuchtung und Lautstärke, beachtet, die technische Anpassungen voraussetzen.",
           "handlungsfeldId": "H12"
         }
       ]
@@ -1106,7 +1106,7 @@
       "antworten": [
         {
           "id": "A158",
-          "antwort": "Es gibt ein Dokument, in dem Best Practices für die Barrierefreiheit von Präsentationen notiert sind.",
+          "antwort": "Es gibt ein Dokument o.ä., in dem Best Practices für die Barrierefreiheit von Präsentationen notiert sind.",
           "handlungsfeldId": "H12"
         }
       ]
@@ -1359,7 +1359,7 @@
       "antworten": [
         {
           "id": "A196",
-          "antwort": "Zu Beginn der Produktentwicklung gibt es keine Überlegungen zu dessen Barrierefreiheit.",
+          "antwort": "Zu Beginn der Umsetzung des Ergebnisproduktes gibt es keine Überlegungen zu dessen Barrierefreiheit.",
           "handlungsfeldId": "H16"
         }
       ]
@@ -1370,7 +1370,7 @@
       "antworten": [
         {
           "id": "A197",
-          "antwort": "Zu Beginn der Produktentwicklung gibt es informelle Überlegungen zu dessen Barrierefreiheit.",
+          "antwort": "Zu Beginn der Umsetzung des Ergebnisproduktes gibt es informelle Überlegungen zu dessen Barrierefreiheit.",
           "handlungsfeldId": "H16"
         }
       ]
@@ -1381,7 +1381,7 @@
       "antworten": [
         {
           "id": "A198",
-          "antwort": "Es gibt ein vereinheitlichtes Vorgehen zur Anforderungsanalyse, das bei manchen Produkten angewendet wird.",
+          "antwort": "Es gibt ein vereinheitlichtes Vorgehen zur Anforderungsanalyse, das bei manchen Ergebnisprodukten angewendet wird.",
           "handlungsfeldId": "H16"
         }
       ]
@@ -1392,7 +1392,7 @@
       "antworten": [
         {
           "id": "A199",
-          "antwort": "Es gibt ein vereinheitlichtes Vorgehen zur Anforderungsanalyse, das bei allen Produkten angewendet wird.",
+          "antwort": "Es gibt ein vereinheitlichtes Vorgehen zur Anforderungsanalyse, das bei allen Ergebnisprodukten angewendet wird.",
           "handlungsfeldId": "H16"
         }
       ]
@@ -1425,7 +1425,7 @@
       "antworten": [
         {
           "id": "A203",
-          "antwort": "Bei der Projektplanung werden Zeitblöcke für Barrierefreiheit reserviert, die im Konfliktfall entfallen.",
+          "antwort": "Bei der Planung werden Zeitblöcke für Barrierefreiheit reserviert, die im Konfliktfall entfallen.",
           "handlungsfeldId": "H16"
         }
       ]
@@ -1436,7 +1436,7 @@
       "antworten": [
         {
           "id": "A206",
-          "antwort": "In der Entwicklung der Produkte werden keine nutzerzentrierten Methoden angewendet.",
+          "antwort": "In der Umsetzung der Ergebnisprodukte werden keine nutzerzentrierten Methoden angewendet.",
           "handlungsfeldId": "H17"
         }
       ]
@@ -1447,7 +1447,7 @@
       "antworten": [
         {
           "id": "A207",
-          "antwort": "In der Entwicklung einzelner Produkte werden nutzerzentrierte Methoden angewendet.",
+          "antwort": "In der Umsetzung einzelner Ergebnisprodukte werden nutzerzentrierte Methoden angewendet.",
           "handlungsfeldId": "H17"
         }
       ]
@@ -1458,7 +1458,7 @@
       "antworten": [
         {
           "id": "A208",
-          "antwort": "In der Entwicklung vieler Produkte werden nutzerzentrierte Methoden angewendet.",
+          "antwort": "In der Umsetzung vieler Ergebnisprodukte werden nutzerzentrierte Methoden angewendet.",
           "handlungsfeldId": "H17"
         }
       ]
@@ -1469,7 +1469,7 @@
       "antworten": [
         {
           "id": "A211",
-          "antwort": "In der Entwicklung eines Produktes werden keine nutzerzentrierten Methoden angewendet.",
+          "antwort": "In der Umsetzung der Ergebnisprodukte werden keine nutzerzentrierten Methoden angewendet.",
           "handlungsfeldId": "H17"
         }
       ]
@@ -1480,7 +1480,7 @@
       "antworten": [
         {
           "id": "A212",
-          "antwort": "In der Entwicklung eines Produktes werden einfache oder informelle Methoden (z.B. informelle Interviews) angewendet.",
+          "antwort": "In der Umsetzung der Ergebnisprodukte werden einfache oder informelle Methoden (z.B. informelle Interviews) angewendet.",
           "handlungsfeldId": "H17"
         }
       ]
@@ -1491,7 +1491,7 @@
       "antworten": [
         {
           "id": "A213",
-          "antwort": "In der Entwicklung eines Produktes werden komplexe oder formelle Methoden (z.B. systematische Interviews, Benutzertests oder Personas) angewendet.",
+          "antwort": "In der Umsetzung der Ergebnisprodukte werden komplexe oder formelle Methoden (z.B. systematische Interviews, Nutzertests, Personas) angewendet.",
           "handlungsfeldId": "H17"
         }
       ]
@@ -1502,7 +1502,7 @@
       "antworten": [
         {
           "id": "A216",
-          "antwort": "Die entstehenden Produkte werden nicht auf ihre Barrierefreiheit getestet.",
+          "antwort": "Die entstehenden Ergebnisprodukte werden nicht auf ihre Barrierefreiheit getestet.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1513,7 +1513,7 @@
       "antworten": [
         {
           "id": "A217",
-          "antwort": "Bei einzelnen Produkten werden manuelle Tests durchgeführt, wenn Probleme auffallen.",
+          "antwort": "Bei einzelnen Ergebnisprodukten werden manuelle Tests durchgeführt, wenn Probleme auffallen.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1524,7 +1524,7 @@
       "antworten": [
         {
           "id": "A218",
-          "antwort": "Bei vielen Produkten werden manuelle Tests für zentrale Funktionen des Produktes durchgeführt.",
+          "antwort": "Bei vielen Ergebnisprodukten werden manuelle Tests für zentrale Funktionen oder Inhalte des Produktes durchgeführt.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1535,7 +1535,7 @@
       "antworten": [
         {
           "id": "A219",
-          "antwort": "Bei allen Produkten werden manuelle Tests für zentrale Funktionen des Produktes durchgeführt.",
+          "antwort": "Bei allen Ergebnisprodukten werden manuelle Tests für zentrale Funktionen oder Inhalte des Produktes durchgeführt.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1546,7 +1546,7 @@
       "antworten": [
         {
           "id": "A221",
-          "antwort": "Die entstehenden Produkte werden nicht auf ihre Barrierefreiheit getestet.",
+          "antwort": "Die entstehenden Ergebnisprodukte werden nicht auf ihre Barrierefreiheit getestet.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1568,7 +1568,7 @@
       "antworten": [
         {
           "id": "A223",
-          "antwort": "Die manuellen Tests werden einheitlich durchgeführt. Es gibt ein Dokument, in dem Best Practices für die Durchführung notiert sind.",
+          "antwort": "Die manuellen Tests werden einheitlich durchgeführt. Es gibt ein Dokument o.ä., in dem Best Practices für die Durchführung notiert sind.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1590,7 +1590,7 @@
       "antworten": [
         {
           "id": "A226",
-          "antwort": "Die entstehenden Produkte werden nicht auf ihre Barrierefreiheit getestet.",
+          "antwort": "Die entstehenden Ergebnisprodukte werden nicht auf ihre Barrierefreiheit getestet.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1601,7 +1601,7 @@
       "antworten": [
         {
           "id": "A227",
-          "antwort": "Auf den entstehenden Produkten werden einfache Tests auf Barrierefreiheit durchgeführt, z.B. hinsichtlich Design.",
+          "antwort": "Auf den entstehenden Ergebnisprodukten werden einfache Tests auf Barrierefreiheit durchgeführt, z.B. hinsichtlich Design.",
           "handlungsfeldId": "H18"
         }
       ]
@@ -1612,8 +1612,8 @@
       "antworten": [
         {
           "id": "A231",
-          "antwort": "Die Maßnahmen werden nicht für den späteren Benutzer dokumentiert.",
-          "handlungsfeldId": "H19"
+          "antwort": "Die Maßnahmen werden nicht für den späteren Nutzer dokumentiert.",
+          "handlungsfeldId": "HF3"
         }
       ]
     },
@@ -1624,7 +1624,7 @@
         {
           "id": "A232",
           "antwort": "Die zentralen Maßnahmen werden dokumentiert.",
-          "handlungsfeldId": "H19"
+          "handlungsfeldId": "HF3"
         }
       ]
     },
@@ -1635,7 +1635,7 @@
         {
           "id": "A233",
           "antwort": "Alle Maßnahmen werden dokumentiert.",
-          "handlungsfeldId": "H19"
+          "handlungsfeldId": "HF3"
         }
       ]
     },
@@ -1645,8 +1645,8 @@
       "antworten": [
         {
           "id": "A236",
-          "antwort": "Die Maßnahmen werden nicht für den späteren Benutzer dokumentiert.",
-          "handlungsfeldId": "H19"
+          "antwort": "Die Maßnahmen werden nicht für den späteren Nutzer dokumentiert.",
+          "handlungsfeldId": "HF3"
         }
       ]
     },
@@ -1657,7 +1657,7 @@
         {
           "id": "A237",
           "antwort": "Die Maßnahmen werden uneinheitlich und dezentral dokumentiert, z.B. als Release Notes",
-          "handlungsfeldId": "H19"
+          "handlungsfeldId": "HF3"
         }
       ]
     },
@@ -1668,7 +1668,7 @@
         {
           "id": "A238",
           "antwort": "Die Maßnahmen werden einheitlich und zentral dokumentiert, z.B. als Bedienungsanleitung.",
-          "handlungsfeldId": "H19"
+          "handlungsfeldId": "HF3"
         }
       ]
     },
@@ -1700,7 +1700,7 @@
       "antworten": [
         {
           "id": "A243",
-          "antwort": "Entsprechende Experten werden zu festgelegten Zeitpunkten (z.B. Konzeption, Evaluation, ...) beratend hinzugezogen.",
+          "antwort": "Entsprechende Experten werden zu festgelegten Zeitpunkten (z.B. Konzeption, Evaluation) beratend hinzugezogen.",
           "handlungsfeldId": "H20"
         }
       ]
@@ -1711,7 +1711,7 @@
       "antworten": [
         {
           "id": "A244",
-          "antwort": "Entsprechende Experten werden in regelmäßigem Turnus (z.B. Sprint Review) beratend hinzugezogen.",
+          "antwort": "Entsprechende Experten werden in regelmäßigem Turnus (z.B. Sprint Review oder vergleichbare Formate) beratend hinzugezogen.",
           "handlungsfeldId": "H20"
         }
       ]
@@ -1722,7 +1722,7 @@
       "antworten": [
         {
           "id": "A246",
-          "antwort": "Ein solches Dokument existiert nicht, Aspekte der Barrierefreiheit haben auf Designentscheidungen keinen Einfluss.",
+          "antwort": "Ein solches Dokument o.ä. existiert nicht, Aspekte der Barrierefreiheit haben auf Designentscheidungen keinen Einfluss.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1733,7 +1733,7 @@
       "antworten": [
         {
           "id": "A247",
-          "antwort": "Ein solches Dokument existiert nicht, Aspekte der Barrierefreiheit haben auf Designentscheidungen informell Einfluss, z.B. nach “Gefühl”.",
+          "antwort": "Ein solches Dokument o.ä. existiert nicht, Aspekte der Barrierefreiheit haben auf Designentscheidungen informell Einfluss, z.B. nach “Gefühl”.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1744,7 +1744,7 @@
       "antworten": [
         {
           "id": "A248",
-          "antwort": "Ein solches Dokument existiert und ist lückenhaft.",
+          "antwort": "Ein solches Dokument o.ä. existiert und ist lückenhaft.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1755,7 +1755,7 @@
       "antworten": [
         {
           "id": "A249",
-          "antwort": "Ein solches Dokument existiert und ist umfassend.",
+          "antwort": "Ein solches Dokument o.ä. existiert und ist umfassend.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1843,7 +1843,7 @@
       "antworten": [
         {
           "id": "A263",
-          "antwort": "Im Live Betrieb werden komplexe Aspekte der Barrierefreiheit, wie gute Beleuchtung und Lautstärke, beachtet, die technische Anpassungen voraussetzen.",
+          "antwort": "Im Live Betrieb werden komplexe Aspekte der Barrierefreiheit, z.B. gute Beleuchtung und Lautstärke, beachtet, die technische Anpassungen voraussetzen.",
           "handlungsfeldId": "H22"
         }
       ]
@@ -1876,7 +1876,7 @@
       "antworten": [
         {
           "id": "A268",
-          "antwort": "Es gibt ein Dokument, in dem umfassende Best Practices für die Barrierefreiheit im Live Betrieb notiert sind.",
+          "antwort": "Es gibt ein Dokument o.ä., in dem umfassende Best Practices für die Barrierefreiheit im Live Betrieb notiert sind.",
           "handlungsfeldId": "H22"
         }
       ]
@@ -1887,7 +1887,7 @@
       "antworten": [
         {
           "id": "A271",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1898,7 +1898,7 @@
       "antworten": [
         {
           "id": "A272",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird im Einzelfall auf Barrierefreiheit geachtet, z.B. bei bestimmten Formaten.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird im Einzelfall auf Barrierefreiheit geachtet, z.B. bei bestimmten Formaten.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1909,7 +1909,7 @@
       "antworten": [
         {
           "id": "A276",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1920,7 +1920,7 @@
       "antworten": [
         {
           "id": "A277",
-          "antwort": "Bei der Konvertierung und Digitalisierung werden grundlegende Aspekte der Barrierefreiheit, wie gute Scans, beachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung werden grundlegende Aspekte der Barrierefreiheit, z.B. gute Scans, beachtet.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1931,7 +1931,7 @@
       "antworten": [
         {
           "id": "A278",
-          "antwort": "Bei der Konvertierung und Digitalisierung werden einfache Aspekte der Barrierefreiheit, wie hohe Auflösung und barrierearme Formate, beachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung werden einfache Aspekte der Barrierefreiheit, z.B. hohe Auflösung und barrierearme Formate, beachtet.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1942,7 +1942,7 @@
       "antworten": [
         {
           "id": "A281",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1964,7 +1964,7 @@
       "antworten": [
         {
           "id": "A283",
-          "antwort": "Die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
+          "antwort": "Die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen wird einheitlich bearbeitet. Es gibt ein Dokument o.ä., in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -1975,7 +1975,7 @@
       "antworten": [
         {
           "id": "A284",
-          "antwort": "Es gibt ein Dokument, in dem umfassende Best Practices für die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
+          "antwort": "Es gibt ein Dokument o.ä., in dem umfassende Best Practices für die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
           "handlungsfeldId": "H21"
         }
       ]
@@ -2162,7 +2162,7 @@
       "antworten": [
         {
           "id": "A313",
-          "antwort": "Die Barrierefreiheit von veröffentlichtem Content wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Content notiert sind.",
+          "antwort": "Die Barrierefreiheit von veröffentlichtem Content wird einheitlich bearbeitet. Es gibt ein Dokument o.ä., in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Content notiert sind.",
           "handlungsfeldId": "H25"
         }
       ]
@@ -2184,7 +2184,7 @@
       "antworten": [
         {
           "id": "A317",
-          "antwort": "Bei der Erstellung und Veröffentlichung von Content werden einfache Aspekte der Barrierefreiheit, wie Alternativtexte und Kontraste, beachtet.",
+          "antwort": "Bei der Erstellung und Veröffentlichung von Content werden einfache Aspekte der Barrierefreiheit, z.B. Alternativtexte und Kontraste, beachtet.",
           "handlungsfeldId": "H25"
         }
       ]
@@ -2250,7 +2250,7 @@
       "antworten": [
         {
           "id": "A328",
-          "antwort": "Eine Kennzeichnung von Content findet grundsätzlich proaktiv statt, z.B. als Standardsatz unter jedem Post, und unter Angabe der gegebenen Barriere (z.B. “Beinhaltet keine Untertitel”).",
+          "antwort": "Eine Kennzeichnung von Content findet grundsätzlich proaktiv statt, z.B. als Standardsatz unter jedem Inhalt, und unter Angabe der gegebenen Barriere (z.B. “Beinhaltet keine Untertitel”).",
           "handlungsfeldId": "H26"
         }
       ]
@@ -2294,7 +2294,7 @@
       "antworten": [
         {
           "id": "A338",
-          "antwort": "Das Engagement des Unternehmens für Barrierefreiheit wird intern regelmäßig schriftlich an einzelne kommuniziert, bspw. in einem Newsletter mit Anmeldung.",
+          "antwort": "Das Engagement des Unternehmens für Barrierefreiheit wird intern regelmäßig schriftlich an einzelne kommuniziert, z.B. in einem Newsletter mit Anmeldung.",
           "handlungsfeldId": "H26"
         }
       ]
@@ -2426,7 +2426,7 @@
       "antworten": [
         {
           "id": "A358",
-          "antwort": "Die Barrierefreiheit von Webseiten wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Webseiten notiert sind.",
+          "antwort": "Die Barrierefreiheit von Webseiten wird einheitlich bearbeitet. Es gibt ein Dokument o.ä., in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Webseiten notiert sind.",
           "handlungsfeldId": "H28"
         }
       ]
@@ -2448,7 +2448,7 @@
       "antworten": [
         {
           "id": "A362",
-          "antwort": "Bei der Neuentwicklung oder Aktualisierung von Webseiten werden einfache Aspekte der Barrierefreiheit, wie Kontraste und Schriftgrößen, beachtet.",
+          "antwort": "Bei der Neuentwicklung oder Aktualisierung von Webseiten werden einfache Aspekte der Barrierefreiheit, z.B. Kontraste und Schriftgrößen, beachtet.",
           "handlungsfeldId": "H28"
         }
       ]
@@ -2459,7 +2459,7 @@
       "antworten": [
         {
           "id": "A363",
-          "antwort": "Bei der Neuentwicklung oder Aktualisierung von Webseiten werden komplexe Aspekte der Barrierefreiheit, wie Alternativtexte und Überschriftenstrukturen, beachtet.",
+          "antwort": "Bei der Neuentwicklung oder Aktualisierung von Webseiten werden komplexe Aspekte der Barrierefreiheit, z.B. Alternativtexte und Überschriftenstrukturen, beachtet.",
           "handlungsfeldId": "H28"
         }
       ]
@@ -2514,7 +2514,7 @@
       "antworten": [
         {
           "id": "A372",
-          "antwort": "Einzelne Aspekte anerkannter Leitlinien fließen informell ein, z. B. durch persönliches Interesse. Es ist nicht festgelegt, welche Leitlinien gelten oder wie sie anzuwenden sind.",
+          "antwort": "Einzelne Aspekte anerkannter Leitlinien fließen informell ein, z.B. durch persönliches Interesse. Es ist nicht festgelegt, welche Leitlinien gelten oder wie sie anzuwenden sind.",
           "handlungsfeldId": "H28"
         }
       ]
@@ -2679,7 +2679,7 @@
       "antworten": [
         {
           "id": "A392",
-          "antwort": "Bei barrierefreien organisatorischen Tools werden einfache Aspekte der Barrierefreiheit, wie ein guter Kontrast und eine einfache Struktur, beachtet.",
+          "antwort": "Bei barrierefreien organisatorischen Tools werden einfache Aspekte der Barrierefreiheit, z.B. ein guter Kontrast und eine einfache Struktur, beachtet.",
           "handlungsfeldId": "H29"
         }
       ]
@@ -2690,7 +2690,7 @@
       "antworten": [
         {
           "id": "A393",
-          "antwort": "Bei barrierefreien organisatorischen Tools werden komplexe Aspekte der Barrierefreiheit, wie die Tastaturbedienbarkeit und die Zoombarkeit, beachtet.",
+          "antwort": "Bei barrierefreien organisatorischen Tools werden komplexe Aspekte der Barrierefreiheit, z.B. die Tastaturbedienbarkeit und die Zoombarkeit, beachtet.",
           "handlungsfeldId": "H29"
         }
       ]
@@ -2800,7 +2800,7 @@
       "antworten": [
         {
           "id": "A408",
-          "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
+          "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument o.ä., in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
           "handlungsfeldId": "H30"
         }
       ]
@@ -2976,7 +2976,7 @@
       "antworten": [
         {
           "id": "A462",
-          "antwort": "Die Barrierefreiheit eines Produktes wird implizit eingeschätzt, z. B. auf Basis von allgemeinen Produktbeschreibungen.",
+          "antwort": "Die Barrierefreiheit eines Produktes wird implizit eingeschätzt, z.B. auf Basis von allgemeinen Produktbeschreibungen.",
           "handlungsfeldId": "H33"
         }
       ]
@@ -2987,7 +2987,7 @@
       "antworten": [
         {
           "id": "A463",
-          "antwort": "Die Barrierefreiheit eines Produktes wird explizit recherchiert, z. B. durch Einholen von Selbstauskünften der Hersteller.",
+          "antwort": "Die Barrierefreiheit eines Produktes wird explizit recherchiert, z.B. durch Einholen von Selbstauskünften der Hersteller.",
           "handlungsfeldId": "H33"
         }
       ]
@@ -3009,7 +3009,7 @@
       "antworten": [
         {
           "id": "A467",
-          "antwort": "Die Anbieter werden in Einzelfällen auf Mängel in der Barrierefreiheit ihrer Produkte hingewiesen, z. B. bei besonders gravierenden Einschränkungen.",
+          "antwort": "Die Anbieter werden in Einzelfällen auf Mängel in der Barrierefreiheit ihrer Produkte hingewiesen, z.B. bei besonders gravierenden Einschränkungen.",
           "handlungsfeldId": "H33"
         }
       ]
@@ -3064,7 +3064,7 @@
       "antworten": [
         {
           "id": "A482",
-          "antwort": "Die Durchführenden haben Zugriff auf interne Ressourcen zum Thema Barrierefreiheit (z. B. Wissensdatenbank, Vorlagen).",
+          "antwort": "Die Durchführenden haben Zugriff auf interne Ressourcen zum Thema Barrierefreiheit (z.B. Wissensdatenbank, Vorlagen).",
           "handlungsfeldId": "H34"
         }
       ]
@@ -3196,7 +3196,7 @@
       "antworten": [
         {
           "id": "A504",
-          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte)",
+          "antwort": "Bei der Erstellung von Dokumenten werden komplexe Aspekte der Barrierefreiheit beachtet. Die Dokumente werden mit integrierten Maßnahmen barrierefrei gemacht (z.B. Überschriftenstruktur, Alternativtexte).",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3229,7 +3229,7 @@
       "antworten": [
         {
           "id": "A508",
-          "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
+          "antwort": "Die Barrierefreiheit von Dokumenten wird einheitlich bearbeitet. Es gibt ein Dokument o.ä., in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit von Dokumenten notiert oder Vorlagen bereitgestellt sind.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3240,7 +3240,7 @@
       "antworten": [
         {
           "id": "A511",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3251,7 +3251,7 @@
       "antworten": [
         {
           "id": "A512",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird im Einzelfall auf Barrierefreiheit geachtet, z.B. bei bestimmten Formaten.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird im Einzelfall auf Barrierefreiheit geachtet, z.B. bei bestimmten Formaten.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3262,7 +3262,7 @@
       "antworten": [
         {
           "id": "A516",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3273,7 +3273,7 @@
       "antworten": [
         {
           "id": "A517",
-          "antwort": "Bei der Konvertierung und Digitalisierung werden grundlegende Aspekte der Barrierefreiheit, wie gute Scans, beachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung werden grundlegende Aspekte der Barrierefreiheit, z.B. gute Scans, beachtet.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3284,7 +3284,7 @@
       "antworten": [
         {
           "id": "A518",
-          "antwort": "Bei der Konvertierung und Digitalisierung werden einfache Aspekte der Barrierefreiheit, wie hohe Auflösung und barrierearme Formate, beachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung werden einfache Aspekte der Barrierefreiheit, z.B. hohe Auflösung und barrierearme Formate, beachtet.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3295,7 +3295,7 @@
       "antworten": [
         {
           "id": "A521",
-          "antwort": "Bei der Konvertierung und Digitalisierung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Bei der Digitalisierung und Konvertierung wird nicht auf Barrierefreiheit geachtet.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3317,7 +3317,7 @@
       "antworten": [
         {
           "id": "A523",
-          "antwort": "Die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen wird einheitlich bearbeitet. Es gibt ein Dokument, in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
+          "antwort": "Die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen wird einheitlich bearbeitet. Es gibt ein Dokument o.ä., in dem Best Practices für die wichtigsten Aspekte der Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3328,7 +3328,7 @@
       "antworten": [
         {
           "id": "A524",
-          "antwort": "Es gibt ein Dokument, in dem umfassende Best Practices für die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
+          "antwort": "Es gibt ein Dokument o.ä., in dem umfassende Best Practices für die Barrierefreiheit bei Konvertierungs- und Digitalisierungsvorgängen notiert sind.",
           "handlungsfeldId": "H36"
         }
       ]
@@ -3559,7 +3559,7 @@
       "antworten": [
         {
           "id": "A562",
-          "antwort": "Beim Ausrollen von neuer Software werden einfache Aspekte der Barrierefreiheit, wie Größe und Kontrast, beachtet, und es werden zentrale Funktionen der Software betrachtet.",
+          "antwort": "Beim Ausrollen von neuer Software werden einfache Aspekte der Barrierefreiheit, z.B. Größe und Kontrast, beachtet, und es werden zentrale Funktionen der Software betrachtet.",
           "handlungsfeldId": "H40"
         }
       ]
@@ -3570,40 +3570,7 @@
       "antworten": [
         {
           "id": "A563",
-          "antwort": "Beim Ausrollen von neuer Software werden komplexe Aspekte der Barrierefreiheit, wie die Bedienbarkeit mit Tastatur oder Screenreader, beachtet, und es werden zentrale Funktionen der Software betrachtet.",
-          "handlungsfeldId": "H40"
-        }
-      ]
-    },
-    {
-      "id": "HE456",
-      "name": "Schätzen Sie die Barrierefreiheit der Software ein, indem Sie z.B. in Produktbeschreibungen nach Hinweisen zur Barrierefreiheit suchen.",
-      "antworten": [
-        {
-          "id": "A566",
-          "antwort": "Beim Ausrollen von neuer Software wird nicht auf deren Barrierefreiheit geachtet.",
-          "handlungsfeldId": "H40"
-        }
-      ]
-    },
-    {
-      "id": "HE457",
-      "name": "Recherchieren Sie die Barrierefreiheit der Software gezielt, indem Sie z.B. Selbstauskünfte der Hersteller zu Barrierefreiheit einholen. Stellen Sie konkrete Fragen dazu, welche Anforderungen erfüllt werden.",
-      "antworten": [
-        {
-          "id": "A567",
-          "antwort": "Die Barrierefreiheit der Software wird implizit eingeschätzt, z. B. auf Basis von allgemeinen Produktbeschreibungen.",
-          "handlungsfeldId": "H40"
-        }
-      ]
-    },
-    {
-      "id": "HE458",
-      "name": "Überprüfen Sie die Barrierefreiheit der Software selbst, indem Sie z.B. zentrale Funktionen im praktischen Einsatz erproben. Beziehen Sie nach Möglichkeit auch Assistive Technologien ein.",
-      "antworten": [
-        {
-          "id": "A568",
-          "antwort": "Die Barrierefreiheit der Software wird explizit recherchiert, z. B. durch Einholen von Selbstauskünften der Hersteller.",
+          "antwort": "Beim Ausrollen von neuer Software werden komplexe Aspekte der Barrierefreiheit, z.B. die Bedienbarkeit mit Tastatur oder Screenreader, beachtet, und es werden zentrale Funktionen der Software betrachtet.",
           "handlungsfeldId": "H40"
         }
       ]
@@ -3698,22 +3665,44 @@
     },
     {
       "id": "HE471",
-      "name": "Schaffen Sie eine Möglichkeit für Mitarbeitende, um Tooling zur Umsetzung von Barrierefreiheit zu beantragen.",
+      "name": "Schaffen Sie eine informelle Möglichkeit für Mitarbeitende, um Probleme zur digitalen Barrierefreiheit zu melden. Richten Sie z.B. eine zentrale E-Mail-Adresse für diesen Zweck ein. Kommunizieren Sie diese Möglichkeit intern, etwa über das Intranet, sodass Mitarbeitende wissen, wohin sie sich wenden können.",
       "antworten": [
         {
           "id": "A586",
-          "antwort": "Den umsetzenden Mitarbeitenden wird kein entspr. Tooling zur Verfügung gestellt.",
+          "antwort": "Im Fall eines Problems bzgl. digitaler Barrierefreiheit können Mitarbeitende dieses nicht melden.",
           "handlungsfeldId": "H39"
         }
       ]
     },
     {
       "id": "HE472",
-      "name": "Vereinfachen Sie die Möglichkeit für Mitarbeitende, um Tooling zur Umsetzung von Barrierefreiheit zu beantragen. Definieren Sie klare Zuständigkeiten, z.B. durch feste Ansprechpartner, und schaffen Sie transparente Abläufe, z.B. über ein Ticketsystem. Reduzieren Sie bürokratische Hürden, sodass die Beantragung schnell und unkompliziert passieren kann.",
+      "name": "Bestätigen Sie eingehende Meldungen von Mitarbeitenden in einer kurzen, generischen Nachricht. Antworten Sie zeitnah auf eingehende Meldungen.",
       "antworten": [
         {
           "id": "A587",
-          "antwort": "Die Beantragung von entspr. Tooling durch Mitarbeitende ist bürokratisch aufwändig oder unklar, es gibt keine Zuständigkeiten oder Prozesse zur Beantragung.",
+          "antwort": "Mitarbeitende können Probleme der Barrierefreiheit informell melden, z.B. via Mail an eine generische Adresse. Sie bekommen keine Eingangsbestätigung.",
+          "handlungsfeldId": "H39"
+        }
+      ]
+    },
+    {
+      "id": "HE473",
+      "name": "Richten Sie ein formelles System ein, über das Mitarbeitende unter anderem Barrieren melden können, z.B. ein Ticket System. Bestätigen Sie eingehende Meldungen von Mitarbeitenden in einer Nachricht, in der Sie die geschätzte Bearbeitungsdauer des Problems angeben. Kommunizieren Sie das System intern, etwa über das Intranet, sodass Mitarbeitende wissen, wohin sie sich wenden können.",
+      "antworten": [
+        {
+          "id": "A588",
+          "antwort": "Mitarbeitende können Probleme der Barrierefreiheit informell melden, z.B. via Mail an eine bekannte Ansprechperson. Sie bekommen eine generische Eingangsbestätigung.",
+          "handlungsfeldId": "H39"
+        }
+      ]
+    },
+    {
+      "id": "HE4734",
+      "name": "Richten Sie ein formelles System ein, über das Mitarbeitende gezielt Barrieren melden können, z.B. ein Ticket System. Bestätigen Sie eingehende Meldungen von Mitarbeitenden in einer Nachricht, in der Sie die geschätzte Bearbeitungsdauer des Problems und die nächsten Schritte zur Problemlösung angeben, um Transparenz und Nachvollziehbarkeit zu schaffen. Kommunizieren Sie das System intern, etwa über das Intranet, sodass Mitarbeitende wissen, wohin sie sich wenden können.",
+      "antworten": [
+        {
+          "id": "A589",
+          "antwort": "Mitarbeitende können Probleme der Barrierefreiheit formell melden, z.B. via Ticket System, in dem Barrierefreiheit keine eigene Kategorie ist. Sie bekommen eine Eingangsbestätigung mit der geschätzten Bearbeitungsdauer.",
           "handlungsfeldId": "H39"
         }
       ]
@@ -3856,7 +3845,7 @@
       "antworten": [
         {
           "id": "A612",
-          "antwort": "Es gibt Arbeitsplätze mit grundlegenden integrierten Anpassungsmöglichkeiten,  z.B. Bildschirmhelligkeit, Kontrast, Zoom, Schriftgröße.",
+          "antwort": "Es gibt Arbeitsplätze mit grundlegenden integrierten Anpassungsmöglichkeiten, z.B. Bildschirmhelligkeit, Kontrast, Zoom, Schriftgröße.",
           "handlungsfeldId": "H41"
         }
       ]
@@ -3867,7 +3856,7 @@
       "antworten": [
         {
           "id": "A613",
-          "antwort": "Es gibt Arbeitsplätze mit grundlegenden integrierten Anpassungsmöglichkeiten. Zudem gibt es zur Nutzung vor Ort einfache Hilfsmittel, die allgemeine Aspekte der Ergonomie abdecken,  z.B. große Tastaturen, ergonomische Mäuse.",
+          "antwort": "Es gibt Arbeitsplätze mit grundlegenden integrierten Anpassungsmöglichkeiten. Zudem gibt es zur Nutzung vor Ort einfache Hilfsmittel, die allgemeine Aspekte der Ergonomie abdecken, z.B. große Tastaturen, ergonomische Mäuse.",
           "handlungsfeldId": "H41"
         }
       ]
@@ -3922,7 +3911,7 @@
       "antworten": [
         {
           "id": "A623",
-          "antwort": "Der Bedarf wird zu bestimmten Anlässen erhoben, z.B. beim Onboarding eines neuen Mitarbeiters oder bei der geplanten Einführung eines neuen Tools.",
+          "antwort": "Der Bedarf wird zu bestimmten Anlässen erhoben, z.B. beim Onboarding eines neuen Mitarbeitenden oder bei der geplanten Einführung eines neuen Tools.",
           "handlungsfeldId": "H42"
         }
       ]
@@ -4230,7 +4219,7 @@
       "antworten": [
         {
           "id": "A678",
-          "antwort": "Zur Reflektion der Anwendbarkeit von Maßnahmen zur Barrierefreiheit stellen die Projektmanager den Mitarbeitenden einen bewussten Kanal (z.B. die Aufforderung „Schreiben Sie mir eine E-Mail, wenn…“) zur Verfügung.",
+          "antwort": "Zur Reflektion der Anwendbarkeit von Maßnahmen zur Barrierefreiheit stellen die Projektmanager den Mitarbeitenden einen bewussten Kanal (z.B. die Aufforderung \"Schreiben Sie mir eine E-Mail, wenn…\") zur Verfügung.",
           "handlungsfeldId": "HX13"
         }
       ]
@@ -4461,7 +4450,7 @@
       "antworten": [
         {
           "id": "A718",
-          "antwort": "Verwendete Materialien werden punktuell, bspw. vor einer Veranstaltung, auf ihre Aktualität überprüft.",
+          "antwort": "Verwendete Materialien werden punktuell, z.B. vor einer Veranstaltung, auf ihre Aktualität überprüft.",
           "handlungsfeldId": "HX10"
         }
       ]
@@ -5440,7 +5429,7 @@
       "antworten": [
         {
           "id": "A886",
-          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren barrierefreier Nutzbarkeit.",
           "handlungsfeldId": "HF1"
         }
       ]
@@ -5451,7 +5440,7 @@
       "antworten": [
         {
           "id": "A887",
-          "antwort": "Bei der Entwicklung einzelner Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "antwort": "Bei der Entwicklung einzelner Softwareprodukte wird eine Anforderungsanalyse bzgl. der barrierefreien Nutzbarkeit durchgeführt.",
           "handlungsfeldId": "HF1"
         }
       ]
@@ -5462,7 +5451,7 @@
       "antworten": [
         {
           "id": "A888",
-          "antwort": "Bei der Entwicklung der meisten Softwareprodukte wird eine Anforderungsanalyse bzgl. Barrierefreiheit durchgeführt.",
+          "antwort": "Bei der Entwicklung der meisten Softwareprodukte wird eine Anforderungsanalyse bzgl. der barrierefreien Nutzbarkeit durchgeführt.",
           "handlungsfeldId": "HF1"
         }
       ]
@@ -5473,14 +5462,14 @@
       "antworten": [
         {
           "id": "A891",
-          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren Barrierefreiheit.",
+          "antwort": "Zu Beginn der Softwareentwicklung gibt es keine Überlegungen zu deren barrierefreien Nutzbarkeit.",
           "handlungsfeldId": "HF1"
         }
       ]
     },
     {
       "id": "HE692",
-      "name": "Überführen Sie die bisher informellen Überlegungen zu Barrierefreiheit in eine einfache, wiederverwendbare Struktur. Erstellen Sie z.B. eine Checkliste mit zentralen Fragen zur Barrierefreiheit, die zur Anforderungsanalyse genutzt weden kann. Halten Sie identifizierte Anforderungen an ein Softwareprodukt formal fest, z.B. im Anforderungskatalog.",
+      "name": "Überführen Sie die bisher informellen Überlegungen zu Barrierefreiheit in eine einfache, wiederverwendbare Struktur. Erstellen Sie z.B. eine Checkliste mit zentralen Fragen zur Barrierefreiheit, die zur Anforderungsanalyse genutzt werden kann. Fokussieren Sie sich auf Anforderungen, die sich aus der Nutzung der Software durch Menschen mit Beeinträchtigungen und mit Assistiven Technologien (z.B. Screenreadern, Vergrößerungssoftware, Sprachsteuerung, ...) ergeben. Halten Sie identifizierte Anforderungen an ein Softwareprodukt formal fest, z.B. im Anforderungskatalog.",
       "antworten": [
         {
           "id": "A892",
@@ -5517,7 +5506,7 @@
       "antworten": [
         {
           "id": "A897",
-          "antwort": "Die Anforderungsanalyse umfasst allgemeine Best Practices der Barrierefreiheit",
+          "antwort": "Die Anforderungsanalyse umfasst allgemeine Best Practices der Barrierefreiheit.",
           "handlungsfeldId": "HF1"
         }
       ]
@@ -5539,7 +5528,7 @@
       "antworten": [
         {
           "id": "A902",
-          "antwort": "Bei der Softwareentwicklung werden grundlegende Aspekte von Barrierefreiheit, wie Semantik, im Code beachtet.",
+          "antwort": "Bei der Softwareentwicklung werden grundlegende Aspekte von Barrierefreiheit, z.B. Semantik, im Code beachtet.",
           "handlungsfeldId": "HF2"
         }
       ]
@@ -5550,7 +5539,7 @@
       "antworten": [
         {
           "id": "A903",
-          "antwort": "Bei der Softwareentwicklung werden komplexe Aspekte der Barrierefreiheit, wie ARIA-Attribute, im Code beachtet.",
+          "antwort": "Bei der Softwareentwicklung werden komplexe Aspekte der Barrierefreiheit, z.B. ARIA-Attribute, im Code beachtet.",
           "handlungsfeldId": "HF2"
         }
       ]
@@ -5561,7 +5550,7 @@
       "antworten": [
         {
           "id": "A904",
-          "antwort": "Bei der Softwareentwicklung werden umfassende Aspekte der Barrierefreiheit, wie WCAG-Standards, im Code beachtet.",
+          "antwort": "Bei der Softwareentwicklung werden umfassende Aspekte der Barrierefreiheit, z.B. WCAG-Standards, im Code beachtet.",
           "handlungsfeldId": "HF2"
         }
       ]
@@ -5611,34 +5600,34 @@
       ]
     },
     {
-      "id": "HE707",
-      "name": "Achten Sie bei der Softwareentwicklung auf Aspekte der Barrierefreiheit im Code.",
+      "id": "HE706",
+      "name": "Informieren Sie sich über die relevanten rechtlichen Vorgaben zur Barrierefreiheit von Softwareprodukten, die für Sie gelten. Fassen Sie die wichtigsten Anforderungen in einer Checkliste zusammen. Stellen Sie diese Checkliste allen beteiligten Mitarbeitenden als Empfehlung zur Verfügung",
       "antworten": [
         {
           "id": "A911",
-          "antwort": "Bei der Softwareentwicklung wird nicht auf Barrierefreiheit geachtet.",
+          "antwort": "Rechtliche Vorgaben zur Barrierefreiheit von Softwareprodukten werden nicht bedacht.",
+          "handlungsfeldId": "HF2"
+        }
+      ]
+    },
+    {
+      "id": "HE707",
+      "name": "Verankern Sie die recherchierten rechtlichen Anforderungen verbindlich im Erstellungsprozess von Softwareprodukten. Informieren Sie alle Mitarbeitenden, die Softwareprodukten erstellen, über diese Vorgaben.",
+      "antworten": [
+        {
+          "id": "A912",
+          "antwort": "Rechtliche Vorgaben zur Barrierefreiheit von Softwareprodukten wurden einmalig recherchiert und als Checkliste o.ä. für alle zugänglich und als Empfehlung abgelegt.",
           "handlungsfeldId": "HF2"
         }
       ]
     },
     {
       "id": "HE708",
-      "name": "Führen Sie Prüfungen auf Barrierefreiheit mindestens einmalig in der Entwicklung eines Softwareproduktes durch, z.B. vor dessen Release. Beheben Sie identifizierte Probleme. Die Prüfung kann, je nach Kenntnissstand, in Eigenkontrolle oder durch weitere Teammitglieder durchgeführt werden.",
-      "antworten": [
-        {
-          "id": "A912",
-          "antwort": "Der Code wird barrierefrei umgesetzt, aber nicht geprüft.",
-          "handlungsfeldId": "HF2"
-        }
-      ]
-    },
-    {
-      "id": "HE709",
-      "name": "Führen Sie Prüfungen auf Barrierefreiheit regelmäßig in der Entwicklung eines Softwareproduktes durch, z.B. jeweils nach der Umsetzung eines neuen Features. \r\nZiehen Sie Experten für Barrierefreiheit zur Prüfung hinzu.",
+      "name": "Überprüfen Sie regelmäßig, ob sich rechtliche Vorgaben zur Barrierefreiheit geändert haben, und aktualisieren Sie die bestehende Checkliste entsprechend. Informieren Sie die Mitarbeitenden über die Änderungen und passen Sie interne Arbeitsprozesse bei Bedarf an. Planen Sie feste Zeitpunkte für diese Überprüfung ein.",
       "antworten": [
         {
           "id": "A913",
-          "antwort": "Der Code wird einmalig nach Fertistellung des Softwareprojekts auf Barrierefreiheit geprüft.",
+          "antwort": "Rechtliche Vorgaben zur Barrierefreiheit von Softwareprodukten wurden einmalig recherchiert und als Checkliste o.ä. für alle zugänglich und als verbindliche Richtlinie abgelegt.",
           "handlungsfeldId": "HF2"
         }
       ]
@@ -5650,7 +5639,7 @@
         {
           "id": "A916",
           "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
-          "handlungsfeldId": "HF3"
+          "handlungsfeldId": "HF31"
         }
       ]
     },
@@ -5661,7 +5650,7 @@
         {
           "id": "A917",
           "antwort": "Einzelne Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
-          "handlungsfeldId": "HF3"
+          "handlungsfeldId": "HF31"
         }
       ]
     },
@@ -5672,7 +5661,7 @@
         {
           "id": "A918",
           "antwort": "Die meisten Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
-          "handlungsfeldId": "HF3"
+          "handlungsfeldId": "HF31"
         }
       ]
     },
@@ -5683,7 +5672,7 @@
         {
           "id": "A921",
           "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
-          "handlungsfeldId": "HF3"
+          "handlungsfeldId": "HF31"
         }
       ]
     },
@@ -5694,7 +5683,7 @@
         {
           "id": "A922",
           "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist einfach umgesetzt.",
-          "handlungsfeldId": "HF3"
+          "handlungsfeldId": "HF31"
         }
       ]
     },
@@ -5705,7 +5694,7 @@
         {
           "id": "A923",
           "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist barrierefrei umgesetzt.",
-          "handlungsfeldId": "HF3"
+          "handlungsfeldId": "HF31"
         }
       ]
     },
@@ -5869,7 +5858,7 @@
       "antworten": [
         {
           "id": "A961",
-          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende.",
           "handlungsfeldId": "HF7"
         }
       ]
@@ -5891,7 +5880,7 @@
       "antworten": [
         {
           "id": "A966",
-          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende.",
           "handlungsfeldId": "HF7"
         }
       ]
@@ -5913,7 +5902,7 @@
       "antworten": [
         {
           "id": "A971",
-          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zu Barrierefreiheit für neue Mitarbeitende.",
+          "antwort": "Es gibt keine Weiterbildungsmaßnahmen zur Barrierefreiheit für neue Mitarbeitende.",
           "handlungsfeldId": "HF7"
         }
       ]
@@ -5970,6 +5959,325 @@
           "id": "A979",
           "antwort": "Neue Mitarbeitende erhalten Informationen zum Thema Barrierefreiheit proaktiv. Die Informationen werden strukturiert vermittelt, z.B. als vollständiges und verständliches Dokument. Sie beinhalten z.B. interne Ansprechpartner, interne Prozesse und Informationen zu Weiterbildungsmöglichkeiten.",
           "handlungsfeldId": "HF7"
+        }
+      ]
+    },
+    {
+      "id": "HE753",
+      "name": "Positionieren Sie sich erstmals im Kontext bestehender Formate zum Thema digitale Barrierefreiheit. Kommunizieren Sie z.B. in einem Rundschreiben oder einer Sitzung, dass digitale Barrierefreiheit für das Unternehmen relevant ist.",
+      "antworten": [
+        {
+          "id": "A981",
+          "antwort": "Die Geschäftsleitung positioniert sich nicht zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "HF8"
+        }
+      ]
+    },
+    {
+      "id": "HE754",
+      "name": "Erarbeiten Sie eine klare Position zur digitalen Barrierefreiheit. Halten Sie darin schriftlich fest, in welchen Bereichen des Unternehmens Barrierefreiheit relevant ist und welche übergeordneten Ziele das Unternehmen bzgl. Barrierefreiheit verfolgt. Veröffentlichen Sie diese Position z.B. als Leitlinie oder Strategiepapier an zentraler Stelle.",
+      "antworten": [
+        {
+          "id": "A982",
+          "antwort": "Die Geschäftsleitung positioniert sich vereinzelt und unsystematisch zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "HF8"
+        }
+      ]
+    },
+    {
+      "id": "HE755",
+      "name": "Überprüfen Sie regelmäßig, ob die Position zum Thema Barrierefreiheit noch aktuell ist, also zur strategischen Ausrichtung des Unternehmens und zur Haltung der Geschäftsleitung passt. Berücksichtigen Sie dabei relevante Entwicklungen (z.B. neue gesetzliche Anforderungen, technologische Veränderungen). Passen Sie die Position bei Bedarf an.",
+      "antworten": [
+        {
+          "id": "A983",
+          "antwort": "Die Geschäftsleitung hat eine klar formulierte und verbindliche Position zum Thema Barrierefreiheit, z.B. eine Leitlinie oder ein Strategiepapier.",
+          "handlungsfeldId": "HF8"
+        }
+      ]
+    },
+    {
+      "id": "HE756",
+      "name": "Zeigen Sie durch Ihre Präsenz, dass Barrierefreiheit ein wichtiges Anliegen der Geschäftsleitung ist. Nehmen Sie z.B. aktiv an Veranstaltungen oder Austauschformaten zum Thema Barrierefreiheit teil.",
+      "antworten": [
+        {
+          "id": "A985",
+          "antwort": "Die Geschäftsleitung positioniert sich nicht zum Thema Barrierefreiheit.",
+          "handlungsfeldId": "HF8"
+        }
+      ]
+    },
+    {
+      "id": "HE757",
+      "name": "Zeigen Sie durch Ihr eigenes Verhalten, dass Barrierefreiheit ein wichtiges Anliegen der Geschäftsleitung ist. Achten Sie z.B. bei Präsentationen oder Dokumenten auf deren Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A986",
+          "antwort": "Die Geschäftsleitung positioniert sich durch ihre Präsenz, z.B. indem sie an internen Veranstaltungen zum Thema Barrierefreiheit teilnimmt.",
+          "handlungsfeldId": "HF8"
+        }
+      ]
+    },
+    {
+      "id": "HE758",
+      "name": "Berücksichtigen Sie Barrierefreiheit bei einzelnen strategischen Entscheidungen. Wählen Sie relevante strategische Vorhaben aus (z.B. neues Projekt, neue Anschaffung) und prüfen Sie, welche Auswirkungen diese auf die Barrierefreiheit haben können.",
+      "antworten": [
+        {
+          "id": "A988",
+          "antwort": "Die Geschäftsleitung berücksichtigt Barrierefreiheit bei strategischen Entscheidungen nicht.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE759",
+      "name": "Etablieren Sie Barrierefreiheit als strategisch relevantes Thema. Ergänzen Sie z.B. Projektfreigaben, Investitionsanträge oder andere Entscheidungsvorlagen um die freiwillige Fragestellung, welche Auswirkung die Entscheidung auf die Barrierefreiheit hat.",
+      "antworten": [
+        {
+          "id": "A989",
+          "antwort": "Die Geschäftsleitung berücksichtigt Barrierefreiheit bei einzelnen strategischen Entscheidungen.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE760",
+      "name": "Verankern Sie Barrierefreiheit als strategisch relevantes Thema. Ergänzen Sie z.B. Projektfreigaben, Investitionsanträge oder andere Entscheidungsvorlagen um die verbindliche Fragestellung, welche Auswirkung die Entscheidung auf die Barrierefreiheit hat. Legen Sie fest, dass Vorhaben nur freigegeben werden, wenn Auswirkungen auf die Barrierefreiheit geprüft und berücksichtigt wurden.",
+      "antworten": [
+        {
+          "id": "A990",
+          "antwort": "Die Geschäftsleitung berücksichtigt Barrierefreiheit regelmäßig bei strategischen Entscheidungen.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE761",
+      "name": "Verankern Sie Barrierefreiheit in die Unternehmensstrategie. Formulieren Sie ein unternehmensweites Zielbild zur Barrierefreiheit (z.B. \"alle Produkte erfüllen definierte Anforderungen bis...\") und leiten Sie daraus strategische Ziele und Maßnahmen ab. Überprüfen Sie regelmäßig den Fortschritt.",
+      "antworten": [
+        {
+          "id": "A991",
+          "antwort": "Die Geschäftsleitung berücksichtigt Barrierefreiheit systematisch bei allen strategischen Entscheidungen.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE762",
+      "name": "Informieren Sie sich über allgemeine Themen der digitalen Barrierefreiheit, wie z.B. die aktuelle Gesetzeslage oder gängige Barrierefreiheitsstandards.",
+      "antworten": [
+        {
+          "id": "A993",
+          "antwort": "Die Geschäftsleitung berücksichtigt Barrierefreiheit bei strategischen Entscheidungen nicht.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE763",
+      "name": "Ziehen Sie bei strategischen Entscheidungen gezielt Fachpersonen für Barrierefreiheit hinzu, z.B. interne oder externe Experten für Barrierefreiheit.",
+      "antworten": [
+        {
+          "id": "A994",
+          "antwort": "Barrierefreiheit wird auf Basis individueller Annahmen und Kenntnisse der Geschäftsleitung berücksichtigt.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE764",
+      "name": "Ziehen Sie bei strategischen Entscheidungen gezielt Fachpersonen für Barrierefreiheit hinzu, z.B. interne oder externe Experten für Barrierefreiheit, und informieren Sie sich über aktuelle rechtliche Entwicklungen, die Auswirkungen auf das Unternehmen haben können.",
+      "antworten": [
+        {
+          "id": "A995",
+          "antwort": "Barrierefreiheit wird unter Einbeziehung fachlicher Expertise (z.B. Beratung durch Experten für Barrierefreiheit) berücksichtigt.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE765",
+      "name": "Informieren Sie sich regelmäßig über Neuerungen im Bereich der digitalen Barrierefreiheit und orientieren Sie sich neben gesetzlichen Anforderungen auch an anerkannten Standards und Best Practices, um Barrierefreiheit nicht nur formal zu erfüllen, sondern wirksam und nutzerorientiert umzusetzen.",
+      "antworten": [
+        {
+          "id": "A996",
+          "antwort": "Barrierefreiheit wird unter Einbeziehung fachlicher Expertise (z.B. Beratung durch Experten für Barrierefreiheit) und unter Berücksichtigung gesetzlicher Regelungen berücksichtigt.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE766",
+      "name": "Nehmen Sie Barrierefreiheit in den Geschäftsbericht auf. Beschreiben Sie Aktivitäten oder Vorhaben im Bereich Barrierefreiheit, um Transparenz zu schaffen.",
+      "antworten": [
+        {
+          "id": "A998",
+          "antwort": "Die Entwicklung der Barrierefreiheit im Unternehmen wird im jährlichen Geschäftsbericht nicht dargestellt.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE767",
+      "name": "Stellen Sie die Entwicklung der Barrierefreiheit im Unternehmen strukturiert im Geschäftsbericht dar. Definieren Sie konkrete Ziele und Kennzahlen zur Barrierefreiheit (z.B. Anteil geprüfter Produkte) und berichten Sie über deren Entwicklung. Bewerten Sie Fortschritte und leiten Sie daraus ggf. weitere Maßnahmen ab.",
+      "antworten": [
+        {
+          "id": "A999",
+          "antwort": "Die Entwicklung der Barrierefreiheit im Unternehmen wird im jährlichen Geschäftsbericht vereinzelt erwähnt.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE768",
+      "name": "Setzen Sie das Thema Barrierefreiheit bei relevanten Themen gezielt auf die Agenda (z.B. bei Produktentscheidungen oder Projektplanungen). Geben Sie den Beteiligten die Möglichkeit, das Thema Barrierefreiheit bei Bedarf anzusprechen.",
+      "antworten": [
+        {
+          "id": "A1001",
+          "antwort": "Das Thema Barrierefreiheit wird nicht in Vorstandssitzungen thematisiert.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE769",
+      "name": "Planen Sie das Thema Barrierefreiheit regelmäßig in Vorstandssitzungen ein. Schaffen Sie feste Anlässe, um über Barrierefreiheit zu sprechen, z.B. regelmäßige Fortschrittsberichte.",
+      "antworten": [
+        {
+          "id": "A1002",
+          "antwort": "Das Thema Barrierefreiheit wird bei Bedarf in Vorstandssitzungen thematisiert.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE770",
+      "name": "Verankern Sie das Thema Barrierefreiheit als festen Bestandteil der Tagesordnung von Vorstandssitzungen. Diskutieren Sie es aktiv im Kontext laufender Entscheidungen.",
+      "antworten": [
+        {
+          "id": "A1003",
+          "antwort": "Das Thema Barrierefreiheit wird regelmäßig in Vorstandssitzungen thematisiert.",
+          "handlungsfeldId": "HF9"
+        }
+      ]
+    },
+    {
+      "id": "HE771",
+      "name": "Ermöglichen und unterstützen Sie, dass Mitarbeitende sich mit dem Thema Barrierefreiheit auseinandersetzen. Stellen Sie sicher, dass dies zeitlich im Rahmen der regulären Arbeitszeit möglich ist.",
+      "antworten": [
+        {
+          "id": "A1005",
+          "antwort": "Es gibt keine verantwortliche Person oder Organisationseinheit für Barrierefreiheit.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE772",
+      "name": "Benennen Sie mindestens einen offiziellen Ansprechpartner für Barrierefreiheit im Unternehmen. Definieren Sie, welche Aufgaben damit verbunden sind, und kommunizieren Sie diese Rolle im Unternehmen.",
+      "antworten": [
+        {
+          "id": "A1006",
+          "antwort": "Es gibt (mindestens) einen Mitarbeitenden, der sich informell mit Barrierefreiheit beschäftigt.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE773",
+      "name": "Bauen Sie die Zuständigkeit für Barrierefreiheit zu einer strukturell verankerten Einheit aus (z.B. Stabsstelle, Kompetenzzentrum), die offiziell als Ansprechpartner für Barrierefreiheit zuständig und für alle Mitarbeitenden erreichbar ist. Stellen Sie sicher, dass der Einheit ausreichend Ressourcen (Zeit, Budget, Expertise) zur Verfügung stehen.",
+      "antworten": [
+        {
+          "id": "A1007",
+          "antwort": "Es gibt (mindestens) einen Mitarbeitenden, der offiziell als Ansprechpartner für Barrierefreiheit benannt ist.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE774",
+      "name": "Benennen Sie einen Ansprechpartner für Barrierefreiheit im Unternehmen, der als erste Kontaktstelle für Fragen und Probleme dient.",
+      "antworten": [
+        {
+          "id": "A1009",
+          "antwort": "Es gibt keine Organisationseinheit für Barrierefreiheit.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE775",
+      "name": "Erweitern Sie die bestehende Zuständigkeit der Person oder Einheit um operative Aufgaben im Bereich Barrierefreiheit. Beauftragen Sie die Einheit z.B. damit, interne Weiterbildungen durchzuführen oder Leitfäden zu erstellen. Stellen Sie hierfür entsprechende Ressourcen bereit.",
+      "antworten": [
+        {
+          "id": "A1010",
+          "antwort": "Die Rolle hat punktuelle Aufgaben, z.B. Hilfe bei Fragen zur Barrierefreiheit.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE776",
+      "name": "Erweitern Sie die bestehende Zuständigkeit der Person oder Einheit um verankernde Aufgaben im Bereich Barrierefreiheit. Beauftragen Sie die Einheit z.B. damit, strategische Ziele für Barrierefreiheit zu entwickeln. Stellen Sie hierfür entsprechende Ressourcen bereit.",
+      "antworten": [
+        {
+          "id": "A1011",
+          "antwort": "Die Rolle hat (zusätzlich) bildende Aufgaben, z.B. Durchführung von Weiterbildungen.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE777",
+      "name": "Erweitern Sie die bestehende Zuständigkeit der Person oder Einheit um vernetzende Aufgaben im Bereich Barrierefreiheit. Beauftragen Sie die Einheit z.B. damit, sich an externen Netzwerken zu Barrierefreiheit zu beteiligen. Stellen Sie hierfür entsprechende Ressourcen bereit.",
+      "antworten": [
+        {
+          "id": "A1012",
+          "antwort": "Die Rolle hat (zusätzlich) verankernde Aufgaben, z.B. Strategieentwicklung.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE778",
+      "name": "Benennen Sie einen Ansprechpartner für Barrierefreiheit im Unternehmen.",
+      "antworten": [
+        {
+          "id": "A1014",
+          "antwort": "Es gibt keine Organisationseinheit für Barrierefreiheit.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE779",
+      "name": "Verankern Sie die Rolle dauerhaft im Unternehmen. Sorgen Sie für eine Nachbesetzung, wenn die Person das Unternehmen verlässt.",
+      "antworten": [
+        {
+          "id": "A1015",
+          "antwort": "Die Rolle ist nicht dauerhaft vorgesehen. Wenn die verantwortliche Person das Unternehmen verlässt, wird keine Nachbesetzung angestrebt.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE780",
+      "name": "Verankern Sie die Rolle dauerhaft im Unternehmen. Sorgen Sie für eine nahtlose Nachbesetzung, sobald bekannt wird, dass die Person das Unternehmen verlässt.",
+      "antworten": [
+        {
+          "id": "A1016",
+          "antwort": "Die Rolle ist grundsätzlich dauerhaft vorgesehen. Wenn die verantwortliche Person das Unternehmen verlässt, wird sie verzögert nachbesetzt.",
+          "handlungsfeldId": "HF10"
+        }
+      ]
+    },
+    {
+      "id": "HE781",
+      "name": "Verankern Sie die Rolle dauerhaft im Unternehmen. Sorgen Sie für eine nahtlose Nachbesetzung, sobald bekannt wird, dass die Person das Unternehmen verlässt. Etablieren Sie eine ausreichende Einarbeitungszeit und eine strukturierte Übergabe, um Wissensverlust zu vermeiden.",
+      "antworten": [
+        {
+          "id": "A1017",
+          "antwort": "Die Rolle ist dauerhaft vorgesehen. Wenn die Person das Unternehmen verlässt, wird sie sofortig nachbesetzt. Es gibt keine geregelte Übergabe oder strukturierte Einarbeitung.",
+          "handlungsfeldId": "HF10"
         }
       ]
     }
