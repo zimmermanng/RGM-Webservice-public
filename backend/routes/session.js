@@ -287,6 +287,10 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
       where: { teamId: viewTeamId },
       data: { lockedDimensions: lockedDimensionsObject ? lockedDimensionsObject : [dimensionId] },
     });
+    return res.status(200).json({
+      ok:true,
+      lockedDimensions: lockedDimensionsObject,
+    })
   } catch (error) {
     console.error("Fehler beim Speichern des Zustands:", error);
     return res.status(500).json({

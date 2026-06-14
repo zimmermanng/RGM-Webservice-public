@@ -15,7 +15,7 @@ const DimensionsEditPage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false); // Zeigt nun "Live-Speichern" an
   const [toastMessage, setToastMessage] = useState("");
-  const [showLock, setShowLock] = useState(false)
+  const [privilegedAccess, setprivilegedAccess] = useState(false)
   const toastTimeoutRef = useRef(null);
   const scrollIntervalRef = useRef(null);
   const liveRegionRef = useRef(null);
@@ -72,8 +72,6 @@ const DimensionsEditPage = () => {
         const settingsResult = await settingsRes.json();
         const stateResult = await stateRes.json()
 
-        console.log(settingsResult)
-
         const activeIds = Array.isArray(settingsResult.activeDimensions)
           ? settingsResult.activeDimensions
           : [];
@@ -83,25 +81,22 @@ const DimensionsEditPage = () => {
           : [];
 
         const loadedAnswers = stateResult.currentAnswers && typeof stateResult.currentAnswers === "object"
-            ? stateResult.currentAnswers
-            : {};
+          ? stateResult.currentAnswers
+          : {};
 
         const filteredDimensions = data.dimensionen.filter((d) => d.name !== "Allgemein");
 
         const initialToEdit = activeIds.length > 0
-            ? filteredDimensions.filter((d) => activeIds.includes(d.id))
-            : [];
+          ? filteredDimensions.filter((d) => activeIds.includes(d.id))
+          : [];
 
         const initialNotToEdit = filteredDimensions.filter((d) => !initialToEdit.some((x) => x.id === d.id));
-        
-        console.log(initialToEdit)
-        console.log(lockedIds)
 
         setToEdit(initialToEdit);
         setNotToEdit(initialNotToEdit);
         setCurrentAnswers(loadedAnswers);
         setLockedCards(lockedIds)
-        setShowLock(settingsResult.privilegedAccess);
+        setprivilegedAccess(settingsResult.privilegedAccess);
       } catch (error) {
         console.error("Fehler beim Laden der Konfiguration:", error);
         setToEdit([]);
@@ -165,7 +160,7 @@ const DimensionsEditPage = () => {
       if (!settingsRes.ok || !stateRes.ok) {
         throw new Error("Fehler beim automatischen Speichern");
       }
-      
+
       return true; // Erfolgreich gespeichert
     } catch (error) {
       console.error("Fehler beim Speichern:", error);
@@ -215,7 +210,7 @@ const DimensionsEditPage = () => {
       setNotToEdit(updatedNotToEdit);
       setToEdit(updatedToEdit);
       announce(`Paket "${card.name}" wurde nach "Ausgewählt" verschoben.`);
-      
+
       // Direktes Speichern mit den neuen Arrays triggeren
       saveData(updatedToEdit, currentAnswers);
     }
@@ -225,14 +220,14 @@ const DimensionsEditPage = () => {
     // VERSCHIEBEN NACH "NICHT AUSGEWÄHLT"
     const updatedToEdit = toEdit.filter((c) => c.id !== card.id);
     const updatedNotToEdit = [...notToEdit, card];
-    
+
     const updatedAnswers = { ...currentAnswers };
     delete updatedAnswers[card.id];
 
     setToEdit(updatedToEdit);
     setNotToEdit(updatedNotToEdit);
     setCurrentAnswers(updatedAnswers);
-    
+
     announce(`Paket "${card.name}" wurde nach "Nicht ausgewählt" verschoben.`);
 
     // Direktes Speichern triggeren
@@ -354,13 +349,13 @@ const DimensionsEditPage = () => {
                   <div
                     key={dimension.id}
                     role="listitem"
-                    draggable
+                    draggable={lockedCards.includes(dimension.id) ? false : true}
                     tabIndex={0}
                     aria-roledescription="Verschiebbares Element"
                     aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Nicht ausgewählt' zu verschieben.`}
                     onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
                     onKeyDown={(e) => handleKeyDown(e, dimension, "toEdit", "notToEdit")}
-                    style={{ cursor: "grab" }}
+                    style={{ cursor: lockedCards.includes(dimension.id) ? "not-allowed" : "grab" }}
                   >
                     <Card_dimensions
                       title={dimension.name}
@@ -370,8 +365,10 @@ const DimensionsEditPage = () => {
                       showStartButton={false}
                       showProgress={true}
                       progress={progress}
-                      isLocked={lockedCards.includes(dimension.id)? true : false}
-                      showLock={showLock}
+                      privilegedAccess={privilegedAccess}
+                      isLocked={lockedCards.includes(dimension.id)}
+                      showLock={privilegedAccess || lockedCards.includes(dimension.id)}
+                      setLockedCards={setLockedCards}
                     />
                   </div>
                 );
