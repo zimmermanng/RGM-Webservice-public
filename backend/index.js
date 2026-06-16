@@ -17,7 +17,7 @@ app.set("trust proxy", 1);
 const allowedOrigin = process.env.FRONTEND_URL;
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
