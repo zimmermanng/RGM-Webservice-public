@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE } from "../../config.ts";
 
 const Card_dimensions = ({
   title,
@@ -10,17 +11,36 @@ const Card_dimensions = ({
   showStartButton = true,
   showProgress = true,
   progress = 0,
+  privilegedAccess,
   isLocked: initialIsLocked = false,
   showLock = false,
+  setLockedCards
 }) => {
   const [isLocked, setIsLocked] = useState(initialIsLocked);
   const titleId = `card-title-${dimensionId}`;
   const progressId = `card-progress-${dimensionId}`;
   const firstHF = handlungsfelder[0];
 
-  const handleToggle = (e) => {
+  const handleToggle = async (e) => {
+    if(!privilegedAccess) return
     e.stopPropagation(); // Verhindert, dass Drag-Events der übergeordneten Liste feuern
     setIsLocked((prev) => !prev);
+    try {
+      const lockRes = await fetch(`${API_BASE}/session/locking-dimension`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dimensionId: dimensionId,
+          lockStatus: !isLocked,
+        }),
+      });
+      const results = await lockRes.json()
+      setLockedCards(results.lockedDimensions)
+      return results
+    } catch (error) {
+      console.error("Fehler beim Speichern des Status:", error)
+    }
   };
   const renderStatusIcon = () => {
     const iconSrc = isLocked ? "/lock-closed.svg" : "/lock_open.svg";
@@ -32,6 +52,7 @@ const Card_dimensions = ({
         onClick={handleToggle}
         aria-label={iconAlt}
         title={isLocked ? "Freischalten" : "Sperren"}
+        style={{ cursor: privilegedAccess ? "" : "not-allowed" }}
       >
         <img src={iconSrc} alt="" className="card-lock-icon" />
       </button>
@@ -77,11 +98,11 @@ const Card_dimensions = ({
               <div id={progressId} className="progress-text">
                 Fortschritt: {Math.round(progress * 100)}%
               </div>
-             {showLock && (
-              <div>
-                {renderStatusIcon()}
-              </div>
-            )}
+              {showLock && (
+                <div>
+                  {renderStatusIcon()}
+                </div>
+              )}
             </>
           )}
 

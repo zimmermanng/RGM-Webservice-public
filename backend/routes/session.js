@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
+const { Prisma } = require("@prisma/client");
 
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 100000 * 60 * 60;
@@ -201,6 +202,7 @@ router.get("/settings", requireAuth, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam ? viewTeam.id : req.session.teamId
   const teamName = viewTeam ? viewTeam.name : req.session.team
+
   try {
     const settings = await prisma.teamSettings.findUnique({
       where: { teamId: teamId },
@@ -209,8 +211,12 @@ router.get("/settings", requireAuth, async (req, res) => {
     return res.json({
       ok: true,
       team: teamName,
+      privilegedAccess: req.session.teamId === 57 ? true : false,
       activeDimensions: Array.isArray(settings?.activeDimensions)
         ? settings.activeDimensions
+        : [],
+      lockedDimensions: Array.isArray(settings?.lockedDimensions)
+        ? settings.lockedDimensions
         : [],
     });
   } catch (error) {
@@ -254,6 +260,46 @@ router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) =>
   }
 });
 
+router.post("/locking-dimension", requireAuth, async (req, res) => {
+  if (req.session.teamId !== 57) return res.status(403).json({
+    ok: false,
+    message: "Eingeloggter Nutzer besitzt nicht die notwendigen Rechte"
+  })
+  try {
+    const dimensionId = req.body.dimensionId;
+    const lockStatus = req.body.lockStatus;
+    const teamViewRecord = await prisma.teamView.findUnique({
+      where: { sessionTeamId: req.session.teamId }
+    });
+    const viewTeamId = teamViewRecord.viewingTeamId;
+    const settings = await prisma.teamSettings.findUnique({
+      where: { teamId: viewTeamId }
+    });
+    let lockedDimensionsObject = settings?.lockedDimensions
+    if (lockedDimensionsObject && lockStatus) lockedDimensionsObject.push(dimensionId)
+    else if (lockedDimensionsObject && !lockStatus) {
+      let index = lockedDimensionsObject.indexOf(dimensionId)
+      if (index > -1){
+        lockedDimensionsObject.splice(index, 1)
+      }
+    }
+    const changeLock = await prisma.teamSettings.update({
+      where: { teamId: viewTeamId },
+      data: { lockedDimensions: lockedDimensionsObject ? lockedDimensionsObject : [dimensionId] },
+    });
+    return res.status(200).json({
+      ok:true,
+      lockedDimensions: lockedDimensionsObject,
+    })
+  } catch (error) {
+    console.error("Fehler beim Speichern des Zustands:", error);
+    return res.status(500).json({
+      ok: false,
+      message: "Zustand des Pakets konnte nicht gespeichert werden.",
+    });
+  }
+})
+
 router.get("/current-state", requireAuth, async (req, res) => {
   let viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam ? viewTeam.id : req.session.teamId
@@ -265,6 +311,7 @@ router.get("/current-state", requireAuth, async (req, res) => {
     return res.json({
       ok: true,
       team: teamName,
+      privilegedAccess: req.session.teamId === 57 ? true : false,
       currentAnswers:
         currentState?.currentAnswers &&
           typeof currentState.currentAnswers === "object"
@@ -370,7 +417,7 @@ router.get("/selected-user", requireAuth, async (req, res) => {
         viewTeam: true,
       },
     })
-    const teamName = tempView ? tempView.viewTeam.name : teamRecord.name 
+    const teamName = tempView ? tempView.viewTeam.name : teamRecord.name
     res.status(200).json({ message: "Nutzer wurde geladen.", teamName: teamName })
   } catch (error) {
     console.error("Fehler:", error)
