@@ -15,8 +15,8 @@ const NAV_ITEMS = {
     { label: "Fragebogen", to: "/dimensions" },
   ],
   ADMIN: [
-    { label: "Struktur", to: "/" },
-    { label: "Evaluationsrunden", to: "/placeholder" },
+    { label: "Struktur", to: "/PLACEHOLDER1" },
+    { label: "Evaluationsrunden", to: "PLACEHOLDER2" },
   ]
 };
 
@@ -32,14 +32,17 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   const navigate = useNavigate();
   const hamburgerButtonRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
-  const [teams, setTeams] = useState([])
+  const [teams, setTeams] = useState([]);
   const [relevantTeams, setRelevantTeams] = useState(null);
   const [loadingRelevantTeams, setLoadingRelevantTeams] = useState(true);
-  const [teamView, setTeamView] = useState(false)
-  const [selectedTeam, setSelectedTeam] = useState(null)
-  const [loadingSelectedTeam, setLoadingSelectedTeam] = useState(true)
-  const [showPopup, setShowPopup] = useState(false)
-  const [navigationDestination, setNavigationDestination] = useState(null)
+  const [teamView, setTeamView] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [loadingSelectedTeam, setLoadingSelectedTeam] = useState(true);
+  const [navigationDestination, setNavigationDestination] = useState(null);
+  const [returnDialog, setReturnDialog] = useState({
+    open: false,
+    message: "",
+  });
   const [takeoverDialog, setTakeoverDialog] = useState({
     open: false,
     teamName: "",
@@ -174,10 +177,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   };
 
   const changeTeam = async (event) => {
-    const previousTeam = selectedTeam
+    const previousTeam = selectedTeam;
+    const viewTeamId = searchTeamId(event.target.value);
     setSelectedTeam(event.target.value);
     if (team === "Administration") {
-      const viewTeamId = searchTeamId(event.target.value);
       if (event.target.value === "Administration") {
         try {
           await teamLogout()
@@ -201,8 +204,19 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           console.error(error)
         }
         setTeamView(true);
-        window.location.reload();
+        if (["/dimensions", "/dimensions/bearbeiten"].includes(window.location.pathname)) window.location.reload();
       }
+    } else if (event.target.value !== team) {
+      try {
+        await createTeamView(viewTeamId);
+      } catch (error) {
+        console.error(error);
+      }
+      if (window.location.pathname === "/resultReadOnly") window.location.reload();
+      else navigate("resultReadOnly");
+    } else if (event.target.value === team) {
+      await deleteTeamView();
+      navigate("start")
     }
   }
 
@@ -221,7 +235,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   const createTeamView = async (viewTeamId) => {
     try {
-      const createRes = await fetch(`${API_BASE}/session/temporary-view`, {
+      await fetch(`${API_BASE}/session/temporary-view`, {
         credentials: "include",
         method: "POST",
         headers: {
@@ -229,7 +243,6 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
         },
         body: JSON.stringify({ viewTeamId: viewTeamId }),
       })
-      const data = await createRes.json();
     } catch (error) {
       console.error(error)
     }
@@ -237,11 +250,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   const deleteTeamView = async () => {
     try {
-      const deleteRes = await fetch(`${API_BASE}/session/temporary-view`, {
+      await fetch(`${API_BASE}/session/temporary-view`, {
         credentials: "include",
         method: "DELETE",
       })
-      const data = await deleteRes.json();
     } catch (error) {
       console.error(error)
     }
@@ -269,32 +281,36 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   const teamLogout = async () => {
     try {
-      const logoutRes = await fetch(`${API_BASE}/auth/logout-team-view`, {
+      await fetch(`${API_BASE}/auth/logout-team-view`, {
         credentials: "include",
         method: "DELETE",
       });
-      const data = await logoutRes.json();
     } catch (error) {
       console.error(error)
     }
   }
 
   const handleClick = (event, destination) => {
-    if (team === "Administration" && selectedTeam !== "Administration") {
+    if (team !== selectedTeam) {
       event.preventDefault()
       setNavigationDestination(destination)
-      setShowPopup(true)
+      const returnMessage = team === "Administration" ? 
+        "Wenn Sie fortfahren, verlassen Sie den Schreibmodus und kehren in das Adminpanel zurück." :
+        `Sie haben keinen Bearbeitungszugriff für die gewählte Organisationseinheit. Wenn Sie fortfahren, verlassen Sie den Lesemodus und kehren in den Bearbeitungsmodus ihrer eigenen Organisationseinheit (${team}) zurück`
+      setReturnDialog({open: true, message: returnMessage})
     } else {
       closeMenu(false)
     }
   }
 
-  const confirmPopup = () => {
-    setSelectedTeam("Administration")
-    teamLogout()
+  const confirmPopup = async () => {
+    setSelectedTeam(team)
     deleteTeamView()
-    setShowPopup(false)
-    setTeamView(false)
+    if (team === "Administration") {
+      await teamLogout();
+      setTeamView(false)
+    }
+    setReturnDialog({open: false, message: ""})
     navigate(navigationDestination)
     closeMenu(false)
   }
@@ -484,7 +500,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           </nav>
         )}
       </header>
-      {showPopup && (
+      {returnDialog.open && (
         <div
           className="modalOverlay"
           role="dialog"
@@ -492,9 +508,9 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           aria-modal="true"
         >
           <div className="modal">
-            <p>Wenn Sie fortfahren, verlassen Sie den Schreibmodus und kehren in das Adminpanel zurück</p>
+            <p>{returnDialog.message}</p>
             <div className="modalButtons">
-              <button onClick={() => setShowPopup(false)}>Bleiben</button>
+              <button onClick={() => setReturnDialog({open: false, message: ""})}>Bleiben</button>
               <button onClick={confirmPopup}>Zurückkehren</button>
             </div>
           </div>
