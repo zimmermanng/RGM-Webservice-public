@@ -1,5 +1,11 @@
 const prisma = require("../db/prisma");
 
+const ADMIN = {
+  name: "Administration",
+  isSelectable: true,
+  sortOrder: 999,
+}
+
 const TEAM_TREE = {
   name: "Direktion",
   isSelectable: false,
@@ -122,6 +128,7 @@ async function upsertNode(node, parentId = null) {
 
 async function main() {
   await upsertNode(TEAM_TREE);
+  await upsertNode(ADMIN)
   console.log("Seed complete");
 }
 

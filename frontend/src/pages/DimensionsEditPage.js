@@ -9,13 +9,15 @@ const DimensionsEditPage = () => {
   const navigate = useNavigate();
   const [toEdit, setToEdit] = useState([]);
   const [notToEdit, setNotToEdit] = useState([]);
+  const [lockedCards, setLockedCards] = useState([]);
   const [draggedCard, setDraggedCard] = useState(null);
   const [currentAnswers, setCurrentAnswers] = useState({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState(false); // Zeigt nun "Live-Speichern" an
   const [toastMessage, setToastMessage] = useState("");
+  const [privilegedAccess, setprivilegedAccess] = useState(false)
   const toastTimeoutRef = useRef(null);
-
+  const scrollIntervalRef = useRef(null);
   const liveRegionRef = useRef(null);
 
   const [confirmDialog, setConfirmDialog] = useState({
@@ -52,61 +54,49 @@ const DimensionsEditPage = () => {
     const fetchData = async () => {
       try {
         const [settingsRes, stateRes] = await Promise.all([
-          fetch(`${API_BASE}/session/settings`, {
-            credentials: "include",
-          }),
-          fetch(`${API_BASE}/session/current-state`, {
-            credentials: "include",
-          }),
+          fetch(`${API_BASE}/session/settings`, { credentials: "include" }),
+          fetch(`${API_BASE}/session/current-state`, { credentials: "include" }),
         ]);
 
         if (settingsRes.status === 401 || stateRes.status === 401) {
           navigate("/login");
           return;
         }
-
         if (settingsRes.status === 403 || stateRes.status === 403) {
           navigate("/team-select");
           return;
         }
 
-        if (!settingsRes.ok) {
-          throw new Error(`Settings-Status ${settingsRes.status}`);
-        }
-
-        if (!stateRes.ok) {
-          throw new Error(`State-Status ${stateRes.status}`);
-        }
+        if (!settingsRes.ok || !stateRes.ok) throw new Error("Ladefehler");
 
         const settingsResult = await settingsRes.json();
-        const stateResult = await stateRes.json();
+        const stateResult = await stateRes.json()
 
         const activeIds = Array.isArray(settingsResult.activeDimensions)
           ? settingsResult.activeDimensions
           : [];
 
-        const loadedAnswers =
-          stateResult.currentAnswers &&
-          typeof stateResult.currentAnswers === "object"
-            ? stateResult.currentAnswers
-            : {};
+        const lockedIds = Array.isArray(settingsResult.lockedDimensions)
+          ? settingsResult.lockedDimensions
+          : [];
 
-        const filteredDimensions = data.dimensionen.filter(
-          (d) => d.name !== "Allgemein",
-        );
+        const loadedAnswers = stateResult.currentAnswers && typeof stateResult.currentAnswers === "object"
+          ? stateResult.currentAnswers
+          : {};
 
-        const initialToEdit =
-          activeIds.length > 0
-            ? filteredDimensions.filter((d) => activeIds.includes(d.id))
-            : [];
+        const filteredDimensions = data.dimensionen.filter((d) => d.name !== "Allgemein");
 
-        const initialNotToEdit = filteredDimensions.filter(
-          (d) => !initialToEdit.some((x) => x.id === d.id),
-        );
+        const initialToEdit = activeIds.length > 0
+          ? filteredDimensions.filter((d) => activeIds.includes(d.id))
+          : [];
+
+        const initialNotToEdit = filteredDimensions.filter((d) => !initialToEdit.some((x) => x.id === d.id));
 
         setToEdit(initialToEdit);
         setNotToEdit(initialNotToEdit);
         setCurrentAnswers(loadedAnswers);
+        setLockedCards(lockedIds)
+        setprivilegedAccess(settingsResult.privilegedAccess);
       } catch (error) {
         console.error("Fehler beim Laden der Konfiguration:", error);
         setToEdit([]);
@@ -118,7 +108,68 @@ const DimensionsEditPage = () => {
     };
 
     fetchData();
+    window.addEventListener("dragover", handleDragOverWindow);
+    window.addEventListener("drop", stopAutoScroll);
+    window.addEventListener("dragend", stopAutoScroll);
+
+    return () => {
+      window.removeEventListener("dragover", handleDragOverWindow);
+      window.removeEventListener("drop", stopAutoScroll);
+      window.removeEventListener("dragend", stopAutoScroll);
+      clearInterval(scrollIntervalRef.current);
+    };
   }, [navigate]);
+
+  // Zentralisierungs-Funktion für das Speichern im Backend
+  const saveData = async (nextToEdit, nextAnswers) => {
+    const allgemeinDimension = data.dimensionen.find((d) => d.name === "Allgemein");
+    const activeDimensions = [
+      allgemeinDimension?.id,
+      ...nextToEdit.map((d) => d.id),
+    ].filter(Boolean);
+
+    setSaving(true);
+
+    try {
+      const [settingsRes, stateRes] = await Promise.all([
+        fetch(`${API_BASE}/session/settings`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ activeDimensions }),
+        }),
+        fetch(`${API_BASE}/session/current-state`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ currentAnswers: nextAnswers }),
+        }),
+      ]);
+
+      if (settingsRes.status === 401 || stateRes.status === 401) {
+        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
+        navigate("/login");
+        return false;
+      }
+      if (settingsRes.status === 403 || stateRes.status === 403) {
+        alert("Bitte zuerst ein Team auswählen.");
+        navigate("/team-select");
+        return false;
+      }
+
+      if (!settingsRes.ok || !stateRes.ok) {
+        throw new Error("Fehler beim automatischen Speichern");
+      }
+
+      return true; // Erfolgreich gespeichert
+    } catch (error) {
+      console.error("Fehler beim Speichern:", error);
+      announce("Fehler: Änderungen konnten nicht am Server gespeichert werden.");
+      return false;
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleDragStart = (e, card, fromList) => {
     setDraggedCard({ card, fromList });
@@ -133,10 +184,9 @@ const DimensionsEditPage = () => {
     setDraggedCard(null);
   };
 
-  // Tastatur-Handler für barrierefreies Verschieben
   const handleKeyDown = (e, card, fromList, targetList) => {
     if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault(); // Verhindert das Scrollen der Seite bei der Leertaste
+      e.preventDefault();
       moveCard(card, fromList, targetList);
     }
   };
@@ -144,9 +194,7 @@ const DimensionsEditPage = () => {
   const moveCard = (card, fromList, toList) => {
     if (fromList === toList) return;
     if (fromList === "toEdit") {
-      const hasAnswers =
-        currentAnswers[card.id] &&
-        Object.keys(currentAnswers[card.id]).length > 0;
+      const hasAnswers = currentAnswers[card.id] && Object.keys(currentAnswers[card.id]).length > 0;
 
       if (hasAnswers) {
         setConfirmDialog({ open: true, card });
@@ -155,29 +203,40 @@ const DimensionsEditPage = () => {
 
       performMove(card);
     } else {
-      setNotToEdit((prev) => prev.filter((c) => c.id !== card.id));
-      setToEdit((prev) => [...prev, card]);
+      // VERSCHIEBEN NACH "AUSGEWÄHLT"
+      const updatedNotToEdit = notToEdit.filter((c) => c.id !== card.id);
+      const updatedToEdit = [...toEdit, card];
+
+      setNotToEdit(updatedNotToEdit);
+      setToEdit(updatedToEdit);
       announce(`Paket "${card.name}" wurde nach "Ausgewählt" verschoben.`);
+
+      // Direktes Speichern mit den neuen Arrays triggeren
+      saveData(updatedToEdit, currentAnswers);
     }
   };
 
   const performMove = (card) => {
-    setToEdit((prev) => prev.filter((c) => c.id !== card.id));
-    setNotToEdit((prev) => [...prev, card]);
+    // VERSCHIEBEN NACH "NICHT AUSGEWÄHLT"
+    const updatedToEdit = toEdit.filter((c) => c.id !== card.id);
+    const updatedNotToEdit = [...notToEdit, card];
 
-    setCurrentAnswers((prev) => {
-      const next = { ...prev };
-      delete next[card.id];
-      return next;
-    });
+    const updatedAnswers = { ...currentAnswers };
+    delete updatedAnswers[card.id];
+
+    setToEdit(updatedToEdit);
+    setNotToEdit(updatedNotToEdit);
+    setCurrentAnswers(updatedAnswers);
 
     announce(`Paket "${card.name}" wurde nach "Nicht ausgewählt" verschoben.`);
+
+    // Direktes Speichern triggeren
+    saveData(updatedToEdit, updatedAnswers);
   };
 
   const handleConfirm = () => {
     performMove(confirmDialog.card);
     setConfirmDialog({ open: false, card: null });
-    // Nach Bestätigung den Fokus idealerweise auf etwas Sinnvolles setzen
     document.getElementById("editGrid-notToEdit")?.focus();
   };
 
@@ -204,65 +263,32 @@ const DimensionsEditPage = () => {
     }, 3000);
   };
 
-  const handleSave = async () => {
-    const allgemeinDimension = data.dimensionen.find(
-      (d) => d.name === "Allgemein",
-    );
+  // Klick auf "Fertig" leitet jetzt nur noch weiter, da alles bereits live gespeichert ist
+  const handleFinish = () => {
+    navigate("/dimensions");
+  };
 
-    const activeDimensions = [
-      allgemeinDimension?.id,
-      ...toEdit.map((d) => d.id),
-    ].filter(Boolean);
+  const handleDragOverWindow = (e) => {
+    const scrollZone = 350;
+    const scrollSpeed = 50;
+    const mouseY = e.clientY;
+    const windowHeight = window.innerHeight;
 
-    setSaving(true);
+    clearInterval(scrollIntervalRef.current);
 
-    try {
-      const [settingsRes, stateRes] = await Promise.all([
-        fetch(`${API_BASE}/session/settings`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ activeDimensions }),
-        }),
-        fetch(`${API_BASE}/session/current-state`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ currentAnswers }),
-        }),
-      ]);
-
-      if (settingsRes.status === 401 || stateRes.status === 401) {
-        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
-        navigate("/login");
-        return;
-      }
-
-      if (settingsRes.status === 403 || stateRes.status === 403) {
-        alert("Bitte zuerst ein Team auswählen.");
-        navigate("/team-select");
-        return;
-      }
-
-      if (!settingsRes.ok) {
-        throw new Error(`Settings-Status ${settingsRes.status}`);
-      }
-
-      if (!stateRes.ok) {
-        throw new Error(`State-Status ${stateRes.status}`);
-      }
-
-      navigate("/dimensions");
-    } catch (error) {
-      console.error("Fehler beim Speichern der Konfiguration:", error);
-      alert("Pakete konnten nicht gespeichert werden.");
-    } finally {
-      setSaving(false);
+    if (mouseY < scrollZone) {
+      scrollIntervalRef.current = setInterval(() => {
+        window.scrollBy(0, -scrollSpeed);
+      }, 16);
+    } else if (mouseY > windowHeight - scrollZone) {
+      scrollIntervalRef.current = setInterval(() => {
+        window.scrollBy(0, scrollSpeed);
+      }, 16);
     }
+  };
+
+  const stopAutoScroll = () => {
+    clearInterval(scrollIntervalRef.current);
   };
 
   if (loading) {
@@ -277,15 +303,16 @@ const DimensionsEditPage = () => {
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
       <p>
-       Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten möchten.<br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder mit der Tastatur (Tab- und Enter-Taste).
+        Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten möchten.
+        <br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder mit der Tastatur (Tab- und Enter-Taste).
+        {saving && <strong style={{ marginLeft: "10px", color: "green" }}>– Speichert automatisch...</strong>}
       </p>
 
-      {/* Unsichtbare Live-Region für Screenreader */}
       <div
         ref={liveRegionRef}
         aria-live="polite"
         aria-atomic="true"
-        className="sr-only" // Empfohlen: CSS-Klasse für Visually Hidden anstelle von Inline-Styles
+        className="sr-only"
         style={{
           position: "absolute",
           width: "1px",
@@ -306,20 +333,11 @@ const DimensionsEditPage = () => {
           onDrop={(e) => handleDrop(e, "toEdit")}
           aria-labelledby="heading-toEdit"
         >
-          <h4
-            id="heading-toEdit"
-            title="Alle Pakete, die zu Ihrer Abteilung passen"
-          >
+          <h4 id="heading-toEdit" title="Alle Pakete, die zu Ihrer Abteilung passen">
             Ausgewählt
           </h4>
 
-          <div
-            className="editGrid"
-            role="list"
-            id="editGrid-toEdit"
-            tabIndex={-1}
-            aria-label="Liste der ausgewählten Pakete"
-          >
+          <div className="editGrid" role="list" id="editGrid-toEdit" tabIndex={-1} aria-label="Liste der ausgewählten Pakete">
             {toEdit.length === 0 ? (
               <div className="emptyState" role="listitem">
                 Bis jetzt wurden noch keine Pakete ausgewählt
@@ -331,15 +349,13 @@ const DimensionsEditPage = () => {
                   <div
                     key={dimension.id}
                     role="listitem"
-                    draggable
-                    tabIndex={0} // Macht das Element per Tab fokussierbar
+                    draggable={lockedCards.includes(dimension.id) ? false : true}
+                    tabIndex={0}
                     aria-roledescription="Verschiebbares Element"
                     aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Nicht ausgewählt' zu verschieben.`}
                     onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
-                    onKeyDown={(e) =>
-                      handleKeyDown(e, dimension, "toEdit", "notToEdit")
-                    }
-                    style={{ cursor: "grab" }}
+                    onKeyDown={(e) => handleKeyDown(e, dimension, "toEdit", "notToEdit")}
+                    style={{ cursor: lockedCards.includes(dimension.id) ? "not-allowed" : "grab" }}
                   >
                     <Card_dimensions
                       title={dimension.name}
@@ -349,6 +365,10 @@ const DimensionsEditPage = () => {
                       showStartButton={false}
                       showProgress={true}
                       progress={progress}
+                      privilegedAccess={privilegedAccess}
+                      isLocked={lockedCards.includes(dimension.id)}
+                      showLock={privilegedAccess || lockedCards.includes(dimension.id)}
+                      setLockedCards={setLockedCards}
                     />
                   </div>
                 );
@@ -364,32 +384,21 @@ const DimensionsEditPage = () => {
           onDrop={(e) => handleDrop(e, "notToEdit")}
           aria-labelledby="heading-notToEdit"
         >
-          <h4
-            id="heading-notToEdit"
-            title="Alle Pakete, die nicht zu Ihrer Abteilung passen"
-          >
+          <h4 id="heading-notToEdit" title="Alle Pakete, die nicht zu Ihrer Abteilung passen">
             Nicht ausgewählt
           </h4>
 
-          <div
-            className="editGrid"
-            role="list"
-            id="editGrid-notToEdit"
-            tabIndex={-1}
-            aria-label="Liste der nicht ausgewählten Pakete"
-          >
+          <div className="editGrid" role="list" id="editGrid-notToEdit" tabIndex={-1} aria-label="Liste der nicht ausgewählten Pakete">
             {notToEdit.map((dimension) => (
               <div
                 key={dimension.id}
                 role="listitem"
                 draggable
-                tabIndex={0} // Fokussierbar machen
+                tabIndex={0}
                 aria-roledescription="Verschiebbares Element"
                 aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Ausgewählt' zu verschieben.`}
                 onDragStart={(e) => handleDragStart(e, dimension, "notToEdit")}
-                onKeyDown={(e) =>
-                  handleKeyDown(e, dimension, "notToEdit", "toEdit")
-                }
+                onKeyDown={(e) => handleKeyDown(e, dimension, "notToEdit", "toEdit")}
                 style={{ cursor: "grab" }}
               >
                 <Card_dimensions
@@ -407,13 +416,13 @@ const DimensionsEditPage = () => {
       </div>
 
       <div className="footer">
+        {/* Button ruft nun handleFinish auf und ist deaktiviert, solange im Hintergrund gespeichert wird */}
         <button
           className="finishEditButton"
-          onClick={handleSave}
+          onClick={handleFinish}
           disabled={saving}
-          aria-busy={saving}
         >
-          {saving ? "Speichern..." : "Fertig"}
+          Fertig
         </button>
 
         <Link to="/dimensions">
@@ -423,16 +432,10 @@ const DimensionsEditPage = () => {
 
       {/* --- CONFIRM DIALOG --- */}
       {confirmDialog.open && (
-        <div
-          className="modalOverlay"
-          role="dialog"
-          aria-labelledby="modal-title"
-          aria-modal="true"
-        >
+        <div className="modalOverlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
           <div className="modal">
             <p id="modal-title">
-              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird beim
-              Verschieben dieses Pakets zurückgesetzt.
+              Der Bearbeitungsstand von "{confirmDialog.card.name}" wird beim Verschieben dieses Pakets zurückgesetzt.
             </p>
 
             <div className="modalButtons">

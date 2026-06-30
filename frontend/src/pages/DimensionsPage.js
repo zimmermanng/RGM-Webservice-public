@@ -45,7 +45,7 @@ const DimensionsPage = ({ activeCompany }) => {
 
         const settings = await settingsRes.json();
         const state = await stateRes.json();
-
+      
         const loadedIds = Array.isArray(settings.activeDimensions)
           ? settings.activeDimensions
           : [];

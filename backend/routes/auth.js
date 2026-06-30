@@ -103,6 +103,22 @@ async function acquireTeamLock(teamId, sessionId) {
     });
   }
 
+  const sessionAdminLock = await prisma.teamSessionLock.findMany({
+    where: {
+      AND: [
+        { sessionId: currentLock.sessionId },
+        { teamId: 57 }
+      ]
+    },
+  })
+
+  if (sessionAdminLock.length !== 0) {
+    const adminError = new Error("ADMIN_LOCKED")
+    adminError.code = "ADMIN_LOCKED";
+    adminError.lock = currentLock;
+    throw adminError;
+  }
+
   const error = new Error("TEAM_LOCKED");
   error.code = "TEAM_LOCKED";
   error.lock = currentLock;
@@ -164,6 +180,25 @@ async function refreshLock(teamId, sessionId) {
       expiresAt: getLockExpiryDate(),
     },
   });
+}
+
+async function deleteTeamView(teamId) {
+  try {
+    if (!teamId) return
+    const existingTeamView = await prisma.teamView.findUnique({
+      where: { sessionTeamId: teamId }
+    })
+
+    if (existingTeamView) {
+      const deleteTempView = await prisma.teamView.delete({
+        where: {
+          sessionTeamId: teamId,
+        }
+      })
+    }
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
 }
 
 // Login
@@ -384,7 +419,7 @@ router.post("/team", async (req, res) => {
       });
     }
 
-    await releaseSessionLocks(req.session.id, dbTeam.id);
+    if (req.session.teamId !== 57 || team === "Administration") await releaseSessionLocks(req.session.id, dbTeam.id);
 
     let lock;
 
@@ -394,8 +429,10 @@ router.post("/team", async (req, res) => {
       lock = await acquireTeamLock(dbTeam.id, req.session.id);
     }
 
-    req.session.team = dbTeam.name;
-    req.session.teamId = dbTeam.id;
+    if (req.session.teamId !== 57 || team === "Administration") {
+      req.session.team = dbTeam.name;
+      req.session.teamId = dbTeam.id;
+    }
 
     await prisma.teamLoginEvent.create({
       data: {
@@ -424,12 +461,23 @@ router.post("/team", async (req, res) => {
       return res.status(423).json({
         ok: false,
         code: "TEAM_LOCKED",
-        allowTakeover: true,
+        allowTakeover: false,
         team: team,
         message:
           "Diese Organisationseinheit wird derzeit bereits in einer anderen aktiven Sitzung bearbeitet.",
         takeoverMessage:
           "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
+      });
+    }
+
+    if (error.code === "ADMIN_LOCKED") {
+      return res.status(423).json({
+        ok: false,
+        code: "ADMIN_LOCKED",
+        allowTakeover: false,
+        team: team,
+        message:
+          "Diese Organisationseinheit wird derzeit von der Administration bearbeitet. Ein Zugriff ist derzeit nicht möglich.",
       });
     }
 
@@ -505,6 +553,7 @@ router.post("/keepalive", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     await releaseSessionLocks(req.session.id);
+    await deleteTeamView(req.session.teamId);
   } catch (error) {
     console.error("Fehler beim Freigeben der Team-Sperre beim Logout:", error);
   }
@@ -523,6 +572,25 @@ router.post("/logout", async (req, res) => {
       ok: true,
     });
   });
+});
+
+router.delete("/logout-team-view", async (req, res) => {
+  try {
+    const teamViewRecord = await prisma.teamView.findUnique({
+      where: { sessionTeamId: req.session.teamId }
+    });
+    if (!teamViewRecord) return res.json({ ok: true })
+
+    const deleteSessionLock = await prisma.teamSessionLock.delete({
+      where: {
+        teamId: teamViewRecord.viewingTeamId,
+      }
+    })
+
+    return res.json({ ok: true })
+  } catch (error) {
+    console.error("Fehler beim Freigeben der Team-Sperre beim Logout:", error);
+  }
 });
 
 module.exports = router;
