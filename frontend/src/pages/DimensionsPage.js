@@ -1,9 +1,14 @@
+/**
+ * Shows the available Shuffle questionnaire dimensions and their completion progress.
+ * It also aggregates saved answers into result data before opening the detailed
+ * raw results view.
+ */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import data from "../components/data/struktur.json";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
-import Card_dimensions from "../components/Cards/Card_dimensions";
+import CardDimensions from "../components/Cards/Card_dimensions";
 import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 
 const ANSWERS_STORAGE_KEY = "answers";
@@ -108,7 +113,7 @@ const DimensionsPage = () => {
 
           return (
             <div key={dimension.id} className="gridItem" role="listitem">
-              <Card_dimensions
+              <CardDimensions
                 title={dimension.name}
                 dimensionId={dimension.id}
                 handlungsfelder={dimension.handlungsfelder}

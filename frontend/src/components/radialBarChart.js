@@ -1,3 +1,8 @@
+/**
+ * Renders the radial Shuffle result chart with D3.
+ * The component receives normalized result rows and draws the interactive chart,
+ * labels, tooltips, keyboard focus states, and centered Shuffle logo.
+ */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
@@ -13,21 +18,7 @@ const MAX_CHARS_PER_LINE = 20;
 const CATEGORY_FONT_SIZE = 16;
 const CATEGORY_LINE_HEIGHT = 20;
 
-const COMPANY_LOGOS = {
-  Shuffle: '/shuffle-logo.svg',
-};
-
-const normalizeCompany = (company) => {
-  if (typeof company !== 'string') return 'LMZ';
-
-  const normalized = company.trim().toLowerCase();
-
-  if (normalized === 'shuffle') return 'Shuffle';
-  if (normalized === 'lmz') return 'LMZ';
-
-  return 'LMZ';
-};
-
+// Splits long category labels into SVG text lines without changing words.
 const wrapText = (text = '', maxChars = MAX_CHARS_PER_LINE) => {
   const words = text.split(' ').filter(Boolean);
   const lines = [];
@@ -48,6 +39,7 @@ const wrapText = (text = '', maxChars = MAX_CHARS_PER_LINE) => {
   return lines.length ? lines : [''];
 };
 
+// Used to keep group-ring labels readable on each theme color.
 const getLuminance = (color) => {
   const parsedColor = d3.color(color);
   if (!parsedColor) return 0;
@@ -65,13 +57,12 @@ const getLuminance = (color) => {
 const getTextColor = (backgroundColor) =>
   getLuminance(backgroundColor) > 0.5 ? 'black' : 'white';
 
-const RadialBarChart = ({ data = [], activeCompany }) => {
+const RadialBarChart = ({ data = [] }) => {
   const svgRef = useRef(null);
   const lastInputTypeRef = useRef('mouse');
   const [chartData, setChartData] = useState([]);
 
   const radius = Math.min(WIDTH, HEIGHT) / 2 - MARGIN;
-  const resolvedCompany = useMemo(() => normalizeCompany(activeCompany), [activeCompany]);
   const centerLogo = '/shuffle-logo.svg';
 
   const colorScale = useMemo(() => {
@@ -127,6 +118,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
     if (!chartData.length || !svgRef.current) return;
 
     const root = d3.select(svgRef.current);
+    // D3 owns the SVG contents; rebuild them whenever chart data changes.
     root.selectAll('*').remove();
 
     const svg = root
@@ -247,13 +239,14 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
       mouseY = y;
     });
 
+    // Draw one radial segment per handlungsfeld result row.
     chartData.forEach((entry, index) => {
       const startAngle = index * angleStep;
       const endAngle = startAngle + angleStep;
       const outerRadius = radialScale(entry.value);
       const adjustedValue = entry.value - 1;
       const valueText = adjustedValue === -1 ? 'Keine Einstufung vorhanden' : adjustedValue;
-      const ariaLabel = `Dimension: ${entry.group}, Themenfeld: ${entry.category}, Stufe: ${valueText}, Drücken Sie Enter für Details`;
+      const ariaLabel = `Dimension: ${entry.group}, Themenfeld: ${entry.category}, Stufe: ${valueText}`;
 
       svg
         .append('path')
@@ -354,6 +347,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
       placeCategoryText(entry.category, startAngle, endAngle);
     });
 
+    // Draw the outer dimension ring after all individual handlungsfeld segments.
     uniqueGroups.forEach((group, index) => {
       const firstGroupIndex = chartData.findIndex((entry) => entry.group === group);
       const groupItems = chartData.filter((entry) => entry.group === group);
@@ -407,6 +401,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
         .attr('aria-hidden', 'true');
     });
 
+    // Add circular tick lines for the five stufe levels.
     d3.range(1, NUM_TICKS + 1).forEach((tick) => {
       const tickRadius = radialScale(tick);
 
@@ -430,7 +425,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
 
     const logoSize = Math.min(INNER_RADIUS * 1.5, 200);
 
-    svg.append('title').text(`${resolvedCompany} Logo`);
+    svg.append('title').text('Shuffle Logo');
 
     svg
       .append('image')
@@ -440,7 +435,7 @@ const RadialBarChart = ({ data = [], activeCompany }) => {
       .attr('width', logoSize)
       .attr('height', logoSize)
       .attr('aria-hidden', 'true');
-  }, [chartData, colorScale, radius, resolvedCompany, centerLogo]);
+  }, [chartData, colorScale, radius, centerLogo]);
 
   return (
     <>

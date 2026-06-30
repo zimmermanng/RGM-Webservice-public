@@ -1,8 +1,13 @@
+/**
+ * Displays uploaded or generated Shuffle result rows as a chart or table.
+ * The page also renders explanatory text and row-level recommendations for
+ * the selected dimension without changing the underlying result data.
+ */
 import React, { useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 
-const ResultPage = ({ data, activeCompany}) => {
+const ResultPage = ({ data }) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
   const [visibleLevels, setVisibleLevels] = useState(new Set([0, 1, 2, 3, 4]));
@@ -36,6 +41,8 @@ const ResultPage = ({ data, activeCompany}) => {
   const chartPanelId = "uploaded-results-chart-panel";
   const tablePanelId = "uploaded-results-table-panel";
   const filterPanelId = "uploaded-results-filter-panel";
+  const dimensionKeys = Object.keys(dimensionData);
+  const selectedPanelId = selectedTab ? `uploaded-dimension-panel-${slugifyId(selectedTab)}` : undefined;
 
   // --- helper: render mixed recommendations with nested bullets ---
   // Top-level bullets: lines starting with "." or "·"
@@ -108,7 +115,7 @@ const ResultPage = ({ data, activeCompany}) => {
   // --- end helper ---
 
   return (
-    <main className="results-page">
+    <div className="results-page">
       <div className="mainContainer results-hero" id="top">
         <h1>Ergebnisse</h1>
         <p>Hier finden Sie eine detaillierte Erklärung der Dimensionen und ihrer Stufen.</p>
@@ -148,7 +155,7 @@ const ResultPage = ({ data, activeCompany}) => {
             role="region"
             aria-label="Diagramm"
           >
-            <RadialBarChart data={data} activeCompany={activeCompany}/>
+            <RadialBarChart data={data} />
           </div>
         ) : (
           <div
@@ -162,20 +169,27 @@ const ResultPage = ({ data, activeCompany}) => {
         )}
       </section>
 
-      <div id="ext">
+      <div id="ext" tabIndex="-1">
         <h2>Erläuterungen</h2>
         <div className="tabs-container" role="group" aria-label="Dimension auswählen">
-          {Object.keys(dimensionData).map((dimension) => (
-            <button
-              key={dimension}
-              type="button"
-              className={`tab-button ${selectedTab === dimension ? "active" : ""}`}
-              onClick={() => setSelectedTab(dimension)}
-              aria-pressed={selectedTab === dimension}
-            >
-              {dimension}
-            </button>
-          ))}
+          {dimensionKeys.map((dimension) => {
+            const isSelected = selectedTab === dimension;
+            const panelId = `uploaded-dimension-panel-${slugifyId(dimension)}`;
+
+            return (
+              <button
+                key={dimension}
+                id={`uploaded-dimension-button-${slugifyId(dimension)}`}
+                type="button"
+                className={`tab-button ${isSelected ? "active" : ""}`}
+                onClick={() => setSelectedTab(dimension)}
+                aria-pressed={isSelected}
+                aria-controls={panelId}
+              >
+                {dimension}
+              </button>
+            );
+          })}
 
           {/* Filter button */}
           <button
@@ -210,7 +224,12 @@ const ResultPage = ({ data, activeCompany}) => {
 
       {/* Content per selected dimension, using ONLY row-level recommendations */}
       {selectedTab && (
-        <section className="tab-content" aria-live="polite">
+        <section
+          id={selectedPanelId}
+          className="tab-content"
+          aria-live="polite"
+          aria-labelledby={`uploaded-dimension-button-${slugifyId(selectedTab)}`}
+        >
           <h3>{selectedTab}</h3>
           {data
             .filter((row) => row.group === selectedTab)
@@ -239,8 +258,15 @@ const ResultPage = ({ data, activeCompany}) => {
             })}
         </section>
       )}
-    </main>
+    </div>
   );
 };
 
+function slugifyId(value) {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9_-]/g, "");
+}
 export default ResultPage;

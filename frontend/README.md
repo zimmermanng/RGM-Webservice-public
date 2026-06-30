@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Shuffle Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This folder contains the React frontend for the Shuffle RGM questionnaire tool. It provides the public pages, questionnaire flow, result views, upload/download screens, routing, styling, Shuffle theme setup, static app data, and the optional Excel-to-JSON data generator.
 
-## Available Scripts
+## Main Entry Points
 
-In the project directory, you can run:
+- `src/index.js` mounts the React application.
+- `src/App.js` defines the active routes and the single page `<main>` landmark.
+- `src/theme.js` applies the Shuffle theme to the document.
+- `src/components/` contains reusable UI components.
+- `src/pages/` contains route-level screens.
+- `src/services/` contains data transformation helpers.
+- `src/components/data/` contains active questionnaire and recommendation JSON data.
+- `data-generator/` contains the optional Excel-to-JSON helper used to regenerate data files.
 
-### `npm start`
+## Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Install dependencies once:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+Start the local development server:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm start
+```
 
-### `npm run build`
+The app usually opens at `http://localhost:3000`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Create a production build:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run build
+```
 
-### `npm run eject`
+The Docker setup serves this build through nginx.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Tests
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The production build is currently the reliable verification command:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm run build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`npm test` is still available from the original Create React App setup, but it currently does not pass because the old Jest resolver cannot resolve the installed React Router package. Treat test-runner repair as a separate tooling task.
 
-## Learn More
+## Data Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Active JSON data is stored in `src/components/data/`. The optional generator in `data-generator/` writes generated files to `data-generator/rgm-setup/`. Review generated output before replacing active app data.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Accessibility Notes
 
-### Code Splitting
+The current cleanup added source-level accessibility improvements for landmarks, headings, navigation states, questionnaire controls, upload feedback, result chart/table regions, filter fieldsets, skip-link targets, and semantic data tables.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A real browser-based BIK/BITV audit is still needed before public release. The footer legal links are placeholders for a later external legal-service integration.
 
-### Analyzing the Bundle Size
+## Cleanup Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The frontend is now treated as a Shuffle-only app. Remove legacy company/layout switching only when the active Shuffle routes and visual behavior remain unchanged. Before deleting a page, component, service, or data file, check whether it is imported by `src/App.js`, another component, or a generated data workflow.

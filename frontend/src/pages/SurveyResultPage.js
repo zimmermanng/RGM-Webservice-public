@@ -1,10 +1,15 @@
+/**
+ * Renders questionnaire results saved by the browser-based Shuffle flow.
+ * It converts saved selections into chart/table rows and groups recommendation
+ * details by dimension and handlungsfeld for the detailed results view.
+ */
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 import fragenData from "../components/data/fragen.json";
 import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
 
-const SurveyResultPage = ({ surveyResults, activeCompany }) => {
+const SurveyResultPage = ({ surveyResults }) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
   const [visibleLevels, setVisibleLevels] = useState(
@@ -12,6 +17,9 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const tabRefs = useRef({});
+
+  const chartPanelId = "survey-results-chart-panel";
+  const tablePanelId = "survey-results-table-panel";
 
   const questionMap = useMemo(() => buildQuestionMap(fragenData), []);
   const recommendationMap = useMemo(
@@ -24,6 +32,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     [surveyResults]
   );
 
+  // Normalize saved result rows into the chart/table shape used by shared views.
   const data = useMemo(() => {
     const rows = Array.isArray(surveyResults?.results) ? surveyResults.results : [];
 
@@ -134,6 +143,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     focusTab(nextDimension);
   };
 
+  // TODO recommendations stay open; already-established recommendations are collapsible.
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
     const isTodo = variant === "todo";
 
@@ -146,7 +156,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           <div className="question-recommendation-summary static">
             <div className="question-recommendation-summary-text">
               <span className="question-recommendation-kicker">Frage</span>
-              <h6>{groupItem.frageText}</h6>
+              <p className="question-recommendation-question">{groupItem.frageText}</p>
               <p>
                 <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
               </p>
@@ -188,7 +198,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         <summary className="question-recommendation-summary">
           <div className="question-recommendation-summary-text">
             <span className="question-recommendation-kicker">Frage</span>
-            <h6>{groupItem.frageText}</h6>
+            <p className="question-recommendation-question">{groupItem.frageText}</p>
             <p>
               <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
             </p>
@@ -315,6 +325,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             type="button"
             className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
             aria-pressed={viewMode === "chart"}
+            aria-controls={chartPanelId}
             onClick={() => setViewMode("chart")}
           >
             Diagramm anzeigen
@@ -323,6 +334,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             type="button"
             className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
             aria-pressed={viewMode === "table"}
+            aria-controls={tablePanelId}
             onClick={() => setViewMode("table")}
           >
             Tabelle anzeigen
@@ -334,19 +346,29 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         Diagramm und Tabelle überspringen
       </a>
 
-      <div>
+      <section className="results-visual-section" aria-live="polite" aria-relevant="additions text">
         {viewMode === "chart" ? (
-          <div className="chart-container">
-            <RadialBarChart data={data} activeCompany={activeCompany} />
+          <div
+            id={chartPanelId}
+            className="chart-container"
+            role="region"
+            aria-label="Diagramm"
+          >
+            <RadialBarChart data={data} />
           </div>
         ) : (
-          <div className="table-container">
+          <div
+            id={tablePanelId}
+            className="table-container"
+            role="region"
+            aria-label="Tabelle"
+          >
             <DataTable data={data} />
           </div>
         )}
-      </div>
+      </section>
 
-      <section id="ext" className="resultsDetails" aria-labelledby="results-details-title">
+      <section id="ext" className="resultsDetails" aria-labelledby="results-details-title" tabIndex="-1">
         <h2 id="results-details-title">Erläuterungen</h2>
         <div className="category-box">
           <p>
@@ -404,7 +426,8 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
 
         {isFilterOpen && (
           <div id="survey-dimension-filter-panel" className="filter-container">
-            <div className="filter-options">
+            <fieldset className="filter-options">
+              <legend className="sr-only">Stufen filtern</legend>
               {[-1, 0, 1, 2, 3, 4].map((level) => (
                 <label key={level} className="filter-option">
                   <input
@@ -415,7 +438,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
                   {level === -1 ? "Noch nicht betrachtet" : `Stufe ${level}`}
                 </label>
               ))}
-            </div>
+            </fieldset>
           </div>
         )}
       </section>
@@ -454,6 +477,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   );
 };
 
+// Accept both older array payloads and current object payloads from localStorage.
 function normalizeSelections(selections) {
   if (Array.isArray(selections)) return selections;
   if (selections && typeof selections === "object") {
@@ -462,6 +486,7 @@ function normalizeSelections(selections) {
   return [];
 }
 
+// Build lookup tables once so rendering does not repeatedly scan large JSON arrays.
 function buildQuestionMap(source) {
   const questions = source?.fragen ?? [];
   return questions.reduce((acc, question) => {
@@ -470,6 +495,7 @@ function buildQuestionMap(source) {
   }, {});
 }
 
+// Index recommendations by answer id because selections store the selected answer.
 function buildRecommendationMap(source) {
   const items = source?.handlungsempfehlungen ?? [];
   const map = {};
@@ -509,6 +535,7 @@ function collectLevelsForAnswerId(answerId) {
   return [...new Set(levels)].sort((a, b) => a - b);
 }
 
+// Recommendation data can reference answer ranges like A1-A4; expand them here.
 function expandAnswerReference(ref) {
   if (!ref || typeof ref !== "string") return [];
 
@@ -548,6 +575,7 @@ function getSelectedAnswer(question, selectedAnswerId) {
   );
 }
 
+// Split recommendations into open TODOs and already-established higher-level items.
 function getRecommendationSectionsForRow({
   row,
   selections,

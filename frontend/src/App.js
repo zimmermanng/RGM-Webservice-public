@@ -1,3 +1,8 @@
+/**
+ * Main React application for the Shuffle frontend.
+ * It applies the Shuffle theme once and defines the active public routes for
+ * the home page, questionnaire flow, upload/download pages, and results views.
+ */
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,

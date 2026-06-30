@@ -1,6 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * Landing page for the Shuffle RGM tool.
+ *
+ * The page introduces the questionnaire, links users into the dimension
+ * selection flow, and shows static project information. It intentionally keeps
+ * all content Shuffle-specific now that the legacy company toggle has been
+ * removed.
+ */
 function HomePage() {
   return (
     <div className="homePage">
@@ -8,8 +16,9 @@ function HomePage() {
         <div className="homeHeroInner">
           <img
             src="/shuffle-logo.svg"
-            alt="Shuffle Logo"
+            alt=""
             className="heroLogo"
+            aria-hidden="true"
           />
 
           <h1 id="home-title" className="homeTitle">
@@ -56,7 +65,7 @@ function HomePage() {
 
             <dl className="infoList">
               <dt>Entwickelt:</dt>
-              <dd>2021–2025</dd>
+              <dd>2021-2025</dd>
 
               <dt>Gefördert von:</dt>
               <dd>Stiftung Innovation in der Hochschullehre</dd>

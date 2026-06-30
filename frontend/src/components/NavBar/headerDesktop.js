@@ -1,3 +1,8 @@
+/**
+ * Responsive Shuffle header with desktop links and a collapsible mobile menu.
+ * Active states are based on the current route, with questionnaire subpages
+ * grouped under the Fragebogen navigation item.
+ */
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -10,7 +15,7 @@ const NAV_ITEMS = [
 
 const LOGO_SRC = "/shuffle-logo.svg";
 
-function HeaderDesktop({ onLogout, team }) {
+function HeaderDesktop() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -18,6 +23,10 @@ function HeaderDesktop({ onLogout, team }) {
   const closeMenu = () => setIsOpen(false);
 
   const isActive = (path) => {
+    if (path === "/start") {
+      return location.pathname === "/" || location.pathname === "/start";
+    }
+
     if (path === "/dimensions") {
       return (
         location.pathname === "/dimensions" ||
@@ -28,15 +37,12 @@ function HeaderDesktop({ onLogout, team }) {
     return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
 
-  const handleLogoutClick = async () => {
-    closeMenu();
-    if (onLogout) {
-      await onLogout();
-    }
+  const handleHeaderKeyDown = (event) => {
+    if (event.key === "Escape") closeMenu();
   };
 
   return (
-    <header className="Header">
+    <header className="Header" onKeyDown={handleHeaderKeyDown}>
       <div className="header-inner">
         <div className="logo">
           <Link className="logotext" to="/start" onClick={closeMenu}>
@@ -47,32 +53,35 @@ function HeaderDesktop({ onLogout, team }) {
 
         <nav className="nav-desktop" aria-label="Hauptnavigation">
           <ul>
-            {NAV_ITEMS.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className={isActive(item.to) ? "nav-link active" : "nav-link"}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item.to);
+
+              return (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className={active ? "nav-link active" : "nav-link"}
+                    aria-current={active ? "page" : undefined}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         <div className="header-actions">
-          {team && <span className="team-indicator">{team}</span>}
-
           <button
             className="HamburgerMenu"
             type="button"
             onClick={toggleMenu}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
-            aria-label="Navigation öffnen oder schließen"
+            aria-label={isOpen ? "Navigation schließen" : "Navigation öffnen"}
           >
-            ☰
+            <span aria-hidden="true">☰</span>
           </button>
         </div>
       </div>
@@ -84,35 +93,22 @@ function HeaderDesktop({ onLogout, team }) {
           aria-label="Mobile Hauptnavigation"
         >
           <ul>
-            {NAV_ITEMS.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className={isActive(item.to) ? "nav-link active" : "nav-link"}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item.to);
 
-            {team && (
-              <li className="mobile-team-row">
-                <span className="team-indicator">{team}</span>
-              </li>
-            )}
-
-            {onLogout && (
-              <li>
-                <button
-                  type="button"
-                  className="logout-button logout-button--mobile"
-                  onClick={handleLogoutClick}
-                >
-                  Logout
-                </button>
-              </li>
-            )}
+              return (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className={active ? "nav-link active" : "nav-link"}
+                    aria-current={active ? "page" : undefined}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       )}

@@ -103,34 +103,16 @@ code {
   padding-top: calc(var(--header-height) + var(--space-4));
 }
 
-.page-shell,
-.page-section,
-.page-width,
 .homeHeroInner,
 .homeContent,
 .header-inner,
 .mobile-menu ul,
 .skip-link,
 #ext,
-.tab-content,
-.question-reference-section {
+.tab-content {
   width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
   margin-left: auto;
   margin-right: auto;
-}
-
-.page-width-narrow {
-  width: min(var(--content-narrow), calc(100% - (var(--page-gutter) * 2)));
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.page-stack > * + * {
-  margin-top: var(--space-6);
-}
-
-.sectionBlock {
-  margin-top: var(--space-10);
 }
 
 .sr-only {
@@ -152,6 +134,5 @@ code {
 
   .mainContainer {
     padding-inline: var(--page-gutter);
-
   }
 }

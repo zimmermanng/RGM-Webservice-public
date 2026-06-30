@@ -1,11 +1,11 @@
+/**
+ * Site navigation wrapper used by the app shell.
+ * It currently renders the Shuffle header navigation for all routes.
+ */
 import HeaderDesktop from "./headerDesktop";
 
-const NavBar = ({ onLogout, team }) => {
-  return (
-    <div>
-      <HeaderDesktop onLogout={onLogout} team={team} />
-    </div>
-  );
+const NavBar = () => {
+  return <HeaderDesktop />;
 };
 
 export default NavBar;

@@ -2,14 +2,10 @@
 .card_dimension,
 .homeIntroCard,
 .infoCard,
-.stepCard,
-.noticeBlock,
 .question-box,
 .category-box,
-.comment-box,
 .upload-box,
 .tab-content,
-.question-reference-accordion,
 .question-recommendation-card,
 .already-done-block {
   background: var(--color-surface);
@@ -95,12 +91,8 @@
 .submit-button,
 .confirm-button,
 .upload-button,
-.pdf-button,
 .top-buttons button,
-.footerDimension button,
-.footer button,
-.dFooterButtons button,
-.comment-box button {
+.dFooterButtons button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -122,23 +114,15 @@
 .submit-button:hover,
 .confirm-button:hover,
 .upload-button:hover,
-.pdf-button:hover,
 .top-buttons button:hover,
-.footerDimension button:hover,
-.footer button:hover,
 .dFooterButtons button:hover,
-.comment-box button:hover,
 .button:focus-visible,
 .homeButton:focus-visible,
 .submit-button:focus-visible,
 .confirm-button:focus-visible,
 .upload-button:focus-visible,
-.pdf-button:focus-visible,
 .top-buttons button:focus-visible,
-.footerDimension button:focus-visible,
-.footer button:focus-visible,
-.dFooterButtons button:focus-visible,
-.comment-box button:focus-visible {
+.dFooterButtons button:focus-visible {
   background: var(--brand-accent-strong);
   box-shadow: var(--shadow-md);
 }
@@ -148,12 +132,8 @@
 .submit-button:active,
 .confirm-button:active,
 .upload-button:active,
-.pdf-button:active,
 .top-buttons button:active,
-.footerDimension button:active,
-.footer button:active,
-.dFooterButtons button:active,
-.comment-box button:active {
+.dFooterButtons button:active {
   transform: translateY(1px);
 }
 
@@ -217,7 +197,6 @@
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand-accent) 18%, transparent);
 }
 
-.toggleButton.off,
 .toggle-button.off {
   background: #5f6b7a;
   color: #ffffff;
@@ -362,8 +341,6 @@
 
 .gridContainer,
 .homeGrid,
-.insightGrid,
-.stepsGrid,
 .question-recommendation-grid {
   display: grid;
   gap: var(--space-5);
@@ -374,24 +351,21 @@
   align-items: stretch;
 }
 
-.homeGrid,
-.insightGrid {
+.homeGrid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.stepsGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .question-recommendation-grid {
   grid-template-columns: 1fr;
 }
 
-.hf-button-list,
 .answers,
 .filter-options {
   display: grid;
   gap: var(--space-3);
+  min-inline-size: 0;
+  margin: 0;
+  border: 0;
 }
 
 .answers {
@@ -407,7 +381,6 @@
 
 .dFooter,
 .dFooterButtons,
-.footerDimension,
 .toggle-container,
 .tabs-container,
 .top-buttons {
@@ -416,45 +389,9 @@
   gap: var(--space-3);
 }
 
-.top-buttons,
-.footerDimension {
+.top-buttons {
   margin-top: var(--space-5);
   align-items: center;
-}
-
-.footerDimension {
-  justify-content: space-between;
-}
-
-.editModeWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  width: 100%;
-  max-width: 1200px; /* optional: für zentriertes Layout */
-  margin: 0 auto;
-}
-
-.dropZone {
-  min-height: 20rem;
-  min-width: 0;
-  padding: var(--space-5);
-  border: 2px dashed var(--details-color);
-  border-radius: var(--radius-xl);
-  background: #ffffff;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--details-color) 10%, transparent);
-}
-
-.dropZone:first-child {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand-primary-soft) 46%, #ffffff) 0%, #ffffff 100%);
-}
-
-.dropZone:last-child {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand-accent-soft) 82%, #ffffff) 0%, #ffffff 100%);
-}
-
-.dropZone h4 {
-  margin: 0 0 var(--space-4);
 }
 
 .dFooter {
@@ -469,10 +406,6 @@
 }
 
 .progress-text,
-.change {
-  color: var(--color-text-soft);
-}
-
 .questions-container,
 .chart-container,
 .table-container {
@@ -504,38 +437,15 @@
   gap: var(--space-4);
 }
 
-.comment-box {
-  width: 100%;
-  max-width: 32rem;
-  margin: var(--space-4) auto 0;
-  padding: var(--space-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.comment-box label {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 0.4rem;
-  font-weight: 600;
-}
-
-.comment-box input,
-.file-input,
 .filter-option input {
   accent-color: var(--brand-accent);
 }
 
-.comment-box input {
-  width: 100%;
-  padding: 0.8rem 0.95rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: #fcfcfd;
+.upload-box h2 {
+  margin: 1em 0;
+  font-size: 1.17em;
+  line-height: 1.3;
 }
-
 .upload-box {
   width: min(100%, 28rem);
   padding: var(--space-6);
@@ -547,12 +457,8 @@
   background: var(--color-surface-muted);
 }
 
-
 .question-recommendation-card,
-.question-reference-card,
-.question-answer-item,
-.already-done-block,
-.question-reference-accordion {
+.already-done-block {
   overflow: hidden;
 }
 
@@ -616,10 +522,7 @@ td span.nicht-bewertet {
 
 @media (max-width: 900px) {
   .gridContainer,
-  .homeGrid,
-  .insightGrid,
-  .stepsGrid,
-  .editModeWrapper {
+  .homeGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -654,7 +557,6 @@ td span.nicht-bewertet {
   }
 
   .question-box,
-  .comment-box,
   .upload-box,
   .tab-content {
     padding: var(--space-4);
@@ -674,8 +576,8 @@ td span.nicht-bewertet {
   }
 }
 
-
 /* --- Questionnaire and configuration refinements --- */
+
 .questions-container {
   align-items: stretch;
   gap: var(--space-6);
@@ -761,35 +663,6 @@ td span.nicht-bewertet {
   padding-top: var(--space-2);
 }
 
-.editModeWrapper {
-  gap: var(--space-6);
-  margin-top: var(--space-6);
-  margin-bottom: var(--space-6);
-  padding: clamp(1rem, 2vw, 1.5rem);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand-primary-soft) 22%, #ffffff) 0%, color-mix(in srgb, var(--brand-accent-soft) 30%, #ffffff) 100%);
-}
-
-.dropZone {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  min-height: 23rem;
-  padding: var(--space-5);
-}
-
-.dropZone:first-child,
-.dropZone:last-child {
-  background: color-mix(in srgb, var(--color-surface) 92%, var(--brand-primary-soft));
-}
-
-.dropZone .card,
-.dropZone .card_dimension {
-  min-height: 8.5rem;
-  justify-content: center;
-}
-
 .dFooter {
   margin-top: var(--space-6);
   gap: var(--space-4);
@@ -823,49 +696,4 @@ td span.nicht-bewertet {
     align-items: center;
     justify-content: center;
   }
-}
-
-.logout-button {
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 0.65rem 1rem;
-  min-height: 2.5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--button-color);
-  color: var(--brand-button-text);
-  font: inherit;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
-}
-
-.logout-button:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-  filter: brightness(0.98);
-}
-
-.logout-button:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
-}
-
-.logout-button--mobile {
-  width: 100%;
-}
-
-.results:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.editGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 440px));
-  gap: var(--space-5);
-  justify-content: center;
 }

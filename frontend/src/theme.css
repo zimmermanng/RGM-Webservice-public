@@ -1,12 +1,10 @@
 :root {
   color-scheme: light;
-
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   --font-mono: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -16,22 +14,18 @@
   --space-8: 2rem;
   --space-10: 2.5rem;
   --space-12: 3rem;
-
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.125rem;
   --radius-pill: 999px;
-
   --shadow-sm: 0 2px 8px rgba(16, 24, 40, 0.06);
   --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
   --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
-
   --content-max: 1200px;
   --content-narrow: 1120px;
   --page-gutter: clamp(1rem, 2vw, 1.5rem);
   --header-height: 4.75rem;
-
   --color-text: #1f2937;
   --color-text-muted: #475467;
   --color-text-soft: #667085;
@@ -45,8 +39,8 @@
   --color-success-bg: #f4fbf6;
   --color-warning-bg: #fff4db;
   --color-danger: #b42318;
+  /* Shuffle theme variables */
 
-  /* Default = Shuffle */
   --brand-bg: #f7f9fc;
   --brand-surface: #ffffff;
   --brand-primary: #324b8c;
@@ -58,61 +52,7 @@
   --brand-nav: #e6ecf3;
   --brand-highlight: #e6ecf3;
   --brand-button-text: #ffffff;
-
   /* project compatibility variables */
-  --footer-color: #e6ecf3;
-  --navBar-color: #e6ecf3;
-  --button-color: #004a94;
-  --details-color: #324b8c;
-  --letter-color: #ffffff;
-  --range_1-color: #e21437;
-  --range_2-color: #1e7f5e;
-  --range_3-color: #fec705;
-  --range_4-color: #324b8c;
-}
-
-body[data-company="LMZ"],
-#root[data-company="LMZ"],
-body.LMZ,
-#root.LMZ {
-  --brand-bg: #f8f5ef;
-  --brand-surface: #ffffff;
-  --brand-primary: #5e5f4f;
-  --brand-primary-strong: #47483b;
-  --brand-primary-soft: #f2efe8;
-  --brand-accent: #f08811;
-  --brand-accent-strong: #c56a08;
-  --brand-accent-soft: rgba(240, 136, 17, 0.16);
-  --brand-nav: #ebebe2;
-  --brand-highlight: #f7ead7;
-  --brand-button-text: #000000;
-
-  --footer-color: #f69e2f;
-  --navBar-color: #ebebe2;
-  --button-color: #f08811;
-  --details-color: #5e5f4f;
-  --letter-color: #000000;
-  --range_1-color: #f6b700;
-  --range_2-color: #fa4730;
-  --range_3-color: #f08811;
-  --range_4-color: #5e5f4f;
-}
-
-body[data-company="Shuffle"],
-#root[data-company="Shuffle"],
-body.Shuffle,
-#root.Shuffle {
-  --brand-bg: #f7f9fc;
-  --brand-surface: #ffffff;
-  --brand-primary: #324b8c;
-  --brand-primary-strong: #25396c;
-  --brand-primary-soft: #eef2fb;
-  --brand-accent: #004a94;
-  --brand-accent-strong: #003a75;
-  --brand-accent-soft: rgba(0, 74, 148, 0.12);
-  --brand-nav: #e6ecf3;
-  --brand-highlight: #e6ecf3;
-  --brand-button-text: #ffffff;
 
   --footer-color: #e6ecf3;
   --navBar-color: #e6ecf3;

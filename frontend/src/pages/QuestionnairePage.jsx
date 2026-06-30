@@ -1,3 +1,8 @@
+/**
+ * Displays one Shuffle questionnaire handlungsfeld at a time.
+ * Answers are saved in browser localStorage by dimension so users can move
+ * between handlungsfelder and later aggregate all saved answers into results.
+ */
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import struktur from "../components/data/struktur.json";
@@ -24,6 +29,7 @@ export default function QuestionnairePage() {
       .filter(Boolean);
   }, [currentHandlungsfeld]);
 
+  // Stored answers are grouped by dimension id and then by question id.
   function readStoredAnswers() {
     try {
       const raw = localStorage.getItem(ANSWERS_STORAGE_KEY);
@@ -48,6 +54,8 @@ export default function QuestionnairePage() {
     return <p>Handlungsfeld nicht gefunden.</p>;
   }
 
+  // Store both ids and display text so later result screens do not need to
+  // re-read every label from the source JSON.
   const handleAnswerClick = (frage, antwort) => {
     const nextSelection = {
       frageId: frage.id,
@@ -84,11 +92,15 @@ export default function QuestionnairePage() {
     navigate(`/questionnaire/${dimensionId}/${nextHF.id}`);
   };
 
+  const previousHandlungsfeld = handlungsfelder[currentHFIndex - 1];
+  const nextHandlungsfeld = handlungsfelder[currentHFIndex + 1];
+  const progressText = `Handlungsfeld ${currentHFIndex + 1} von ${handlungsfelder.length}`;
+
   const handleNext = () => navigateToHandlungsfeld(currentHFIndex + 1);
   const handlePrev = () => navigateToHandlungsfeld(currentHFIndex - 1);
 
   return (
-    <div className="mainContainer questionnaire-page" id="top">
+    <div className="mainContainer questionnaire-page" id="top" aria-labelledby="questionnaire-title" aria-describedby="questionnaire-progress">
       <div className="top-buttons">
         <button type="button" onClick={() => navigate("/dimensions")}>
           ← Zurück zur Übersicht
@@ -97,7 +109,7 @@ export default function QuestionnairePage() {
 
       <div className="questions-container">
         <div className="questionnaire-header">
-          <h1>{currentDimension?.name}</h1>
+          <h1 id="questionnaire-title">{currentDimension?.name}</h1>
           <h2>{currentHandlungsfeld?.name}</h2>
         </div>
 
@@ -112,7 +124,7 @@ export default function QuestionnairePage() {
                     {frage.frage}
                   </h3>
 
-                  <div className="answers">
+                  <div className="answers" role="group" aria-labelledby={`question-${frage.id}`}>
                     {[
                       ...(frage.antworten || []),
                       {
@@ -149,11 +161,12 @@ export default function QuestionnairePage() {
             onClick={handlePrev}
             disabled={currentHFIndex === 0}
             className="nav-button"
+            aria-label={previousHandlungsfeld ? `Zum vorherigen Handlungsfeld: ${previousHandlungsfeld.name}` : "Kein vorheriges Handlungsfeld"}
           >
             Zurück
           </button>
 
-          <span>
+          <span id="questionnaire-progress" aria-live="polite" aria-label={progressText}>
             {currentHFIndex + 1} / {handlungsfelder.length}
           </span>
 
@@ -162,6 +175,7 @@ export default function QuestionnairePage() {
             onClick={handleNext}
             disabled={currentHFIndex === handlungsfelder.length - 1}
             className="nav-button"
+            aria-label={nextHandlungsfeld ? `Zum nächsten Handlungsfeld: ${nextHandlungsfeld.name}` : "Kein nächstes Handlungsfeld"}
           >
             Weiter
           </button>

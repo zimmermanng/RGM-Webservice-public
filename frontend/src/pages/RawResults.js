@@ -1,3 +1,8 @@
+/**
+ * Loads locally stored Shuffle questionnaire results for the detailed results page.
+ * Results are filtered to active dimensions when the user previously limited
+ * the questionnaire scope.
+ */
 import React, { useEffect, useState } from "react";
 import SurveyResultPage from "./SurveyResultPage";
 import struktur from "../components/data/struktur.json";
@@ -6,13 +11,6 @@ const ANSWERS_STORAGE_KEY = "answers";
 const RESULTS_STORAGE_KEY = "shuffleResults";
 const ACTIVE_DIMENSIONS_STORAGE_KEY = "activeDimensions";
 
-/**
- * RawResults
- *
- * Uses only locally saved questionnaire results. Nothing is loaded from or
- * written to the backend, so each browser/device keeps its own independent
- * result state.
- */
 const RawResults = () => {
   const [surveyResults, setSurveyResults] = useState(null);
   const [loading, setLoading] = useState(true);

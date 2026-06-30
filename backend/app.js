@@ -1,3 +1,8 @@
+/**
+ * Creates the configured Express application for the Shuffle backend.
+ * The backend exposes a lightweight health check and session endpoints used by
+ * the frontend while keeping questionnaire result data in the browser.
+ */
 require("dotenv").config();
 
 const express = require("express");

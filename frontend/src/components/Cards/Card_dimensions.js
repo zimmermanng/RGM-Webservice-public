@@ -1,7 +1,12 @@
+/**
+ * Card used on the dimensions overview page.
+ * It shows a questionnaire dimension, its progress, and a link to the first
+ * handlungsfeld so users can continue answering questions.
+ */
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card_dimensions = ({
+const CardDimensions = ({
   title,
   dimensionId,
   handlungsfelder = [],
@@ -20,7 +25,7 @@ const Card_dimensions = ({
       <article className="card_dimension" aria-labelledby={titleId}>
         <div className="card-content">
           <h2 id={titleId}>{title}</h2>
-          <Link to={link} className="hf-button">
+          <Link to={link} className="hf-button" aria-label={`Fragebogen ${title} öffnen`}>
             Fragebogen öffnen
           </Link>
         </div>
@@ -60,6 +65,7 @@ const Card_dimensions = ({
               <Link
                 to={`/questionnaire/${dimensionId}/${firstHF.id}`}
                 className="startButton"
+                aria-label={`Fragebogen ${title} starten`}
               >
                 Start
               </Link>
@@ -71,4 +77,4 @@ const Card_dimensions = ({
   );
 };
 
-export default Card_dimensions;
+export default CardDimensions;

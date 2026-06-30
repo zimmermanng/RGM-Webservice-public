@@ -1,20 +1,19 @@
-// build-json.js
-// Robust Excel→JSON converter for a 3-sheet workbook.
-// Install: npm i xlsx
-// Run:     node build-json.js ./excel/Neue_Daten.xlsx
-//
-// Sheets (by index):
-//  0) Struktur: Dimension (ID+name) → Handlungsfeld (ID+name) → Frage (ID+name)
-//  1) Handlungsempfehlungen: Handlungsempfehlung (ID+name) → Antwort (ID-ARRAY) → Handlungsfeld ID (attached to each Antwort)
-//  2) Fragen & Antworten: Frage (ID+name) → Handlungsfeld ID → Antwort (ID+name) → Stufe
-//
-// Outputs (./rgm-setup):
-//  - struktur.json
-//  - handlungsempfehlungen.json
-//  - fragen.json
-//
-// This script is tolerant to header variations by normalizing column names.
-// It also cross-links answer texts from sheet 3 where possible.
+/**
+ * Excel-to-JSON generator for Shuffle questionnaire data.
+ *
+ * Input workbook sheets by index:
+ * 0. Struktur: Dimension -> Handlungsfeld -> Frage
+ * 1. Handlungsempfehlungen: Empfehlung -> Antwort ids -> Handlungsfeld id
+ * 2. Fragen & Antworten: Frage -> Handlungsfeld id -> Antwort -> Stufe
+ *
+ * Output folder: ./rgm-setup
+ * - struktur.json
+ * - handlungsempfehlungen.json
+ * - fragen.json
+ *
+ * The parser is tolerant to header variations by normalizing column names.
+ * It also cross-links answer texts from the answer sheet where possible.
+ */
 
 const fs = require('fs');
 const path = require('path');
@@ -23,7 +22,7 @@ const XLSX = require('xlsx');
 // ---------- CLI ----------
 const inputPath = process.argv[2] || path.resolve(__dirname, 'excel', 'Daten.xlsx');
 if (!fs.existsSync(inputPath)) {
-  console.error('❌ Excel file not found:', inputPath);
+  console.error('Excel file not found:', inputPath);
   process.exit(1);
 }
 
@@ -140,7 +139,7 @@ for (const r of s3) {
   }
 }
 
-// ---------- SHEET 1 → struktur.json ----------
+// ---------- SHEET 1 -> struktur.json ----------
 const s1 = sheetToJsonByIndex(wb, 0);
 const dimMap = new Map();
 
@@ -187,7 +186,7 @@ const strukturJson = {
 };
 fs.writeFileSync(path.join(OUT_DIR, 'struktur.json'), JSON.stringify(strukturJson, null, 2), 'utf8');
 
-// ---------- SHEET 2 → handlungsempfehlungen.json ----------
+// ---------- SHEET 2 -> handlungsempfehlungen.json ----------
 const s2 = sheetToJsonByIndex(wb, 1);
 const heMap = new Map();
 for (const r of s2) {
@@ -220,7 +219,7 @@ const handlungsempfehlungenJson = {
 };
 fs.writeFileSync(path.join(OUT_DIR, 'handlungsempfehlungen.json'), JSON.stringify(handlungsempfehlungenJson, null, 2), 'utf8');
 
-// ---------- SHEET 3 → fragen.json ----------
+// ---------- SHEET 3 -> fragen.json ----------
 const qMap = new Map();
 for (const r of s3) {
   const hdr = buildHeaderMap(r);
@@ -263,7 +262,7 @@ const fragenJson = {
 };
 fs.writeFileSync(path.join(OUT_DIR, 'fragen.json'), JSON.stringify(fragenJson, null, 2), 'utf8');
 
-console.log('✅ Written:');
+console.log('Written:');
 console.log(' -', path.join(OUT_DIR, 'struktur.json'));
 console.log(' -', path.join(OUT_DIR, 'handlungsempfehlungen.json'));
 console.log(' -', path.join(OUT_DIR, 'fragen.json'));

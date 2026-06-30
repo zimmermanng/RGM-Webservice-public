@@ -1,4 +1,4 @@
-#Stage 1: Build Frontend
+# Stage 1: build the Shuffle frontend
 FROM dhi.io/node:24-alpine3.22-dev AS build
 
 WORKDIR /app
@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-#Stage 2: Serve with nginx
+# Stage 2: serve the static build with nginx
 FROM dhi.io/nginx:1.28.0-alpine3.21-dev
 
 COPY nginx.conf /etc/nginx/nginx.conf

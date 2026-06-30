@@ -1,93 +1,150 @@
-# RGM-LMZ
+# RGM Shuffle Webservice
 
+RGM Shuffle Webservice is a Shuffle-only web application for running and evaluating the SHUFFLE maturity-model questionnaire for digital accessibility at universities. The project contains a React frontend, a small Express backend, static questionnaire data, and an optional Excel-to-JSON data generator.
 
+The project was originally prepared for multiple company/layout variants. The current handover state is intentionally Shuffle-only: legacy company switching, authentication leftovers, and unused dependencies have been removed where they were not needed by the active Shuffle flow.
 
-## Getting started
+## Project Structure
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.mi.hdm-stuttgart.de/ln034/rgm-lmz.git
-git branch -M main
-git push -uf origin main
+```text
+backend/                  Express service for health checks and session routes
+frontend/                 React application, Shuffle pages, styles, assets, and app data
+frontend/data-generator/  Optional Excel-to-JSON helper for regenerating questionnaire data
+docs/                     Handoff notes and cleanup checklist
+docker-compose.yml        Local container setup for frontend and backend
 ```
 
-## Integrate with your tools
+## Requirements
 
-- [ ] [Set up project integrations](https://gitlab.mi.hdm-stuttgart.de/ln034/rgm-lmz/-/settings/integrations)
+- Node.js and npm for local development
+- Docker and Docker Compose for container-based usage
 
-## Collaborate with your team
+The Dockerfiles currently use Node 24 images. For local development without Docker, use a recent Node version compatible with the installed dependencies.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## Configuration
 
-## Test and Deploy
+The backend reads configuration from `backend/.env`. Use `backend/.env.example` as the template:
 
-Use the built-in continuous integration in GitLab.
+```env
+PORT=3011
+FRONTEND_URL=http://localhost:3000
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+`PORT` is optional and defaults to `3011`. `FRONTEND_URL` controls the backend CORS origin and defaults to `http://localhost:3000`.
 
-***
+## Run With Docker
 
-# Editing this README
+From the project root:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```bash
+docker compose up --build
+```
 
-## Suggestions for a good README
+The services are exposed locally as:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- Frontend: `http://127.0.0.1:3010`
+- Backend: `http://127.0.0.1:3011`
 
-## Name
-Choose a self-explaining name for your project.
+## Run Locally
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Install and start the backend:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```bash
+cd backend
+npm install
+npm start
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Install and start the frontend in a second terminal:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```bash
+cd frontend
+npm install
+npm start
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+The React development server usually opens on `http://localhost:3000`.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Verification
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Recommended checks before handover or deployment:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```bash
+cd backend
+node -e "require('./app'); console.log('backend app loads')"
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```bash
+cd frontend
+npm run build
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+There is currently no backend test suite. The frontend production build is the reliable verification command right now. The legacy Create React App `npm test` command still exists, but it currently needs separate maintenance because the old Jest resolver does not resolve the installed React Router package.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Backend Overview
 
-## License
-For open source projects, say how it is licensed.
+The backend is intentionally small. It exposes a root health check and session routes under `/session`. Questionnaire results are not persisted by the backend; the current implementation keeps answer and result data on the client side.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Frontend Overview
+
+The frontend is a React application using React Router. It contains:
+
+- Shuffle home page
+- download page for supporting files
+- upload flow for offline Excel assessments
+- online questionnaire flow
+- result pages with chart and table views
+- static JSON data for questions, structure, indicators, and recommendations
+- Shuffle theme setup in `src/theme.js` and `src/theme.css`
+
+The upload flow parses the Excel file and opens the result page. It no longer triggers an automatic JSON download after parsing.
+
+## Questionnaire Data
+
+Active app data lives in:
+
+```text
+frontend/src/components/data/
+```
+
+The optional generator lives in:
+
+```text
+frontend/data-generator/
+```
+
+Run it from `frontend/data-generator/` with an Excel file path, for example:
+
+```bash
+node build-json.js ./excel/Daten.xlsx
+```
+
+The generator writes output to `frontend/data-generator/rgm-setup/`. Review generated JSON before copying it into `frontend/src/components/data/`; output from the current `Daten.xlsx` is not identical to the active app data.
+
+## Accessibility Status
+
+Several source-level accessibility improvements have been made during cleanup:
+
+- single main landmark from `App.js`
+- clearer heading structure on route pages
+- accessible names and states for navigation, questionnaire buttons, upload controls, result toggles, and dimension controls
+- chart/table alternatives and named result regions
+- focusable skip-link targets on result pages
+- semantic fieldsets for result filters
+- non-interactive table rows no longer create extra keyboard stops
+
+A real browser-based BIK/BITV audit is still required before public release. The footer legal links are intentional placeholders for a later external legal-service integration.
+
+## Cleanup Rules For Future Work
+
+- Keep existing Shuffle functionality and design unchanged unless a requested cleanup explicitly requires a behavior change.
+- Remove legacy company-switching code only after confirming the active Shuffle path does not rely on it.
+- Add file-level summaries where they help a new developer understand the file.
+- Add function comments for non-obvious logic, data contracts, or side effects.
+- Avoid comments that repeat what the code already says.
+- Before deleting code or content, check whether it is imported, routed, or used by generated assets.
+- Treat `frontend/build/`, `node_modules/`, and real `.env` files as local artifacts, not source handoff material.
+
+## Handoff Notes
+
+See `docs/handoff-checklist.md` before sharing or deploying the project. The repository has been cleaned gradually; prefer small, reviewable changes over broad rewrites.

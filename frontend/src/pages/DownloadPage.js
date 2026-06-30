@@ -1,10 +1,14 @@
-// src/pages/DownloadPage.js
+/**
+ * Download page for Shuffle supporting materials.
+ * It links to the offline Excel tool and documentation package from the public
+ * downloads folder and explains when each file should be used.
+ */
 import React from "react";
 import Card from "../components/Cards/Card";
 
 const Download = () => {
   return (
-    <main className="downloadPage" id="top">
+    <div className="downloadPage" id="top">
       <header className="downloadHeader mainContainer">
         <h1>Downloads</h1>
         <h2>Vorlagen und Unterlagen</h2>
@@ -46,7 +50,7 @@ const Download = () => {
             Auch diese Sammlung kann genutzt werden, um ein Reifegradmodell zu erstellen. Bitte beachten Sie jedoch, dass die Sammlung für den Hochschulkontext erstellt wurde und ergänzen Sie diese für ein Reifegradmodell für andere Bildungsbereiche.</p>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 
