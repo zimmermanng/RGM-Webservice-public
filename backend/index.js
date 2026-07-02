@@ -10,7 +10,7 @@ const app = express();
 const port = 3011;
 
 const SESSION_TIMEOUT_MS =
-  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
+  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60 * 24 * 365 * 10;
 
 app.set("trust proxy", 1);
 //"http://localhost:3011"
