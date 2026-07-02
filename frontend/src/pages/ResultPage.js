@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 
+const CHART_ITEM_LIMIT = 18;
+
 const ResultPage = ({ data, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
@@ -10,6 +12,8 @@ const ResultPage = ({ data, activeCompany }) => {
   const tabRefs = useRef({});
 
   const safeData = Array.isArray(data) ? data : [];
+  const chartItemLimitExceeded = safeData.length > CHART_ITEM_LIMIT;
+  const activeViewMode = chartItemLimitExceeded ? "table" : viewMode;
 
   const dimensionData = useMemo(() => {
     return safeData.reduce((acc, row) => {
@@ -21,6 +25,12 @@ const ResultPage = ({ data, activeCompany }) => {
   }, [safeData]);
 
   const dimensionKeys = useMemo(() => Object.keys(dimensionData), [dimensionData]);
+
+  useEffect(() => {
+    if (chartItemLimitExceeded && viewMode !== "table") {
+      setViewMode("table");
+    }
+  }, [chartItemLimitExceeded, viewMode]);
 
   useEffect(() => {
     if (!dimensionKeys.length) {
@@ -158,13 +168,15 @@ const ResultPage = ({ data, activeCompany }) => {
 
         <div className="toggle-container">
           <button
-            className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
+            className={`toggle-button ${activeViewMode === "chart" ? "active" : ""}`}
             onClick={() => setViewMode("chart")}
+            disabled={chartItemLimitExceeded}
+            aria-disabled={chartItemLimitExceeded ? "true" : undefined}
           >
             Diagramm anzeigen
           </button>
           <button
-            className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
+            className={`toggle-button ${activeViewMode === "table" ? "active" : ""}`}
             onClick={() => setViewMode("table")}
           >
             Tabelle anzeigen
@@ -177,7 +189,13 @@ const ResultPage = ({ data, activeCompany }) => {
       </a>
 
       <div>
-        {viewMode === "chart" ? (
+        {chartItemLimitExceeded && (
+          <p className="chart-limit-notice" role="status">
+            Für {safeData.length} Päckchen ist das Diagramm nicht mehr übersichtlich.
+            Die Ergebnisse werden deshalb als Tabelle angezeigt.
+          </p>
+        )}
+        {activeViewMode === "chart" ? (
           <div className="chart-container">
             <RadialBarChart data={safeData} activeCompany={activeCompany} />
           </div>

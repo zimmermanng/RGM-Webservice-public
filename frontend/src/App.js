@@ -25,8 +25,8 @@ import ShuffleHomePage from "./pages/shuffleHomePage";
 import RawResults from "./pages/RawResults";
 import DimensionsEditPage from "./pages/DimensionsEditPage";
 import ResultPageReadOnly from "./pages/ResultPageReadOnly.js";
+import AdminEvaluationOverallPage from "./pages/AdminEvaluationOverallPage";
 import EvaluationPage from "./pages/EvaluationPage.js";
-
 import LoginPage from "./pages/LoginPage";
 import TeamSelectionPage from "./pages/TeamSelectionPage";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -39,6 +39,7 @@ const CLIENT_WARNING_FALLBACK_MS = 1000 * 60 * 5;
 const CLIENT_TIMEOUT_FALLBACK_MS = 1000 * 60 * 60;
 const KEEPALIVE_DEBOUNCE_MS = 1000 * 60;
 const LOCK_STATUS_POLL_MS = 10000;
+const SESSION_TIMEOUT_DISABLED = true;
 
 const FOCUSABLE_SELECTOR = [
   "a[href]",
@@ -149,6 +150,10 @@ const App = () => {
     (timeoutMs, warningMs) => {
       clearInactivityTimers();
 
+      if (SESSION_TIMEOUT_DISABLED) {
+        return;
+      }
+
       if (!isAuthenticated || !team) {
         return;
       }
@@ -182,7 +187,7 @@ const App = () => {
         handleLogout({
           preserveNotice: true,
           reason:
-            "Ihre Sitzung wurde wegen Inaktivität beendet. Ihre bereits gespeicherten Eingaben bleiben erhalten.",
+            "Ihre Sitzung wurde wegen Inaktivit?t beendet. Ihre bereits gespeicherten Eingaben bleiben erhalten.",
         });
       }, safeTimeoutMs);
     },
@@ -280,6 +285,10 @@ const App = () => {
   ]);
 
   const sendKeepalive = useCallback(async () => {
+    if (SESSION_TIMEOUT_DISABLED) {
+      return;
+    }
+
     const now = Date.now();
 
     if (now - lastKeepaliveAtRef.current < KEEPALIVE_DEBOUNCE_MS) {
@@ -315,6 +324,10 @@ const App = () => {
   }, [handleLogout, syncSessionFromResponse]);
 
   const checkLockStatus = useCallback(async () => {
+    if (SESSION_TIMEOUT_DISABLED) {
+      return;
+    }
+
     if (!isAuthenticated || !team) {
       return;
     }
@@ -504,7 +517,7 @@ const App = () => {
           preserveNotice: true,
           reason:
             payload.message ||
-            "Ihre Sitzung konnte nicht verlängert werden. Bitte melden Sie sich erneut an.",
+            "Ihre Sitzung konnte nicht verl?ngert werden. Bitte melden Sie sich erneut an.",
         });
         return;
       }
@@ -516,7 +529,7 @@ const App = () => {
       await handleLogout({
         preserveNotice: true,
         reason:
-          "Ihre Sitzung konnte nicht verlängert werden. Bitte melden Sie sich erneut an.",
+          "Ihre Sitzung konnte nicht verl?ngert werden. Bitte melden Sie sich erneut an.",
       });
     } finally {
       setWarningBusy(false);
@@ -543,7 +556,7 @@ const App = () => {
           <div className="access-page">
             <div className="access-card">
               <p role="status" aria-live="polite">
-                Sitzung wird geprüft...
+                Sitzung wird gepr?ft...
               </p>
             </div>
           </div>
@@ -809,6 +822,18 @@ const App = () => {
               }
             />
 
+            <Route
+              path="/evaluationsrunden/gesamtauswertung"
+              element={
+                <ProtectedRoute
+                  authChecked={authChecked}
+                  isAuthenticated={isAuthenticated}
+                  team={team}
+                >
+                  <AdminEvaluationOverallPage />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
@@ -824,9 +849,9 @@ const App = () => {
             aria-labelledby="session-timeout-title"
             aria-describedby="session-timeout-description session-timeout-countdown"
           >
-            <h2 id="session-timeout-title">Sitzung läuft bald ab</h2>
+            <h2 id="session-timeout-title">Sitzung l?uft bald ab</h2>
             <p id="session-timeout-description">
-              Wegen Inaktivität werden Sie automatisch abgemeldet. Bereits
+              Wegen Inaktivit?t werden Sie automatisch abgemeldet. Bereits
               gespeicherte Eingaben bleiben erhalten.
             </p>
             <p id="session-timeout-countdown" role="status" aria-live="polite">
@@ -842,7 +867,7 @@ const App = () => {
                 disabled={warningBusy}
               >
                 {warningBusy
-                  ? "Sitzung wird verlängert..."
+                  ? "Sitzung wird verl?ngert..."
                   : "Angemeldet bleiben"}
               </button>
 
@@ -871,3 +896,4 @@ const App = () => {
 };
 
 export default App;
+

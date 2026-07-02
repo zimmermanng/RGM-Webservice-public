@@ -266,20 +266,22 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
       const data = await res.json();
 
       if (!res.ok) {
-        if (data.code === "TEAM_LOCKED") {
+        if (data.code === "TEAM_LOCKED" || data.code === "ADMIN_LOCKED") {
           const visibleMessage =
             data.message ||
             "Diese Organisationseinheit wird derzeit bereits bearbeitet.";
 
           setGlobalFeedback(visibleMessage, "warning");
           setFeedbackForTeam(teamName, visibleMessage, "warning");
-          setTakeoverDialog({
-            open: true,
-            teamName,
-            message:
-              data.takeoverMessage ||
-              "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
-          });
+          if (data.code === "TEAM_LOCKED") {
+            setTakeoverDialog({
+              open: true,
+              teamName,
+              message:
+                data.takeoverMessage ||
+                "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
+            });
+          }
           return;
         }
 
@@ -341,11 +343,9 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
         }
       >
         <div
-          className={`team-tree-node ${
-            node.isSelectable ? "is-selectable" : "is-parent"
-          } ${hasChildren ? "is-collapsible" : ""} ${
-            nodeFeedback ? `has-${nodeFeedback.type}-feedback` : ""
-          }`}
+          className={`team-tree-node ${node.isSelectable ? "is-selectable" : "is-parent"
+            } ${hasChildren ? "is-collapsible" : ""} ${nodeFeedback ? `has-${nodeFeedback.type}-feedback` : ""
+            }`}
         >
           <div className="team-tree-label-group">
             {hasChildren ? (
@@ -380,8 +380,8 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
                 {node.isSelectable
                   ? "Auswählbare Organisationseinheit."
                   : hasChildren
-                  ? "Übergeordnete Organisationseinheit mit untergeordneten Einheiten."
-                  : "Nicht auswählbare Organisationseinheit."}
+                    ? "Übergeordnete Organisationseinheit mit untergeordneten Einheiten."
+                    : "Nicht auswählbare Organisationseinheit."}
               </span>
             </div>
           </div>

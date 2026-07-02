@@ -38,6 +38,7 @@ model TeamSettings {
   id               Int      @id @default(autoincrement())
   teamId           Int      @unique
   activeDimensions Json
+  lockedDimensions Json?
   updatedAt        DateTime @updatedAt
 
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)

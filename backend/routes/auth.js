@@ -4,7 +4,7 @@ const prisma = require("../db/prisma");
 
 const APP_PASSWORD = process.env.APP_PASSWORD;
 const SESSION_TIMEOUT_MS =
-  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
+  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60 * 24 * 365 * 10;
 const SESSION_WARNING_MS =
   Number(process.env.SESSION_WARNING_MS) || 1000 * 60 * 5;
 
@@ -33,13 +33,7 @@ function getRemainingMs(expiresAt) {
 }
 
 async function releaseExpiredLocks() {
-  await prisma.teamSessionLock.deleteMany({
-    where: {
-      expiresAt: {
-        lte: new Date(),
-      },
-    },
-  });
+  return;
 }
 
 async function releaseSessionLocks(sessionId, exceptTeamId = null) {
@@ -101,6 +95,22 @@ async function acquireTeamLock(teamId, sessionId) {
         expiresAt: getLockExpiryDate(),
       },
     });
+  }
+
+  const sessionAdminLock = await prisma.teamSessionLock.findMany({
+    where: {
+      AND: [
+        { sessionId: currentLock.sessionId },
+        { teamId: 57 }
+      ]
+    },
+  })
+
+  if (sessionAdminLock.length !== 0) {
+    const adminError = new Error("ADMIN_LOCKED")
+    adminError.code = "ADMIN_LOCKED";
+    adminError.lock = currentLock;
+    throw adminError;
   }
 
   const error = new Error("TEAM_LOCKED");
@@ -445,12 +455,23 @@ router.post("/team", async (req, res) => {
       return res.status(423).json({
         ok: false,
         code: "TEAM_LOCKED",
-        allowTakeover: true,
+        allowTakeover: false,
         team: team,
         message:
           "Diese Organisationseinheit wird derzeit bereits in einer anderen aktiven Sitzung bearbeitet.",
         takeoverMessage:
           "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
+      });
+    }
+
+    if (error.code === "ADMIN_LOCKED") {
+      return res.status(423).json({
+        ok: false,
+        code: "ADMIN_LOCKED",
+        allowTakeover: false,
+        team: team,
+        message:
+          "Diese Organisationseinheit wird derzeit von der Administration bearbeitet. Ein Zugriff ist derzeit nicht möglich.",
       });
     }
 
@@ -553,7 +574,7 @@ router.delete("/logout-team-view", async (req, res) => {
       where: { sessionTeamId: req.session.teamId }
     });
     if (!teamViewRecord) return res.json({ ok: true })
-    
+
     const deleteSessionLock = await prisma.teamSessionLock.delete({
       where: {
         teamId: teamViewRecord.viewingTeamId,
