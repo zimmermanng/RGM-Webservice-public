@@ -15,8 +15,8 @@ const NAV_ITEMS = {
     { label: "Fragebogen", to: "/dimensions" },
   ],
   ADMIN: [
-    { label: "Struktur", to: "/PLACEHOLDER1" },
-    { label: "Evaluationsrunden", to: "PLACEHOLDER2" },
+    { label: "Struktur", to: "/" },
+    { label: "Evaluationsrunden", to: "/placeholder" },
   ]
 };
 
