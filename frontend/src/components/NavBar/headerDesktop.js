@@ -16,7 +16,7 @@ const NAV_ITEMS = {
   ],
   ADMIN: [
     { label: "Struktur", to: "/" },
-    { label: "Evaluationsrunden", to: "/placeholder" },
+    { label: "Evaluationsrunden", to: "/Evaluationsrunden" },
   ]
 };
 

@@ -358,7 +358,8 @@ const DimensionsEditPage = () => {
                       showProgress={true}
                       progress={progress}
                       isLocked={false}
-                      //showLock={true} --> einbauen mit der Adminrolle
+                      //showLock={true} 
+                      //--> einbauen mit der Adminrolle
                     />
                   </div>
                 );

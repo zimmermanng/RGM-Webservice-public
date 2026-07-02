@@ -25,6 +25,7 @@ import ShuffleHomePage from "./pages/shuffleHomePage";
 import RawResults from "./pages/RawResults";
 import DimensionsEditPage from "./pages/DimensionsEditPage";
 import ResultPageReadOnly from "./pages/ResultPageReadOnly.js";
+import EvaluationPage from "./pages/EvaluationPage.js";
 
 import LoginPage from "./pages/LoginPage";
 import TeamSelectionPage from "./pages/TeamSelectionPage";
@@ -40,11 +41,11 @@ const KEEPALIVE_DEBOUNCE_MS = 1000 * 60;
 const LOCK_STATUS_POLL_MS = 10000;
 
 const FOCUSABLE_SELECTOR = [
-  'a[href]',
-  'button:not([disabled])',
-  'textarea:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
+  "a[href]",
+  "button:not([disabled])",
+  "textarea:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
   '[tabindex]:not([tabindex="-1"])',
 ].join(", ");
 
@@ -56,7 +57,7 @@ const getFocusableElements = (container) => {
   return Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
     (element) =>
       !element.hasAttribute("disabled") &&
-      element.getAttribute("aria-hidden") !== "true"
+      element.getAttribute("aria-hidden") !== "true",
   );
 };
 
@@ -66,14 +67,14 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [team, setTeam] = useState(null);
   const [sessionTimeoutMs, setSessionTimeoutMs] = useState(
-    CLIENT_TIMEOUT_FALLBACK_MS
+    CLIENT_TIMEOUT_FALLBACK_MS,
   );
   const [warningBeforeTimeoutMs, setWarningBeforeTimeoutMs] = useState(
-    CLIENT_WARNING_FALLBACK_MS
+    CLIENT_WARNING_FALLBACK_MS,
   );
   const [warningOpen, setWarningOpen] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState(
-    Math.floor(CLIENT_WARNING_FALLBACK_MS / 1000)
+    Math.floor(CLIENT_WARNING_FALLBACK_MS / 1000),
   );
   const [sessionNotice, setSessionNotice] = useState("");
   const [warningBusy, setWarningBusy] = useState(false);
@@ -141,7 +142,7 @@ const App = () => {
         }
       }
     },
-    [clearInactivityTimers]
+    [clearInactivityTimers],
   );
 
   const startInactivityTimers = useCallback(
@@ -155,7 +156,7 @@ const App = () => {
       const safeTimeoutMs = Math.max(timeoutMs, 1000);
       const safeWarningMs = Math.min(
         Math.max(warningMs, 1000),
-        Math.max(safeTimeoutMs - 1000, 1000)
+        Math.max(safeTimeoutMs - 1000, 1000),
       );
       const warningDelayMs = Math.max(safeTimeoutMs - safeWarningMs, 1000);
 
@@ -185,7 +186,7 @@ const App = () => {
         });
       }, safeTimeoutMs);
     },
-    [clearInactivityTimers, handleLogout, isAuthenticated, team]
+    [clearInactivityTimers, handleLogout, isAuthenticated, team],
   );
 
   const syncSessionFromResponse = useCallback(
@@ -214,7 +215,7 @@ const App = () => {
 
       startInactivityTimers(nextTimeout, nextWarning);
     },
-    [sessionTimeoutMs, startInactivityTimers, warningBeforeTimeoutMs]
+    [sessionTimeoutMs, startInactivityTimers, warningBeforeTimeoutMs],
   );
 
   useEffect(() => {
@@ -643,7 +644,7 @@ const App = () => {
                         typeof selection.warningBeforeTimeoutMs === "number"
                       ) {
                         setWarningBeforeTimeoutMs(
-                          selection.warningBeforeTimeoutMs
+                          selection.warningBeforeTimeoutMs,
                         );
                       }
                     }}
@@ -704,7 +705,7 @@ const App = () => {
               }
             />
 
-                        <Route
+            <Route
               path="/resultReadOnly"
               element={
                 <ProtectedRoute
@@ -795,6 +796,19 @@ const App = () => {
               }
             />
 
+            <Route
+              path="/Evaluationsrunden"
+              element={
+                <ProtectedRoute
+                  authChecked={authChecked}
+                  isAuthenticated={isAuthenticated}
+                  team={team}
+                >
+                  <EvaluationPage activeCompany={activeCompany} />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
@@ -815,11 +829,7 @@ const App = () => {
               Wegen Inaktivität werden Sie automatisch abgemeldet. Bereits
               gespeicherte Eingaben bleiben erhalten.
             </p>
-            <p
-              id="session-timeout-countdown"
-              role="status"
-              aria-live="polite"
-            >
+            <p id="session-timeout-countdown" role="status" aria-live="polite">
               {countdownText}
             </p>
 

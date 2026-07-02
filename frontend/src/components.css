@@ -1412,7 +1412,7 @@ color-mix(in srgb, var(--brand-primary-soft) 22%, #ffffff) 100%
 
 .modal {
   background: var(--navBar-color);
-  padding: 24px;
+  padding: 10px;
   border-radius: 12px;
   width: 320px;
   text-align: center;
@@ -1432,6 +1432,7 @@ color-mix(in srgb, var(--brand-primary-soft) 22%, #ffffff) 100%
   cursor: pointer;
   margin: 10px;
   background-color: var(--footer-color);
+  min-width: 120px;
 }
 
 progress {
@@ -1482,7 +1483,7 @@ progress::-moz-progress-bar {
 }
 
 .readOnlyTag {
-  top: 80px;
+  top: 70px;
   right: 60px;
 
   padding: 8px 14px;
@@ -1505,4 +1506,127 @@ progress::-moz-progress-bar {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+}
+/* Container für die Kacheln */
+.evaluationList {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Längliche, breitere Kachel */
+.evaluationCard {
+  position: relative;
+  display: flex; /* Für die Anordnung von Bild und Inhalt */
+  align-items: flex-start;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  min-width: 800px; /* Behält die volle Breite im Container bei */
+  max-width: 3000px; /* Optionale Begrenzung für sehr breite Bildschirme */
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Bildbereich in der Kachel */
+.cardImage {
+  width: 120px; /* Feste Breite für das Bild */
+  height: 120px;
+  border-radius: 4px;
+  object-fit: cover; /* Verhindert Verzerrung */
+  margin-right: 20px; /* Abstand zum Textinhalt */
+}
+
+/* Inhaltsbereich neben dem Bild */
+.cardContent {
+  flex: 1; /* Nimmt den verbleibenden Platz ein */
+}
+
+/* Label für die aktive Messung */
+.activeLabel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--brand-accent);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Editierbare Überschrift */
+.editableTitle {
+  display:flex;
+  font-size: 1.5em;
+  font-weight: bold;
+  border: none;
+  border-bottom: 1px solid transparent;
+  outline: none;
+  min-width: 400px;
+  background: transparent;
+  transition: border-bottom 0.2s ease;
+  font-family: inherit;
+  padding: 0;
+}
+
+.editableTitle:focus {
+  border-bottom: 1px solid #ccc;
+}
+
+/* Zeitstempel-Bereich */
+.timestampContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Ordnet die Container-Elemente (z.B. <p>) links an */
+  text-align: left; /* Stellt sicher, dass der Text innerhalb der <p>-Tags linksbündig ist */
+  color: #666;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+.timestampContainer p {
+  margin: 0;
+}
+
+/* Download-Link */
+.downloadLink {
+  display: flex;
+  justify-content:flex-end;
+  color: #0066cc;
+  cursor: pointer;
+}
+/* --- Modal Eingabefelder --- */
+.modalInputGroup {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Abstand zwischen den Eingabefeldern */
+}
+
+.modalInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.modalInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Optional: Beschreibungstext in der Karte anzeigen */
+.evaluationDescription {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #555;
+}
+.hint{
+  font-size: 10px;
+  color:red;
 }
