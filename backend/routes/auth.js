@@ -4,7 +4,7 @@ const prisma = require("../db/prisma");
 
 const APP_PASSWORD = process.env.APP_PASSWORD;
 const SESSION_TIMEOUT_MS =
-  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60;
+  Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60 * 24 * 365 * 10;
 const SESSION_WARNING_MS =
   Number(process.env.SESSION_WARNING_MS) || 1000 * 60 * 5;
 
@@ -33,13 +33,7 @@ function getRemainingMs(expiresAt) {
 }
 
 async function releaseExpiredLocks() {
-  await prisma.teamSessionLock.deleteMany({
-    where: {
-      expiresAt: {
-        lte: new Date(),
-      },
-    },
-  });
+  return;
 }
 
 async function releaseSessionLocks(sessionId, exceptTeamId = null) {
