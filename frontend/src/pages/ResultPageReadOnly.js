@@ -11,6 +11,7 @@ const ResultPageReadOnly = () => {
   const [error, setError] = useState("");
   const [activeDimensions, setActiveDimensions] = useState([]);
   const [currentAnswers, setCurrentAnswers] = useState({});
+  const [teamName, setTeamName] = useState("")
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -42,7 +43,8 @@ const ResultPageReadOnly = () => {
         const resultsData = await resultsRes.json();
         const settingsData = await settingsRes.json();
         const stateData = await stateRes.json();
-
+        
+        setTeamName(resultsData.team)
         setCurrentAnswers(
           stateData.currentAnswers &&
             typeof stateData.currentAnswers === "object"
@@ -143,7 +145,7 @@ const ResultPageReadOnly = () => {
   return (
     <div className="mainContainer">
       <div className="readOnlyTag">Lesemodus</div>
-      <h2>Ergebnisse Referat (Platzhalter)</h2>
+      <h2>Ergebnisse {teamName}</h2>
       <p>
         Hier finden Sie die gewählten Pakete und die errechneten Ergebnisse der
         ausgewählten Organisationseinheit.{" "}
