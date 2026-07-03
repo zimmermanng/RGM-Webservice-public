@@ -272,7 +272,7 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
     if (lockedDimensionsObject && lockStatus) lockedDimensionsObject.push(dimensionId)
     else if (lockedDimensionsObject && !lockStatus) {
       let index = lockedDimensionsObject.indexOf(dimensionId)
-      if (index > -1){
+      if (index > -1) {
         lockedDimensionsObject.splice(index, 1)
       }
     }
@@ -281,7 +281,7 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
       data: { lockedDimensions: lockedDimensionsObject ? lockedDimensionsObject : [dimensionId] },
     });
     return res.status(200).json({
-      ok:true,
+      ok: true,
       lockedDimensions: lockedDimensionsObject,
     })
   } catch (error) {
@@ -294,7 +294,7 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
 })
 
 router.get("/current-state", requireAuth, async (req, res) => {
-  let viewTeam = await retrieveTeamView(req.session.teamId)
+  const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam ? viewTeam.id : req.session.teamId
   const teamName = viewTeam ? viewTeam.name : req.session.team
   try {
@@ -429,19 +429,16 @@ router.post("/temporary-view", requireAuth, async (req, res) => {
 
     if (!teamRecord || !viewTeamRecord) return res.status(404).json({ message: "Team nicht gefunden" });
 
-    if (req.session.teamId === 57 || teamRecord.parentId === viewTeamRecord.parentId) {
-      const tempView = await prisma.teamView.upsert({
-        where: { sessionTeamId: req.session.teamId },
-        update: { viewingTeamId: viewTeamId },
-        create: {
-          sessionTeamId: req.session.teamId,
-          viewingTeamId: viewTeamId,
-        }
-      })
-      res.status(200).json({ message: "Temporäre Einsicht wurde erstellt." })
-    } else {
-      res.status(401).json({ message: "Zugriff auf das Team ist nicht erlaubt." })
-    }
+    const tempView = await prisma.teamView.upsert({
+      where: { sessionTeamId: req.session.teamId },
+      update: { viewingTeamId: viewTeamId },
+      create: {
+        sessionTeamId: req.session.teamId,
+        viewingTeamId: viewTeamId,
+      }
+    })
+    res.status(200).json({ message: "Temporäre Einsicht wurde erstellt." })
+
   } catch (error) {
     console.error("Fehler:", error)
   }
@@ -453,27 +450,27 @@ router.delete("/temporary-view", requireAuth, async (req, res) => {
       where: { sessionTeamId: req.session.teamId }
     })
 
-    if (!existingTeamView) return res.status(200).json({ message: "Es wurde kein Eintrag gefunden" })
+    if (!existingTeamView) 
+      return res.status(200).json({ message: "Es wurde kein Eintrag gefunden" })
 
     const teamRecord = await prisma.team.findUnique({
       where: { id: req.session.teamId }
     });
+
     const viewTeamRecord = await prisma.team.findUnique({
       where: { id: existingTeamView.viewingTeamId }
     });
 
-    if (!teamRecord || !viewTeamRecord) return res.status(404).json({ message: "Team wurde nicht gefunden." });
+    if (!teamRecord || !viewTeamRecord) 
+      return res.status(404).json({ message: "Team wurde nicht gefunden." });
 
-    if (req.session.teamId === 57 || teamRecord.parentId === viewTeamRecord.parentId) {
-      const deleteTeamView = await prisma.teamView.delete({
-        where: {
-          sessionTeamId: req.session.teamId,
-        }
-      })
-      res.status(200).json({ message: "Team wurde erfolgreich gelöscht." })
-    } else {
-      res.status(401).json({ message: "Zugriff auf das Team ist nicht erlaubt." })
-    }
+    const deleteTeamView = await prisma.teamView.delete({
+      where: {
+        sessionTeamId: req.session.teamId,
+      }
+    })
+    res.status(200).json({ message: "Team wurde erfolgreich gelöscht." })
+
   } catch (error) {
     console.error("Fehler:", error)
   }
@@ -491,8 +488,7 @@ async function retrieveTeamView(teamId) {
     const viewTeamRecord = await prisma.team.findUnique({
       where: { id: teamViewRecord.viewingTeamId }
     });
-    if (teamId === 57 || teamRecord.parentId === viewTeamRecord.parentId) return viewTeamRecord;
-    else throw new Error("Unbefugter Zugriff auf das Team!");
+    return viewTeamRecord;
   } catch (error) {
     console.error("Fehler:", error)
   }
