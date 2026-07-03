@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
-const { Prisma } = require("@prisma/client");
 
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 100000 * 60 * 60;
@@ -263,7 +262,7 @@ router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) =>
 router.post("/locking-dimension", requireAuth, async (req, res) => {
   if (req.session.teamId !== 57) return res.status(403).json({
     ok: false,
-    message: "Eingeloggter Nutzer besitzt nicht die notwendigen Rechte"
+    message: "Sie sind für diese Aktion nicht berechtigt."
   })
   try {
     const dimensionId = req.body.dimensionId;

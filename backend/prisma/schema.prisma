@@ -7,10 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ChildrenLevelsAllowed {
+  ZERO
+  ONE
+  TWO
+}
+
 model Team {
   id              Int                @id @default(autoincrement())
   name            String             @unique
   parentId        Int?
+  childrenLevelsAllowed ChildrenLevelsAllowed
   isSelectable    Boolean            @default(true)
   sortOrder       Int                @default(0)
   isActive        Boolean            @default(true)

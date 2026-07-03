@@ -457,7 +457,8 @@ router.post("/team", async (req, res) => {
       sessionTakenOver: !!forceTakeover,
     });
   } catch (error) {
-    if (error.code === "TEAM_LOCKED") {
+    // IMPORTANT: REMOVE SECOND CONDITION AFTER FINISHING ADMIN DEVELOPMENT
+    if (error.code === "TEAM_LOCKED" || error.code === "ADMIN_LOCKED") {
       return res.status(423).json({
         ok: false,
         code: "TEAM_LOCKED",
@@ -469,7 +470,7 @@ router.post("/team", async (req, res) => {
           "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
       });
     }
-
+    
     if (error.code === "ADMIN_LOCKED") {
       return res.status(423).json({
         ok: false,

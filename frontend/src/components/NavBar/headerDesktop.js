@@ -294,10 +294,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     if (team !== selectedTeam) {
       event.preventDefault()
       setNavigationDestination(destination)
-      const returnMessage = team === "Administration" ? 
+      const returnMessage = team === "Administration" ?
         "Wenn Sie fortfahren, verlassen Sie den Schreibmodus und kehren in das Adminpanel zurück." :
         `Sie haben keinen Bearbeitungszugriff für die gewählte Organisationseinheit. Wenn Sie fortfahren, verlassen Sie den Lesemodus und kehren in den Bearbeitungsmodus ihrer eigenen Organisationseinheit (${team}) zurück`
-      setReturnDialog({open: true, message: returnMessage})
+      setReturnDialog({ open: true, message: returnMessage })
     } else {
       closeMenu(false)
     }
@@ -310,7 +310,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       await teamLogout();
       setTeamView(false)
     }
-    setReturnDialog({open: false, message: ""})
+    setReturnDialog({ open: false, message: "" })
     navigate(navigationDestination)
     closeMenu(false)
   }
@@ -510,7 +510,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           <div className="modal">
             <p>{returnDialog.message}</p>
             <div className="modalButtons">
-              <button onClick={() => setReturnDialog({open: false, message: ""})}>Bleiben</button>
+              <button onClick={() => setReturnDialog({ open: false, message: "" })}>Bleiben</button>
               <button onClick={confirmPopup}>Zurückkehren</button>
             </div>
           </div>
