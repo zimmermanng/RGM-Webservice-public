@@ -1620,7 +1620,6 @@ progress::-moz-progress-bar {
   border-color: #007bff;
 }
 
-/* Optional: Beschreibungstext in der Karte anzeigen */
 .evaluationDescription {
   margin-top: 5px;
   font-size: 14px;
@@ -1630,3 +1629,138 @@ progress::-moz-progress-bar {
   font-size: 10px;
   color:red;
 }
+
+.structure-actions {
+  margin-bottom: 2rem;
+}
+
+.structure-card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  min-width: auto;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-button:hover {
+  background-color: #e60000;
+}
+
+.structure-modal {
+  max-width: 450px;
+  width: 100%;
+}
+
+.structure-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-label {
+  display: block;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.full-width {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.structure-hint {
+  margin-top: 4px;
+  font-size: 10px;
+  color: red;
+}
+
+.structure-modal-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.level-0 {
+  margin-left: 0;
+}
+
+.level-1 {
+  margin-left: 24px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  min-width: auto;
+}
+
+.delete-confirm-button {
+  background-color: #ff4d4d;
+  border-color: #ff4d4d;
+  color: #fff;
+}
+
+
+.error-text {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+.delete-warning-text {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-action-button:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+  color: #000;
+}
+

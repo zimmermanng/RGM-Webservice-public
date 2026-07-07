@@ -91,7 +91,9 @@ const EvaluationPage = () => {
               </div>
               <div className="modalButtons">
                 {/* Hier fehlt noch die Funktion zum löschen, macht aber denke erst mit dem Backend sinn, dann kann es direkt auch aus der Datenbank wieder gelöscht werden. */}
-                <button>Löschen</button>
+                {aktiveID !== messung.id && (
+                  <button>Löschen</button>
+                )}
               </div>
               {/* Prio2 <p className="downloadLink">Zwischenstand herunterladen:</p> */}
             </div>
