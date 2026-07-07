@@ -222,7 +222,7 @@ const StructurePage = () => {
 
       <div className="centerContainer structure-actions">
         <button onClick={handleNeueEinheitClick} className="homeButton">
-          Neue Einheit +
+          + Neue Einheit
         </button>
       </div>
 
