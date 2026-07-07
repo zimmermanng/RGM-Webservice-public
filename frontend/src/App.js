@@ -34,6 +34,7 @@ import { API_BASE } from "./config.ts";
 
 import { applyTheme } from "./theme";
 import "./App.css";
+import StructurePage from "./pages/StructurePage.js";
 
 const CLIENT_WARNING_FALLBACK_MS = 1000 * 60 * 5;
 const CLIENT_TIMEOUT_FALLBACK_MS = 1000 * 60 * 60;
@@ -823,6 +824,19 @@ const App = () => {
             />
 
             <Route
+              path="/Struktur"
+              element={
+                <ProtectedRoute
+                  authChecked={authChecked}
+                  isAuthenticated={isAuthenticated}
+                  team={team}
+                >
+                  <StructurePage activeCompany={activeCompany} />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
               path="/evaluationsrunden/gesamtauswertung"
               element={
                 <ProtectedRoute
@@ -896,4 +910,3 @@ const App = () => {
 };
 
 export default App;
-
