@@ -10,6 +10,7 @@ const LoginPage = ({
 }) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [organisation, setOrganisation] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const sessionNoticeRef = useRef(null);
@@ -78,7 +79,9 @@ const LoginPage = ({
 
         <h1 className="access-title">Willkommen</h1>
         <p className="access-subtitle">
-          Bitte geben Sie das Passwort ein, um auf den Fragebogen zuzugreifen.
+          Willkommen beim Reifegradmodells des LMZ. Hier können Sie das
+          Reifegradmodell für Ihre Organisationseinheit digital ausfüllen und
+          auswerten.
         </p>
 
         {sessionNotice && (
@@ -92,6 +95,28 @@ const LoginPage = ({
             {sessionNotice}
           </div>
         )}
+        <form onSubmit={handleSubmit} className="access-form">
+          <label htmlFor="login-organisation">Organisationseinheit</label>
+          <select
+            id="login-organisation"
+            value={organisation}
+            onChange={(e) => setOrganisation(e.target.value)}
+            className="access-input"
+            aria-invalid={error ? "true" : "false"}
+            aria-describedby={error ? "login-password-error" : undefined}
+          >
+            <option value="" disabled>
+              Bitte auswählen
+            </option>
+
+            {/* Dummy-Daten */}
+            <option value="Admin">Admin</option>
+            <option value="Direktion">Direktion</option>
+            <option value="Abteilung 1">Abteilung 1</option>
+            <option value="Abteilung 2">Abteilung 2</option>
+            <option value="IT">IT</option>
+          </select>
+        </form>
 
         <form onSubmit={handleSubmit} className="access-form">
           <label htmlFor="login-password">Passwort</label>
@@ -103,9 +128,6 @@ const LoginPage = ({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="access-input"
-            autoComplete="current-password"
-            aria-invalid={error ? "true" : "false"}
-            aria-describedby={error ? "login-password-error" : undefined}
           />
 
           {error && (

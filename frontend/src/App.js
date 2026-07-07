@@ -609,6 +609,37 @@ const App = () => {
             />
 
             <Route
+              path="/team-select"
+              element={
+                <ProtectedRoute
+                  authChecked={authChecked}
+                  isAuthenticated={isAuthenticated}
+                  team={null}
+                  requireTeam={false}
+                >
+                  <TeamSelectionPage
+                    onTeamSelected={(selection) => {
+                      setTeam(selection.team);
+                      setSessionNotice("");
+
+                      if (typeof selection.sessionTimeoutMs === "number") {
+                        setSessionTimeoutMs(selection.sessionTimeoutMs);
+                      }
+
+                      if (
+                        typeof selection.warningBeforeTimeoutMs === "number"
+                      ) {
+                        setWarningBeforeTimeoutMs(
+                          selection.warningBeforeTimeoutMs,
+                        );
+                      }
+                    }}
+                  />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
               path="/login"
               element={
                 <LoginPage
