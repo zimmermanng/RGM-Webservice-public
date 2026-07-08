@@ -15,8 +15,8 @@ const NAV_ITEMS = {
     { label: "Fragebogen", to: "/dimensions" },
   ],
   ADMIN: [
-    { label: "Struktur", to: "/PLACEHOLDER1" },
-    { label: "Evaluationsrunden", to: "PLACEHOLDER2" },
+    { label: "Struktur", to: "/Struktur" },
+    { label: "Evaluationsrunden", to: "/Evaluationsrunden" },
   ]
 };
 
@@ -32,9 +32,8 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   const navigate = useNavigate();
   const hamburgerButtonRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
-  const [teams, setTeams] = useState([]);
-  const [relevantTeams, setRelevantTeams] = useState(null);
-  const [loadingRelevantTeams, setLoadingRelevantTeams] = useState(true);
+  const [selectableTeams, setSelectableTeams] = useState(null);
+  const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
   const [teamView, setTeamView] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [loadingSelectedTeam, setLoadingSelectedTeam] = useState(true);
@@ -132,20 +131,28 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
         });
         const data = await res.json();
         if (Array.isArray(data.teams)) {
-          setTeams(data.teams)
-          data.teams[0].children.forEach(element => {
-            let organisationHasChildren = element.children.length > 0 ? true : false;
-            if (organisationHasChildren) {
-              if (element.children.map(({ name }) => name.includes(team)).includes(true) || team === "Administration") teams.push(element);
-            } else if (element.name.includes(team) || team === "Administration") teams.push(element);
+          data.teams.forEach(object => {
+            if (object.children.length === 0 && object.name != "Administration" && object.isSelectable) teams.push(object)
+            if (object.children.length > 0) {
+              object.children.forEach(childrenObject => {
+                if (childrenObject.isSelectable) teams.push(childrenObject);
+                else if (childrenObject.children.length > 0) {
+                  const selectableChildren = childrenObject.children.filter(obj => obj.isSelectable);
+                  teams.push(...selectableChildren);
+                }
+              })
+            }
           })
-          if (team === "Administration") teams.push(data.teams[1]);
+          const adminTeam = data.teams.find(obj => {
+            return obj.name === "Administration"
+          });
+          if (team === "Administration") teams.push(adminTeam);
         }
-        setRelevantTeams(teams);
+        setSelectableTeams(teams);
       } catch (err) {
         console.error("Fehler beim Laden der Teamstruktur:", err);
       } finally {
-        setLoadingRelevantTeams(false);
+        setLoadingSelectableTeams(false);
       }
     }
     fetchTeams()
@@ -221,17 +228,11 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   }
 
   const searchTeamId = (teamName) => {
-    if (teamName === "Administration") return teams[1].id
-    for (const element of teams[0].children) {
-      let organisationHasChildren = element.children.length > 0 ? true : false;
-      if (organisationHasChildren) {
-        for (const obj of element.children) {
-          if (obj.name === teamName) return obj.id;
-        }
-      } else if (element.name === teamName) return element.id;
-    }
+    for (const obj of selectableTeams) {
+      if (obj.name === teamName) return obj.id
+    };
     return null;
-  }
+  };
 
   const createTeamView = async (viewTeamId) => {
     try {
@@ -294,10 +295,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     if (team !== selectedTeam) {
       event.preventDefault()
       setNavigationDestination(destination)
-      const returnMessage = team === "Administration" ? 
+      const returnMessage = team === "Administration" ?
         "Wenn Sie fortfahren, verlassen Sie den Schreibmodus und kehren in das Adminpanel zurück." :
         `Sie haben keinen Bearbeitungszugriff für die gewählte Organisationseinheit. Wenn Sie fortfahren, verlassen Sie den Lesemodus und kehren in den Bearbeitungsmodus ihrer eigenen Organisationseinheit (${team}) zurück`
-      setReturnDialog({open: true, message: returnMessage})
+      setReturnDialog({ open: true, message: returnMessage })
     } else {
       closeMenu(false)
     }
@@ -310,7 +311,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       await teamLogout();
       setTeamView(false)
     }
-    setReturnDialog({open: false, message: ""})
+    setReturnDialog({ open: false, message: "" })
     navigate(navigationDestination)
     closeMenu(false)
   }
@@ -376,11 +377,11 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                 value={loadingSelectedTeam ? "" : selectedTeam}
                 onChange={changeTeam}
               >
-                {loadingRelevantTeams ? (
+                {loadingSelectableTeams ? (
                   <option></option>
                 ) :
                   (
-                    relevantTeams.map(unit => (
+                    selectableTeams.map(unit => (
                       unit.children.length > 0 ? unit.children.map(unitTeam => (
                         <option key={unitTeam.name} value={unitTeam.name} className="team-indicator-value">{unit.name} | {unitTeam.name}</option>
                       )) : <option key={unit.name} value={unit.name}>{unit.name}</option>
@@ -510,7 +511,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           <div className="modal">
             <p>{returnDialog.message}</p>
             <div className="modalButtons">
-              <button onClick={() => setReturnDialog({open: false, message: ""})}>Bleiben</button>
+              <button onClick={() => setReturnDialog({ open: false, message: "" })}>Bleiben</button>
               <button onClick={confirmPopup}>Zurückkehren</button>
             </div>
           </div>
