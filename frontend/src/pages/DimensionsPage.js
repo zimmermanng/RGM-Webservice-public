@@ -45,7 +45,7 @@ const DimensionsPage = ({ activeCompany }) => {
 
         const settings = await settingsRes.json();
         const state = await stateRes.json();
-      
+
         const loadedIds = Array.isArray(settings.activeDimensions)
           ? settings.activeDimensions
           : [];
@@ -133,15 +133,34 @@ const DimensionsPage = ({ activeCompany }) => {
       <div className="gridContainer">
         {dimensionen.map((dimension) => {
           const answeredObj = currentAnswers[dimension.id] || {};
-          const answeredCount = Object.keys(answeredObj).length;
 
-          const totalQuestions = dimension.handlungsfelder.reduce(
-            (sum, hf) => sum + (hf.fragen?.length || 0),
-            0,
-          );
+          let totalQuestions = 0;
+          let answeredCount = 0;
 
+          // 1. Sichere Berechnung: Zähle nur Antworten zu existierenden Fragen
+          dimension.handlungsfelder.forEach((hf) => {
+            if (Array.isArray(hf.fragen)) {
+              totalQuestions += hf.fragen.length;
+
+              hf.fragen.forEach((frage) => {
+                // Prüfe, ob genau für diese Frage-ID eine Antwort existiert
+                // (Vorausgesetzt, die Frage-ID ist der Key im answeredObj)
+                if (
+                  answeredObj[frage.id] !== undefined &&
+                  answeredObj[frage.id] !== null &&
+                  answeredObj[frage.id] !== ""
+                ) {
+                  answeredCount++;
+                }
+              });
+            }
+          });
+
+          // 2. Deckelung auf maximal 1 (100%)
           const progress =
-            totalQuestions > 0 ? answeredCount / totalQuestions : 0;
+            totalQuestions > 0
+              ? Math.min(answeredCount / totalQuestions, 1)
+              : 0;
 
           return (
             <div
