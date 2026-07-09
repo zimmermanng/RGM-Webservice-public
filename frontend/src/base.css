@@ -93,7 +93,7 @@ code {
   align-items: center;
   width: 100%;
   padding: var(--space-6) var(--page-gutter);
-  padding-top: 80px;
+  padding-top: 120px;
   margin: 0 auto;
   background: var(--navBar-color);
   text-align: center;

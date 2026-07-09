@@ -231,21 +231,17 @@ const DimensionsEditPage = () => {
 
       performMove(card);
     } else {
-      // VERSCHIEBEN NACH "AUSGEWÄHLT"
       const updatedNotToEdit = notToEdit.filter((c) => c.id !== card.id);
       const updatedToEdit = [...toEdit, card];
 
       setNotToEdit(updatedNotToEdit);
       setToEdit(updatedToEdit);
       announce(`Paket "${card.name}" wurde nach "Ausgewählt" verschoben.`);
-
-      // Direktes Speichern mit den neuen Arrays triggeren
       saveData(updatedToEdit, currentAnswers);
     }
   };
 
   const performMove = (card) => {
-    // VERSCHIEBEN NACH "NICHT AUSGEWÄHLT"
     const updatedToEdit = toEdit.filter((c) => c.id !== card.id);
     const updatedNotToEdit = [...notToEdit, card];
 
@@ -257,8 +253,6 @@ const DimensionsEditPage = () => {
     setCurrentAnswers(updatedAnswers);
 
     announce(`Paket "${card.name}" wurde nach "Nicht ausgewählt" verschoben.`);
-
-    // Direktes Speichern triggeren
     saveData(updatedToEdit, updatedAnswers);
   };
 
@@ -291,7 +285,6 @@ const DimensionsEditPage = () => {
     }, 3000);
   };
 
-  // Klick auf "Fertig" leitet jetzt nur noch weiter, da alles bereits live gespeichert ist
   const handleFinish = () => {
     navigate("/dimensions");
   };
