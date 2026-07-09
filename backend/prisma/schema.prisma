@@ -130,3 +130,14 @@ model TeamView {
 
   @@index([sessionTeamId])
 }
+
+model EvaluationRounds {
+  id            Int       @id @default(autoincrement())
+  name          String    
+  isActive      Boolean   
+  createdAt     DateTime  
+  updatedAt     DateTime
+
+  @@index([name])
+  @@index([isActive])
+}

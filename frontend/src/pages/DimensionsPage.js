@@ -9,18 +9,22 @@ const DimensionsPage = ({ activeCompany }) => {
   const [activeIds, setActiveIds] = useState(null);
   const [currentAnswers, setCurrentAnswers] = useState({});
   const [loading, setLoading] = useState(true);
+  const [evaluationName, setEvaluationName] = useState("");
 
   const isEditable = activeCompany === "LMZ";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [settingsRes, stateRes] = await Promise.all([
+        const [settingsRes, stateRes, evaluationRes] = await Promise.all([
           fetch(`${API_BASE}/session/settings`, {
             credentials: "include",
           }),
           fetch(`${API_BASE}/session/current-state`, {
             credentials: "include",
+          }),
+          fetch(`${API_BASE}/evaluation/`, {
+            credentials: "include"
           }),
         ]);
 
@@ -45,10 +49,14 @@ const DimensionsPage = ({ activeCompany }) => {
 
         const settings = await settingsRes.json();
         const state = await stateRes.json();
-      
+        const evalauion = await evaluationRes.json();
+
         const loadedIds = Array.isArray(settings.activeDimensions)
           ? settings.activeDimensions
           : [];
+
+        const activeEvaluation = evalauion.evaluationRounds.find(obj => obj.isActive);
+        setEvaluationName(activeEvaluation.name)
 
         setActiveIds(
           Array.isArray(settings.activeDimensions)
@@ -125,6 +133,7 @@ const DimensionsPage = ({ activeCompany }) => {
   return (
     <div className="mainContainer">
       <h2>Übersicht</h2>
+      <h2>"{evaluationName}"</h2>
       <p>
         Hier finden Sie die zuvor gewählten Pakete Ihres persönlichen
         Reifegradmodells.

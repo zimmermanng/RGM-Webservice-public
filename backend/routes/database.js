@@ -54,10 +54,10 @@ async function teamActive(id) {
 }
 
 router.post("/create-team", async (req, res) => {
-    const sessioniTeamId = req.session.teamId;
+    const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
     try {
-        if (sessioniTeamId === 57 && authenticated) {
+        if (sessionTeamId === 57 && authenticated) {
             const teamName = req.body.teamName;
             const parentElementId = req.body.parentElementId;
             const parentElement = parentElementId ? await prisma.team.findUnique({
@@ -119,10 +119,10 @@ router.post("/create-team", async (req, res) => {
 });
 
 router.delete("/delete-team", async (req, res) => {
-    const sessioniTeamId = req.session.teamId;
+    const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
     try {
-        if (sessioniTeamId === 57 && authenticated) {
+        if (sessionTeamId === 57 && authenticated) {
             const teamId = req.body.teamId;
             const teamRecord = await prisma.team.findUnique({
                 where: { id: teamId },
@@ -186,10 +186,10 @@ router.delete("/delete-team", async (req, res) => {
 });
 
 router.put("/update-team", async (req, res) => {
-    const sessioniTeamId = req.session.teamId;
+    const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
     try {
-        if (sessioniTeamId === 57 && authenticated) {
+        if (sessionTeamId === 57 && authenticated) {
             const teamId = req.body.teamId;
             const teamName = req.body.teamName;
             const parentElementId = req.body.parentElementId;

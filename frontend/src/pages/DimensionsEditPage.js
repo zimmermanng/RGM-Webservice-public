@@ -19,6 +19,7 @@ const DimensionsEditPage = () => {
   const toastTimeoutRef = useRef(null);
   const scrollIntervalRef = useRef(null);
   const liveRegionRef = useRef(null);
+  const [evaluationName, setEvaluationName] = useState("");
 
   const [confirmDialog, setConfirmDialog] = useState({
     open: false,
@@ -53,9 +54,10 @@ const DimensionsEditPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [settingsRes, stateRes] = await Promise.all([
+        const [settingsRes, stateRes, evaluationRes] = await Promise.all([
           fetch(`${API_BASE}/session/settings`, { credentials: "include" }),
           fetch(`${API_BASE}/session/current-state`, { credentials: "include" }),
+          fetch(`${API_BASE}/evaluation/`, { credentials: "include" }),
         ]);
 
         if (settingsRes.status === 401 || stateRes.status === 401) {
@@ -70,7 +72,8 @@ const DimensionsEditPage = () => {
         if (!settingsRes.ok || !stateRes.ok) throw new Error("Ladefehler");
 
         const settingsResult = await settingsRes.json();
-        const stateResult = await stateRes.json()
+        const stateResult = await stateRes.json();
+        const evaluationResult = await evaluationRes.json();
 
         const activeIds = Array.isArray(settingsResult.activeDimensions)
           ? settingsResult.activeDimensions
@@ -91,6 +94,9 @@ const DimensionsEditPage = () => {
           : [];
 
         const initialNotToEdit = filteredDimensions.filter((d) => !initialToEdit.some((x) => x.id === d.id));
+
+        const activeEvaluation = evaluationResult.evaluationRounds.find(obj => obj.isActive);
+        setEvaluationName(activeEvaluation.name)
 
         setToEdit(initialToEdit);
         setNotToEdit(initialNotToEdit);
@@ -302,6 +308,7 @@ const DimensionsEditPage = () => {
   return (
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
+      <h2>"{evaluationName}"</h2>
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten möchten.
         <br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder mit der Tastatur (Tab- und Enter-Taste).
@@ -349,7 +356,7 @@ const DimensionsEditPage = () => {
                   <div
                     key={dimension.id}
                     role="listitem"
-                    draggable={lockedCards.includes(dimension.id) ? false : true}
+                    draggable={lockedCards?.includes(dimension.id) ? false : true}
                     tabIndex={0}
                     aria-roledescription="Verschiebbares Element"
                     aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Nicht ausgewählt' zu verschieben.`}

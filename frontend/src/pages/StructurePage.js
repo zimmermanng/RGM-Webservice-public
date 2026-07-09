@@ -40,7 +40,7 @@ const StructurePage = () => {
     setElternId(node.parentId || "");
     setConfirmDialog(true);
   };
-
+  
   const handleCancelForm = () => {
     setConfirmDialog(false);
     setEditingNodeId(null);
