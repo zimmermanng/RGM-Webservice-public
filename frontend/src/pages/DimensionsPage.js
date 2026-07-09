@@ -104,14 +104,29 @@ const DimensionsPage = ({ activeCompany }) => {
     dimensionen.length > 0 &&
     dimensionen.some((dimension) => {
       const answeredObj = currentAnswers[dimension.id] || {};
-      const answeredCount = Object.keys(answeredObj).length;
 
-      const totalQuestions = dimension.handlungsfelder.reduce(
-        (sum, hf) => sum + (hf.fragen?.length || 0),
-        0,
-      );
+      let totalQuestions = 0;
+      let answeredCount = 0;
 
-      return totalQuestions > 0 && answeredCount === totalQuestions;
+      if (Array.isArray(dimension.handlungsfelder)) {
+        dimension.handlungsfelder.forEach((hf) => {
+          if (Array.isArray(hf.fragen)) {
+            totalQuestions += hf.fragen.length;
+
+            hf.fragen.forEach((frage) => {
+              if (
+                answeredObj[frage.id] !== undefined &&
+                answeredObj[frage.id] !== null &&
+                answeredObj[frage.id] !== ""
+              ) {
+                answeredCount++;
+              }
+            });
+          }
+        });
+      }
+
+      return totalQuestions > 0 && answeredCount >= totalQuestions;
     });
 
   if (loading) {
@@ -137,14 +152,10 @@ const DimensionsPage = ({ activeCompany }) => {
           let totalQuestions = 0;
           let answeredCount = 0;
 
-          // 1. Sichere Berechnung: Zähle nur Antworten zu existierenden Fragen
           dimension.handlungsfelder.forEach((hf) => {
             if (Array.isArray(hf.fragen)) {
               totalQuestions += hf.fragen.length;
-
               hf.fragen.forEach((frage) => {
-                // Prüfe, ob genau für diese Frage-ID eine Antwort existiert
-                // (Vorausgesetzt, die Frage-ID ist der Key im answeredObj)
                 if (
                   answeredObj[frage.id] !== undefined &&
                   answeredObj[frage.id] !== null &&
@@ -155,8 +166,6 @@ const DimensionsPage = ({ activeCompany }) => {
               });
             }
           });
-
-          // 2. Deckelung auf maximal 1 (100%)
           const progress =
             totalQuestions > 0
               ? Math.min(answeredCount / totalQuestions, 1)
