@@ -49,13 +49,13 @@ const DimensionsPage = ({ activeCompany }) => {
 
         const settings = await settingsRes.json();
         const state = await stateRes.json();
-        const evalauion = await evaluationRes.json();
+        const evaluation = await evaluationRes.json();
 
         const loadedIds = Array.isArray(settings.activeDimensions)
           ? settings.activeDimensions
           : [];
 
-        const activeEvaluation = evalauion.evaluationRounds.find(obj => obj.isActive);
+        const activeEvaluation = evaluation.evaluationRounds.find(obj => obj.isActive);
         setEvaluationName(activeEvaluation.name)
 
         setActiveIds(
@@ -112,14 +112,29 @@ const DimensionsPage = ({ activeCompany }) => {
     dimensionen.length > 0 &&
     dimensionen.some((dimension) => {
       const answeredObj = currentAnswers[dimension.id] || {};
-      const answeredCount = Object.keys(answeredObj).length;
 
-      const totalQuestions = dimension.handlungsfelder.reduce(
-        (sum, hf) => sum + (hf.fragen?.length || 0),
-        0,
-      );
+      let totalQuestions = 0;
+      let answeredCount = 0;
 
-      return totalQuestions > 0 && answeredCount === totalQuestions;
+      if (Array.isArray(dimension.handlungsfelder)) {
+        dimension.handlungsfelder.forEach((hf) => {
+          if (Array.isArray(hf.fragen)) {
+            totalQuestions += hf.fragen.length;
+
+            hf.fragen.forEach((frage) => {
+              if (
+                answeredObj[frage.id] !== undefined &&
+                answeredObj[frage.id] !== null &&
+                answeredObj[frage.id] !== ""
+              ) {
+                answeredCount++;
+              }
+            });
+          }
+        });
+      }
+
+      return totalQuestions > 0 && answeredCount >= totalQuestions;
     });
 
   if (loading) {
@@ -142,15 +157,28 @@ const DimensionsPage = ({ activeCompany }) => {
       <div className="gridContainer">
         {dimensionen.map((dimension) => {
           const answeredObj = currentAnswers[dimension.id] || {};
-          const answeredCount = Object.keys(answeredObj).length;
 
-          const totalQuestions = dimension.handlungsfelder.reduce(
-            (sum, hf) => sum + (hf.fragen?.length || 0),
-            0,
-          );
+          let totalQuestions = 0;
+          let answeredCount = 0;
 
+          dimension.handlungsfelder.forEach((hf) => {
+            if (Array.isArray(hf.fragen)) {
+              totalQuestions += hf.fragen.length;
+              hf.fragen.forEach((frage) => {
+                if (
+                  answeredObj[frage.id] !== undefined &&
+                  answeredObj[frage.id] !== null &&
+                  answeredObj[frage.id] !== ""
+                ) {
+                  answeredCount++;
+                }
+              });
+            }
+          });
           const progress =
-            totalQuestions > 0 ? answeredCount / totalQuestions : 0;
+            totalQuestions > 0
+              ? Math.min(answeredCount / totalQuestions, 1)
+              : 0;
 
           return (
             <div
