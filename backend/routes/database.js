@@ -49,10 +49,6 @@ async function updateParentUnselectable(id) {
     const transaction = await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState, deleteTeamSettings]);
 };
 
-async function teamActive(id) {
-
-}
-
 router.post("/create-team", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -60,6 +56,7 @@ router.post("/create-team", async (req, res) => {
         if (sessionTeamId === 57 && authenticated) {
             const teamName = req.body.teamName;
             const parentElementId = req.body.parentElementId;
+            const password = req.body.password;
             const parentElement = parentElementId ? await prisma.team.findUnique({
                 where: { id: parentElementId },
                 include: {
@@ -74,11 +71,11 @@ router.post("/create-team", async (req, res) => {
             if (elementWithTeamName)
                 return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
 
-            if ((parentElementId && !parentElement) || parentElementId === 57 || (parentElement && parentElement.name === "Administration"))
-                return res.status(404).json({ ok: false, message: "Elternelement wurde nicht gefunden." });
+            if ((parentElementId && !parentElement) || (parentElement && parentElement.name === "Administration"))
+                return res.status(404).json({ ok: false, message: "Das Elternelement wurde nicht gefunden." });
 
             if (parentElement && parentElement.childrenLevelsAllowed === "ZERO")
-                return res.status(409).json({ ok: false, message: "Elternelement darf keine neue Ebene an Teams besitzen." });
+                return res.status(409).json({ ok: false, message: "Das Elternelement darf keine neue Ebene an Teams besitzen." });
 
             const childrenLevelsAllowed = determineAllowedChildren(parentElement);
 
@@ -103,8 +100,60 @@ router.post("/create-team", async (req, res) => {
 
             return res.status(200).json({
                 ok: true,
-                message: `Team wurde erfolgreich erstellt!`
+                message: `Das Team wurde erfolgreich erstellt.`
             })
+        } else return res.status(403).json({
+            ok: false,
+            message: `Sie sind für diese Aktion nicht berechtigt.`
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            message: `Ein Fehler im Server ist aufgetreten.`
+        });
+    }
+});
+
+router.put("/update-team", async (req, res) => {
+    const sessionTeamId = req.session.teamId;
+    const authenticated = req.session.authenticated;
+    try {
+        if (sessionTeamId === 57 && authenticated) {
+            const teamId = req.body.teamId;
+            const teamName = req.body.teamName;
+            const password = req.body.password;
+            const teamRecord = await prisma.team.findUnique({
+                where: { id: teamId },
+                include: {
+                    sessionLock: true,
+                }
+            });
+
+            if (teamRecord.sessionLock)
+                return res.status(409).json({ ok: false, message: "Das ausgewählte Team ist aktuell eingeloggt." });
+
+            if (!teamRecord || teamRecord.name === "Administration")
+                return res.status(404).json({ ok: false, message: "Das Team wurde nicht gefunden." });
+
+            const elementWithTeamName = await prisma.team.findUnique({
+                where: { name: teamName }
+            });
+
+            if (elementWithTeamName && elementWithTeamName.id != teamId)
+                return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
+
+            const updateTeam = await prisma.team.update({
+                where: { id: teamId },
+                data: {
+                    name: teamName,
+                },
+            });
+            
+            return res.status(200).json({
+                ok: true,
+                message: `Das Team wurde erfolgreich verändert.`
+            });
         } else return res.status(403).json({
             ok: false,
             message: `Sie sind für diese Aktion nicht berechtigt.`
@@ -137,12 +186,10 @@ router.delete("/delete-team", async (req, res) => {
             });
 
             if (teamRecord.sessionLock)
-                return res.status(409).json({ ok: false, message: "Das ausgewählte Team ist aktuell eingeloggt!" }); 
+                return res.status(409).json({ ok: false, message: "Das ausgewählte Team ist aktuell eingeloggt." }); 
 
-            if (!teamRecord)
-                return res.status(404).json({ ok: false, message: "Team nicht gefunden." });
-            if (teamRecord.id === 57 || teamRecord.name === "Administration")
-                return res.status(404).json({ ok: false, message: "Team wurde nicht gefunden." });
+            if (!teamRecord || teamRecord.name === "Administration")
+                return res.status(404).json({ ok: false, message: "Das Team wurde nicht gefunden."});
 
             const parentId = teamRecord.parentId
             
@@ -170,7 +217,7 @@ router.delete("/delete-team", async (req, res) => {
             
             return res.status(200).json({
                 ok: true,
-                message: `Team wurde erfolgreich gelöscht!`
+                message: `Das Team wurde erfolgreich gelöscht.`
             });
         } else return res.status(403).json({
             ok: false,
@@ -183,123 +230,6 @@ router.delete("/delete-team", async (req, res) => {
             message: `Ein Fehler im Server ist aufgetreten.`
         });
     };
-});
-
-router.put("/update-team", async (req, res) => {
-    const sessionTeamId = req.session.teamId;
-    const authenticated = req.session.authenticated;
-    try {
-        if (sessionTeamId === 57 && authenticated) {
-            const teamId = req.body.teamId;
-            const teamName = req.body.teamName;
-            const parentElementId = req.body.parentElementId;
-            const teamRecord = await prisma.team.findUnique({
-                where: { id: teamId },
-                include: {
-                    children: {
-                        include: {
-                            children: true
-                        }
-                    },
-                    parent: true,
-                    sessionLock: true,
-                }
-            });
-
-            if (teamRecord.sessionLock)
-                return res.status(409).json({ ok: false, message: "Das ausgewählte Team ist aktuell eingeloggt!" }); 
-
-            const newParentElement = parentElementId ? await prisma.team.findUnique({
-                where: { id: parentElementId },
-                include: {
-                    children: {
-                        include: {
-                            children: true
-                        }
-                    }
-                }
-            }) : null;
-
-            const oldParentElement = teamRecord.parentId ? await prisma.team.findUnique({
-                where: { id: teamRecord.parentId },
-                include: {
-                    children: {
-                        include: {
-                            children: true
-                        }
-                    }
-                }
-            }) : null;
-
-            const elementWithTeamName = await prisma.team.findUnique({
-                where: { name: teamName }
-            });
-
-            if (elementWithTeamName && elementWithTeamName.id != teamId)
-                return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
-
-            if (teamId === parentElementId)
-                return res.status(409).json({ ok: false, message: "Das Team kann nicht zum eigenen Elternelement werden." });
-
-            if (!teamRecord || teamId === 57 || teamRecord.name === "Administration" || parentElementId === 57 || newParentElement?.name === "Administration")
-                return res.status(404).json({ ok: false, message: "Team wurde nicht gefunden." });
-
-            if (parentElementId && !newParentElement)
-                return res.status(404).json({ ok: false, message: "Elternelement wurde nicht gefunden." });
-
-            if (newParentElement && (newParentElement.childrenLevelsAllowed === "ZERO" || (newParentElement.childrenLevelsAllowed === "ONE" && teamRecord.children.length > 0)))
-                return res.status(409).json({ ok: false, message: "Elternelement darf keine neue Ebene an Teams besitzen." });
-
-            if (teamRecord.children.length > 0) {
-                const childrenLevelTwo = teamRecord.children.flatMap(({ children }) => children)
-                const childrenIDs = teamRecord.children.map(({ id }) => id)
-                if (childrenLevelTwo.length > 0 && parentElementId)
-                    return res.status(409).json({ ok: false, message: "Das ausgewählte Element darf kein Elternelement besitzen." });
-                if (parentElementId && childrenIDs.includes(parentElementId))
-                    return res.status(409).json({ ok: false, message: "Direkte Kinder dürfen nicht zum Elternelement werden." });
-            };
-
-            const childrenLevelsAllowed = determineAllowedChildren(newParentElement);
-            
-            const updateTeam = await prisma.team.update({
-                where: { id: teamId },
-                data: {
-                    name: teamName,
-                    parentId: parentElementId,
-                    childrenLevelsAllowed: childrenLevelsAllowed,
-                },
-            });
-
-            if (teamRecord.children.length > 0) {
-                const updateTeamChildren = await prisma.team.updateMany({
-                    where: { parentId: teamId },
-                    data: {
-                        childrenLevelsAllowed: childrenLevelsAllowed === "TWO" ? "ONE" : "ZERO"
-                    },
-                });
-            };
-
-            if (newParentElement && newParentElement.children.length === 0) await updateParentUnselectable(parentElementId);
-
-            if (oldParentElement && newParentElement &&
-                oldParentElement.id != newParentElement.id &&
-                oldParentElement.children.length === 1) await updateParentSelectable(oldParentElement.id);
-            
-            return res.status(200).json({
-                ok: true,
-                message: `Team wurde erfolgreich verändert.`
-            });
-        } else return res.status(403).json({
-            ok: false,
-            message: `Sie sind für diese Aktion nicht berechtigt.`
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            ok: false,
-            message: `Ein Fehler im Server ist aufgetreten.`
-        });
-    }
 });
 
 module.exports = router;

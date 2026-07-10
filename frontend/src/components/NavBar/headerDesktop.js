@@ -134,7 +134,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           data.teams.forEach((object) => {
             if (
               object.children.length === 0 &&
-              object.name != "Administration" &&
+              object.name !== "Administration" &&
               object.isSelectable
             )
               teams.push(object);

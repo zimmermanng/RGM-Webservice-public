@@ -18,6 +18,7 @@ function buildTree(nodes, parentId = null) {
       id: node.id,
       name: node.name,
       parentId: node.parentId,
+      childrenLevelsAllowed: node.childrenLevelsAllowed,
       isSelectable: node.isSelectable,
       isActive: node.isActive,
       children: buildTree(nodes, node.id),
