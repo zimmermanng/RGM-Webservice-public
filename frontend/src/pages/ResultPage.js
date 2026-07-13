@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 
-const CHART_ITEM_LIMIT = 18;
+const CHART_LABEL_LIMIT = 25;
 
 const ResultPage = ({ data, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
@@ -11,8 +11,12 @@ const ResultPage = ({ data, activeCompany }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const tabRefs = useRef({});
 
-  const safeData = Array.isArray(data) ? data : [];
-  const chartItemLimitExceeded = safeData.length > CHART_ITEM_LIMIT;
+  const safeData = useMemo(() => (Array.isArray(data) ? data : []), [data]);
+  const chartLabelCount = useMemo(() => {
+    const groupCount = new Set(safeData.map((row) => row?.group).filter(Boolean)).size;
+    return Math.max(safeData.length, groupCount);
+  }, [safeData]);
+  const chartItemLimitExceeded = chartLabelCount > CHART_LABEL_LIMIT;
   const activeViewMode = chartItemLimitExceeded ? "table" : viewMode;
 
   const dimensionData = useMemo(() => {
@@ -191,7 +195,7 @@ const ResultPage = ({ data, activeCompany }) => {
       <div>
         {chartItemLimitExceeded && (
           <p className="chart-limit-notice" role="status">
-            Für {safeData.length} Päckchen ist das Diagramm nicht mehr übersichtlich.
+            Für {chartLabelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
             Die Ergebnisse werden deshalb als Tabelle angezeigt.
           </p>
         )}
