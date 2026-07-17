@@ -103,9 +103,9 @@ async function getAllEvaluations() {
 
 async function createEvaluationRoundData() {
     let finalData = {
-        id: 0, // id of evaluationRound 
-        name: "TestABC", // Name of evaluationRound
-        description: "Test Test Test", // Description of evaluationRound
+        id: 0,
+        name: "", 
+        description: "",
         packages: [],
         organisation: [],
         leafResults: [],
@@ -133,7 +133,7 @@ async function createEvaluationRoundData() {
             },
         });
 
-        if(!surveyRunData || !surveySnapshotData) return res.status(404).json({
+        if (!surveyRunData || !surveySnapshotData) return res.status(404).json({
             ok: false,
             message: "Es konnten keine Evaluations Runden gefunden werden.",
         });
@@ -196,6 +196,18 @@ router.post("/create-evaluation", async (req, res) => {
                         isActive: false
                     },
                 });
+
+                let data = await createEvaluationRoundData()
+                data.id = previousActiveEvaluation.id;
+                data.name = previousActiveEvaluation.name;
+                data.description = previousActiveEvaluation.description ? previousActiveEvaluation.description : "";
+
+                await prisma.evaluationRoundsData.create({
+                    data: {
+                        evaluationRound: previousActiveEvaluation.id,
+                        payload: data,
+                    },
+                });
             }
 
             const createEvaluation = await prisma.evaluationRounds.create({
@@ -241,7 +253,7 @@ router.put("/change-name", async (req, res) => {
             });
 
             if (evaluationRound) {
-                const updateUser = await prisma.evaluationRounds.update({
+                await prisma.evaluationRounds.update({
                     where: {
                         id: id,
                     },
@@ -249,6 +261,28 @@ router.put("/change-name", async (req, res) => {
                         name: name,
                     },
                 });
+                if (!evaluationRound.isActive) {
+                    const evaluationRoundData = await prisma.evaluationRoundsData.findUnique({
+                        where: {
+                            evaluationRound: evaluationRound.id
+                        }
+                    });
+                    if (!evaluationRoundData) return res.status(404).json({
+                        ok: false,
+                        message: "Die Daten der Evaluationsrunde konnten nicht gefunden werden."
+                    });
+
+                    const updatedPayload = {...evaluationRoundData.payload, name: name}
+
+                    await prisma.evaluationRoundsData.update({
+                        where: {
+                            id: evaluationRoundData.id
+                        },
+                        data:{
+                            payload: updatedPayload,
+                        }
+                    })
+                }
             } else {
                 return res.status(404).json({
                     ok: false,
@@ -285,22 +319,22 @@ router.delete("/delete-evaluation", async (req, res) => {
                 },
             });
 
-            if (evaluationRound && evaluationRound.isActive)
-                return res.status(409).json({
+            if (evaluationRound) {
+                if (evaluationRound.isActive) return res.status(409).json({
                     ok: false,
                     message: "Aktive Evaluationsrunden dürfen nicht gelöscht werden."
                 });
-            if (evaluationRound) {
-                const updateUser = await prisma.evaluationRounds.delete({
-                    where: {
-                        id: id,
-                    },
-                });
-            } else
-                return res.status(404).json({
-                    ok: false,
-                    message: "Die Evaluationsrunde konnte nicht gefunden werden."
-                });
+                else {
+                    const updateUser = await prisma.evaluationRounds.delete({
+                        where: {
+                            id: id,
+                        },
+                    });
+                }
+            } else return res.status(404).json({
+                ok: false,
+                message: "Die Evaluationsrunde konnte nicht gefunden werden."
+            });
 
             const evaluationRounds = await getAllEvaluations()
 
@@ -323,6 +357,7 @@ router.delete("/delete-evaluation", async (req, res) => {
 });
 
 router.get("/retrieve-data", async (req, res) => {
+    //const evaluationId = req.query;
     try {
         const data = await createEvaluationRoundData();
         return res.status(200).json({

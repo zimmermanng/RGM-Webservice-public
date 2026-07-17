@@ -147,10 +147,8 @@ model EvaluationRounds {
 
 model EvaluationRoundsData {
   id                Int       @id @default(autoincrement())
-  evaluationRound   Int
-  importedPackages  Json
-  organisation      Json
-  leafResults       Json 
+  evaluationRound   Int       @unique
+  payload           Json
 
   evaluation EvaluationRounds @relation(fields: [evaluationRound], references: [id], onDelete: Cascade)
   
