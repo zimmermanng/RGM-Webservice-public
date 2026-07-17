@@ -133,11 +133,26 @@ model TeamView {
 
 model EvaluationRounds {
   id            Int       @id @default(autoincrement())
-  name          String    
+  name          String
+  description   String?
   isActive      Boolean   
   createdAt     DateTime  
   updatedAt     DateTime
 
+  evaluationRoundData   EvaluationRoundsData[]
+
   @@index([name])
   @@index([isActive])
+}
+
+model EvaluationRoundsData {
+  id                Int       @id @default(autoincrement())
+  evaluationRound   Int
+  importedPackages  Json
+  organisation      Json
+  leafResults       Json 
+
+  evaluation EvaluationRounds @relation(fields: [evaluationRound], references: [id], onDelete: Cascade)
+  
+  @@index([evaluationRound])
 }
