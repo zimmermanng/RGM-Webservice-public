@@ -84,6 +84,7 @@ const RadialBarChart = ({
   onSegmentClick,
 }) => {
   const svgRef = useRef(null);
+  const chartIdRef = useRef(`radial-chart-${Math.random().toString(36).slice(2)}`);
   const lastInputTypeRef = useRef('mouse');
   const [chartData, setChartData] = useState([]);
 
@@ -160,9 +161,36 @@ const RadialBarChart = ({
       .append('g')
       .attr('transform', `translate(${WIDTH / 2}, ${HEIGHT / 2})`);
 
+    const groupOrder = new Map();
+    chartData.forEach((entry) => {
+      const group = entry.group || '';
+      if (!groupOrder.has(group)) groupOrder.set(group, groupOrder.size);
+    });
+    const renderData = showGroupRing
+      ? [...chartData].sort(
+          (a, b) => (groupOrder.get(a.group || '') ?? 0) - (groupOrder.get(b.group || '') ?? 0)
+        )
+      : chartData;
     const radialScale = d3.scaleLinear().domain([0, numTicks]).range([INNER_RADIUS, radius]);
-    const angleStep = (2 * Math.PI) / chartData.length;
-    const uniqueGroups = [...new Set(chartData.map((entry) => entry.group))];
+    const angleStep = (2 * Math.PI) / renderData.length;
+    const groupSegments = [];
+
+    renderData.forEach((entry, index) => {
+      const group = entry.group || '';
+      const currentSegment = groupSegments[groupSegments.length - 1];
+
+      if (currentSegment && currentSegment.group === group) {
+        currentSegment.endIndex = index + 1;
+        currentSegment.items.push(entry);
+      } else {
+        groupSegments.push({
+          group,
+          startIndex: index,
+          endIndex: index + 1,
+          items: [entry],
+        });
+      }
+    });
 
     const createArc = (innerR, outerR, startAngle, endAngle) =>
       d3.arc().innerRadius(innerR).outerRadius(outerR).startAngle(startAngle).endAngle(endAngle);
@@ -236,7 +264,13 @@ const RadialBarChart = ({
 
     const createCircularPath = (pathRadius, startAngle, endAngle, reverse = false) => {
       const fromAngle = reverse ? endAngle : startAngle;
-      const toAngle = reverse ? startAngle : endAngle;
+      let toAngle = reverse ? startAngle : endAngle;
+      const angleSpan = Math.abs(endAngle - startAngle);
+
+      if (angleSpan >= Math.PI * 2 - 0.001) {
+        toAngle += reverse ? 0.001 : -0.001;
+      }
+
       const start = {
         x: Math.sin(fromAngle) * pathRadius,
         y: -Math.cos(fromAngle) * pathRadius,
@@ -265,7 +299,7 @@ const RadialBarChart = ({
       lines.forEach((line, lineIndex) => {
         const lineOffset = lineIndex * categoryLineHeight - totalHeight / 2;
         const lineRadius = radius + labelRingThickness / 2 + lineOffset;
-        const pathId = `category-label-path-${index}-${lineIndex}`;
+        const pathId = `${chartIdRef.current}-category-${index}-${lineIndex}`;
 
         labelGroup
           .append('path')
@@ -297,7 +331,7 @@ const RadialBarChart = ({
       mouseY = y;
     });
 
-    chartData.forEach((entry, index) => {
+    renderData.forEach((entry, index) => {
       const startAngle = index * angleStep;
       const endAngle = startAngle + angleStep;
       const clampedValue = Math.max(0, Math.min(maxValue, Number(entry.value) || 0));
@@ -413,16 +447,16 @@ const RadialBarChart = ({
     });
 
     if (showGroupRing) {
-      uniqueGroups.forEach((group, index) => {
-        const firstGroupIndex = chartData.findIndex((entry) => entry.group === group);
-        const groupItems = chartData.filter((entry) => entry.group === group);
-        const groupStartAngle = firstGroupIndex * angleStep;
-        const groupEndAngle = groupStartAngle + groupItems.length * angleStep;
+      groupSegments.forEach((segment, index) => {
+        const group = segment.group;
+        const groupItems = segment.items;
+        const groupStartAngle = segment.startIndex * angleStep;
+        const groupEndAngle = segment.endIndex * angleStep;
         const groupMiddleAngle = (groupStartAngle + groupEndAngle) / 2;
         const reverseGroupText =
           groupMiddleAngle > Math.PI / 2 && groupMiddleAngle < (3 * Math.PI) / 2;
         const groupColor = groupItems[0]?.color || colorScale(group);
-        const groupPathId = `group-path-${index}-${Math.random().toString(36).slice(2)}`;
+        const groupPathId = `${chartIdRef.current}-group-${index}`;
 
         svg
           .append('path')
@@ -444,13 +478,12 @@ const RadialBarChart = ({
         svg
           .append('path')
           .attr('id', groupPathId)
-          .attr(
-            'd',
-            createArc(
+          .attr('d',
+            createCircularPath(
               radius + labelRingThickness + GROUP_RING_THICKNESS / 2,
-              radius + labelRingThickness + GROUP_RING_THICKNESS / 2,
-              reverseGroupText ? groupEndAngle : groupStartAngle,
-              reverseGroupText ? groupStartAngle : groupEndAngle
+              groupStartAngle,
+              groupEndAngle,
+              reverseGroupText
             )
           )
           .attr('fill', 'none')
@@ -458,14 +491,15 @@ const RadialBarChart = ({
 
         svg
           .append('text')
+          .attr('fill', getTextColor(groupColor))
+          .attr('font-size', '26px')
+          .attr('font-weight', '700')
+          .attr('dominant-baseline', 'middle')
           .append('textPath')
           .attr('href', `#${groupPathId}`)
           .attr('xlink:href', `#${groupPathId}`)
-          .attr('startOffset', '25%')
-          .attr('fill', getTextColor(groupColor))
-          .attr('font-size', '26px')
+          .attr('startOffset', '50%')
           .attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle')
           .text(group)
           .attr('aria-hidden', 'true');
       });
