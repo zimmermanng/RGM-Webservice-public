@@ -16,6 +16,7 @@ enum ChildrenLevelsAllowed {
 model Team {
   id              Int                @id @default(autoincrement())
   name            String             @unique
+  passwordHash    String?
   parentId        Int?
   childrenLevelsAllowed ChildrenLevelsAllowed
   isSelectable    Boolean            @default(true)
@@ -133,11 +134,24 @@ model TeamView {
 
 model EvaluationRounds {
   id            Int       @id @default(autoincrement())
-  name          String    
+  name          String
+  description   String?
   isActive      Boolean   
   createdAt     DateTime  
   updatedAt     DateTime
 
+  evaluationRoundData   EvaluationRoundsData[]
+
   @@index([name])
   @@index([isActive])
+}
+
+model EvaluationRoundsData {
+  id                Int       @id @default(autoincrement())
+  evaluationRound   Int       @unique
+  payload           Json
+
+  evaluation EvaluationRounds @relation(fields: [evaluationRound], references: [id], onDelete: Cascade)
+  
+  @@index([evaluationRound])
 }

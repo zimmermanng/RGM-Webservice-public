@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
+import { API_BASE } from "../config.ts";
 
 const MATURITY_LEVELS = [1, 2, 3, 4];
 const LEVEL_COLORS = {
@@ -130,7 +131,24 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
   const [selectedLevel0, setSelectedLevel0] = useState("");
   const [selectedLevel1, setSelectedLevel1] = useState("gesamt");
   const [selectedPackage, setSelectedPackage] = useState(null);
-
+  const [evaluationData, setEvaluationData] = useState({});
+  
+  // Aktuell werden die neusten Daten geladen!
+  useEffect(() => {
+    const fetchEvaluationData = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/evaluation/retrieve-data`, {
+          credentials: "include",
+        });
+        const evalData = await res.json();
+        setEvaluationData(evalData.data);
+      } catch (err) {
+        console.error("Fehler beim Laden der Evaluations Daten:", err);
+      }
+    };
+    fetchEvaluationData();
+  }, []);
+  
   const unitNameById = useMemo(
     () => buildUnitNameMap(evaluationRound.organisation),
     [evaluationRound.organisation]
