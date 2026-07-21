@@ -229,6 +229,7 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
             emptyMessage="Für das Gesamtergebnis kann mit den aktuellen Filtern kein Diagramm erstellt werden."
             onPackageClick={setSelectedPackage}
             activeCompany={activeCompany}
+            showDetailsHint
           />
 
           <aside className="admin-overall-panel" aria-label="Filter Gesamtergebnis">
@@ -268,6 +269,7 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
               emptyMessage="Für diese Organisationseinheit liegen keine vollständigen Ergebnisse vor."
               onPackageClick={setSelectedPackage}
               activeCompany={activeCompany}
+              showDetailsHint={false}
             />
           ) : (
             <div className="admin-overall-placeholder" role="status">
@@ -406,7 +408,15 @@ function OrganisationSelectors({
   );
 }
 
-function PackageChart({ title, subtitle, results, emptyMessage, onPackageClick, activeCompany }) {
+function PackageChart({
+  title,
+  subtitle,
+  results,
+  emptyMessage,
+  onPackageClick,
+  activeCompany,
+  showDetailsHint = true,
+}) {
   if (!results.length) {
     return (
       <div className="admin-overall-empty" role="status">
@@ -422,10 +432,12 @@ function PackageChart({ title, subtitle, results, emptyMessage, onPackageClick, 
         <span>{subtitle}</span>
       </div>
 
-      <p className="admin-overall-chart-hint">
-        Die Päckchen im Diagramm sind auswählbar. Wählen Sie ein Segment aus
-        oder nutzen Sie die Detail-Schaltflächen im Filterbereich.
-      </p>
+      {showDetailsHint && (
+        <p className="admin-overall-chart-hint">
+          Die Päckchen im Diagramm sind auswählbar. Wählen Sie ein Segment aus
+          oder nutzen Sie die Detail-Schaltflächen im Filterbereich.
+        </p>
+      )}
 
       <RadialBarChart
         data={toChartRows(results)}

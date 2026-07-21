@@ -17,7 +17,7 @@ const NAV_ITEMS = {
   ADMIN: [
     { label: "Struktur", to: "/Struktur" },
     { label: "Evaluationsrunden", to: "/Evaluationsrunden" },
-  ]
+  ],
 };
 
 const LOGO_BY_COMPANY = {
@@ -50,7 +50,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   });
 
   const navItems = useMemo(() => {
-    if (team === "Administration") return NAV_ITEMS.ADMIN
+    if (team === "Administration") return NAV_ITEMS.ADMIN;
     return NAV_ITEMS[activeCompany] || NAV_ITEMS.default;
   }, [activeCompany, team]);
 
@@ -124,27 +124,34 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      let teams = []
+      let teams = [];
       try {
         const res = await fetch(`${API_BASE}/auth/teams`, {
           credentials: "include",
         });
         const data = await res.json();
         if (Array.isArray(data.teams)) {
-          data.teams.forEach(object => {
-            if (object.children.length === 0 && object.name != "Administration" && object.isSelectable) teams.push(object)
+          data.teams.forEach((object) => {
+            if (
+              object.children.length === 0 &&
+              object.name !== "Administration" &&
+              object.isSelectable
+            )
+              teams.push(object);
             if (object.children.length > 0) {
-              object.children.forEach(childrenObject => {
+              object.children.forEach((childrenObject) => {
                 if (childrenObject.isSelectable) teams.push(childrenObject);
                 else if (childrenObject.children.length > 0) {
-                  const selectableChildren = childrenObject.children.filter(obj => obj.isSelectable);
+                  const selectableChildren = childrenObject.children.filter(
+                    (obj) => obj.isSelectable,
+                  );
                   teams.push(...selectableChildren);
                 }
-              })
+              });
             }
-          })
-          const adminTeam = data.teams.find(obj => {
-            return obj.name === "Administration"
+          });
+          const adminTeam = data.teams.find((obj) => {
+            return obj.name === "Administration";
           });
           if (team === "Administration") teams.push(adminTeam);
         }
@@ -154,27 +161,31 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       } finally {
         setLoadingSelectableTeams(false);
       }
-    }
-    fetchTeams()
+    };
+    fetchTeams();
   }, [team]);
 
   useEffect(() => {
     const getSelectedTeam = async () => {
       try {
-        const selectedTeamReq = await fetch(`${API_BASE}/session/selected-user`, {
-          credentials: "include",
-        });
-        const data = await selectedTeamReq.json()
-        setSelectedTeam(data.teamName)
-        if (team === "Administration" && data.teamName !== "Administration") setTeamView(true)
+        const selectedTeamReq = await fetch(
+          `${API_BASE}/session/selected-user`,
+          {
+            credentials: "include",
+          },
+        );
+        const data = await selectedTeamReq.json();
+        setSelectedTeam(data.teamName);
+        if (team === "Administration" && data.teamName !== "Administration")
+          setTeamView(true);
       } catch (err) {
         console.error("Fehler beim Laden des ausgewählten Teams:", err);
       } finally {
-        setLoadingSelectedTeam(false)
+        setLoadingSelectedTeam(false);
       }
-    }
-    getSelectedTeam()
-  }, [team])
+    };
+    getSelectedTeam();
+  }, [team]);
 
   const handleLogoutClick = async () => {
     closeMenu(false);
@@ -190,28 +201,37 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     if (team === "Administration") {
       if (event.target.value === "Administration") {
         try {
-          await teamLogout()
+          await teamLogout();
           await deleteTeamView();
         } catch (error) {
-          console.error(error)
+          console.error(error);
         }
         setTeamView(false);
         navigate("start");
-      }
-      else {
+      } else {
         try {
           const successfulLogin = await teamLogin(event.target.value, false);
           if (!successfulLogin) {
-            setTakeoverDialog({ open: true, teamName: event.target.value, teamId: viewTeamId, previousTeam: previousTeam })
-            return
+            setTakeoverDialog({
+              open: true,
+              teamName: event.target.value,
+              teamId: viewTeamId,
+              previousTeam: previousTeam,
+            });
+            return;
           }
           await teamLogout();
           await createTeamView(viewTeamId);
         } catch (error) {
-          console.error(error)
+          console.error(error);
         }
         setTeamView(true);
-        if (["/dimensions", "/dimensions/bearbeiten"].includes(window.location.pathname)) window.location.reload();
+        if (
+          ["/dimensions", "/dimensions/bearbeiten"].includes(
+            window.location.pathname,
+          )
+        )
+          window.location.reload();
       }
     } else if (event.target.value !== team) {
       try {
@@ -219,18 +239,19 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       } catch (error) {
         console.error(error);
       }
-      if (window.location.pathname === "/resultReadOnly") window.location.reload();
+      if (window.location.pathname === "/resultReadOnly")
+        window.location.reload();
       else navigate("resultReadOnly");
     } else if (event.target.value === team) {
       await deleteTeamView();
-      navigate("start")
+      navigate("start");
     }
-  }
+  };
 
   const searchTeamId = (teamName) => {
     for (const obj of selectableTeams) {
-      if (obj.name === teamName) return obj.id
-    };
+      if (obj.name === teamName) return obj.id;
+    }
     return null;
   };
 
@@ -243,22 +264,22 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ viewTeamId: viewTeamId }),
-      })
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const deleteTeamView = async () => {
     try {
       await fetch(`${API_BASE}/session/temporary-view`, {
         credentials: "include",
         method: "DELETE",
-      })
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const teamLogin = async (team, forceTakeover) => {
     try {
@@ -274,11 +295,11 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
         }),
       });
       const data = await loginRes.json();
-      return data.ok
+      return data.ok;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const teamLogout = async () => {
     try {
@@ -287,48 +308,54 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
         method: "DELETE",
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const handleClick = (event, destination) => {
     if (team !== selectedTeam) {
-      event.preventDefault()
-      setNavigationDestination(destination)
-      const returnMessage = team === "Administration" ?
-        "Wenn Sie fortfahren, verlassen Sie den Schreibmodus und kehren in das Adminpanel zurück." :
-        `Sie haben keinen Bearbeitungszugriff für die gewählte Organisationseinheit. Wenn Sie fortfahren, verlassen Sie den Lesemodus und kehren in den Bearbeitungsmodus ihrer eigenen Organisationseinheit (${team}) zurück`
-      setReturnDialog({ open: true, message: returnMessage })
+      event.preventDefault();
+      setNavigationDestination(destination);
+      const returnMessage =
+        team === "Administration"
+          ? "Wenn Sie fortfahren, verlassen Sie den Schreibmodus und kehren in das Adminpanel zurück."
+          : `Sie haben keinen Bearbeitungszugriff für die gewählte Organisationseinheit. Wenn Sie fortfahren, verlassen Sie den Lesemodus und kehren in den Bearbeitungsmodus ihrer eigenen Organisationseinheit (${team}) zurück`;
+      setReturnDialog({ open: true, message: returnMessage });
     } else {
-      closeMenu(false)
+      closeMenu(false);
     }
-  }
+  };
 
   const confirmPopup = async () => {
-    setSelectedTeam(team)
-    deleteTeamView()
+    setSelectedTeam(team);
+    deleteTeamView();
     if (team === "Administration") {
       await teamLogout();
-      setTeamView(false)
+      setTeamView(false);
     }
-    setReturnDialog({ open: false, message: "" })
-    navigate(navigationDestination)
-    closeMenu(false)
-  }
+    setReturnDialog({ open: false, message: "" });
+    navigate(navigationDestination);
+    closeMenu(false);
+  };
 
   const forcefulLogin = async () => {
     await teamLogin(takeoverDialog.teamName, true);
     await teamLogout();
     await createTeamView(takeoverDialog.teamId);
     setTeamView(true);
-    setTakeoverDialog({ open: false, teamName: "", teamId: null })
+    setTakeoverDialog({ open: false, teamName: "", teamId: null });
     window.location.reload();
-  }
+  };
 
   const declineLogin = async () => {
-    setSelectedTeam(takeoverDialog.previousTeam)
-    setTakeoverDialog({ open: false, teamName: "", teamId: null, previousTeam: "" })
-  }
+    setSelectedTeam(takeoverDialog.previousTeam);
+    setTakeoverDialog({
+      open: false,
+      teamName: "",
+      teamId: null,
+      previousTeam: "",
+    });
+  };
 
   const homeTarget = activeCompany === "LMZ" ? "/" : "/start";
 
@@ -379,14 +406,25 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
               >
                 {loadingSelectableTeams ? (
                   <option></option>
-                ) :
-                  (
-                    selectableTeams.map(unit => (
-                      unit.children.length > 0 ? unit.children.map(unitTeam => (
-                        <option key={unitTeam.name} value={unitTeam.name} className="team-indicator-value">{unit.name} | {unitTeam.name}</option>
-                      )) : <option key={unit.name} value={unit.name}>{unit.name}</option>
-                    ))
-                  )}
+                ) : (
+                  selectableTeams.map((unit) =>
+                    unit.children.length > 0 ? (
+                      unit.children.map((unitTeam) => (
+                        <option
+                          key={unitTeam.name}
+                          value={unitTeam.name}
+                          className="team-indicator-value"
+                        >
+                          {unit.name} | {unitTeam.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option key={unit.name} value={unit.name}>
+                        {unit.name}
+                      </option>
+                    ),
+                  )
+                )}
               </select>
             )}
 
@@ -410,34 +448,50 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
               ☰
             </button>
           </div>
-
-          {teamView &&
-            <nav className="nav-desktop-secondary" aria-label="Admin Navigation">
-              <ul>
-                <li key="/dimensions/bearbeiten">
-                  <Link
-                    to={`/dimensions/bearbeiten`}
-                    className={isActive("/dimensions/bearbeiten") ? "nav-link active" : "nav-link"}
-                    aria-current={isActive("/dimensions/bearbeiten") ? "page" : undefined}
-                    onClick={() => closeMenu(false)}
-                  >
-                    Konfigurationsmodus
-                  </Link>
-                </li>
-                <li key="/dimensions">
-                  <Link
-                    to={`/dimensions`}
-                    className={isActive("/dimensions") ? "nav-link active" : "nav-link"}
-                    aria-current={isActive("/dimensions") ? "page" : undefined}
-                    onClick={() => closeMenu(false)}
-                  >
-                    Fragebogen
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          }
         </div>
+        {teamView && (
+          <div className="admin-toolbar">
+            <div className="admin-toolbar-inner">
+              {/* Visueller Indikator für den Modus (für Screenreader durch das aria-label der nav abgedeckt) */}
+              <span className="admin-badge" aria-hidden="true">
+                Ansicht: {selectedTeam}
+              </span>
+
+              <nav aria-label="Werkzeuge der Team-Ansicht">
+                <ul>
+                  <li>
+                    <Link
+                      to={`/dimensions/bearbeiten`}
+                      className={
+                        isActive("/dimensions/bearbeiten")
+                          ? "nav-link active"
+                          : "nav-link"
+                      }
+                      aria-current={
+                        isActive("/dimensions/bearbeiten") ? "page" : undefined
+                      }
+                    >
+                      Konfigurationsmodus
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={`/dimensions`}
+                      className={
+                        isActive("/dimensions") ? "nav-link active" : "nav-link"
+                      }
+                      aria-current={
+                        isActive("/dimensions") ? "page" : undefined
+                      }
+                    >
+                      Fragebogen
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        )}
 
         {isOpen && (
           <nav
@@ -464,28 +518,48 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                 );
               })}
               {teamView && (
-                <>
-                  <li key="/dimensions/bearbeiten">
-                    <Link
-                      to={`/dimensions/bearbeiten`}
-                      className={isActive("/dimensions/bearbeiten") ? "nav-link active" : "nav-link"}
-                      aria-current={isActive("/dimensions/bearbeiten") ? "page" : undefined}
-                      onClick={() => closeMenu(false)}
-                    >
-                      Konfigurationsmodus
-                    </Link>
-                  </li>
-                  <li key="/dimensions">
-                    <Link
-                      to={`/dimensions`}
-                      className={isActive("/dimensions") ? "nav-link active" : "nav-link"}
-                      aria-current={isActive("/dimensions") ? "page" : undefined}
-                      onClick={() => closeMenu(false)}
-                    >
-                      Fragebogen
-                    </Link>
-                  </li>
-                </>
+                <li className="mobile-admin-group">
+                  <hr className="mobile-divider" aria-hidden="true" />
+                  <span className="mobile-admin-heading" id="admin-group-title">
+                    Organisationseinheit {selectedTeam}
+                  </span>
+                  <ul aria-labelledby="admin-group-title">
+                    <li>
+                      <Link
+                        to={`/dimensions/bearbeiten`}
+                        className={
+                          isActive("/dimensions/bearbeiten")
+                            ? "nav-link active"
+                            : "nav-link"
+                        }
+                        aria-current={
+                          isActive("/dimensions/bearbeiten")
+                            ? "page"
+                            : undefined
+                        }
+                        onClick={() => closeMenu(false)}
+                      >
+                        Konfigurationsmodus
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to={`/dimensions`}
+                        className={
+                          isActive("/dimensions")
+                            ? "nav-link active"
+                            : "nav-link"
+                        }
+                        aria-current={
+                          isActive("/dimensions") ? "page" : undefined
+                        }
+                        onClick={() => closeMenu(false)}
+                      >
+                        Fragebogen
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
               )}
             </ul>
 
@@ -511,21 +585,23 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           <div className="modal">
             <p>{returnDialog.message}</p>
             <div className="modalButtons">
-              <button onClick={() => setReturnDialog({ open: false, message: "" })}>Bleiben</button>
+              <button
+                onClick={() => setReturnDialog({ open: false, message: "" })}
+              >
+                Bleiben
+              </button>
               <button onClick={confirmPopup}>Zurückkehren</button>
             </div>
           </div>
         </div>
       )}
       {takeoverDialog.open && (
-        <div
-          className="session-timeout-dialog-backdrop"
-          role="presentation"
-        >
+        <div className="session-timeout-dialog-backdrop" role="presentation">
           <div className="session-timeout-dialog">
             <h2 id="team-takeover-title">Bearbeitung übernehmen?</h2>
             <p>
-              Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.
+              Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person
+              wird dann automatisch abgemeldet.
             </p>
             <p>
               Ausgewählte Organisationseinheit:{" "}
@@ -536,7 +612,8 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                 type="button"
                 className="access-button"
                 onClick={forcefulLogin}
-              >Bearbeitung übernehmen
+              >
+                Bearbeitung übernehmen
               </button>
               <button
                 type="button"
@@ -548,8 +625,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
             </div>
           </div>
         </div>
-      )
-      }
+      )}
     </>
   );
 }

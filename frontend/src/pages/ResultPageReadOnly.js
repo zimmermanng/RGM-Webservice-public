@@ -11,7 +11,7 @@ const ResultPageReadOnly = () => {
   const [error, setError] = useState("");
   const [activeDimensions, setActiveDimensions] = useState([]);
   const [currentAnswers, setCurrentAnswers] = useState({});
-  const [teamName, setTeamName] = useState("")
+  const [teamName, setTeamName] = useState("");
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -43,8 +43,8 @@ const ResultPageReadOnly = () => {
         const resultsData = await resultsRes.json();
         const settingsData = await settingsRes.json();
         const stateData = await stateRes.json();
-        
-        setTeamName(resultsData.team)
+
+        setTeamName(resultsData.team);
         setCurrentAnswers(
           stateData.currentAnswers &&
             typeof stateData.currentAnswers === "object"
@@ -127,21 +127,6 @@ const ResultPageReadOnly = () => {
   if (error) return <p>{error}</p>;
   if (!surveyResults) return <p>Noch keine Ergebnisse vorhanden.</p>;
 
-  <div className="gridContainer">
-    {activeDimensions.map((dimension) => {
-      const answeredObj = currentAnswers[dimension.id] || {};
-
-      const answeredCount = Object.keys(answeredObj).length;
-
-      const totalQuestions = dimension.handlungsfelder.reduce(
-        (sum, hf) => sum + (hf.fragen?.length || 0),
-        0,
-      );
-
-      const progress = totalQuestions > 0 ? answeredCount / totalQuestions : 0;
-    })}
-  </div>;
-
   return (
     <div className="mainContainer">
       <div className="readOnlyTag">Lesemodus</div>
@@ -151,20 +136,37 @@ const ResultPageReadOnly = () => {
         ausgewählten Organisationseinheit.{" "}
         <p>Sie haben keinen Bearbeitungszugriff!</p>
       </p>
-
       <div className="gridContainer">
         {activeDimensions.map((dimension) => {
           const answeredObj = currentAnswers[dimension.id] || {};
 
-          const answeredCount = Object.keys(answeredObj).length;
+          let totalQuestions = 0;
+          let answeredCount = 0;
 
-          const totalQuestions = dimension.handlungsfelder.reduce(
-            (sum, hf) => sum + (hf.fragen?.length || 0),
-            0,
-          );
+          // Sichere Berechnung: Zähle nur Antworten zu existierenden Fragen
+          if (Array.isArray(dimension.handlungsfelder)) {
+            dimension.handlungsfelder.forEach((hf) => {
+              if (Array.isArray(hf.fragen)) {
+                totalQuestions += hf.fragen.length;
 
+                hf.fragen.forEach((frage) => {
+                  if (
+                    answeredObj[frage.id] !== undefined &&
+                    answeredObj[frage.id] !== null &&
+                    answeredObj[frage.id] !== ""
+                  ) {
+                    answeredCount++;
+                  }
+                });
+              }
+            });
+          }
+
+          // Deckelung auf maximal 1 (100%)
           const progress =
-            totalQuestions > 0 ? answeredCount / totalQuestions : 0;
+            totalQuestions > 0
+              ? Math.min(answeredCount / totalQuestions, 1)
+              : 0;
 
           return (
             <div

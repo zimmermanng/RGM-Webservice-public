@@ -76,6 +76,32 @@ async function requireActiveTeamLock(req, res, next) {
   }
 }
 
+async function updateEvaluationDate() {
+  try {
+    let date = new Date();
+    const timezone = date.getTimezoneOffset();
+    date = new Date(date.getTime() - (timezone * 60 * 1000));
+    date = new Date(date.toISOString().split('T')[0]);
+    const currentEvaluation = await prisma.evaluationRounds.findFirst({
+      where: {
+        isActive: true
+      }
+    });
+    if (currentEvaluation) {
+      const updateDate = await prisma.evaluationRounds.update({
+        where: {
+          id: currentEvaluation.id
+        },
+        data: {
+          updatedAt: date
+        },
+      });
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
@@ -145,6 +171,8 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
         currentAnswers: null,
       },
     });
+
+    await updateEvaluationDate()
 
     return res.json({
       ok: true,
@@ -239,6 +267,8 @@ router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) =>
       },
     });
 
+    await updateEvaluationDate()
+
     return res.json({
       ok: true,
       team: teamName,
@@ -264,10 +294,12 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
     const teamViewRecord = await prisma.teamView.findUnique({
       where: { sessionTeamId: req.session.teamId }
     });
+
     const viewTeamId = teamViewRecord.viewingTeamId;
     const settings = await prisma.teamSettings.findUnique({
       where: { teamId: viewTeamId }
     });
+
     let lockedDimensionsObject = settings?.lockedDimensions
     if (lockedDimensionsObject && lockStatus) lockedDimensionsObject.push(dimensionId)
     else if (lockedDimensionsObject && !lockStatus) {
@@ -275,11 +307,15 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
       if (index > -1) {
         lockedDimensionsObject.splice(index, 1)
       }
-    }
+    };
+
     const changeLock = await prisma.teamSettings.update({
       where: { teamId: viewTeamId },
       data: { lockedDimensions: lockedDimensionsObject ? lockedDimensionsObject : [dimensionId] },
     });
+
+    await updateEvaluationDate()
+
     return res.status(200).json({
       ok: true,
       lockedDimensions: lockedDimensionsObject,
@@ -343,6 +379,8 @@ router.post(
           latestSurveyRunId: null,
         },
       });
+
+      await updateEvaluationDate();
 
       return res.json({
         ok: true,
@@ -450,7 +488,7 @@ router.delete("/temporary-view", requireAuth, async (req, res) => {
       where: { sessionTeamId: req.session.teamId }
     })
 
-    if (!existingTeamView) 
+    if (!existingTeamView)
       return res.status(200).json({ message: "Es wurde kein Eintrag gefunden" })
 
     const teamRecord = await prisma.team.findUnique({
@@ -461,7 +499,7 @@ router.delete("/temporary-view", requireAuth, async (req, res) => {
       where: { id: existingTeamView.viewingTeamId }
     });
 
-    if (!teamRecord || !viewTeamRecord) 
+    if (!teamRecord || !viewTeamRecord)
       return res.status(404).json({ message: "Team wurde nicht gefunden." });
 
     const deleteTeamView = await prisma.teamView.delete({

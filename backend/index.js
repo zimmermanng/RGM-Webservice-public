@@ -6,6 +6,7 @@ const session = require("express-session");
 const sessionRoutes = require("./routes/session");
 const authRoutes = require("./routes/auth");
 const databaseRoutes = require("./routes/database");
+const evaluationRoutes = require("./routes/evaluation");
 
 const app = express();
 const port = 3011;
@@ -45,6 +46,7 @@ app.use(
 app.use("/auth", authRoutes);
 app.use("/session", sessionRoutes);
 app.use("/database", databaseRoutes);
+app.use("/evaluation", evaluationRoutes)
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Backend läuft auf Port ${port}`);
