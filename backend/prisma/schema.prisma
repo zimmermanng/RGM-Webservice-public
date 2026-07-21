@@ -16,6 +16,7 @@ enum ChildrenLevelsAllowed {
 model Team {
   id              Int                @id @default(autoincrement())
   name            String             @unique
+  passwordHash    String?
   parentId        Int?
   childrenLevelsAllowed ChildrenLevelsAllowed
   isSelectable    Boolean            @default(true)
