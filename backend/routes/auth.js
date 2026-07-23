@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
+const bcrypt = require("bcrypt");
 
 const APP_PASSWORD = process.env.APP_PASSWORD;
 const SESSION_TIMEOUT_MS =
@@ -199,8 +200,26 @@ async function deleteTeamView(teamId) {
 // Login
 router.post("/login", async (req, res) => {
   const { password } = req.body;
+  const { teamId } = req.body;
 
-  if (!password || password !== APP_PASSWORD) {
+  const team = await prisma.team.findUnique({
+    where: {
+      id: teamId
+    }
+  })
+
+  if (!team) {
+    return res.status(404).json({
+      ok: false,
+      message: "Das Team konnte nicht gefunden werden.",
+    });
+  }
+
+  // Change line after every selectable team has a hash
+  const passwordCheck = team.passwordHash ? bcrypt.compare(password, team.passwordHash) : true;
+
+  // REMOVE SECOND CONDTION LATER?
+  if (!password || (password !== APP_PASSWORD && !passwordCheck)) {
     return res.status(401).json({
       ok: false,
       message: "Falsches Passwort",
@@ -376,6 +395,45 @@ router.get("/teams", async (req, res) => {
   }
 });
 
+// Get selectable teams
+router.get("/selectable-teams", async (req, res) => {
+  try {
+    const teams = await prisma.team.findMany({
+      where: {
+        AND: {
+          isActive: true,
+          isSelectable: true,
+        },
+      },
+      include: {
+        parent: true,
+      },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+    });
+
+    let formattedTeams = teams.map((node) => ({
+      id: node.id,
+      name: node.name,
+      parentId: node.parentId,
+      isSelectable: node.isSelectable,
+      isActive: node.isActive,
+      childrenLevelsAllowed: node.childrenLevelsAllowed,
+      formattedName: node.childrenLevelsAllowed === "ZERO" && node.parent ? `${node.parent.name} | ${node.name}` : node.name,
+    }));
+
+    return res.json({
+      ok: true,
+      teams: formattedTeams,
+    });
+  } catch (error) {
+    console.error("Fehler beim Laden der Teamstruktur:", error);
+    return res.status(500).json({
+      ok: false,
+      message: "Teamstruktur konnte nicht geladen werden",
+    });
+  }
+});
+
 // Save selected team and acquire team lock
 router.post("/team", async (req, res) => {
   if (!req.session.authenticated) {
@@ -465,7 +523,7 @@ router.post("/team", async (req, res) => {
           "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
       });
     }
-    
+
     if (error.code === "ADMIN_LOCKED") {
       return res.status(423).json({
         ok: false,

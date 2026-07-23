@@ -546,9 +546,8 @@ const App = () => {
   }, [activeCompany]);
 
   const showServiceChrome = authChecked && isAuthenticated && !!team;
-  const countdownText = `Ihre Sitzung endet in ${remainingSeconds} ${
-    remainingSeconds === 1 ? "Sekunde" : "Sekunden"
-  }.`;
+  const countdownText = `Ihre Sitzung endet in ${remainingSeconds} ${remainingSeconds === 1 ? "Sekunde" : "Sekunden"
+    }.`;
 
   if (!authChecked) {
     return (
@@ -619,6 +618,7 @@ const App = () => {
                 >
                   <TeamSelectionPage
                     onTeamSelected={(selection) => {
+                      console.log("Selection:", selection)
                       setTeam(selection.team);
                       setSessionNotice("");
 
@@ -661,6 +661,22 @@ const App = () => {
 
                     if (typeof warningBeforeTimeoutMs === "number") {
                       setWarningBeforeTimeoutMs(warningBeforeTimeoutMs);
+                    }
+                  }}
+                  onTeamSelected={(selection) => {
+                    setTeam(selection.team);
+                    setSessionNotice("");
+
+                    if (typeof selection.sessionTimeoutMs === "number") {
+                      setSessionTimeoutMs(selection.sessionTimeoutMs);
+                    }
+
+                    if (
+                      typeof selection.warningBeforeTimeoutMs === "number"
+                    ) {
+                      setWarningBeforeTimeoutMs(
+                        selection.warningBeforeTimeoutMs,
+                      );
                     }
                   }}
                 />

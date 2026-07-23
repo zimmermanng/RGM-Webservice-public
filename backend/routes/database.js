@@ -154,7 +154,7 @@ router.put("/update-team", async (req, res) => {
             if (elementWithTeamName && elementWithTeamName.id != teamId)
                 return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
 
-            const passwordHash = await generatePasswordHash(password);
+            const passwordHash = teamRecord.isSelectable ? await generatePasswordHash(password) : null;
 
             const updateTeam = await prisma.team.update({
                 where: { id: teamId },

@@ -26,7 +26,7 @@ const StructurePage = () => {
   // Wenn Kinder vorhanden sind, ist das Passwort kein Pflichtfeld mehr
   const isFormValid =
     neuerName.trim() !== "" && (hasChildren || neuesPasswort?.trim() !== "");
-
+ 
   useEffect(() => {
     const fetchTeams = async () => {
       let teams = [];
