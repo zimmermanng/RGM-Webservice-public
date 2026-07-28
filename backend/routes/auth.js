@@ -3,7 +3,6 @@ const router = express.Router();
 const prisma = require("../db/prisma");
 const bcrypt = require("bcrypt");
 
-const APP_PASSWORD = process.env.APP_PASSWORD;
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60 * 24 * 365 * 10;
 const SESSION_WARNING_MS =
@@ -215,11 +214,9 @@ router.post("/login", async (req, res) => {
     });
   }
 
-  // Change line after every selectable team has a hash
-  const passwordCheck = team.passwordHash ? bcrypt.compare(password, team.passwordHash) : true;
+  const passwordCheck = await bcrypt.compare(password, team.passwordHash);
 
-  // REMOVE SECOND CONDTION LATER?
-  if (!password || (password !== APP_PASSWORD && !passwordCheck)) {
+  if (!passwordCheck) {
     return res.status(401).json({
       ok: false,
       message: "Falsches Passwort",

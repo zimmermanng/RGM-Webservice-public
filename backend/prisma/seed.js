@@ -1,4 +1,8 @@
 const prisma = require("../db/prisma");
+const bcrypt = require("bcrypt");
+
+const saltRounds = 10;
+const APP_PASSWORD = process.env.APP_PASSWORD;
 
 const ADMIN = {
   name: "Administration",
@@ -138,11 +142,18 @@ const MOCK_TEAM_TREE = {
   ],
 }
 
+async function createPasswordHash() {
+  const passwordHash = await bcrypt.hash(APP_PASSWORD, saltRounds);
+  return passwordHash;
+}
+
 async function upsertNode(node, parentId = null) {
+  const passwordHash = await createPasswordHash();
   const saved = await prisma.team.upsert({
     where: { name: node.name },
     update: {
       parentId,
+      passwordHash: node.isSelectable ? passwordHash : null,
       childrenLevelsAllowed: node.childrenLevelsAllowed,
       isSelectable: !!node.isSelectable,
       sortOrder: node.sortOrder ?? 0,
@@ -150,6 +161,7 @@ async function upsertNode(node, parentId = null) {
     },
     create: {
       name: node.name,
+      passwordHash: node.isSelectable ? passwordHash : null,
       parentId,
       childrenLevelsAllowed: node.childrenLevelsAllowed,
       isSelectable: !!node.isSelectable,

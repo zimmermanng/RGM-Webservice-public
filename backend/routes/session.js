@@ -32,12 +32,15 @@ function requireAuth(req, res, next) {
 }
 
 async function requireActiveTeamLock(req, res, next) {
+  console.log("Test A")
   try {
     await releaseExpiredLocks();
 
     const lock = await prisma.teamSessionLock.findUnique({
       where: { teamId: req.session.teamId },
     });
+
+    console.log(lock);
 
     if (!lock) {
       return res.status(423).json({

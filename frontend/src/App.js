@@ -297,7 +297,7 @@ const App = () => {
     }
 
     lastKeepaliveAtRef.current = now;
-
+    
     try {
       const res = await fetch(`${API_BASE}/auth/keepalive`, {
         method: "POST",
@@ -305,7 +305,7 @@ const App = () => {
       });
 
       const payload = await res.json();
-
+      
       if (!res.ok) {
         if (res.status === 401 || res.status === 403 || res.status === 423) {
           await handleLogout({
@@ -317,7 +317,7 @@ const App = () => {
         }
         return;
       }
-
+      
       syncSessionFromResponse(payload);
     } catch (error) {
       console.error("Keepalive failed:", error);
