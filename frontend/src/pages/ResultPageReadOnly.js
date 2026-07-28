@@ -125,7 +125,7 @@ const ResultPageReadOnly = () => {
 
   if (loading) return <p>Lade Ergebnisse...</p>;
   if (error) return <p>{error}</p>;
-  if (!surveyResults) return <p>Noch keine Ergebnisse vorhanden.</p>;
+  if (!surveyResults) return <p className="noResults">Noch keine Ergebnisse vorhanden.</p>;
 
   return (
     <div className="mainContainer">
