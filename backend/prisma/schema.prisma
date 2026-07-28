@@ -135,7 +135,6 @@ model TeamView {
 model EvaluationRounds {
   id            Int       @id @default(autoincrement())
   name          String
-  description   String?
   isActive      Boolean   
   createdAt     DateTime  
   updatedAt     DateTime

@@ -105,7 +105,6 @@ async function createEvaluationRoundData() {
     let finalData = {
         id: 0,
         name: "", 
-        description: "",
         packages: [],
         organisation: [],
         leafResults: [],
@@ -200,7 +199,6 @@ router.post("/create-evaluation", async (req, res) => {
                 let data = await createEvaluationRoundData()
                 data.id = previousActiveEvaluation.id;
                 data.name = previousActiveEvaluation.name;
-                data.description = previousActiveEvaluation.description ? previousActiveEvaluation.description : "";
 
                 await prisma.evaluationRoundsData.create({
                     data: {
