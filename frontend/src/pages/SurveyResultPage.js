@@ -277,7 +277,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       <div className="mainContainer" id="top">
         <h1>Ergebnisse</h1>
         <p>
-          Hier finden Sie eine detaillierte Auswertung der Survey-Ergebnisse
+          Hier finden Sie eine detaillierte Auswertung der Ergebnisse des Fragebogens
           nach Dimensionen und Handlungsfeldern.
         </p>
 
@@ -323,7 +323,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         <h2>Erläuterungen</h2>
         <div className="category-box">
           <p>
-            <strong>Legende:</strong> Die importierten Päckchen der Organisationseinheit sind im Ergebnisdiagramm farblich voneinander abgegrenzt dargestellt. Innerhalb jedes Päckchens werden thematische Handlungsfelder unterschieden, die den einzelnen Seiten des Fragebogens entsprechen. Der farbige Balkenausschlag zeigt den erreichten Reifegrad (0–4) pro Handlungsfeld an. Ein fehlender Ausschlag bedeutet, dass das entsprechende Handlungsfeld als nicht relevant bewertet wurde.
+            <strong>Legende:</strong> Die importierten Päckchen der Organisationseinheit sind im Ergebnisdiagramm farblich voneinander abgegrenzt dargestellt. Innerhalb jedes Päckchens werden thematische Handlungsfelder unterschieden, die den einzelnen Seiten des Fragebogens entsprechen. Der farbige Balkenausschlag zeigt den erreichten Reifegrad (0–4) pro Handlungsfeld an. Ein fehlender Ausschlag bedeutet, dass das entsprechende Handlungsfeld noch nicht ausgefüllt, oder als nicht relevant bewertet wurde.
           </p>
         </div>
 
@@ -457,7 +457,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
 
         <details className="already-done-block">
           <summary>
-            Bereits gut umgesetzt: nächste und höhere Stufen (
+            Bereits gut umgesetzte Maßnahmen auf höheren Stufen (
             {establishedHigherGroups.length})
           </summary>
 

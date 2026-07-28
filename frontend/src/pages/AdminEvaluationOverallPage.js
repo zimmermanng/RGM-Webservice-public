@@ -14,7 +14,7 @@ const mockEvaluationRound = {
   id: "rgm-2026-1",
   name: "RGM Version 2026.1",
   description:
-    "Gesamtauswertung der abgeschlossenen Evaluationsrunde. Die dargestellten Werte basieren auf Organisationseinheiten auf Blattebene, die mindestens ein Päckchen vollständig abgeschlossen haben.",
+    "Hier finden Sie die Gesamtauswertung der abgeschlossenen Evaluationsrunde. Die dargestellten Werte basieren auf Organisationseinheiten auf Blattebene, die mindestens ein Päckchen vollständig abgeschlossen haben.",
   packages: [
     { id: "allgemein", name: "Allgemein", fields: ["Planung", "Umsetzung", "Feedback"] },
     {
@@ -132,7 +132,7 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
   const [selectedLevel1, setSelectedLevel1] = useState("gesamt");
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [evaluationData, setEvaluationData] = useState({});
-  
+
   // Aktuell werden die neusten Daten geladen!
   useEffect(() => {
     const fetchEvaluationData = async () => {
@@ -148,7 +148,7 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
     };
     fetchEvaluationData();
   }, []);
-  
+
   const unitNameById = useMemo(
     () => buildUnitNameMap(evaluationRound.organisation),
     [evaluationRound.organisation]

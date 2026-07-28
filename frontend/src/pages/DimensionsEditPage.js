@@ -70,14 +70,14 @@ const DimensionsEditPage = () => {
     const fetchData = async () => {
       try {
         const [settingsRes, stateRes, evaluationRes] = await Promise.all([
-          fetch(`${API_BASE}/session/settings`, { 
-            credentials: "include" 
+          fetch(`${API_BASE}/session/settings`, {
+            credentials: "include"
           }),
           fetch(`${API_BASE}/session/current-state`, {
             credentials: "include",
           }),
-          fetch(`${API_BASE}/evaluation/`, { 
-            credentials: "include" 
+          fetch(`${API_BASE}/evaluation/`, {
+            credentials: "include"
           }),
         ]);
 
@@ -106,7 +106,7 @@ const DimensionsEditPage = () => {
 
         const loadedAnswers =
           stateResult.currentAnswers &&
-          typeof stateResult.currentAnswers === "object"
+            typeof stateResult.currentAnswers === "object"
             ? stateResult.currentAnswers
             : {};
 
@@ -337,7 +337,7 @@ const DimensionsEditPage = () => {
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
         möchten.
-        <br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder
+        <br /> Verschieben Sie diese einfach mit der Maus (Drag and Drop) oder
         mit der Tastatur (Tab- und Enter-Taste).
         {saving && (
           <strong style={{ marginLeft: "10px", color: "green" }}>
