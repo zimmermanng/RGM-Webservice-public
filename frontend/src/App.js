@@ -297,7 +297,7 @@ const App = () => {
     }
 
     lastKeepaliveAtRef.current = now;
-
+    
     try {
       const res = await fetch(`${API_BASE}/auth/keepalive`, {
         method: "POST",
@@ -305,7 +305,7 @@ const App = () => {
       });
 
       const payload = await res.json();
-
+      
       if (!res.ok) {
         if (res.status === 401 || res.status === 403 || res.status === 423) {
           await handleLogout({
@@ -317,7 +317,7 @@ const App = () => {
         }
         return;
       }
-
+      
       syncSessionFromResponse(payload);
     } catch (error) {
       console.error("Keepalive failed:", error);
@@ -546,9 +546,8 @@ const App = () => {
   }, [activeCompany]);
 
   const showServiceChrome = authChecked && isAuthenticated && !!team;
-  const countdownText = `Ihre Sitzung endet in ${remainingSeconds} ${
-    remainingSeconds === 1 ? "Sekunde" : "Sekunden"
-  }.`;
+  const countdownText = `Ihre Sitzung endet in ${remainingSeconds} ${remainingSeconds === 1 ? "Sekunde" : "Sekunden"
+    }.`;
 
   if (!authChecked) {
     return (
@@ -609,6 +608,38 @@ const App = () => {
             />
 
             <Route
+              path="/team-select"
+              element={
+                <ProtectedRoute
+                  authChecked={authChecked}
+                  isAuthenticated={isAuthenticated}
+                  team={null}
+                  requireTeam={false}
+                >
+                  <TeamSelectionPage
+                    onTeamSelected={(selection) => {
+                      console.log("Selection:", selection)
+                      setTeam(selection.team);
+                      setSessionNotice("");
+
+                      if (typeof selection.sessionTimeoutMs === "number") {
+                        setSessionTimeoutMs(selection.sessionTimeoutMs);
+                      }
+
+                      if (
+                        typeof selection.warningBeforeTimeoutMs === "number"
+                      ) {
+                        setWarningBeforeTimeoutMs(
+                          selection.warningBeforeTimeoutMs,
+                        );
+                      }
+                    }}
+                  />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
               path="/login"
               element={
                 <LoginPage
@@ -630,6 +661,22 @@ const App = () => {
 
                     if (typeof warningBeforeTimeoutMs === "number") {
                       setWarningBeforeTimeoutMs(warningBeforeTimeoutMs);
+                    }
+                  }}
+                  onTeamSelected={(selection) => {
+                    setTeam(selection.team);
+                    setSessionNotice("");
+
+                    if (typeof selection.sessionTimeoutMs === "number") {
+                      setSessionTimeoutMs(selection.sessionTimeoutMs);
+                    }
+
+                    if (
+                      typeof selection.warningBeforeTimeoutMs === "number"
+                    ) {
+                      setWarningBeforeTimeoutMs(
+                        selection.warningBeforeTimeoutMs,
+                      );
                     }
                   }}
                 />

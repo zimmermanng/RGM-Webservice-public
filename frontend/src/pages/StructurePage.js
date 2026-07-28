@@ -26,7 +26,7 @@ const StructurePage = () => {
   // Wenn Kinder vorhanden sind, ist das Passwort kein Pflichtfeld mehr
   const isFormValid =
     neuerName.trim() !== "" && (hasChildren || neuesPasswort?.trim() !== "");
-
+ 
   useEffect(() => {
     const fetchTeams = async () => {
       let teams = [];
@@ -46,7 +46,6 @@ const StructurePage = () => {
             }
           });
         };
-        console.log(teams)
         setEinheiten(teams);
       } catch (err) {
         console.error("Fehler beim Laden der Teamstruktur:", err);
@@ -60,8 +59,6 @@ const StructurePage = () => {
   const createTeam = async () => {
     const teamName = neuerName.trim();
     const parentElementId = elternId === "" ? null : parseInt(elternId);
-    console.log(teamName, parentElementId, neuesPasswort)
-    console.log(`Create new team ${teamName}...`)
     const res = await fetch(`${API_BASE}/database/create-team`, {
       credentials: "include",
       method: "POST",
@@ -76,7 +73,6 @@ const StructurePage = () => {
 
   const updateTeam = async () => {
     const teamName = neuerName.trim();
-    console.log(editingNodeId, teamName, neuesPasswort);
     const res = await fetch(`${API_BASE}/database/update-team`, {
       credentials: "include",
       method: "PUT",
@@ -90,7 +86,6 @@ const StructurePage = () => {
   };
 
   const deleteTeam = async () => {
-    console.log("Delete team", deleteNodeId)
     const res = await fetch(`${API_BASE}/database/delete-team`, {
       credentials: "include",
       method: "DELETE",
@@ -143,15 +138,18 @@ const StructurePage = () => {
         ),
       );
     } else {
-      const neueEinheit = {
-        id: Date.now().toString(),
+      let neueEinheit = {
+        id: null,
         name: neuerName.trim(),
         passwort: neuesPasswort,
         parentId: elternId === "" ? null : elternId,
       };
       const data = await createTeam()
       if (!data.ok) setErrorDialog({ open: true, message: data.message });
-      else setEinheiten([...einheiten, neueEinheit]);
+      else {
+        neueEinheit.id = data.id
+        setEinheiten([...einheiten, neueEinheit])
+      };
     }
 
     setConfirmDialog(false);

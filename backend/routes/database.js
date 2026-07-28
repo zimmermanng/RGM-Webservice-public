@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 function determineAllowedChildren(parent) {
     if (parent) {
@@ -49,6 +51,11 @@ async function updateParentUnselectable(id) {
     const transaction = await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState, deleteTeamSettings]);
 };
 
+async function generatePasswordHash(plaintextPassword) {
+    const passwordHash = await bcrypt.hash(plaintextPassword, saltRounds);
+    return passwordHash
+}
+
 router.post("/create-team", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -79,15 +86,18 @@ router.post("/create-team", async (req, res) => {
 
             const childrenLevelsAllowed = determineAllowedChildren(parentElement);
 
+            const passwordHash = await generatePasswordHash(password);
+
             const highestSortOrder = await prisma.team.aggregate({
                 _max: {
                     sortOrder: true,
                 },
             });
-
-            const createTeam = await prisma.team.create({
+            
+            const createdTeam = await prisma.team.create({
                 data: {
                     name: teamName,
+                    passwordHash: passwordHash,
                     parentId: parentElementId,
                     childrenLevelsAllowed: childrenLevelsAllowed,
                     isSelectable: true,
@@ -100,7 +110,8 @@ router.post("/create-team", async (req, res) => {
 
             return res.status(200).json({
                 ok: true,
-                message: `Das Team wurde erfolgreich erstellt.`
+                message: `Das Team wurde erfolgreich erstellt.`,
+                id: createdTeam.id,
             })
         } else return res.status(403).json({
             ok: false,
@@ -143,13 +154,16 @@ router.put("/update-team", async (req, res) => {
             if (elementWithTeamName && elementWithTeamName.id != teamId)
                 return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
 
+            const passwordHash = teamRecord.isSelectable ? await generatePasswordHash(password) : null;
+
             const updateTeam = await prisma.team.update({
                 where: { id: teamId },
                 data: {
                     name: teamName,
+                    passwordHash: passwordHash,
                 },
             });
-            
+
             return res.status(200).json({
                 ok: true,
                 message: `Das Team wurde erfolgreich verändert.`
@@ -186,13 +200,13 @@ router.delete("/delete-team", async (req, res) => {
             });
 
             if (teamRecord.sessionLock)
-                return res.status(409).json({ ok: false, message: "Das ausgewählte Team ist aktuell eingeloggt." }); 
+                return res.status(409).json({ ok: false, message: "Das ausgewählte Team ist aktuell eingeloggt." });
 
             if (!teamRecord || teamRecord.name === "Administration")
-                return res.status(404).json({ ok: false, message: "Das Team wurde nicht gefunden."});
+                return res.status(404).json({ ok: false, message: "Das Team wurde nicht gefunden." });
 
             const parentId = teamRecord.parentId
-            
+
             for (const element of teamRecord.children) {
                 if (element.children.length > 0) {
                     const deleteMultipleUsers = await prisma.team.deleteMany({
@@ -214,7 +228,7 @@ router.delete("/delete-team", async (req, res) => {
             }) : null;
 
             if (parentRecord && parentRecord.children.length === 0) updateParentSelectable(parentId);
-            
+
             return res.status(200).json({
                 ok: true,
                 message: `Das Team wurde erfolgreich gelöscht.`
