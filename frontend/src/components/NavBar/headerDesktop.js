@@ -361,7 +361,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   return (
     <>
-      <header className="Header" inert={takeoverDialog.open || returnDialog.open ? "" : undefined}>
+      <header className="Header">
         <div className="header-inner">
           <div className="logo">
             <Link
