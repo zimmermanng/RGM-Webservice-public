@@ -4,8 +4,9 @@ import Card_dimensions from "../components/Cards/Card_dimensions";
 import { Link, useNavigate } from "react-router-dom";
 import dimensionenContent from "../components/data/dimensionen_content.json";
 import { API_BASE } from "../config.ts";
+import useDialogFocus from "../hooks/useDialogFocus";
 
-const DimensionsEditPage = () => {
+const DimensionsEditPage = ({ onSessionInvalid }) => {
   const navigate = useNavigate();
   const [toEdit, setToEdit] = useState([]);
   const [notToEdit, setNotToEdit] = useState([]);
@@ -20,11 +21,13 @@ const DimensionsEditPage = () => {
   const scrollIntervalRef = useRef(null);
   const liveRegionRef = useRef(null);
   const [evaluationName, setEvaluationName] = useState("");
+  const [pendingPackageFocus, setPendingPackageFocus] = useState(null);
 
   const [confirmDialog, setConfirmDialog] = useState({
     open: false,
     card: null,
   });
+  const confirmCancelRef = useRef(null);
 
   const descriptionByDimensionId = useMemo(() => {
     const entries = Array.isArray(dimensionenContent?.dimensionen)
@@ -183,13 +186,15 @@ const DimensionsEditPage = () => {
       ]);
 
       if (settingsRes.status === 401 || stateRes.status === 401) {
-        alert("Ihre Sitzung ist nicht mehr gültig. Bitte erneut einloggen.");
-        navigate("/login");
+        await onSessionInvalid?.(
+          "Ihre Sitzung ist nicht mehr gültig. Bitte melden Sie sich erneut an.",
+        );
         return false;
       }
       if (settingsRes.status === 403 || stateRes.status === 403) {
-        alert("Bitte zuerst ein Team auswählen.");
-        navigate("/team-select");
+        await onSessionInvalid?.(
+          "Ihre Teamzuordnung ist nicht mehr gültig. Bitte melden Sie sich erneut an und wählen Sie eine Organisationseinheit aus.",
+        );
         return false;
       }
 
@@ -202,6 +207,7 @@ const DimensionsEditPage = () => {
       console.error("Fehler beim Speichern:", error);
       announce(
         "Fehler: Änderungen konnten nicht am Server gespeichert werden.",
+        "error",
       );
       return false;
     } finally {
@@ -223,9 +229,15 @@ const DimensionsEditPage = () => {
   };
 
   const handleKeyDown = (e, card, fromList, targetList) => {
+    if (e.target !== e.currentTarget) return;
+
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      if (!lockedCards.includes(card.id)) moveCard(card, fromList, targetList);
+      if (lockedCards.includes(card.id)) {
+        announce(`Paket "${card.name}" ist gesperrt und kann nicht verschoben werden.`);
+        return;
+      }
+      moveCard(card, fromList, targetList);
     }
   };
 
@@ -246,6 +258,7 @@ const DimensionsEditPage = () => {
 
       setNotToEdit(updatedNotToEdit);
       setToEdit(updatedToEdit);
+      setPendingPackageFocus({ id: card.id, list: "toEdit" });
       announce(`Paket "${card.name}" wurde nach "Ausgewählt" verschoben.`);
       saveData(updatedToEdit, currentAnswers);
     }
@@ -261,6 +274,7 @@ const DimensionsEditPage = () => {
     setToEdit(updatedToEdit);
     setNotToEdit(updatedNotToEdit);
     setCurrentAnswers(updatedAnswers);
+    setPendingPackageFocus({ id: card.id, list: "notToEdit" });
 
     announce(`Paket "${card.name}" wurde nach "Nicht ausgewählt" verschoben.`);
     saveData(updatedToEdit, updatedAnswers);
@@ -269,15 +283,42 @@ const DimensionsEditPage = () => {
   const handleConfirm = () => {
     performMove(confirmDialog.card);
     setConfirmDialog({ open: false, card: null });
-    document.getElementById("editGrid-notToEdit")?.focus();
   };
 
   const handleCancel = () => {
     setConfirmDialog({ open: false, card: null });
   };
 
-  const announce = (message) => {
+  const confirmDialogRef = useDialogFocus(confirmDialog.open, {
+    initialFocusRef: confirmCancelRef,
+    onClose: handleCancel,
+  });
+
+  useEffect(() => {
+    if (!pendingPackageFocus) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      document
+        .getElementById(
+          `config-package-${pendingPackageFocus.list}-${pendingPackageFocus.id}`,
+        )
+        ?.focus();
+      setPendingPackageFocus(null);
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [pendingPackageFocus, toEdit, notToEdit]);
+
+  const announce = (message, type = "status") => {
     if (liveRegionRef.current) {
+      liveRegionRef.current.setAttribute(
+        "role",
+        type === "error" ? "alert" : "status",
+      );
+      liveRegionRef.current.setAttribute(
+        "aria-live",
+        type === "error" ? "assertive" : "polite",
+      );
       liveRegionRef.current.textContent = "";
       setTimeout(() => {
         liveRegionRef.current.textContent = message;
@@ -332,9 +373,9 @@ const DimensionsEditPage = () => {
 
   return (
     <div className="mainContainer">
-      <h2>Konfigurationsmodus</h2>
+      <h1>Konfigurationsmodus</h1>
       {evaluationName && (
-        <h2>"{evaluationName}"</h2>
+        <h2>Evaluationsrunde „{evaluationName}“</h2>
       )}
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
@@ -350,6 +391,7 @@ const DimensionsEditPage = () => {
 
       <div
         ref={liveRegionRef}
+        role="status"
         aria-live="polite"
         aria-atomic="true"
         className="sr-only"
@@ -373,12 +415,12 @@ const DimensionsEditPage = () => {
           onDrop={(e) => handleDrop(e, "toEdit")}
           aria-labelledby="heading-toEdit"
         >
-          <h4
+          <h3
             id="heading-toEdit"
             title="Alle Pakete, die zu Ihrer Abteilung passen"
           >
             Ausgewählt
-          </h4>
+          </h3>
 
           <div
             className="editGrid"
@@ -394,22 +436,26 @@ const DimensionsEditPage = () => {
             ) : (
               toEdit.map((dimension) => {
                 const progress = getProgress(dimension);
+                const isLocked = lockedCards.includes(dimension.id);
                 return (
                   <div
                     key={dimension.id}
+                    id={`config-package-toEdit-${dimension.id}`}
                     role="listitem"
-                    draggable={
-                      lockedCards.includes(dimension.id) ? false : true
-                    }
+                    draggable={!isLocked}
                     tabIndex={0}
-                    aria-roledescription="Verschiebbares Element"
-                    aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Nicht ausgewählt' zu verschieben.`}
+                    aria-roledescription={isLocked ? undefined : "Verschiebbares Paket"}
+                    aria-label={
+                      isLocked
+                        ? `Paket ${dimension.name}. Ausgewählt und gesperrt. Das Paket kann nicht verschoben werden.`
+                        : `Paket ${dimension.name}. Ausgewählt. Drücken Sie Enter oder die Leertaste, um es nach Nicht ausgewählt zu verschieben.`
+                    }
                     onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
                     onKeyDown={(e) =>
                       handleKeyDown(e, dimension, "toEdit", "notToEdit")
                     }
                     style={{
-                      cursor: lockedCards.includes(dimension.id)
+                      cursor: isLocked
                         ? "not-allowed"
                         : "grab",
                     }}
@@ -421,11 +467,12 @@ const DimensionsEditPage = () => {
                       handlungsfelder={dimension.handlungsfelder}
                       showStartButton={false}
                       showProgress={true}
+                      headingLevel={4}
                       progress={progress}
                       privilegedAccess={privilegedAccess}
-                      isLocked={lockedCards.includes(dimension.id)}
+                      isLocked={isLocked}
                       showLock={
-                        privilegedAccess || lockedCards.includes(dimension.id)
+                        privilegedAccess || isLocked
                       }
                       setLockedCards={setLockedCards}
                     />
@@ -443,12 +490,12 @@ const DimensionsEditPage = () => {
           onDrop={(e) => handleDrop(e, "notToEdit")}
           aria-labelledby="heading-notToEdit"
         >
-          <h4
+          <h3
             id="heading-notToEdit"
             title="Alle Pakete, die nicht zu Ihrer Abteilung passen"
           >
             Nicht ausgewählt
-          </h4>
+          </h3>
 
           <div
             className="editGrid"
@@ -460,11 +507,12 @@ const DimensionsEditPage = () => {
             {notToEdit.map((dimension) => (
               <div
                 key={dimension.id}
+                id={`config-package-notToEdit-${dimension.id}`}
                 role="listitem"
                 draggable
                 tabIndex={0}
-                aria-roledescription="Verschiebbares Element"
-                aria-label={`Paket ${dimension.name}. Drücken Sie Enter oder die Leertaste, um es nach 'Ausgewählt' zu verschieben.`}
+                aria-roledescription="Verschiebbares Paket"
+                aria-label={`Paket ${dimension.name}. Nicht ausgewählt. Drücken Sie Enter oder die Leertaste, um es nach Ausgewählt zu verschieben.`}
                 onDragStart={(e) => handleDragStart(e, dimension, "notToEdit")}
                 onKeyDown={(e) =>
                   handleKeyDown(e, dimension, "notToEdit", "toEdit")
@@ -478,6 +526,7 @@ const DimensionsEditPage = () => {
                   handlungsfelder={dimension.handlungsfelder}
                   showStartButton={false}
                   showProgress={false}
+                  headingLevel={4}
                 />
               </div>
             ))}
@@ -495,28 +544,23 @@ const DimensionsEditPage = () => {
           Fertig
         </button>
 
-        <Link to="/dimensions">
-          <button className="finishEditButton">Abbrechen</button>
+        <Link to="/dimensions" className="finishEditButton button">
+          Abbrechen
         </Link>
       </div>
 
       {/* --- CONFIRM DIALOG --- */}
       {confirmDialog.open && (
-        <div
-          className="modalOverlay"
-          role="dialog"
-          aria-labelledby="modal-title"
-          aria-modal="true"
-        >
-          <div className="modal">
-            <p id="modal-title">
+        <div className="modalOverlay" role="presentation">
+          <div ref={confirmDialogRef} className="modal" role="alertdialog" aria-labelledby="reset-package-title" aria-modal="true" tabIndex={-1}>
+            <p id="reset-package-title">
               Der Bearbeitungsstand von "{confirmDialog.card.name}" wird beim
               Verschieben dieses Pakets zurückgesetzt.
             </p>
 
             <div className="modalButtons">
-              <button onClick={handleCancel} autoFocus>
-                Abbrechen
+              <button ref={confirmCancelRef} onClick={handleCancel}>
+                Paket nicht verschieben
               </button>
               <button onClick={handleConfirm} className="danger">
                 Trotzdem verschieben
@@ -526,7 +570,7 @@ const DimensionsEditPage = () => {
         </div>
       )}
       {toastMessage && (
-        <div className="toast" aria-hidden="true">
+        <div className="toast" aria-hidden="true" role="presentation">
           {toastMessage}
         </div>
       )}

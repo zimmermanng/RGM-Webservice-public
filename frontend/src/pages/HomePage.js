@@ -21,7 +21,7 @@ function HomePage() {
         </div>
       </section>
 
-      <main className="homeContent">
+      <div className="homeContent">
         <section className="homeIntroCard">
           <h2>Worum geht es?</h2>
           <p>
@@ -183,7 +183,7 @@ function HomePage() {
             </p>
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

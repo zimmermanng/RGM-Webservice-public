@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE } from "../../config.ts";
+import useDialogFocus from "../../hooks/useDialogFocus";
 
 const NAV_ITEMS = {
   default: [
@@ -10,7 +11,7 @@ const NAV_ITEMS = {
     { label: "Dimensionen", to: "/dimensions" },
   ],
   LMZ: [
-    { label: "Startseite", to: "/" },
+    { label: "Startseite", to: "/start" },
     { label: "Konfigurationsmodus", to: "/dimensions/bearbeiten" },
     { label: "Fragebogen", to: "/dimensions" },
   ],
@@ -48,6 +49,8 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     teamId: "",
     previousTeam: "",
   });
+  const returnCancelRef = useRef(null);
+  const takeoverCancelRef = useRef(null);
 
   const navItems = useMemo(() => {
     if (team === "Administration") return NAV_ITEMS.ADMIN;
@@ -338,6 +341,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     closeMenu(false);
   };
 
+  const closeReturnDialog = () => {
+    setReturnDialog({ open: false, message: "" });
+  };
+
   const forcefulLogin = async () => {
     await teamLogin(takeoverDialog.teamName, true);
     await teamLogout();
@@ -357,7 +364,16 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     });
   };
 
-  const homeTarget = activeCompany === "LMZ" ? "/" : "/start";
+  const returnDialogRef = useDialogFocus(returnDialog.open, {
+    initialFocusRef: returnCancelRef,
+    onClose: closeReturnDialog,
+  });
+  const takeoverDialogRef = useDialogFocus(takeoverDialog.open, {
+    initialFocusRef: takeoverCancelRef,
+    onClose: declineLogin,
+  });
+
+  const homeTarget = "/start";
 
   return (
     <>
@@ -397,37 +413,59 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
           <div className="header-actions">
             {team && (
-              <select
-                id="team-select"
-                className="team-indicator desktop-team-indicator"
-                aria-label="Team auswählen"
-                value={loadingSelectedTeam ? "" : selectedTeam}
-                onChange={changeTeam}
-              >
-                {loadingSelectableTeams ? (
-                  <option></option>
-                ) : (
-                  selectableTeams.map((unit) =>
-                    unit.children.length > 0 ? (
-                      unit.children.map((unitTeam) => (
-                        <option
-                          key={unitTeam.name}
-                          value={unitTeam.name}
-                          className="team-indicator-value"
-                        >
-                          {unit.name} | {unitTeam.name}
+              <div className="team-select-control">
+                <label className="team-indicator-label" htmlFor="team-select">
+                  Teamansicht
+                </label>
+                <select
+                  id="team-select"
+                  className="team-indicator desktop-team-indicator"
+                  value={loadingSelectedTeam ? "" : selectedTeam}
+                  onChange={changeTeam}
+                  disabled={loadingSelectableTeams}
+                  aria-describedby="team-select-description team-select-current"
+                  aria-busy={loadingSelectableTeams}
+                >
+                  {loadingSelectableTeams ? (
+                    <option value="">Teams werden geladen …</option>
+                  ) : (
+                    selectableTeams.map((unit) =>
+                      unit.children.length > 0 ? (
+                        unit.children.map((unitTeam) => (
+                          <option
+                            key={unitTeam.name}
+                            value={unitTeam.name}
+                            className="team-indicator-value"
+                          >
+                            {unit.name} | {unitTeam.name}
+                          </option>
+                        ))
+                      ) : (
+                        <option key={unit.name} value={unit.name}>
+                          {unit.name === team
+                            ? `✏️ ${unit.name} (Eigener Bereich)`
+                            : `👁️ ${unit.name} (Lesezugriff)`}
                         </option>
-                      ))
-                    ) : (
-                      <option key={unit.name} value={unit.name}>
-                        {unit.name === team
-                          ? `✏️ ${unit.name} (Eigener Bereich)`
-                          : `👁️ ${unit.name} (Lesezugriff)`}
-                      </option>
-                    ),
-                  )
-                )}
-              </select>
+                      ),
+                    )
+                  )}
+                </select>
+                <span id="team-select-description" className="sr-only">
+                  Wählen Sie die Organisationseinheit, deren Ansicht Sie öffnen
+                  möchten. „Eigener Bereich“ kennzeichnet den Schreibzugriff,
+                  „Lesezugriff“ eine schreibgeschützte Ansicht.
+                </span>
+                <span
+                  id="team-select-current"
+                  className={`team-select-current ${
+                    !loadingSelectedTeam && selectedTeam?.length > 32
+                      ? "is-long"
+                      : ""
+                  }`}
+                >
+                  {loadingSelectedTeam ? "wird geladen" : selectedTeam}
+                </span>
+              </div>
             )}
 
             <button
@@ -578,30 +616,31 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
         )}
       </header>
       {returnDialog.open && (
-        <div
-          className="modalOverlay"
-          role="dialog"
-          aria-labelledby="modal-title"
-          aria-modal="true"
-        >
-          <div className="modal" >
-            <p>{returnDialog.message}</p>
-            <div className="modalButtons">
+        <div className="modalOverlay" role="presentation">
+          <div ref={returnDialogRef} className="modal" role="alertdialog" aria-labelledby="return-dialog-title" aria-describedby="return-dialog-description" aria-modal="true" tabIndex={-1}>
+            <h2 id="return-dialog-title">Teamansicht verlassen?</h2>
+            <p id="return-dialog-description">{returnDialog.message}</p>
+            <div className="modalButtons return-dialog-actions">
               <button
-                onClick={() => setReturnDialog({ open: false, message: "" })}
+                ref={returnCancelRef}
+                onClick={closeReturnDialog}
               >
-                Bleiben
+                In der Teamansicht bleiben
               </button>
-              <button onClick={confirmPopup}>Zurückkehren</button>
+              <button onClick={confirmPopup}>
+                {team === "Administration"
+                  ? "Zum Adminpanel wechseln"
+                  : "Zur eigenen Organisationseinheit wechseln"}
+              </button>
             </div>
           </div>
         </div>
       )}
       {takeoverDialog.open && (
         <div className="session-timeout-dialog-backdrop" role="presentation">
-          <div className="session-timeout-dialog">
-            <h2 id="team-takeover-title">Bearbeitung übernehmen?</h2>
-            <p>
+          <div ref={takeoverDialogRef} className="session-timeout-dialog" role="alertdialog" aria-modal="true" aria-labelledby="header-team-takeover-title" aria-describedby="header-team-takeover-description" tabIndex={-1}>
+            <h2 id="header-team-takeover-title">Bearbeitung übernehmen?</h2>
+            <p id="header-team-takeover-description">
               Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person
               wird dann automatisch abgemeldet.
             </p>
@@ -611,6 +650,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
             </p>
             <div className="session-timeout-actions">
               <button
+                ref={takeoverCancelRef}
                 type="button"
                 className="access-button"
                 onClick={forcefulLogin}
@@ -622,7 +662,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                 className="access-button secondary"
                 onClick={declineLogin}
               >
-                Abbrechen
+                Bearbeitung nicht übernehmen
               </button>
             </div>
           </div>

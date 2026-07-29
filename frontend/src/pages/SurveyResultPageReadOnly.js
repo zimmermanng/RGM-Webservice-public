@@ -221,16 +221,27 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
     <div>
       <div className="mainContainer" id="top">
 
-        <div className="toggle-container">
+        <div
+          className="toggle-container"
+          role="group"
+          aria-labelledby="readonly-result-view-mode-label"
+        >
+          <span id="readonly-result-view-mode-label" className="sr-only">
+            Darstellung der Ergebnisse
+          </span>
           <button
+            type="button"
             className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
             onClick={() => setViewMode("chart")}
+            aria-pressed={viewMode === "chart"}
           >
             Diagramm anzeigen
           </button>
           <button
+            type="button"
             className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
             onClick={() => setViewMode("table")}
+            aria-pressed={viewMode === "table"}
           >
             Tabelle anzeigen
           </button>

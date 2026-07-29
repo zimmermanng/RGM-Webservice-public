@@ -63,8 +63,13 @@ const getLuminance = (color) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 };
 
-const getTextColor = (backgroundColor) =>
-  getLuminance(backgroundColor) > 0.5 ? 'black' : 'white';
+const getTextColor = (backgroundColor) => {
+  const backgroundLuminance = getLuminance(backgroundColor);
+  const contrastWithBlack = (backgroundLuminance + 0.05) / 0.05;
+  const contrastWithWhite = 1.05 / (backgroundLuminance + 0.05);
+
+  return contrastWithBlack >= contrastWithWhite ? '#000000' : '#ffffff';
+};
 
 const RadialBarChart = ({
   data = [],
@@ -82,6 +87,7 @@ const RadialBarChart = ({
   showTickLabels = true,
   tickLabelOffset = valueOffset,
   onSegmentClick,
+  segmentActionText,
 }) => {
   const svgRef = useRef(null);
   const chartIdRef = useRef(`radial-chart-${Math.random().toString(36).slice(2)}`);
@@ -201,7 +207,7 @@ const RadialBarChart = ({
       return adjustedValue === -1 ? 'Keine Einstufung vorhanden' : adjustedValue;
     };
 
-    const createTooltip = (svgSelection, x, y, lines) => {
+    const createTooltip = (svgSelection, x, y, lines, entry) => {
       const screenWidth = window.innerWidth;
       let fontSize = 18;
 
@@ -212,7 +218,7 @@ const RadialBarChart = ({
         .append('g')
         .attr('id', 'tooltip-group')
         .attr('transform', `translate(${x}, ${y})`)
-        .attr('pointer-events', 'none');
+        .attr('pointer-events', segmentActionText ? 'all' : 'none');
 
       lines.forEach((line, index) => {
         tooltipGroup
@@ -224,6 +230,34 @@ const RadialBarChart = ({
           .attr('dominant-baseline', 'middle')
           .attr('font-size', fontSize);
       });
+
+      if (segmentActionText && onSegmentClick) {
+        const actionY = -35 + lines.length * (fontSize * 1.2);
+        const action = tooltipGroup
+          .append('a')
+          .attr('href', '#')
+          .attr('role', 'link')
+          .attr('aria-label', `${segmentActionText}: ${entry.category}`)
+          .on('mousedown', (event) => event.preventDefault())
+          .on('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onSegmentClick(entry);
+          });
+
+        action
+          .append('text')
+          .text(segmentActionText)
+          .attr('x', 0)
+          .attr('y', actionY)
+          .attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle')
+          .attr('font-size', fontSize)
+          .attr('font-weight', '700')
+          .attr('text-decoration', 'underline')
+          .attr('fill', '#000000')
+          .style('cursor', 'pointer');
+      }
 
       const bbox = tooltipGroup.node().getBBox();
       const padding = 10;
@@ -260,6 +294,9 @@ const RadialBarChart = ({
         .attr('fill', 'none')
         .attr('stroke', 'white')
         .attr('stroke-width', 2);
+
+      // Keep the numbered level badges readable above the segment focus ring.
+      svg.selectAll('.tick-label-badge').raise();
     };
 
     const createCircularPath = (pathRadius, startAngle, endAngle, reverse = false) => {
@@ -339,7 +376,12 @@ const RadialBarChart = ({
       const valueText = formatValueText(entry);
       const groupLabel = entry.groupLabel || 'Dimension';
       const categoryLabel = entry.categoryLabel || 'Themenfeld';
-      const aria = entry.ariaLabel || `${groupLabel}: ${entry.group}, ${categoryLabel}: ${entry.category}, Stufe: ${valueText}, Drücken Sie Enter für Details`;
+      const activationHint = onSegmentClick
+        ? segmentActionText
+          ? `, Enter drücken für: ${segmentActionText}`
+          : ', Aktivieren, um eine zugehörige Aktion auszuwählen'
+        : '';
+      const aria = entry.ariaLabel || `${groupLabel}: ${entry.group}, ${categoryLabel}: ${entry.category}, Stufe: ${valueText}${activationHint}`;
 
       svg
         .append('path')
@@ -385,6 +427,7 @@ const RadialBarChart = ({
         .attr('d', createArc(INNER_RADIUS + 4, focusOuterRadius + 4, startAngle, endAngle))
         .attr('fill', 'transparent')
         .attr('tabindex', '0')
+        .attr('role', onSegmentClick ? 'button' : 'img')
         .attr('data-index', index)
         .attr('aria-label', aria);
 
@@ -407,11 +450,11 @@ const RadialBarChart = ({
         if (lastInputTypeRef.current === 'mouse' && mouseX !== null && mouseY !== null) {
           const x = mouseX < 0 ? mouseX + offsetX : mouseX - offsetX;
           const y = mouseY - 20;
-          createTooltip(svg, x, y, tooltipLines);
+          createTooltip(svg, x, y, tooltipLines, entry);
         } else {
           const y = (-(focusOuterRadius) * Math.cos(centerAngle)) * 0.75;
           const x = (focusOuterRadius * Math.sin(centerAngle)) * 0.75;
-          createTooltip(svg, x, y, tooltipLines);
+          createTooltip(svg, x, y, tooltipLines, entry);
         }
       });
 
@@ -421,11 +464,11 @@ const RadialBarChart = ({
         const [x0, y0] = d3.pointer(event, svg.node());
         const x = x0 < 0 ? x0 + 90 : x0 - 90;
         const y = y0 - 20;
-        createTooltip(svg, x, y, tooltipLines);
+        createTooltip(svg, x, y, tooltipLines, entry);
       });
 
       overlay.on('click', function handleClick() {
-        if (onSegmentClick) onSegmentClick(entry);
+        if (onSegmentClick && !segmentActionText) onSegmentClick(entry);
       });
 
       overlay.on('keydown', function handleKeyDown(event) {
@@ -582,6 +625,7 @@ const RadialBarChart = ({
     showTickLabels,
     tickLabelOffset,
     onSegmentClick,
+    segmentActionText,
     focusOuterRadius,
   ]);
 

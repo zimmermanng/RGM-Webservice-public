@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
+import useDialogFocus from "../hooks/useDialogFocus";
 
 const LoginPage = ({
   activeCompany,
@@ -16,6 +17,7 @@ const LoginPage = ({
   const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
   const [successfullyLoaded, setSuccessfullyLoaded] = useState(true)
   const [error, setError] = useState("");
+  const [errorField, setErrorField] = useState("");
   const [loading, setLoading] = useState(false);
 
   const sessionNoticeRef = useRef(null);
@@ -28,6 +30,7 @@ const LoginPage = ({
   });
   const takeoverDialogRef = useRef(null);
   const takeoverPrimaryButtonRef = useRef(null);
+  const takeoverCancelButtonRef = useRef(null);
 
   const logoPath = useMemo(() => {
     return activeCompany === "LMZ" ? "/LMZ-Logo.jpg" : "/shuffle-logo.svg";
@@ -42,6 +45,13 @@ const LoginPage = ({
       message: "",
     });
   };
+
+  useDialogFocus(takeoverDialog.open, {
+    dialogRef: takeoverDialogRef,
+    initialFocusRef: takeoverCancelButtonRef,
+    onClose: closeTakeoverDialog,
+    closeOnEscape: !saving,
+  });
 
   const completeSelection = (data, fallbackTeamName) => {
     if (onTeamSelected) {
@@ -80,11 +90,26 @@ const LoginPage = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setErrorField("");
     setLoading(true);
 
     if (!organisation) {
       setError("Ein Team muss ausgewählt werden.");
+      setErrorField("organisation");
       setLoading(false);
+      window.requestAnimationFrame(() =>
+        document.getElementById("login-organisation")?.focus(),
+      );
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Bitte geben Sie das Passwort der Organisationseinheit ein.");
+      setErrorField("password");
+      setLoading(false);
+      window.requestAnimationFrame(() =>
+        document.getElementById("login-password")?.focus(),
+      );
       return;
     }
 
@@ -104,6 +129,7 @@ const LoginPage = ({
 
       if (!res.ok) {
         setError(data.message || "Login fehlgeschlagen");
+        setErrorField("password");
         return;
       }
 
@@ -121,6 +147,7 @@ const LoginPage = ({
       handleContinue()
     } catch (err) {
       setError("Backend nicht erreichbar");
+      setErrorField("form");
     } finally {
       setLoading(false);
     }
@@ -202,18 +229,28 @@ const LoginPage = ({
             </div>
           )}
           {loadingSelectableTeams ? (
-            <p className="access-subtitle">Lade Teamstruktur...</p>
+            <p className="access-subtitle" role="status" aria-live="polite">
+              Teamstruktur wird geladen …
+            </p>
           ) : successfullyLoaded ? (
-            <>
-              <form onSubmit={handleSubmit} className="access-form">
+              <form onSubmit={handleSubmit} className="access-form" noValidate>
                 <label htmlFor="login-organisation">Organisationseinheit</label>
                 <select
                   id="login-organisation"
                   value={organisation}
-                  onChange={(e) => setOrganisation(e.target.value)}
+                  onChange={(e) => {
+                    setOrganisation(e.target.value);
+                    if (errorField === "organisation") {
+                      setError("");
+                      setErrorField("");
+                    }
+                  }}
                   className="access-input"
-                  aria-invalid={error ? "true" : "false"}
-                  aria-describedby={error ? "login-password-error" : undefined}
+                  required
+                  aria-invalid={errorField === "organisation"}
+                  aria-describedby={
+                    errorField === "organisation" ? "login-form-error" : undefined
+                  }
                 >
                   <option value="" disabled>
                     Bitte auswählen
@@ -225,9 +262,7 @@ const LoginPage = ({
                     >{unit.formattedName}</option>
                   ))}
                 </select>
-              </form>
 
-              <form onSubmit={handleSubmit} className="access-form">
                 <label htmlFor="login-password">Passwort</label>
 
                 <input
@@ -235,13 +270,24 @@ const LoginPage = ({
                   type="password"
                   placeholder="Passwort eingeben"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (errorField === "password") {
+                      setError("");
+                      setErrorField("");
+                    }
+                  }}
                   className="access-input"
+                  required
+                  aria-invalid={errorField === "password"}
+                  aria-describedby={
+                    errorField === "password" ? "login-form-error" : undefined
+                  }
                 />
 
                 {error && (
                   <div
-                    id="login-password-error"
+                    id="login-form-error"
                     className="access-error"
                     role="alert"
                     aria-live="assertive"
@@ -251,12 +297,14 @@ const LoginPage = ({
                 )}
 
                 <button type="submit" className="access-button" disabled={loading || !organisation}>
-                  {loading ? "Prüfen..." : "Einloggen"}
+                  {loading ? "Zugang wird geprüft …" : "Einloggen"}
                 </button>
               </form>
-            </>
           ) : (
-            <p className="access-subtitle">Teams konnten nicht geladen werden.</p>
+            <p className="access-error" role="alert">
+              Teams konnten nicht geladen werden. Bitte laden Sie die Seite
+              erneut oder wenden Sie sich an die Administration.
+            </p>
           )}
         </div>
       </div>
@@ -298,12 +346,13 @@ const LoginPage = ({
               </button>
 
               <button
+                ref={takeoverCancelButtonRef}
                 type="button"
                 className="access-button secondary"
                 onClick={closeTakeoverDialog}
                 disabled={saving}
               >
-                Abbrechen
+                Bearbeitung nicht übernehmen
               </button>
             </div>
           </div>

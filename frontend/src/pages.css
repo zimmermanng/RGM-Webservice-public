@@ -63,6 +63,14 @@ margin:0px;
   box-shadow: 0 8px 18px color-mix(in srgb, var(--brand-accent) 28%, transparent);
 }
 
+a.homeButton,
+a.homeButton:visited,
+a.homeButton:hover,
+a.homeButton:focus-visible,
+a.homeButton:active {
+  color: var(--letter-color);
+}
+
 .homeContent {
   padding: 2rem 0 3rem;
 }
@@ -140,6 +148,22 @@ margin:0px;
   grid-template-columns: auto 1fr;
   gap: 1rem;
   align-items: start;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.noticeBlock > div {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.noticeBlock h2,
+.noticeBlock p {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .noticeLabel {
@@ -193,12 +217,31 @@ margin:0px;
 .toggle-container {
   justify-content: center;
   margin: var(--space-6) 0 var(--space-5);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .tab-button {
-  margin-right: 10px;
-  margin-bottom: 10px;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
   font-weight: 700;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.tab-button:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--color-focus);
 }
 
 .filter-container {
@@ -233,6 +276,9 @@ margin:0px;
   margin-top: var(--space-5);
   padding: var(--space-5);
   background: var(--color-surface-muted);
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .category-box h4,
@@ -314,7 +360,7 @@ margin:0px;
 .already-done-block > summary {
   padding: 1rem 1.1rem;
   background: var(--brand-primary-soft);
-  color: var(--brand-primary);
+  color: #000000;
 }
 
 .already-done-block > summary::-webkit-details-marker,
@@ -345,10 +391,15 @@ margin:0px;
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  border-radius: inherit;
 }
 
 .question-recommendation-summary-text {
   flex: 1;
+  min-width: 0;
 }
 
 .question-recommendation-kicker {
@@ -456,6 +507,13 @@ margin:0px;
 @media (max-width: 900px) {
   .noticeBlock {
     grid-template-columns: 1fr;
+  }
+
+  .noticeLabel {
+    min-width: 0;
+    max-width: 100%;
+    justify-self: start;
+    white-space: normal;
   }
 }
 
@@ -596,6 +654,10 @@ margin:0px;
   gap: var(--space-3);
   padding: 1rem 1.15rem;
   background: var(--color-surface-muted);
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  border-radius: inherit;
 }
 
 .question-reference-panel {
@@ -622,6 +684,38 @@ margin:0px;
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--color-surface-muted) 82%, #ffffff);
   cursor: pointer;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.already-done-block > summary {
+  border-radius: inherit;
+}
+
+.question-recommendation-summary:focus-visible,
+.question-reference-summary:focus-visible,
+.already-done-block > summary:focus-visible,
+.question-answer-details > summary:focus-visible {
+  outline: none;
+  box-shadow: none;
+  position: relative;
+}
+
+.question-recommendation-summary:focus-visible::before,
+.question-reference-summary:focus-visible::before,
+.already-done-block > summary:focus-visible::before,
+.question-answer-details > summary:focus-visible::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  z-index: 2;
+  border: 3px solid var(--color-focus);
+  border-radius: calc(var(--radius-xl) - 3px);
+  pointer-events: none;
+}
+
+.question-answer-details > summary:focus-visible::before {
+  border-radius: calc(var(--radius-lg) - 3px);
 }
 
 .question-answer-details[open] > summary {
@@ -662,6 +756,8 @@ margin:0px;
 .question-recommendation-card {
   overflow: hidden;
   border-radius: var(--radius-xl);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .already-done-block {
@@ -669,11 +765,18 @@ margin:0px;
   border-radius: var(--radius-xl);
   background: var(--color-surface-muted);
   border: 1px solid var(--color-border);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .already-done-block > div,
 .already-done-block > p {
   padding: 1rem 1rem 1.1rem;
+}
+
+.already-done-block > .already-done-empty {
+  margin: 1rem;
+  padding: 0.9rem 1rem;
 }
 
 /* --- Expand / collapse indicators --- */
@@ -808,8 +911,9 @@ margin:0px;
 .access-input:focus,
 .access-form input:focus,
 .access-form select:focus {
-  outline: none;
-  border-color: var(--brand-accent);
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-color: var(--color-text);
   box-shadow: 0 0 0 4px var(--brand-accent-soft);
 }
 
@@ -858,7 +962,7 @@ margin:0px;
 
 .admin-overall-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
   gap: var(--space-6);
   align-items: start;
 }
@@ -1006,6 +1110,7 @@ margin:0px;
   margin-bottom: var(--space-4);
 }
 
+.admin-overall-chart-heading h2,
 .admin-overall-chart-heading h3,
 .admin-overall-section-heading h2,
 .admin-overall-dialog h2,
@@ -1048,6 +1153,13 @@ margin:0px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
   color: var(--color-text);
+}
+
+.admin-overall-select-help {
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .admin-overall-dialog {
@@ -1143,4 +1255,8 @@ margin:0px;
   display:flex;
   justify-content: center;
   padding:120px;
+}
+.recommendation-jump-target:focus {
+  outline: 3px solid #111111;
+  outline-offset: 4px;
 }

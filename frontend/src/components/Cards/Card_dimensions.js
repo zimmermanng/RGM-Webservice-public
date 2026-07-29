@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_BASE } from "../../config.ts";
 
@@ -10,6 +10,7 @@ const Card_dimensions = ({
   link,
   showStartButton = true,
   showProgress = true,
+  headingLevel = 3,
   progress = 0,
   privilegedAccess,
   isLocked: initialIsLocked = false,
@@ -17,14 +18,25 @@ const Card_dimensions = ({
   setLockedCards
 }) => {
   const [isLocked, setIsLocked] = useState(initialIsLocked);
+  const [isSavingLock, setIsSavingLock] = useState(false);
+  const [lockMessage, setLockMessage] = useState("");
   const titleId = `card-title-${dimensionId}`;
   const progressId = `card-progress-${dimensionId}`;
+  const lockStatusId = `card-lock-status-${dimensionId}`;
   const firstHF = handlungsfelder[0];
+  const CardHeading = headingLevel === 4 ? "h4" : "h3";
+
+  useEffect(() => {
+    setIsLocked(initialIsLocked);
+  }, [initialIsLocked]);
 
   const handleToggle = async (e) => {
-    if(!privilegedAccess) return
-    e.stopPropagation(); // Verhindert, dass Drag-Events der übergeordneten Liste feuern
-    setIsLocked((prev) => !prev);
+    if (!privilegedAccess || isSavingLock) return;
+    e.stopPropagation();
+    const nextIsLocked = !isLocked;
+    setIsLocked(nextIsLocked);
+    setIsSavingLock(true);
+    setLockMessage(`Status für Paket ${title} wird gespeichert.`);
     try {
       const lockRes = await fetch(`${API_BASE}/session/locking-dimension`, {
         method: "POST",
@@ -32,28 +44,61 @@ const Card_dimensions = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           dimensionId: dimensionId,
-          lockStatus: !isLocked,
+          lockStatus: nextIsLocked,
         }),
       });
-      const results = await lockRes.json()
+      if (!lockRes.ok) {
+        throw new Error("Sperrstatus konnte nicht gespeichert werden.");
+      }
+      const results = await lockRes.json();
       const lockedDimensions = results.lockedDimensions ? results.lockedDimensions : [];
-      setLockedCards(lockedDimensions)
-      return results
+      setLockedCards?.(lockedDimensions);
+      const savedIsLocked = lockedDimensions.includes(dimensionId);
+      setIsLocked(savedIsLocked);
+      setLockMessage(
+        `Paket ${title} ist jetzt ${
+          savedIsLocked ? "gesperrt" : "nicht gesperrt"
+        }.`,
+      );
+      return results;
     } catch (error) {
-      console.error("Fehler beim Speichern des Status:", error)
+      console.error("Fehler beim Speichern des Status:", error);
+      setIsLocked(!nextIsLocked);
+      setLockMessage(
+        `Fehler: Der Sperrstatus für Paket ${title} konnte nicht gespeichert werden.`,
+      );
+    } finally {
+      setIsSavingLock(false);
     }
   };
   const renderStatusIcon = () => {
     const iconSrc = isLocked ? "/lock-closed.svg" : "/lock_open.svg";
-    const iconAlt = isLocked ? "Paket fixiert." : "Paket nicht fixiert.";
+    const statusText = isLocked ? "gesperrt" : "nicht gesperrt";
+
+    if (!privilegedAccess) {
+      return (
+        <span
+          className="icon-lock"
+          role="img"
+          aria-label={`Paket ${title} ist ${statusText}`}
+          title={`Paket ist ${statusText}`}
+        >
+          <img src={iconSrc} alt="" className="card-lock-icon" />
+        </span>
+      );
+    }
+
     return (
       <button
         type="button"
         className="icon-lock"
         onClick={handleToggle}
-        aria-label={iconAlt}
+        aria-label={`Paket ${title} ${isLocked ? "freischalten" : "sperren"}`}
+        aria-pressed={isLocked}
+        aria-busy={isSavingLock}
+        aria-describedby={lockStatusId}
+        disabled={isSavingLock}
         title={isLocked ? "Freischalten" : "Sperren"}
-        style={{ cursor: privilegedAccess ? "" : "not-allowed" }}
       >
         <img src={iconSrc} alt="" className="card-lock-icon" />
       </button>
@@ -80,7 +125,7 @@ const Card_dimensions = ({
   return (
     <div className="card" role="article" aria-labelledby={titleId}>
       <div className="card-content">
-        <h3 id={titleId}>{title}</h3>
+        <CardHeading id={titleId}>{title}</CardHeading>
 
         {description && (
           <div className="background_declaration">
@@ -94,7 +139,7 @@ const Card_dimensions = ({
               <progress
                 value={progress}
                 max={1}
-                aria-describedby={progressId}
+                aria-labelledby={`${titleId} ${progressId}`}
               />
               <div id={progressId} className="progress-text">
                 Fortschritt: {Math.round(progress * 100)}%
@@ -102,6 +147,20 @@ const Card_dimensions = ({
               {showLock && (
                 <div>
                   {renderStatusIcon()}
+                  <span
+                    id={lockStatusId}
+                    className="sr-only"
+                    role={lockMessage.startsWith("Fehler:") ? "alert" : "status"}
+                    aria-live={
+                      lockMessage.startsWith("Fehler:") ? "assertive" : "polite"
+                    }
+                    aria-atomic="true"
+                  >
+                    {lockMessage ||
+                      `Paket ${title} ist ${
+                        isLocked ? "gesperrt" : "nicht gesperrt"
+                      }.`}
+                  </span>
                 </div>
               )}
             </>

@@ -100,10 +100,14 @@ const UploadPage = ({ onUpload }) => {
     <div className="mainContainer outline" id="top">
       <h1>Upload</h1>
       <h2>Selbstauswertung und Visualisierung des RGM</h2>
-      <p>Bitte laden Sie eine Datei hoch und bestätigen Sie die Auswahl.</p>
+      <p id="upload-file-help">
+        Bitte wählen Sie eine Excel- oder CSV-Datei aus. Unterstützt werden
+        Dateien mit den Endungen XLSX, XLS und CSV.
+      </p>
 
       {uploadMessage.text && (
         <div
+          id="upload-status-message"
           className="access-error access-error-prominent"
           role={uploadMessage.type === "error" ? "alert" : "status"}
           aria-live={uploadMessage.type === "error" ? "assertive" : "polite"}
@@ -127,7 +131,14 @@ const UploadPage = ({ onUpload }) => {
             onChange={handleFileUpload}
             className="file-input-hidden"
             accept=".xlsx,.xls,.csv"
-            aria-describedby={uploadMessage.text ? "upload-status-message" : undefined}
+            aria-describedby={
+              uploadMessage.text
+                ? "upload-file-help upload-status-message"
+                : "upload-file-help"
+            }
+            aria-invalid={
+              uploadMessage.type === "error" && !selectedFile
+            }
           />
 
           <button
@@ -135,6 +146,11 @@ const UploadPage = ({ onUpload }) => {
             className="upload-button"
             onClick={handleUploadButtonClick}
             disabled={isUploading}
+            aria-describedby={
+              uploadMessage.type === "error"
+                ? "upload-file-help upload-status-message"
+                : "upload-file-help"
+            }
           >
             Datei auswählen
           </button>
@@ -160,14 +176,6 @@ const UploadPage = ({ onUpload }) => {
             </div>
           )}
 
-          <div
-            id="upload-status-message"
-            className="sr-only"
-            role={uploadMessage.type === "error" ? "alert" : "status"}
-            aria-live={uploadMessage.type === "error" ? "assertive" : "polite"}
-          >
-            {uploadMessage.text}
-          </div>
         </div>
       </div>
     </div>

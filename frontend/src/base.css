@@ -168,6 +168,10 @@ code {
   z-index: 1000;
   font-size: 14px;
   animation: fadeIn 0.3s ease-in-out;
+  max-width: min(32rem, calc(100vw - 2rem));
+  text-align: center;
+  overflow-wrap: anywhere;
+  pointer-events: none;
 }
 
 @keyframes fadeIn {

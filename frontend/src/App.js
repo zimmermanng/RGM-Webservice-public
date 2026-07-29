@@ -10,6 +10,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 
 import NavBar from "./components/NavBar/navBar";
@@ -62,6 +63,61 @@ const getFocusableElements = (container) => {
       element.getAttribute("aria-hidden") !== "true",
   );
 };
+
+const getPageTitle = (pathname) => {
+  const path = pathname.toLowerCase();
+
+  if (path.startsWith("/evaluationsrunden/gesamtauswertung")) {
+    return "Gesamtauswertung";
+  }
+  if (path.startsWith("/questionnaire")) return "Fragebogen";
+  if (path.startsWith("/dimensions/bearbeiten")) return "Konfigurationsmodus";
+  if (path.startsWith("/results")) return "Ergebnisse";
+  if (path.startsWith("/rawresults")) return "Ergebnisse";
+  if (path.startsWith("/resultreadonly")) return "Ergebnisse – Leseansicht";
+  if (path.startsWith("/handlungsempfehlungen")) return "Handlungsempfehlungen";
+  if (path.startsWith("/evaluationsrunden")) return "Evaluationsrunden";
+  if (path.startsWith("/struktur")) return "Organisationsstruktur";
+  if (path.startsWith("/dimensions")) return "Übersicht Pakete";
+  if (path.startsWith("/download")) return "Downloads";
+  if (path.startsWith("/upload")) return "Upload";
+  if (path.startsWith("/team-select")) return "Organisationseinheit auswählen";
+  if (path.startsWith("/login")) return "Anmeldung";
+  if (path.startsWith("/start")) return "Startseite";
+  return "RGM-Prüfwerkzeug";
+};
+
+function RouteDocumentTitle() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.title = `${getPageTitle(pathname)} | RGM-Prüfwerkzeug`;
+  }, [pathname]);
+
+  return null;
+}
+
+function RouteFocusManager() {
+  const { pathname } = useLocation();
+  const previousPathRef = useRef(pathname);
+
+  useEffect(() => {
+    if (previousPathRef.current === pathname) {
+      return undefined;
+    }
+
+    previousPathRef.current = pathname;
+    const frameId = window.requestAnimationFrame(() => {
+      const mainContent = document.getElementById("main-content");
+      mainContent?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [pathname]);
+
+  return null;
+}
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -188,7 +244,7 @@ const App = () => {
         handleLogout({
           preserveNotice: true,
           reason:
-            "Ihre Sitzung wurde wegen Inaktivit?t beendet. Ihre bereits gespeicherten Eingaben bleiben erhalten.",
+            "Ihre Sitzung wurde wegen Inaktivität beendet. Ihre bereits gespeicherten Eingaben bleiben erhalten.",
         });
       }, safeTimeoutMs);
     },
@@ -419,10 +475,12 @@ const App = () => {
   }, [authChecked, isAuthenticated, team, checkLockStatus]);
 
   useEffect(() => {
+    const appShell = appShellRef.current;
+
     if (!warningOpen) {
-      if (appShellRef.current) {
-        appShellRef.current.removeAttribute("inert");
-        appShellRef.current.removeAttribute("aria-hidden");
+      if (appShell) {
+        appShell.removeAttribute("inert");
+        appShell.removeAttribute("aria-hidden");
       }
       document.body.style.overflow = "";
 
@@ -438,9 +496,9 @@ const App = () => {
 
     previouslyFocusedElementRef.current = document.activeElement;
 
-    if (appShellRef.current) {
-      appShellRef.current.setAttribute("inert", "");
-      appShellRef.current.setAttribute("aria-hidden", "true");
+    if (appShell) {
+      appShell.setAttribute("inert", "");
+      appShell.setAttribute("aria-hidden", "true");
     }
 
     document.body.style.overflow = "hidden";
@@ -495,9 +553,9 @@ const App = () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
 
-      if (appShellRef.current) {
-        appShellRef.current.removeAttribute("inert");
-        appShellRef.current.removeAttribute("aria-hidden");
+      if (appShell) {
+        appShell.removeAttribute("inert");
+        appShell.removeAttribute("aria-hidden");
       }
     };
   }, [warningOpen]);
@@ -518,7 +576,7 @@ const App = () => {
           preserveNotice: true,
           reason:
             payload.message ||
-            "Ihre Sitzung konnte nicht verl?ngert werden. Bitte melden Sie sich erneut an.",
+            "Ihre Sitzung konnte nicht verlängert werden. Bitte melden Sie sich erneut an.",
         });
         return;
       }
@@ -530,7 +588,7 @@ const App = () => {
       await handleLogout({
         preserveNotice: true,
         reason:
-          "Ihre Sitzung konnte nicht verl?ngert werden. Bitte melden Sie sich erneut an.",
+          "Ihre Sitzung konnte nicht verlängert werden. Bitte melden Sie sich erneut an.",
       });
     } finally {
       setWarningBusy(false);
@@ -552,11 +610,13 @@ const App = () => {
   if (!authChecked) {
     return (
       <Router>
+        <RouteDocumentTitle />
+        <RouteFocusManager />
         <main id="main-content" tabIndex="-1">
           <div className="access-page">
             <div className="access-card">
               <p role="status" aria-live="polite">
-                Sitzung wird gepr?ft...
+                Sitzung wird geprüft …
               </p>
             </div>
           </div>
@@ -567,6 +627,8 @@ const App = () => {
 
   return (
     <Router>
+      <RouteDocumentTitle />
+      <RouteFocusManager />
       <a className="skip-link-global" href="#main-content">
         Direkt zum Hauptinhalt springen
       </a>
@@ -786,7 +848,12 @@ const App = () => {
                   isAuthenticated={isAuthenticated}
                   team={team}
                 >
-                  <DimensionsEditPage activeCompany={activeCompany} />
+                  <DimensionsEditPage
+                    activeCompany={activeCompany}
+                    onSessionInvalid={(reason) =>
+                      handleLogout({ preserveNotice: true, reason })
+                    }
+                  />
                 </ProtectedRoute>
               }
             />
@@ -909,9 +976,9 @@ const App = () => {
             aria-labelledby="session-timeout-title"
             aria-describedby="session-timeout-description session-timeout-countdown"
           >
-            <h2 id="session-timeout-title">Sitzung l?uft bald ab</h2>
+            <h2 id="session-timeout-title">Sitzung läuft bald ab</h2>
             <p id="session-timeout-description">
-              Wegen Inaktivit?t werden Sie automatisch abgemeldet. Bereits
+              Wegen Inaktivität werden Sie automatisch abgemeldet. Bereits
               gespeicherte Eingaben bleiben erhalten.
             </p>
             <p id="session-timeout-countdown" role="status" aria-live="polite">
@@ -927,7 +994,7 @@ const App = () => {
                 disabled={warningBusy}
               >
                 {warningBusy
-                  ? "Sitzung wird verl?ngert..."
+                  ? "Sitzung wird verlängert …"
                   : "Angemeldet bleiben"}
               </button>
 
