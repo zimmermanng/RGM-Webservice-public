@@ -36,7 +36,8 @@ const Card_dimensions = ({
         }),
       });
       const results = await lockRes.json()
-      setLockedCards(results.lockedDimensions)
+      const lockedDimensions = results.lockedDimensions ? results.lockedDimensions : [];
+      setLockedCards(lockedDimensions)
       return results
     } catch (error) {
       console.error("Fehler beim Speichern des Status:", error)

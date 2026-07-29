@@ -361,7 +361,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   return (
     <>
-      <header className="Header">
+      <header className="Header" inert={takeoverDialog.open || returnDialog.open ? "" : undefined}>
         <div className="header-inner">
           <div className="logo">
             <Link
@@ -582,7 +582,7 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           aria-labelledby="modal-title"
           aria-modal="true"
         >
-          <div className="modal">
+          <div className="modal" >
             <p>{returnDialog.message}</p>
             <div className="modalButtons">
               <button

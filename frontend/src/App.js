@@ -40,7 +40,7 @@ const CLIENT_WARNING_FALLBACK_MS = 1000 * 60 * 5;
 const CLIENT_TIMEOUT_FALLBACK_MS = 1000 * 60 * 60;
 const KEEPALIVE_DEBOUNCE_MS = 1000 * 60;
 const LOCK_STATUS_POLL_MS = 10000;
-const SESSION_TIMEOUT_DISABLED = true;
+const SESSION_TIMEOUT_DISABLED = false;
 
 const FOCUSABLE_SELECTOR = [
   "a[href]",
@@ -618,7 +618,6 @@ const App = () => {
                 >
                   <TeamSelectionPage
                     onTeamSelected={(selection) => {
-                      console.log("Selection:", selection)
                       setTeam(selection.team);
                       setSessionNotice("");
 

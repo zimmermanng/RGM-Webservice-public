@@ -160,6 +160,7 @@ async function upsertNode(node, parentId = null) {
       isActive: node.isActive ?? true,
     },
     create: {
+      id: node.name === "Administration" ? 57 : undefined,
       name: node.name,
       passwordHash: node.isSelectable ? passwordHash : null,
       parentId,
@@ -180,8 +181,8 @@ async function upsertNode(node, parentId = null) {
 }
 
 async function main() {
-  await upsertNode(TEAM_TREE);
   await upsertNode(ADMIN);
+  await upsertNode(TEAM_TREE);
   // await upsertNode(MOCK_TEAM_TREE)
   console.log("Seed complete");
 }

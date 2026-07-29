@@ -70,14 +70,14 @@ const DimensionsEditPage = () => {
     const fetchData = async () => {
       try {
         const [settingsRes, stateRes, evaluationRes] = await Promise.all([
-          fetch(`${API_BASE}/session/settings`, { 
-            credentials: "include" 
+          fetch(`${API_BASE}/session/settings`, {
+            credentials: "include"
           }),
           fetch(`${API_BASE}/session/current-state`, {
             credentials: "include",
           }),
-          fetch(`${API_BASE}/evaluation/`, { 
-            credentials: "include" 
+          fetch(`${API_BASE}/evaluation/`, {
+            credentials: "include"
           }),
         ]);
 
@@ -106,7 +106,7 @@ const DimensionsEditPage = () => {
 
         const loadedAnswers =
           stateResult.currentAnswers &&
-          typeof stateResult.currentAnswers === "object"
+            typeof stateResult.currentAnswers === "object"
             ? stateResult.currentAnswers
             : {};
 
@@ -225,7 +225,7 @@ const DimensionsEditPage = () => {
   const handleKeyDown = (e, card, fromList, targetList) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      moveCard(card, fromList, targetList);
+      if (!lockedCards.includes(card.id)) moveCard(card, fromList, targetList);
     }
   };
 
@@ -333,7 +333,9 @@ const DimensionsEditPage = () => {
   return (
     <div className="mainContainer">
       <h2>Konfigurationsmodus</h2>
-      <h2>"{evaluationName}"</h2>
+      {evaluationName && (
+        <h2>"{evaluationName}"</h2>
+      )}
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
         möchten.
@@ -397,7 +399,7 @@ const DimensionsEditPage = () => {
                     key={dimension.id}
                     role="listitem"
                     draggable={
-                      lockedCards?.includes(dimension.id) ? false : true
+                      lockedCards.includes(dimension.id) ? false : true
                     }
                     tabIndex={0}
                     aria-roledescription="Verschiebbares Element"
