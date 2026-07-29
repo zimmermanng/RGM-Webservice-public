@@ -125,7 +125,7 @@ const EvaluationPage = () => {
 
       <div className="centerContainer">
         <button onClick={handleNeueMessungClick} className="homeButton">
-          Neue Messung
+          + Neue Messung
         </button>
       </div>
 

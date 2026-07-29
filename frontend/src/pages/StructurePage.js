@@ -26,7 +26,7 @@ const StructurePage = () => {
   // Wenn Kinder vorhanden sind, ist das Passwort kein Pflichtfeld mehr
   const isFormValid =
     neuerName.trim() !== "" && (hasChildren || neuesPasswort?.trim() !== "");
- 
+
   useEffect(() => {
     const fetchTeams = async () => {
       let teams = [];
@@ -298,8 +298,8 @@ const StructurePage = () => {
         <h2>Organisationsstruktur</h2>
         <p>
           Passen Sie die Organisationsstruktur an, indem Sie
-          Organisationseinheiten hinzufügen, umsortieren oder entfernen. Beachten
-          Sie, dass eine drastische Anpassung die langfristige Vergleichbarkeit
+          Organisationseinheiten hinzufügen, umsortieren oder entfernen.<br />
+          Beachten Sie, dass eine drastische Anpassung die langfristige Vergleichbarkeit
           des Reifegradmodells beeinflusst.
         </p>
 
@@ -471,32 +471,34 @@ const StructurePage = () => {
             </div>
           </div>
         )}
-      </div>
+      </div >
 
-      {errorDialog.open && (
-        <div
-          className="modalOverlay"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="modal">
-            <h3>Ein Fehler ist aufgetreten</h3>
-            <p>{errorDialog.message}</p>
-            <div
-              className="modalButtons"
-              style={{
-                float: "right",
-              }}
-            >
-              <button
-                onClick={() => setErrorDialog({ open: false, message: "" })}
+      {
+        errorDialog.open && (
+          <div
+            className="modalOverlay"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="modal">
+              <h3>Ein Fehler ist aufgetreten</h3>
+              <p>{errorDialog.message}</p>
+              <div
+                className="modalButtons"
+                style={{
+                  float: "right",
+                }}
               >
-                Schließen
-              </button>
+                <button
+                  onClick={() => setErrorDialog({ open: false, message: "" })}
+                >
+                  Schließen
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 };

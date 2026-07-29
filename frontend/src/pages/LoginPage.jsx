@@ -185,7 +185,7 @@ const LoginPage = ({
 
           <h1 className="access-title">Willkommen</h1>
           <p className="access-subtitle">
-            Willkommen beim Reifegradmodells des LMZ. Hier können Sie das
+            Willkommen beim Reifegradmodell für Barrierefreiheit des LMZ. Hier können Sie das
             Reifegradmodell für Ihre Organisationseinheit digital ausfüllen und
             auswerten.
           </p>

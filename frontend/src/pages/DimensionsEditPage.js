@@ -339,7 +339,7 @@ const DimensionsEditPage = () => {
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
         möchten.
-        <br /> Verschieben Sie diese einfach per Drag & Drop mit der Maus oder
+        <br /> Verschieben Sie diese einfach mit der Maus (Drag and Drop) oder
         mit der Tastatur (Tab- und Enter-Taste).
         {saving && (
           <strong style={{ marginLeft: "10px", color: "green" }}>
