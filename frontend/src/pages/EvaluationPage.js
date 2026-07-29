@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
 
 const EvaluationPage = () => {
+  const navigate = useNavigate();
   const [messungen, setMessungen] = useState([]);
   const [messungenLaden, setMessungenLaden] = useState(true);
   const [confirmDialog, setConfirmDialog] = useState({ open: false });
@@ -75,6 +77,10 @@ const EvaluationPage = () => {
     setDeleteDialog({ open: true, id: id, name: name });
   }
 
+  const openEvaluation = (id) => {
+    navigate(`/evaluationsrunden/gesamtauswertung?id=${id}`)
+  }
+
   const createNewEvaluation = async (evalauion) => {
     const evaluationData = evalauion;
     const createEvaluation = await fetch(`${API_BASE}/evaluation/create-evaluation`, {
@@ -138,15 +144,21 @@ const EvaluationPage = () => {
                   {messung.isActive && (
                     <span className="activeLabel">Aktiv</span>
                   )}
-
-                  <input
-                    type="text"
-                    value={messung.name}
-                    onChange={(e) => handleTitelChange(messung.id, e.target.value)}
-                    onBlur={(e) => updateTitle(messung.id, e.target.value)}
-                    className="editableTitle"
-                  />
-
+                  <div className="editableTitleContainer">
+                    <input
+                      type="text"
+                      id={messung.id}
+                      value={messung.name}
+                      onChange={(e) => handleTitelChange(messung.id, e.target.value)}
+                      onBlur={(e) => updateTitle(messung.id, e.target.value)}
+                      className="editableTitle"
+                    />
+                    <label
+                      htmlFor={messung.id}
+                      className="editableTitleLabel"
+                      aria-label="Namen der Messung ändern"
+                    >✏️</label>
+                  </div>
                   {messung.beschreibung && (
                     <p className="evaluationDescription">{messung.beschreibung}</p>
                   )}
@@ -159,10 +171,16 @@ const EvaluationPage = () => {
                       <strong>Zuletzt bearbeitet am:</strong> {messung.updatedAt}
                     </p>
                   </div>
-                  <div className="modalButtons">
+                  <div
+                    className="modalButtons"
+                    style={{
+                      float: messung.isActive ? "right" : "none",
+                    }}
+                  >
                     {!messung.isActive && (
                       <button onClick={() => openDeleteDialog(messung.id, messung.name)}>Löschen</button>
                     )}
+                    <button onClick={() => openEvaluation(messung.id)}>Ergebnis anzeigen</button>
                   </div>
                   {/* Prio2 <p className="downloadLink">Zwischenstand herunterladen:</p> */}
                 </div>

@@ -104,7 +104,7 @@ async function getAllEvaluations() {
 async function createEvaluationRoundData() {
     let finalData = {
         id: 0,
-        name: "", 
+        name: "",
         packages: [],
         organisation: [],
         leafResults: [],
@@ -156,6 +156,16 @@ async function createEvaluationRoundData() {
         console.log(error)
     }
 };
+
+async function deletePreviousAnswers() {
+    const deleteSurveyRuns = prisma.surveyRun.deleteMany({});
+
+    const deleteSurveySnapshots = prisma.surveySnapshot.deleteMany({});
+
+    const deleteTeamCurrentState = prisma.teamCurrentState.deleteMany({});
+
+    const transaction = await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState]);
+}
 
 router.get("/", async (req, res) => {
     try {
@@ -218,6 +228,7 @@ router.post("/create-evaluation", async (req, res) => {
             });
 
             const evaluationRounds = await getAllEvaluations()
+            await deletePreviousAnswers()
 
             return res.status(200).json({
                 ok: true,
@@ -270,13 +281,13 @@ router.put("/change-name", async (req, res) => {
                         message: "Die Daten der Evaluationsrunde konnten nicht gefunden werden."
                     });
 
-                    const updatedPayload = {...evaluationRoundData.payload, name: name}
+                    const updatedPayload = { ...evaluationRoundData.payload, name: name }
 
                     await prisma.evaluationRoundsData.update({
                         where: {
                             id: evaluationRoundData.id
                         },
-                        data:{
+                        data: {
                             payload: updatedPayload,
                         }
                     })
@@ -355,9 +366,14 @@ router.delete("/delete-evaluation", async (req, res) => {
 });
 
 router.get("/retrieve-data", async (req, res) => {
-    //const evaluationId = req.query;
+    const evaluationId = parseInt(req.query.id);
     try {
-        const data = await createEvaluationRoundData();
+        const evaluationRound = isNaN(evaluationId) ? null : await prisma.evaluationRoundsData.findFirst({
+            where: {
+                evaluationRound: evaluationId
+            },
+        });
+        const data = evaluationRound ? evaluationRound.payload : await createEvaluationRoundData();
         return res.status(200).json({
             ok: true,
             message: "Evaluations Daten erfolgreich geladen.",
