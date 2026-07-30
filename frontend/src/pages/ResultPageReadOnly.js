@@ -123,19 +123,31 @@ const ResultPageReadOnly = () => {
     }, {});
   }, []);
 
-  if (loading) return <p>Lade Ergebnisse...</p>;
-  if (error) return <p>{error}</p>;
-  if (!surveyResults) return <p className="noResults">Noch keine Ergebnisse vorhanden.</p>;
+  if (loading) {
+    return <p role="status" aria-live="polite">Ergebnisse werden geladen …</p>;
+  }
+  if (error) {
+    return <p className="access-error" role="alert">{error}</p>;
+  }
+  if (!surveyResults) {
+    return <p className="noResults" role="status">Noch keine Ergebnisse vorhanden.</p>;
+  }
 
   return (
     <div className="mainContainer">
-      <div className="readOnlyTag">Lesemodus</div>
-      <h2>Ergebnisse {teamName}</h2>
+      <p
+        className="readOnlyTag"
+        id="results-access-mode"
+        aria-label="Ansichtsmodus: Lesemodus, nur Lesezugriff"
+      >
+        Lesemodus
+      </p>
+      <h1 aria-describedby="results-access-mode">Ergebnisse {teamName}</h1>
       <p>
         Hier finden Sie die gewählten Pakete und die errechneten Ergebnisse der
-        ausgewählten Organisationseinheit.{" "}
-        <p>Sie haben keinen Bearbeitungszugriff!</p>
+        ausgewählten Organisationseinheit.
       </p>
+      <p>Sie haben keinen Bearbeitungszugriff!</p>
       <div className="gridContainer">
         {activeDimensions.map((dimension) => {
           const answeredObj = currentAnswers[dimension.id] || {};

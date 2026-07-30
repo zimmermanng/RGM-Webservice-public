@@ -11,7 +11,10 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     new Set([-1, 0, 1, 2, 3, 4])
   );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [jumpAnnouncement, setJumpAnnouncement] = useState("");
+  const [jumpRequestId, setJumpRequestId] = useState(0);
   const tabRefs = useRef({});
+  const pendingRecommendationTargetRef = useRef(null);
 
   const questionMap = useMemo(() => buildQuestionMap(fragenData), []);
   const recommendationMap = useMemo(
@@ -89,6 +92,21 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     }
   }, [dimensionKeys, selectedTab]);
 
+  useEffect(() => {
+    const pendingTarget = pendingRecommendationTargetRef.current;
+    if (!pendingTarget || selectedTab !== pendingTarget.group) return;
+
+    const target = document.getElementById(pendingTarget.id);
+    if (!target) return;
+
+    pendingRecommendationTargetRef.current = null;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.focus({ preventScroll: true });
+    setJumpAnnouncement(
+      `Handlungsempfehlungen für ${pendingTarget.category} werden angezeigt.`
+    );
+  }, [selectedTab, visibleLevels, jumpRequestId]);
+
   const handleCheckboxChange = (level) => {
     setVisibleLevels((prev) => {
       const next = new Set(prev);
@@ -164,8 +182,33 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     URL.revokeObjectURL(url);
   };
 
+  const handleRecommendationJump = (entry) => {
+    if (!entry?.group || !entry?.category) return;
+
+    const displayedLevel = entry.value - 1;
+    pendingRecommendationTargetRef.current = {
+      id: getRecommendationTargetId(entry),
+      group: entry.group,
+      category: entry.category,
+    };
+
+    setJumpAnnouncement("");
+    setVisibleLevels((currentLevels) => {
+      if (currentLevels.has(displayedLevel)) return currentLevels;
+      const nextLevels = new Set(currentLevels);
+      nextLevels.add(displayedLevel);
+      return nextLevels;
+    });
+    setSelectedTab(entry.group);
+    setJumpRequestId((currentId) => currentId + 1);
+  };
+
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
     const isTodo = variant === "todo";
+    const accessibleId = slugifyId(`${variant}-${groupItem.frageId}-${index}`);
+    const questionId = `recommendation-question-${accessibleId}`;
+    const answerId = `recommendation-answer-${accessibleId}`;
+    const stageId = `recommendation-stage-${accessibleId}`;
 
     if (isTodo) {
       return (
@@ -215,17 +258,25 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         key={`${groupItem.frageId}-${variant}-${index}`}
         className={`question-recommendation-card ${variant}`}
       >
-        <summary className="question-recommendation-summary">
+        <summary
+          className="question-recommendation-summary"
+          aria-labelledby={questionId}
+          aria-describedby={
+            typeof groupItem.stufe === "number"
+              ? `${answerId} ${stageId}`
+              : answerId
+          }
+        >
           <div className="question-recommendation-summary-text">
             <span className="question-recommendation-kicker">Frage</span>
-            <h6>{groupItem.frageText}</h6>
-            <p>
+            <h6 id={questionId}>{groupItem.frageText}</h6>
+            <p id={answerId}>
               <strong>Ausgewählte Antwort:</strong> {groupItem.antwortText}
             </p>
           </div>
 
           {typeof groupItem.stufe === "number" && (
-            <span className="question-recommendation-stage">
+            <span id={stageId} className="question-recommendation-stage">
               Stufe {groupItem.stufe}
             </span>
           )}
@@ -281,20 +332,32 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           nach Dimensionen und Handlungsfeldern.
         </p>
 
-        <div className="toggle-container">
+        <div
+          className="toggle-container"
+          role="group"
+          aria-labelledby="survey-result-view-mode-label"
+        >
+          <span id="survey-result-view-mode-label" className="sr-only">
+            Darstellung der Ergebnisse
+          </span>
           <button
+            type="button"
             className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
             onClick={() => setViewMode("chart")}
+            aria-pressed={viewMode === "chart"}
           >
             Diagramm anzeigen
           </button>
           <button
+            type="button"
             className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
             onClick={() => setViewMode("table")}
+            aria-pressed={viewMode === "table"}
           >
             Tabelle anzeigen
           </button>
           <button
+            type="button"
             className="toggle-button secondary"
             onClick={handleDownloadJson}
           >
@@ -310,7 +373,13 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       <div>
         {viewMode === "chart" ? (
           <div className="chart-container">
-            <RadialBarChart data={data} activeCompany={activeCompany} />
+            <RadialBarChart
+              data={data}
+              activeCompany={activeCompany}
+              ariaLabel="Ergebnisdiagramm. Beim Zeigen oder Fokussieren eines Handlungsfeldes erscheint ein Link zu den zugehörigen Handlungsempfehlungen. Bei Tastaturbedienung drücken Sie auf dem Handlungsfeld Enter, um direkt dorthin zu springen."
+              onSegmentClick={handleRecommendationJump}
+              segmentActionText="Handlungsempfehlungen anzeigen"
+            />
           </div>
         ) : (
           <div className="table-container">
@@ -386,6 +455,10 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
         )}
       </div>
 
+      <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {jumpAnnouncement}
+      </p>
+
       {selectedTab && (
         <div
           id={`survey-dimension-panel-${slugifyId(selectedTab)}`}
@@ -402,8 +475,16 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
               if (!visibleLevels.has(displayedStufe)) return null;
 
               return (
-                <div key={`${row.category}-${idx}`} className="category-box">
-                  <h4>{row.category}</h4>
+                <div
+                  key={`${row.category}-${idx}`}
+                  id={getRecommendationTargetId(row)}
+                  className="category-box recommendation-jump-target"
+                  tabIndex={-1}
+                  aria-labelledby={`${getRecommendationTargetId(row)}-heading`}
+                >
+                  <h4 id={`${getRecommendationTargetId(row)}-heading`}>
+                    {row.category}
+                  </h4>
                   <p>
                     <strong>Erreichte Stufe:</strong>{" "}
                     {displayedStufe === -1
@@ -416,6 +497,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             })}
         </div>
       )}
+
     </div>
   );
 
@@ -674,6 +756,12 @@ function slugifyId(value) {
     .trim()
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9_-]/g, "");
+}
+
+function getRecommendationTargetId(row) {
+  return `handlungsempfehlungen-${slugifyId(row?.group)}-${slugifyId(
+    row?.category
+  )}`;
 }
 
 export default SurveyResultPage;

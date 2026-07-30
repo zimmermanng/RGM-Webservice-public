@@ -1,7 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import { API_BASE } from "../config.ts";
 import { useSearchParams } from "react-router-dom";
+import useDialogFocus from "../hooks/useDialogFocus";
+import { createZipBlob } from "../utils/zip";
 
 const MATURITY_LEVELS = [1, 2, 3, 4];
 const LEVEL_COLORS = {
@@ -134,6 +136,9 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [evaluationData, setEvaluationData] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
+  const [exportBusy, setExportBusy] = useState(false);
+  const [exportStatus, setExportStatus] = useState("");
+  const pageRef = useRef(null);
 
   // Aktuell werden die neusten Daten geladen!
   useEffect(() => {
@@ -232,28 +237,92 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
     setSelectedLevel1("gesamt");
   };
 
+  const downloadVisibleCharts = async () => {
+    setExportBusy(true);
+    setExportStatus("Die sichtbaren Ergebnisgrafiken werden erstellt …");
+
+    try {
+      const chartContainers = Array.from(
+        pageRef.current?.querySelectorAll(".admin-overall-chart") || []
+      ).filter((container) => container.querySelector("svg"));
+
+      if (!chartContainers.length) {
+        throw new Error("Aktuell ist kein Ergebnisdiagramm zum Herunterladen sichtbar.");
+      }
+
+      const files = [];
+      for (let index = 0; index < chartContainers.length; index += 1) {
+        const container = chartContainers[index];
+        const heading =
+          container.querySelector(".admin-overall-chart-heading h2, .admin-overall-chart-heading h3")
+            ?.textContent?.trim() || `Ergebnisdiagramm ${index + 1}`;
+        const svg = container.querySelector("svg").cloneNode(true);
+        svg
+          .querySelectorAll("#tooltip-group, #focus-ring, #focus-ring-inner")
+          .forEach((node) => node.remove());
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svg.removeAttribute("xmlns:xlink");
+        await embedSvgImages(svg);
+        files.push({
+          name: `${String(index + 1).padStart(2, "0")}_${fileSlug(heading)}.svg`,
+          content: new XMLSerializer().serializeToString(svg),
+        });
+      }
+
+      downloadBlob(
+        createZipBlob(files),
+        `${fileSlug(evaluationRound.name)}_Gesamtauswertung.zip`
+      );
+      setExportStatus(
+        `${files.length} sichtbare Ergebnisgrafik${files.length === 1 ? "" : "en"} wurde${
+          files.length === 1 ? "" : "n"
+        } heruntergeladen.`
+      );
+    } catch (error) {
+      console.error("Fehler beim Exportieren der Ergebnisgrafiken:", error);
+      setExportStatus(
+        error.message || "Die Ergebnisgrafiken konnten nicht heruntergeladen werden."
+      );
+    } finally {
+      setExportBusy(false);
+    }
+  };
+
   return (
-    <div className="admin-overall-page">
+    <div className="admin-overall-page" ref={pageRef}>
       <section className="admin-overall-hero">
         <div className="page-width">
           <p className="sectionKicker">Evaluationsrunden</p>
           <h1>Gesamtauswertung</h1>
           <p>{evaluationRound.description}</p>
+          <button
+            type="button"
+            className="homeButton"
+            onClick={downloadVisibleCharts}
+            disabled={exportBusy}
+            aria-describedby="overall-chart-export-description"
+          >
+            {exportBusy ? "Grafiken werden erstellt …" : "Sichtbare Ergebnisgrafiken herunterladen"}
+          </button>
+          <p id="overall-chart-export-description" className="admin-overall-select-help">
+            Lädt die aktuell auf dieser Seite erzeugten Diagramme gemeinsam als ZIP-Datei herunter.
+          </p>
+          {exportStatus && (
+            <p
+              id="overall-chart-export-status"
+              className="evaluation-action-status"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {exportStatus}
+            </p>
+          )}
         </div>
       </section>
 
       <section className="admin-overall-section page-width">
         <div className="admin-overall-layout">
-          <PackageChart
-            title={`Gesamtergebnis ${evaluationRound.name}`}
-            subtitle={calculationLabels[calculationMode]}
-            results={visibleOverallResults}
-            emptyMessage="Für das Gesamtergebnis kann mit den aktuellen Filtern kein Diagramm erstellt werden."
-            onPackageClick={setSelectedPackage}
-            activeCompany={activeCompany}
-            showDetailsHint
-          />
-
           <aside className="admin-overall-panel" aria-label="Filter Gesamtergebnis">
             <EvaluationToolbar
               calculationMode={calculationMode}
@@ -270,6 +339,17 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
               Blattebene haben Ergebnisse beigesteuert ({contributingPercent} Prozent).
             </p>
           </aside>
+
+          <PackageChart
+            headingLevel={2}
+            title={`Gesamtergebnis ${evaluationRound.name}`}
+            subtitle={calculationLabels[calculationMode]}
+            results={visibleOverallResults}
+            emptyMessage="Für das Gesamtergebnis kann mit den aktuellen Filtern kein Diagramm erstellt werden."
+            onPackageClick={setSelectedPackage}
+            activeCompany={activeCompany}
+            showDetailsHint
+          />
         </div>
       </section>
 
@@ -283,8 +363,20 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
         </div>
 
         <div className="admin-overall-layout admin-overall-layout-detail">
+          <aside className="admin-overall-panel" aria-label="Filter Organisationseinheiten">
+            <OrganisationSelectors
+              organisation={evaluationRound.organisation}
+              selectedLevel0={selectedLevel0}
+              selectedLevel1={selectedLevel1}
+              level1Units={level1Units}
+              onLevel0Change={handleLevel0Change}
+              onLevel1Change={setSelectedLevel1}
+            />
+          </aside>
+
           {hasOrganisationSelection ? (
             <PackageChart
+              headingLevel={3}
               title="Auswertung der gewählten Organisationseinheit"
               subtitle={calculationLabels[calculationMode]}
               results={visibleOrganisationResults}
@@ -299,17 +391,6 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
               passende Diagramm angezeigt.
             </div>
           )}
-
-          <aside className="admin-overall-panel" aria-label="Filter Organisationseinheiten">
-            <OrganisationSelectors
-              organisation={evaluationRound.organisation}
-              selectedLevel0={selectedLevel0}
-              selectedLevel1={selectedLevel1}
-              level1Units={level1Units}
-              onLevel0Change={handleLevel0Change}
-              onLevel1Change={setSelectedLevel1}
-            />
-          </aside>
         </div>
       </section>
 
@@ -331,10 +412,20 @@ function EvaluationToolbar({
 }) {
   return (
     <div className="admin-overall-toolbar" aria-label="Auswertungsoptionen">
-      <div className="admin-overall-toggle" role="group" aria-label="Berechnungsart">
+      <div
+        className="admin-overall-toggle"
+        role="group"
+        aria-label="Berechnungsart"
+        aria-describedby="calculation-mode-description"
+      >
+        <span id="calculation-mode-description" className="sr-only">
+          Wählen Sie eine Berechnungsart. Der aktuell ausgewählte Button wird
+          als gedrückt ausgegeben.
+        </span>
         <button
           type="button"
           className={`toggle-button ${calculationMode === "average" ? "active" : ""}`}
+          aria-pressed={calculationMode === "average"}
           onClick={() => onModeChange("average")}
         >
           Mittelwerte
@@ -342,6 +433,7 @@ function EvaluationToolbar({
         <button
           type="button"
           className={`toggle-button ${calculationMode === "minimum" ? "active" : ""}`}
+          aria-pressed={calculationMode === "minimum"}
           onClick={() => onModeChange("minimum")}
         >
           Minimalwerte
@@ -398,9 +490,14 @@ function OrganisationSelectors({
 }) {
   return (
     <div className="admin-overall-selectors">
-      <label>
-        Ebene 0
-        <select value={selectedLevel0} onChange={onLevel0Change}>
+      <label htmlFor="overall-parent-unit">
+        Übergeordnete Organisationseinheit
+        <select
+          id="overall-parent-unit"
+          value={selectedLevel0}
+          onChange={onLevel0Change}
+          aria-describedby="overall-parent-unit-help"
+        >
           <option value="">Bitte auswählen</option>
           <option value="all">Gesamt</option>
           {organisation.map((unit) => (
@@ -409,14 +506,19 @@ function OrganisationSelectors({
             </option>
           ))}
         </select>
+        <span id="overall-parent-unit-help" className="admin-overall-select-help">
+          Wählen Sie „Gesamt“ oder eine Organisationseinheit als Ausgangspunkt.
+        </span>
       </label>
 
-      <label>
-        Ebene 1
+      <label htmlFor="overall-child-unit">
+        Untergeordnete Organisationseinheit
         <select
+          id="overall-child-unit"
           value={selectedLevel1}
           onChange={(event) => onLevel1Change(event.target.value)}
           disabled={!selectedLevel0 || selectedLevel0 === "all" || level1Units.length === 0}
+          aria-describedby="overall-child-unit-help"
         >
           <option value="gesamt">Gesamt</option>
           {level1Units.map((unit) => (
@@ -425,12 +527,22 @@ function OrganisationSelectors({
             </option>
           ))}
         </select>
+        <span id="overall-child-unit-help" className="admin-overall-select-help">
+          {!selectedLevel0
+            ? "Wählen Sie zuerst eine übergeordnete Organisationseinheit."
+            : selectedLevel0 === "all"
+              ? "Bei der Gesamtauswertung ist keine untergeordnete Auswahl erforderlich."
+              : level1Units.length === 0
+                ? "Für diese Organisationseinheit sind keine Untereinheiten vorhanden."
+                : "Optional können Sie die Ergebnisse auf eine Untereinheit begrenzen."}
+        </span>
       </label>
     </div>
   );
 }
 
 function PackageChart({
+  headingLevel = 3,
   title,
   subtitle,
   results,
@@ -439,6 +551,8 @@ function PackageChart({
   activeCompany,
   showDetailsHint = true,
 }) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
+
   if (!results.length) {
     return (
       <div className="admin-overall-empty" role="status">
@@ -450,7 +564,7 @@ function PackageChart({
   return (
     <div className="admin-overall-chart" aria-label={title}>
       <div className="admin-overall-chart-heading">
-        <h3>{title}</h3>
+        <Heading>{title}</Heading>
         <span>{subtitle}</span>
       </div>
 
@@ -481,13 +595,21 @@ function PackageChart({
 }
 
 function PackageDetailsOverlay({ packageResult, onClose }) {
+  const closeButtonRef = useRef(null);
+  const dialogRef = useDialogFocus(true, {
+    initialFocusRef: closeButtonRef,
+    onClose,
+  });
+
   return (
     <div className="session-timeout-dialog-backdrop" role="presentation">
       <div
+        ref={dialogRef}
         className="admin-overall-dialog"
         role="dialog"
         aria-modal="true"
         aria-labelledby="package-detail-title"
+        tabIndex={-1}
       >
         <h2 id="package-detail-title">{packageResult.name}</h2>
 
@@ -516,7 +638,7 @@ function PackageDetailsOverlay({ packageResult, onClose }) {
         </ul>
 
         <div className="session-timeout-actions">
-          <button type="button" className="access-button" onClick={onClose}>
+          <button ref={closeButtonRef} type="button" className="access-button" onClick={onClose}>
             Schließen
           </button>
         </div>
@@ -599,6 +721,62 @@ function roundDisplayLevel(value) {
 
 function formatValue(value) {
   return Number.isInteger(value) ? `${value}` : value.toFixed(2).replace(".", ",");
+}
+
+async function embedSvgImages(svg) {
+  const images = Array.from(svg.querySelectorAll("image"));
+  await Promise.all(
+    images.map(async (image) => {
+      const href =
+        image.getAttribute("href") ||
+        image.getAttributeNS("http://www.w3.org/1999/xlink", "href");
+      if (!href) return;
+
+      image.removeAttributeNS("http://www.w3.org/1999/xlink", "href");
+      image.removeAttribute("xlink:href");
+      image.setAttribute("href", href);
+      if (href.startsWith("data:")) return;
+
+      try {
+        const response = await fetch(href);
+        if (!response.ok) return;
+        const dataUrl = await blobToDataUrl(await response.blob());
+        image.setAttribute("href", dataUrl);
+      } catch {
+        // Das Diagramm bleibt auch ohne eingebettetes Logo vollständig lesbar.
+      }
+    })
+  );
+}
+
+function blobToDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+function fileSlug(value) {
+  return Array.from(String(value || "Gesamtauswertung"))
+    .filter((character) => character.charCodeAt(0) >= 32)
+    .join("")
+    .trim()
+    .replace(/[<>:"/\\|?*]/g, "-")
+    .replace(/\s+/g, "_")
+    .slice(0, 80);
+}
+
+function downloadBlob(blob, fileName) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
 function getAllLeafUnitIds(organisation) {

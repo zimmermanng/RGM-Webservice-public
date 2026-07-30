@@ -170,18 +170,29 @@ const ResultPage = ({ data, activeCompany }) => {
         <h1>Ergebnisse</h1>
         <p>Hier finden Sie eine detaillierte Erklärung der Dimensionen und ihrer Stufen.</p>
 
-        <div className="toggle-container">
+        <div
+          className="toggle-container"
+          role="group"
+          aria-labelledby="result-view-mode-label"
+        >
+          <span id="result-view-mode-label" className="sr-only">
+            Darstellung der Ergebnisse
+          </span>
           <button
+            type="button"
             className={`toggle-button ${activeViewMode === "chart" ? "active" : ""}`}
             onClick={() => setViewMode("chart")}
             disabled={chartItemLimitExceeded}
             aria-disabled={chartItemLimitExceeded ? "true" : undefined}
+            aria-pressed={activeViewMode === "chart"}
           >
             Diagramm anzeigen
           </button>
           <button
+            type="button"
             className={`toggle-button ${activeViewMode === "table" ? "active" : ""}`}
             onClick={() => setViewMode("table")}
+            aria-pressed={activeViewMode === "table"}
           >
             Tabelle anzeigen
           </button>

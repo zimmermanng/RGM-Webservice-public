@@ -140,14 +140,14 @@ const DimensionsPage = ({ activeCompany }) => {
   if (loading) {
     return (
       <div className="mainContainer">
-        <p>Lade Pakete...</p>
+        <p role="status" aria-live="polite">Pakete werden geladen …</p>
       </div>
     );
   }
 
   return (
     <div className="mainContainer">
-      <h2>Übersicht</h2>
+      <h1>Übersicht</h1>
       <h2>"{evaluationName}"</h2>
       <p>
         Hier finden Sie die zuvor gewählten Pakete Ihres persönlichen
@@ -201,16 +201,31 @@ const DimensionsPage = ({ activeCompany }) => {
         {isEditable && (
           <>
             <div className="editButtonContainer">
-              <Link to="/dimensions/bearbeiten">
-                <button className="editButton">Konfigurationsmodus</button>
+              <Link to="/dimensions/bearbeiten" className="button editButton">
+                Konfigurationsmodus
               </Link>
             </div>
 
-            <Link to="/rawresults">
-              <button className="results" disabled={!allCompleted}>
+            {allCompleted ? (
+              <Link to="/rawresults" className="button results">
                 Ergebnisse ansehen
-              </button>
-            </Link>
+              </Link>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className="results"
+                  aria-disabled="true"
+                  aria-describedby="results-disabled-help"
+                >
+                  Ergebnisse ansehen
+                </button>
+                <span id="results-disabled-help" className="sr-only">
+                  Die Ergebnisse sind verfügbar, sobald alle Fragen der
+                  ausgewählten Pakete beantwortet wurden.
+                </span>
+              </>
+            )}
           </>
         )}
       </div>

@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
+import useDialogFocus from "../hooks/useDialogFocus";
 
 const EvaluationPage = () => {
   const navigate = useNavigate();
   const [messungen, setMessungen] = useState([]);
   const [messungenLaden, setMessungenLaden] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [titleSaveStatus, setTitleSaveStatus] = useState({});
+  const [dialogError, setDialogError] = useState("");
+  const [actionMessage, setActionMessage] = useState("");
+  const [actionBusy, setActionBusy] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({ open: false });
   const [deleteDialog, setDeleteDialog] = useState({ open: false, id: null, name: "" });
+  const createCancelRef = useRef(null);
+  const deleteCancelRef = useRef(null);
+  const savedTitlesRef = useRef(new Map());
 
   // States für die beiden Eingabefelder
   const [neuerTitelInput, setNeuerTitelInput] = useState("");
@@ -19,10 +28,20 @@ const EvaluationPage = () => {
         const res = await fetch(`${API_BASE}/evaluation/`, {
           credentials: "include",
         });
+        if (!res.ok) {
+          throw new Error("Evaluationsrunden konnten nicht geladen werden.");
+        }
         const data = await res.json();
-        setMessungen(data.evaluationRounds.reverse())
+        const loadedRounds = Array.isArray(data.evaluationRounds)
+          ? data.evaluationRounds.reverse()
+          : [];
+        savedTitlesRef.current = new Map(
+          loadedRounds.map((round) => [round.id, round.name?.trim() || ""]),
+        );
+        setMessungen(loadedRounds);
       } catch (err) {
         console.error("Fehler beim Laden der Evaluationsrunden:", err);
+        setLoadError("Evaluationsrunden konnten nicht geladen werden.");
       } finally {
         setMessungenLaden(false);
       }
@@ -40,13 +59,25 @@ const EvaluationPage = () => {
   const handleNeueMessungClick = () => {
     setNeuerTitelInput("");
     setBeschreibungInput("");
+    setDialogError("");
+    setActionMessage("");
     setConfirmDialog({ open: true });
   };
 
   const handleCancel = () => {
     setConfirmDialog({ open: false });
     setDeleteDialog({ open: false, id: null, name: "" });
+    setDialogError("");
   };
+
+  const createDialogRef = useDialogFocus(confirmDialog.open, {
+    initialFocusRef: createCancelRef,
+    onClose: handleCancel,
+  });
+  const deleteDialogRef = useDialogFocus(deleteDialog.open, {
+    initialFocusRef: deleteCancelRef,
+    onClose: handleCancel,
+  });
 
   const handleConfirm = async () => {
     const tagesdatum = datumBestimmen()
@@ -59,21 +90,45 @@ const EvaluationPage = () => {
       erstelltAm: tagesdatum,
     };
 
-    const evaluationen = await createNewEvaluation(neueMessung)
-    if (evaluationen.ok) setMessungen(evaluationen.evaluationRounds.reverse());
-
-    setConfirmDialog({ open: false });
+    setActionBusy(true);
+    setDialogError("");
+    try {
+      const evaluationen = await createNewEvaluation(neueMessung);
+      const updatedRounds = Array.isArray(evaluationen.evaluationRounds)
+        ? evaluationen.evaluationRounds.reverse()
+        : [];
+      savedTitlesRef.current = new Map(
+        updatedRounds.map((round) => [round.id, round.name?.trim() || ""]),
+      );
+      setMessungen(updatedRounds);
+      setConfirmDialog({ open: false });
+      setActionMessage("Die neue Evaluationsrunde wurde erstellt.");
+    } catch (error) {
+      console.error("Fehler beim Erstellen der Evaluationsrunde:", error);
+      setDialogError(
+        error.message ||
+          "Die Evaluationsrunde konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+      );
+    } finally {
+      setActionBusy(false);
+    }
   };
 
   const handleTitelChange = (id, neuerTitel) => {
-    setMessungen(
-      messungen.map((messung) =>
+    setMessungen((currentRounds) =>
+      currentRounds.map((messung) =>
         messung.id === id ? { ...messung, name: neuerTitel } : messung,
       ),
     );
+    setTitleSaveStatus((current) => ({
+      ...current,
+      [id]: { text: "", type: "status" },
+    }));
   };
 
   const openDeleteDialog = (id, name) => {
+    setDialogError("");
+    setActionMessage("");
     setDeleteDialog({ open: true, id: id, name: name });
   }
 
@@ -91,43 +146,131 @@ const EvaluationPage = () => {
       },
       body: JSON.stringify({ evaluationName: evaluationData.titel, date: evaluationData.erstelltAm }),
     });
-    const data = await createEvaluation.json()
-    return data
+    const data = await createEvaluation.json();
+    if (!createEvaluation.ok || !data.ok) {
+      throw new Error(
+        data.message ||
+          "Die Evaluationsrunde konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+      );
+    }
+    return data;
   }
 
   const updateTitle = async (id, title) => {
-    await fetch(`${API_BASE}/evaluation/change-name`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id, evaluationName: title }),
-    });
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
+      setTitleSaveStatus((current) => ({
+        ...current,
+        [id]: {
+          text: "Der Name darf nicht leer sein. Bitte geben Sie einen Namen ein.",
+          type: "error",
+        },
+      }));
+      return;
+    }
+
+    if (trimmedTitle === savedTitlesRef.current.get(id)) {
+      setTitleSaveStatus((current) => ({
+        ...current,
+        [id]: { text: "", type: "status" },
+      }));
+      return;
+    }
+
+    setTitleSaveStatus((current) => ({
+      ...current,
+      [id]: { text: "Name wird gespeichert …", type: "status" },
+    }));
+
+    try {
+      const response = await fetch(`${API_BASE}/evaluation/change-name`, {
+        credentials: "include",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, evaluationName: trimmedTitle }),
+      });
+      if (!response.ok) {
+        throw new Error("Name konnte nicht gespeichert werden.");
+      }
+      savedTitlesRef.current.set(id, trimmedTitle);
+      setMessungen((currentRounds) =>
+        currentRounds.map((round) =>
+          round.id === id ? { ...round, name: trimmedTitle } : round,
+        ),
+      );
+      setTitleSaveStatus((current) => ({
+        ...current,
+        [id]: { text: "Name gespeichert.", type: "status" },
+      }));
+    } catch (error) {
+      console.error("Fehler beim Speichern des Namens:", error);
+      setTitleSaveStatus((current) => ({
+        ...current,
+        [id]: {
+          text: "Der Name konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+          type: "error",
+        },
+      }));
+    }
   }
 
   const deleteEvaluation = async (id) => {
-    const deleteEvaluation = await fetch(`${API_BASE}/evaluation/delete-evaluation`, {
-      credentials: "include",
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id }),
-    });
-    const data = await deleteEvaluation.json()
-    if (data.ok) setMessungen(data.evaluationRounds.reverse());
-    setDeleteDialog({ open: false, id: null, name: "" });
+    setActionBusy(true);
+    setDialogError("");
+    try {
+      const response = await fetch(`${API_BASE}/evaluation/delete-evaluation`, {
+        credentials: "include",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(
+          data.message ||
+            "Die Evaluationsrunde konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+        );
+      }
+      const updatedRounds = Array.isArray(data.evaluationRounds)
+        ? data.evaluationRounds.reverse()
+        : [];
+      savedTitlesRef.current = new Map(
+        updatedRounds.map((round) => [round.id, round.name?.trim() || ""]),
+      );
+      setMessungen(updatedRounds);
+      setDeleteDialog({ open: false, id: null, name: "" });
+      setActionMessage("Die Evaluationsrunde wurde gelöscht.");
+    } catch (error) {
+      console.error("Fehler beim Löschen der Evaluationsrunde:", error);
+      setDialogError(error.message);
+    } finally {
+      setActionBusy(false);
+    }
   }
 
   return (
     <div className="mainContainer">
-      <div className="readOnlyTag">Admin</div>
-      <h2>Evaluationsrunden</h2>
+      <p
+        className="readOnlyTag"
+        id="evaluation-access-mode"
+        aria-label="Zugriffsmodus: Administration"
+      >
+        Admin
+      </p>
+      <h1 aria-describedby="evaluation-access-mode">Evaluationsrunden</h1>
       <p>
         Sehen Sie die Ergebnisse abgeschlossener Evaluationsrunden erneut ein
         oder legen Sie eine neue Evaluationsrunde an.
       </p>
+      {actionMessage && (
+        <p className="evaluation-action-status" role="status" aria-live="polite">
+          {actionMessage}
+        </p>
+      )}
 
       <div className="centerContainer">
         <button onClick={handleNeueMessungClick} className="homeButton">
@@ -135,30 +278,87 @@ const EvaluationPage = () => {
         </button>
       </div>
 
+      {messungenLaden && (
+        <p role="status" aria-live="polite">
+          Evaluationsrunden werden geladen …
+        </p>
+      )}
+      {loadError && (
+        <p className="access-error" role="alert">
+          {loadError}
+        </p>
+      )}
       {
-        !messungenLaden && (
+        !messungenLaden && !loadError && (
           <div className="evaluationList">
-            {messungen.map((messung) => (
-              <section key={messung.id} className="homeIntroCard evaluationCard">
+            {messungen.length === 0 && (
+              <p role="status">Keine Evaluationsrunden vorhanden.</p>
+            )}
+            {messungen.map((messung) => {
+              const titleId = `evaluation-name-${messung.id}`;
+              const helpId = `evaluation-name-help-${messung.id}`;
+              const statusId = `evaluation-status-${messung.id}`;
+              const saveStatusId = `evaluation-name-save-${messung.id}`;
+              const currentSaveStatus = titleSaveStatus[messung.id];
+
+              return (
+              <section
+                key={messung.id}
+                className="homeIntroCard evaluationCard"
+                role="group"
+                aria-label="Evaluationsrunde"
+                aria-describedby={statusId}
+              >
                 <div className="cardContent">
                   {messung.isActive && (
-                    <span className="activeLabel">Aktiv</span>
+                    <span className="activeLabel" id={statusId}>
+                      Status: Aktiv
+                    </span>
                   )}
-                  <div className="editableTitleContainer">
-                    <input
-                      type="text"
-                      id={messung.id}
-                      value={messung.name}
-                      onChange={(e) => handleTitelChange(messung.id, e.target.value)}
-                      onBlur={(e) => updateTitle(messung.id, e.target.value)}
-                      className="editableTitle"
-                    />
-                    <label
-                      htmlFor={messung.id}
-                      className="editableTitleLabel"
-                      aria-label="Namen der Messung ändern"
-                    >✏️</label>
-                  </div>
+                  {!messung.isActive && (
+                    <span
+                      id={statusId}
+                      className="activeLabel completedLabel"
+                    >
+                      Status: Abgeschlossen
+                    </span>
+                  )}
+
+                  <label className="evaluation-title-label" htmlFor={titleId}>
+                    Name der Evaluationsrunde (bearbeitbar)
+                  </label>
+                  <input
+                    id={titleId}
+                    type="text"
+                    value={messung.name}
+                    onChange={(e) => handleTitelChange(messung.id, e.target.value)}
+                    onBlur={(e) => updateTitle(messung.id, e.target.value)}
+                    className="editableTitle"
+                    required
+                    aria-invalid={currentSaveStatus?.type === "error"}
+                    aria-describedby={`${helpId} ${statusId} ${saveStatusId}`}
+                  />
+                  <span id={helpId} className="evaluation-title-help">
+                    Änderungen werden beim Verlassen des Feldes gespeichert.
+                  </span>
+                  <span
+                    id={saveStatusId}
+                    className={`evaluation-title-save-status ${
+                      currentSaveStatus?.type === "error" ? "is-error" : ""
+                    }`}
+                    role={
+                      currentSaveStatus?.type === "error" ? "alert" : "status"
+                    }
+                    aria-live={
+                      currentSaveStatus?.type === "error"
+                        ? "assertive"
+                        : "polite"
+                    }
+                    aria-atomic="true"
+                  >
+                    {currentSaveStatus?.text || ""}
+                  </span>
+
                   {messung.beschreibung && (
                     <p className="evaluationDescription">{messung.beschreibung}</p>
                   )}
@@ -185,38 +385,45 @@ const EvaluationPage = () => {
                   {/* Prio2 <p className="downloadLink">Zwischenstand herunterladen:</p> */}
                 </div>
               </section>
-            ))}
+              );
+            })}
           </div>
         )
       }
 
       {
         confirmDialog.open && (
-          <div className="modalOverlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
-            <div className="modal">
-              <h2>Erstellen</h2>
+          <div className="modalOverlay" role="presentation">
+            <div ref={createDialogRef} className="modal" role="dialog" aria-labelledby="create-evaluation-title" aria-describedby={`create-evaluation-hint${dialogError ? " create-evaluation-error" : ""}`} aria-modal="true" tabIndex={-1}>
+              <h2 id="create-evaluation-title">Erstellen</h2>
 
               <div className="modalInputGroup">
+                <label htmlFor="new-evaluation-title">Titel der neuen Messung</label>
                 <input
+                  id="new-evaluation-title"
                   type="text"
                   value={neuerTitelInput}
                   onChange={(e) => setNeuerTitelInput(e.target.value)}
                   placeholder="Titel der neuen Messung eingeben..."
                   className="modalInput"
-                  autoFocus
                 />
-                <p className="hint">
+                <p className="hint" id="create-evaluation-hint">
                   Hinweis:
                   Mit der Erstellung einer neuen Messung wird die vorherige Messung beendet und kann nicht mehr bearbeitet werden. Die Ergebnisse der beendeten Messung bleiben weiterhin einsehbar.
                 </p>
+                {dialogError && (
+                  <p className="error-text" id="create-evaluation-error" role="alert">
+                    {dialogError}
+                  </p>
+                )}
               </div>
 
               <div className="modalButtons">
-                <button onClick={handleCancel}>
+                <button ref={createCancelRef} onClick={handleCancel} disabled={actionBusy}>
                   Abbrechen
                 </button>
-                <button onClick={handleConfirm}>
-                  Erstellen
+                <button onClick={handleConfirm} disabled={actionBusy}>
+                  {actionBusy ? "Wird erstellt …" : "Erstellen"}
                 </button>
               </div>
             </div>
@@ -225,17 +432,22 @@ const EvaluationPage = () => {
       }
       {
         deleteDialog.open && (
-          <div className="modalOverlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
-            <div className="modal">
-              <h2>Löschen</h2>
-              <p>Sind Sie sicher, dass Sie die Messung "<i>{deleteDialog.name}</i>" löschen möchten?
+          <div className="modalOverlay" role="presentation">
+            <div ref={deleteDialogRef} className="modal" role="alertdialog" aria-labelledby="delete-evaluation-title" aria-describedby={`delete-evaluation-description${dialogError ? " delete-evaluation-error" : ""}`} aria-modal="true" tabIndex={-1}>
+              <h2 id="delete-evaluation-title">Löschen</h2>
+              <p id="delete-evaluation-description">Sind Sie sicher, dass Sie die Messung "<i>{deleteDialog.name}</i>" löschen möchten?
                 Alle Ergebnisse gehen dadurch verloren und können nicht wiederhergestellt werden.</p>
+              {dialogError && (
+                <p className="error-text" id="delete-evaluation-error" role="alert">
+                  {dialogError}
+                </p>
+              )}
               <div className="modalButtons">
-                <button onClick={handleCancel}>
-                  Abbrechen
+                <button ref={deleteCancelRef} onClick={handleCancel} disabled={actionBusy}>
+                  Evaluationsrunde behalten
                 </button>
-                <button onClick={() => deleteEvaluation(deleteDialog.id)}>
-                  Löschen
+                <button onClick={() => deleteEvaluation(deleteDialog.id)} disabled={actionBusy}>
+                  {actionBusy ? "Wird gelöscht …" : "Evaluationsrunde löschen"}
                 </button>
               </div>
             </div>

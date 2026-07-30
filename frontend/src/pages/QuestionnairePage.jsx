@@ -406,15 +406,30 @@ export default function QuestionnairePage({ activeCompany }) {
           <p>Keine Fragen für dieses Handlungsfeld gefunden.</p>
         ) : (
           filteredFragen.map((frage) => (
-            <div key={frage.id} className="question-box">
+            <section
+              key={frage.id}
+              className="question-box"
+              aria-labelledby={`question-${frage.id}`}
+            >
               <div className="homeEyebrowright">
                 <p className="homeEyebrow">
                   {currentHandlungsfeld?.name}
                 </p>
               </div>
-              <p className="question-text">{frage.frage}</p>
+              <h3 id={`question-${frage.id}`} className="question-text">
+                {frage.frage}
+              </h3>
 
-              <div className="answers">
+              <p id={`question-instruction-${frage.id}`} className="sr-only">
+                Wählen Sie genau eine Antwort. Der aktuell ausgewählte Button
+                wird als gedrückt ausgegeben.
+              </p>
+              <div
+                className="answers"
+                role="group"
+                aria-labelledby={`question-${frage.id}`}
+                aria-describedby={`question-instruction-${frage.id}`}
+              >
                 {[
                   ...(frage.antworten || []),
                   {
@@ -430,7 +445,9 @@ export default function QuestionnairePage({ activeCompany }) {
                   return (
                     <button
                       key={`${frage.id}-${antwort.id || "none"}`}
+                      type="button"
                       className={`answer-button ${isSelected ? "selected" : ""}`}
+                      aria-pressed={isSelected}
                       onClick={() => handleAnswerClick(frage, antwort)}
                     >
                       {antwort.antwort}
@@ -438,7 +455,7 @@ export default function QuestionnairePage({ activeCompany }) {
                   );
                 })}
               </div>
-            </div>
+            </section>
           ))
         )}
 

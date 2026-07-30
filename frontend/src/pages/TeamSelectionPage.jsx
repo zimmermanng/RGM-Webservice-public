@@ -89,10 +89,12 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
   }, [globalMessage, takeoverDialog.open]);
 
   useEffect(() => {
+    const content = contentRef.current;
+
     if (!takeoverDialog.open) {
-      if (contentRef.current) {
-        contentRef.current.removeAttribute("inert");
-        contentRef.current.removeAttribute("aria-hidden");
+      if (content) {
+        content.removeAttribute("inert");
+        content.removeAttribute("aria-hidden");
       }
 
       document.body.style.overflow = "";
@@ -109,9 +111,9 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
 
     previouslyFocusedElementRef.current = document.activeElement;
 
-    if (contentRef.current) {
-      contentRef.current.setAttribute("inert", "");
-      contentRef.current.setAttribute("aria-hidden", "true");
+    if (content) {
+      content.setAttribute("inert", "");
+      content.setAttribute("aria-hidden", "true");
     }
 
     document.body.style.overflow = "hidden";
@@ -172,9 +174,9 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
 
-      if (contentRef.current) {
-        contentRef.current.removeAttribute("inert");
-        contentRef.current.removeAttribute("aria-hidden");
+      if (content) {
+        content.removeAttribute("inert");
+        content.removeAttribute("aria-hidden");
       }
     };
   }, [takeoverDialog.open, saving]);
@@ -317,7 +319,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
     }
   };
 
-  const renderNode = (node, level = 0) => {
+  const renderNode = (node, level = 0, position = 1, setSize = 1) => {
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
     const isCollapsed = !!collapsedNodes[node.id];
     const isCurrent = selectedTeam === node.name;
@@ -338,6 +340,9 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
         style={{ marginLeft: `${level * 24}px` }}
         role="treeitem"
         aria-level={level + 1}
+        aria-posinset={position}
+        aria-setsize={setSize}
+        aria-selected={isCurrent}
         aria-expanded={hasChildren ? !isCollapsed : undefined}
         aria-labelledby={nodeLabelId}
         aria-describedby={
@@ -426,7 +431,9 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
             role="group"
             aria-labelledby={nodeLabelId}
           >
-            {node.children.map((child) => renderNode(child, level + 1))}
+            {node.children.map((child, index, siblings) =>
+              renderNode(child, level + 1, index + 1, siblings.length),
+            )}
           </div>
         )}
       </div>
@@ -476,7 +483,9 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
               aria-describedby="team-selection-help"
               aria-busy={saving ? "true" : "false"}
             >
-              {teams.map((node) => renderNode(node))}
+              {teams.map((node, index) =>
+                renderNode(node, 0, index + 1, teams.length),
+              )}
             </div>
           )}
         </div>
@@ -524,7 +533,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
                   onClick={closeTakeoverDialog}
                   disabled={saving}
                 >
-                  Abbrechen
+                  Bearbeitung nicht übernehmen
                 </button>
               </div>
             </div>
