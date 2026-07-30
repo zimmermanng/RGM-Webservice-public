@@ -356,13 +356,13 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           >
             Tabelle anzeigen
           </button>
-          <button
+{/*           <button
             type="button"
             className="toggle-button secondary"
             onClick={handleDownloadJson}
           >
             JSON herunterladen
-          </button>
+          </button> */}
         </div>
       </div>
 

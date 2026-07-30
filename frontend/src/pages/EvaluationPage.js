@@ -13,7 +13,11 @@ const EvaluationPage = () => {
   const [actionMessage, setActionMessage] = useState("");
   const [actionBusy, setActionBusy] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({ open: false });
-  const [deleteDialog, setDeleteDialog] = useState({ open: false, id: null, name: "" });
+  const [deleteDialog, setDeleteDialog] = useState({
+    open: false,
+    id: null,
+    name: "",
+  });
   const createCancelRef = useRef(null);
   const deleteCancelRef = useRef(null);
   const savedTitlesRef = useRef(new Map());
@@ -45,15 +49,15 @@ const EvaluationPage = () => {
       } finally {
         setMessungenLaden(false);
       }
-    }
-    fetchTeams()
+    };
+    fetchTeams();
   }, []);
 
   const datumBestimmen = () => {
     let datum = new Date();
     const zeitzone = datum.getTimezoneOffset();
-    datum = new Date(datum.getTime() - (zeitzone * 60 * 1000));
-    return datum.toISOString().split('T')[0];
+    datum = new Date(datum.getTime() - zeitzone * 60 * 1000);
+    return datum.toISOString().split("T")[0];
   };
 
   const handleNeueMessungClick = () => {
@@ -80,8 +84,9 @@ const EvaluationPage = () => {
   });
 
   const handleConfirm = async () => {
-    const tagesdatum = datumBestimmen()
-    const titelFürNeueMessung = neuerTitelInput.trim() !== "" ? neuerTitelInput : "Unbenannte Messung";
+    const tagesdatum = datumBestimmen();
+    const titelFürNeueMessung =
+      neuerTitelInput.trim() !== "" ? neuerTitelInput : "Unbenannte Messung";
 
     const neueMessung = {
       id: Date.now(),
@@ -130,22 +135,28 @@ const EvaluationPage = () => {
     setDialogError("");
     setActionMessage("");
     setDeleteDialog({ open: true, id: id, name: name });
-  }
+  };
 
   const openEvaluation = (id) => {
-    navigate(`/evaluationsrunden/gesamtauswertung?id=${id}`)
-  }
+    navigate(`/evaluationsrunden/gesamtauswertung?id=${id}`);
+  };
 
   const createNewEvaluation = async (evalauion) => {
     const evaluationData = evalauion;
-    const createEvaluation = await fetch(`${API_BASE}/evaluation/create-evaluation`, {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const createEvaluation = await fetch(
+      `${API_BASE}/evaluation/create-evaluation`,
+      {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          evaluationName: evaluationData.titel,
+          date: evaluationData.erstelltAm,
+        }),
       },
-      body: JSON.stringify({ evaluationName: evaluationData.titel, date: evaluationData.erstelltAm }),
-    });
+    );
     const data = await createEvaluation.json();
     if (!createEvaluation.ok || !data.ok) {
       throw new Error(
@@ -154,7 +165,7 @@ const EvaluationPage = () => {
       );
     }
     return data;
-  }
+  };
 
   const updateTitle = async (id, title) => {
     const trimmedTitle = title.trim();
@@ -214,7 +225,7 @@ const EvaluationPage = () => {
         },
       }));
     }
-  }
+  };
 
   const deleteEvaluation = async (id) => {
     setActionBusy(true);
@@ -250,7 +261,7 @@ const EvaluationPage = () => {
     } finally {
       setActionBusy(false);
     }
-  }
+  };
 
   return (
     <div className="mainContainer">
@@ -267,7 +278,11 @@ const EvaluationPage = () => {
         oder legen Sie eine neue Evaluationsrunde an.
       </p>
       {actionMessage && (
-        <p className="evaluation-action-status" role="status" aria-live="polite">
+        <p
+          className="evaluation-action-status"
+          role="status"
+          aria-live="polite"
+        >
           {actionMessage}
         </p>
       )}
@@ -288,20 +303,19 @@ const EvaluationPage = () => {
           {loadError}
         </p>
       )}
-      {
-        !messungenLaden && !loadError && (
-          <div className="evaluationList">
-            {messungen.length === 0 && (
-              <p role="status">Keine Evaluationsrunden vorhanden.</p>
-            )}
-            {messungen.map((messung) => {
-              const titleId = `evaluation-name-${messung.id}`;
-              const helpId = `evaluation-name-help-${messung.id}`;
-              const statusId = `evaluation-status-${messung.id}`;
-              const saveStatusId = `evaluation-name-save-${messung.id}`;
-              const currentSaveStatus = titleSaveStatus[messung.id];
+      {!messungenLaden && !loadError && (
+        <div className="evaluationList">
+          {messungen.length === 0 && (
+            <p role="status">Keine Evaluationsrunden vorhanden.</p>
+          )}
+          {messungen.map((messung) => {
+            const titleId = `evaluation-name-${messung.id}`;
+            const helpId = `evaluation-name-help-${messung.id}`;
+            const statusId = `evaluation-status-${messung.id}`;
+            const saveStatusId = `evaluation-name-save-${messung.id}`;
+            const currentSaveStatus = titleSaveStatus[messung.id];
 
-              return (
+            return (
               <section
                 key={messung.id}
                 className="homeIntroCard evaluationCard"
@@ -316,51 +330,20 @@ const EvaluationPage = () => {
                     </span>
                   )}
                   {!messung.isActive && (
-                    <span
-                      id={statusId}
-                      className="activeLabel completedLabel"
-                    >
+                    <span id={statusId} className="activeLabel completedLabel">
                       Status: Abgeschlossen
                     </span>
                   )}
 
-                  <label className="evaluation-title-label" htmlFor={titleId}>
-                    Name der Evaluationsrunde (bearbeitbar)
+                  <label className="evaluation-title-label">
+                    Name der Evaluationsrunde
                   </label>
-                  <input
-                    id={titleId}
-                    type="text"
-                    value={messung.name}
-                    onChange={(e) => handleTitelChange(messung.id, e.target.value)}
-                    onBlur={(e) => updateTitle(messung.id, e.target.value)}
-                    className="editableTitle"
-                    required
-                    aria-invalid={currentSaveStatus?.type === "error"}
-                    aria-describedby={`${helpId} ${statusId} ${saveStatusId}`}
-                  />
-                  <span id={helpId} className="evaluation-title-help">
-                    Änderungen werden beim Verlassen des Feldes gespeichert.
-                  </span>
-                  <span
-                    id={saveStatusId}
-                    className={`evaluation-title-save-status ${
-                      currentSaveStatus?.type === "error" ? "is-error" : ""
-                    }`}
-                    role={
-                      currentSaveStatus?.type === "error" ? "alert" : "status"
-                    }
-                    aria-live={
-                      currentSaveStatus?.type === "error"
-                        ? "assertive"
-                        : "polite"
-                    }
-                    aria-atomic="true"
-                  >
-                    {currentSaveStatus?.text || ""}
-                  </span>
+                  <h2 className="evaluationTitle">{messung.name}</h2>
 
                   {messung.beschreibung && (
-                    <p className="evaluationDescription">{messung.beschreibung}</p>
+                    <p className="evaluationDescription">
+                      {messung.beschreibung}
+                    </p>
                   )}
 
                   <div className="timestampContainer">
@@ -368,7 +351,8 @@ const EvaluationPage = () => {
                       <strong>Erstellt am:</strong> {messung.createdAt}
                     </p>
                     <p>
-                      <strong>Zuletzt bearbeitet am:</strong> {messung.updatedAt}
+                      <strong>Zuletzt bearbeitet am:</strong>{" "}
+                      {messung.updatedAt}
                     </p>
                   </div>
                   <div
@@ -378,83 +362,128 @@ const EvaluationPage = () => {
                     }}
                   >
                     {!messung.isActive && (
-                      <button onClick={() => openDeleteDialog(messung.id, messung.name)}>Löschen</button>
+                      <button
+                        onClick={() =>
+                          openDeleteDialog(messung.id, messung.name)
+                        }
+                      >
+                        Löschen
+                      </button>
                     )}
-                    <button onClick={() => openEvaluation(messung.id)}>Ergebnis anzeigen</button>
+                    <button onClick={() => openEvaluation(messung.id)}>
+                      Ergebnis anzeigen
+                    </button>
                   </div>
                   {/* Prio2 <p className="downloadLink">Zwischenstand herunterladen:</p> */}
                 </div>
               </section>
-              );
-            })}
-          </div>
-        )
-      }
+            );
+          })}
+        </div>
+      )}
 
-      {
-        confirmDialog.open && (
-          <div className="modalOverlay" role="presentation">
-            <div ref={createDialogRef} className="modal" role="dialog" aria-labelledby="create-evaluation-title" aria-describedby={`create-evaluation-hint${dialogError ? " create-evaluation-error" : ""}`} aria-modal="true" tabIndex={-1}>
-              <h2 id="create-evaluation-title">Erstellen</h2>
+      {confirmDialog.open && (
+        <div className="modalOverlay" role="presentation">
+          <div
+            ref={createDialogRef}
+            className="modal"
+            role="dialog"
+            aria-labelledby="create-evaluation-title"
+            aria-describedby={`create-evaluation-hint${dialogError ? " create-evaluation-error" : ""}`}
+            aria-modal="true"
+            tabIndex={-1}
+          >
+            <h2 id="create-evaluation-title">Erstellen</h2>
 
-              <div className="modalInputGroup">
-                <label htmlFor="new-evaluation-title">Titel der neuen Messung</label>
-                <input
-                  id="new-evaluation-title"
-                  type="text"
-                  value={neuerTitelInput}
-                  onChange={(e) => setNeuerTitelInput(e.target.value)}
-                  placeholder="Titel der neuen Messung eingeben..."
-                  className="modalInput"
-                />
-                <p className="hint" id="create-evaluation-hint">
-                  Hinweis:
-                  Mit der Erstellung einer neuen Messung wird die vorherige Messung beendet und kann nicht mehr bearbeitet werden. Die Ergebnisse der beendeten Messung bleiben weiterhin einsehbar.
-                </p>
-                {dialogError && (
-                  <p className="error-text" id="create-evaluation-error" role="alert">
-                    {dialogError}
-                  </p>
-                )}
-              </div>
-
-              <div className="modalButtons">
-                <button ref={createCancelRef} onClick={handleCancel} disabled={actionBusy}>
-                  Abbrechen
-                </button>
-                <button onClick={handleConfirm} disabled={actionBusy}>
-                  {actionBusy ? "Wird erstellt …" : "Erstellen"}
-                </button>
-              </div>
-            </div>
-          </div>
-        )
-      }
-      {
-        deleteDialog.open && (
-          <div className="modalOverlay" role="presentation">
-            <div ref={deleteDialogRef} className="modal" role="alertdialog" aria-labelledby="delete-evaluation-title" aria-describedby={`delete-evaluation-description${dialogError ? " delete-evaluation-error" : ""}`} aria-modal="true" tabIndex={-1}>
-              <h2 id="delete-evaluation-title">Löschen</h2>
-              <p id="delete-evaluation-description">Sind Sie sicher, dass Sie die Messung "<i>{deleteDialog.name}</i>" löschen möchten?
-                Alle Ergebnisse gehen dadurch verloren und können nicht wiederhergestellt werden.</p>
+            <div className="modalInputGroup">
+              <label htmlFor="new-evaluation-title">
+                Titel der neuen Messung
+              </label>
+              <input
+                id="new-evaluation-title"
+                type="text"
+                value={neuerTitelInput}
+                onChange={(e) => setNeuerTitelInput(e.target.value)}
+                placeholder="Titel der neuen Messung eingeben..."
+                className="modalInput"
+              />
+              <p className="hint" id="create-evaluation-hint">
+                Hinweis: Mit der Erstellung einer neuen Messung wird die
+                vorherige Messung beendet und kann nicht mehr bearbeitet werden.
+                Die Ergebnisse der beendeten Messung bleiben weiterhin
+                einsehbar.
+              </p>
               {dialogError && (
-                <p className="error-text" id="delete-evaluation-error" role="alert">
+                <p
+                  className="error-text"
+                  id="create-evaluation-error"
+                  role="alert"
+                >
                   {dialogError}
                 </p>
               )}
-              <div className="modalButtons">
-                <button ref={deleteCancelRef} onClick={handleCancel} disabled={actionBusy}>
-                  Evaluationsrunde behalten
-                </button>
-                <button onClick={() => deleteEvaluation(deleteDialog.id)} disabled={actionBusy}>
-                  {actionBusy ? "Wird gelöscht …" : "Evaluationsrunde löschen"}
-                </button>
-              </div>
+            </div>
+
+            <div className="modalButtons">
+              <button
+                ref={createCancelRef}
+                onClick={handleCancel}
+                disabled={actionBusy}
+              >
+                Abbrechen
+              </button>
+              <button onClick={handleConfirm} disabled={actionBusy}>
+                {actionBusy ? "Wird erstellt …" : "Erstellen"}
+              </button>
             </div>
           </div>
-        )
-      }
-    </div >
+        </div>
+      )}
+      {deleteDialog.open && (
+        <div className="modalOverlay" role="presentation">
+          <div
+            ref={deleteDialogRef}
+            className="modal"
+            role="alertdialog"
+            aria-labelledby="delete-evaluation-title"
+            aria-describedby={`delete-evaluation-description${dialogError ? " delete-evaluation-error" : ""}`}
+            aria-modal="true"
+            tabIndex={-1}
+          >
+            <h2 id="delete-evaluation-title">Löschen</h2>
+            <p id="delete-evaluation-description">
+              Sind Sie sicher, dass Sie die Messung "<i>{deleteDialog.name}</i>"
+              löschen möchten? Alle Ergebnisse gehen dadurch verloren und können
+              nicht wiederhergestellt werden.
+            </p>
+            {dialogError && (
+              <p
+                className="error-text"
+                id="delete-evaluation-error"
+                role="alert"
+              >
+                {dialogError}
+              </p>
+            )}
+            <div className="modalButtons">
+              <button
+                ref={deleteCancelRef}
+                onClick={handleCancel}
+                disabled={actionBusy}
+              >
+                Evaluationsrunde behalten
+              </button>
+              <button
+                onClick={() => deleteEvaluation(deleteDialog.id)}
+                disabled={actionBusy}
+              >
+                {actionBusy ? "Wird gelöscht …" : "Evaluationsrunde löschen"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
