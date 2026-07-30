@@ -1745,12 +1745,6 @@ progress::-moz-progress-bar {
 }
 
 /* Editierbare Überschrift */
-.editableTitleContainer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .editableTitle {
   display: block;
   width: 100%;
@@ -1788,10 +1782,6 @@ progress::-moz-progress-bar {
   font-size: 0.85rem;
   line-height: 1.4;
   overflow-wrap: anywhere;
-}
-
-.editableTitleLabel {
-  font-size: 1.25em;
 }
 
 /* Zeitstempel-Bereich */
