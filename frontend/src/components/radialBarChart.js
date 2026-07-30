@@ -596,8 +596,6 @@ const RadialBarChart = ({
 
     const logoSize = Math.min(INNER_RADIUS * 1.5, 200);
 
-    svg.append('title').text(`${resolvedCompany} Logo`);
-
     svg
       .append('image')
       .attr('xlink:href', centerLogo)
