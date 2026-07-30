@@ -13,6 +13,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [jumpAnnouncement, setJumpAnnouncement] = useState("");
   const [jumpRequestId, setJumpRequestId] = useState(0);
+  const [expandedDetails, setExpandedDetails] = useState({});
   const tabRefs = useRef({});
   const pendingRecommendationTargetRef = useRef(null);
 
@@ -203,12 +204,22 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     setJumpRequestId((currentId) => currentId + 1);
   };
 
+  const handleDetailsToggle = (detailsId, event) => {
+    const isOpen = event.currentTarget.open;
+    setExpandedDetails((current) => {
+      if (Boolean(current[detailsId]) === isOpen) return current;
+      return { ...current, [detailsId]: isOpen };
+    });
+  };
+
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
     const isTodo = variant === "todo";
     const accessibleId = slugifyId(`${variant}-${groupItem.frageId}-${index}`);
     const questionId = `recommendation-question-${accessibleId}`;
     const answerId = `recommendation-answer-${accessibleId}`;
     const stageId = `recommendation-stage-${accessibleId}`;
+    const detailsId = `recommendation-details-${accessibleId}`;
+    const panelId = `recommendation-panel-${accessibleId}`;
 
     if (isTodo) {
       return (
@@ -257,10 +268,13 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       <details
         key={`${groupItem.frageId}-${variant}-${index}`}
         className={`question-recommendation-card ${variant}`}
+        onToggle={(event) => handleDetailsToggle(detailsId, event)}
       >
         <summary
           className="question-recommendation-summary"
           aria-labelledby={questionId}
+          aria-expanded={Boolean(expandedDetails[detailsId])}
+          aria-controls={panelId}
           aria-describedby={
             typeof groupItem.stufe === "number"
               ? `${answerId} ${stageId}`
@@ -282,7 +296,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           )}
         </summary>
 
-        <div className="question-recommendation-panel">
+        <div id={panelId} className="question-recommendation-panel">
           <p className="question-recommendation-panel-label">
             Zugehörige Handlungsempfehlungen
           </p>
@@ -512,6 +526,10 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
       questionMap,
       recommendationMap,
     });
+    const establishedDetailsId = `established-details-${slugifyId(
+      `${row.group}-${row.category}`
+    )}`;
+    const establishedPanelId = `${establishedDetailsId}-panel`;
 
     return (
       <>
@@ -537,20 +555,31 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           )}
         </div>
 
-        <details className="already-done-block">
-          <summary>
+        <details
+          className="already-done-block"
+          onToggle={(event) =>
+            handleDetailsToggle(establishedDetailsId, event)
+          }
+        >
+          <summary
+            aria-expanded={Boolean(expandedDetails[establishedDetailsId])}
+            aria-controls={establishedPanelId}
+          >
             Bereits gut umgesetzte Maßnahmen auf höheren Stufen (
             {establishedHigherGroups.length})
           </summary>
 
           {establishedHigherGroups.length > 0 ? (
-            <div className="question-recommendation-grid">
+            <div
+              id={establishedPanelId}
+              className="question-recommendation-grid"
+            >
               {establishedHigherGroups.map((groupItem, index) =>
                 renderRecommendationGroupCard(groupItem, index, "established")
               )}
             </div>
           ) : (
-            <p className="already-done-empty">
+            <p id={establishedPanelId} className="already-done-empty">
               Für die nächste und höhere Stufen wurden noch keine bereits
               umgesetzten Maßnahmen erkannt.
             </p>
