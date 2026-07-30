@@ -243,22 +243,22 @@ a.homeButton:visited {
 .skip-link,
 .hf-button,
 .dFooter button {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-min-height: 2.5rem;
-min-width: 12.5rem;
-padding: 0.7rem 1rem;
-border-radius: var(--radius-md);
-border: 1px solid var(--color-border-strong);
-background: var(--color-surface);
-color: var(--color-text);
-cursor: pointer;
-transition:
-background-color 0.2s ease,
-border-color 0.2s ease,
-transform 0.15s ease,
-box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  min-width: 12.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .answer-button:hover,
@@ -282,9 +282,9 @@ a.hf-button:active {
   color: var(--color-text);
 }
 
-.toggle-button.active{
+.toggle-button.active {
   background-color: var(--footer-color);
-  border-color:var(--brand-accent-strong);
+  border-color: var(--brand-accent-strong);
 }
 
 .answer-button {
@@ -1327,13 +1327,11 @@ td span.nicht-bewertet {
 }
 
 .question-box {
-padding: clamp(1.5rem, 1vw, 1.5rem);
-gap: var(--space-5);
-background: linear-gradient(
-180deg,
-#ffffff 0%,
-color-mix(in srgb, var(--brand-primary-soft) 22%, #ffffff) 100%
-);
+  padding: clamp(1.5rem, 1vw, 1.5rem);
+  gap: var(--space-5);
+  background: linear-gradient(180deg,
+      #ffffff 0%,
+      color-mix(in srgb, var(--brand-primary-soft) 22%, #ffffff) 100%);
 }
 
 .question-text {
@@ -1668,8 +1666,8 @@ progress::-moz-progress-bar {
 }
 
 .icon-lock {
-  width: 30px !important;  
-  align-self:center;
+  width: 30px !important;
+  align-self: center;
   align-items: end;
   border: none !important;
   outline: none !important;
@@ -1694,10 +1692,11 @@ progress::-moz-progress-bar {
 /* Längliche, breitere Kachel */
 .evaluationCard {
   position: relative;
-  display: flex; /* Für die Anordnung von Bild und Inhalt */
+  display: flex;
+  /* Für die Anordnung von Bild und Inhalt */
   align-items: flex-start;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   width: 100%;
   min-width: 0;
@@ -1709,11 +1708,14 @@ progress::-moz-progress-bar {
 
 /* Bildbereich in der Kachel */
 .cardImage {
-  width: 120px; /* Feste Breite für das Bild */
+  width: 120px;
+  /* Feste Breite für das Bild */
   height: 120px;
   border-radius: 4px;
-  object-fit: cover; /* Verhindert Verzerrung */
-  margin-right: 20px; /* Abstand zum Textinhalt */
+  object-fit: cover;
+  /* Verhindert Verzerrung */
+  margin-right: 20px;
+  /* Abstand zum Textinhalt */
 }
 
 /* Inhaltsbereich neben dem Bild */
@@ -1786,8 +1788,10 @@ progress::-moz-progress-bar {
 .timestampContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Ordnet die Container-Elemente (z.B. <p>) links an */
-  text-align: left; /* Stellt sicher, dass der Text innerhalb der <p>-Tags linksbündig ist */
+  align-items: flex-start;
+  /* Ordnet die Container-Elemente (z.B. <p>) links an */
+  text-align: left;
+  /* Stellt sicher, dass der Text innerhalb der <p>-Tags linksbündig ist */
   color: #666;
   font-size: 0.95em;
   line-height: 1.6;
@@ -1802,16 +1806,18 @@ progress::-moz-progress-bar {
 /* Download-Link */
 .downloadLink {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   color: #0066cc;
   cursor: pointer;
 }
+
 /* --- Modal Eingabefelder --- */
 .modalInputGroup {
   margin: 15px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Abstand zwischen den Eingabefeldern */
+  gap: 12px;
+  /* Abstand zwischen den Eingabefeldern */
 }
 
 .modalInput {
@@ -2048,7 +2054,7 @@ progress::-moz-progress-bar {
 }
 
 .admin-toolbar-inner {
-  max-width: 1200px; 
+  max-width: 1200px;
   margin: 0 auto;
   padding: 8px 20px;
   display: flex;
@@ -2102,10 +2108,11 @@ progress::-moz-progress-bar {
   text-decoration-thickness: 0.14em;
   text-underline-offset: 4px;
 }
+
 .mobile-admin-group {
   margin-top: 1rem;
   padding-top: 1rem;
-  display: block; 
+  display: block;
 }
 
 .mobile-divider {
@@ -2121,7 +2128,7 @@ progress::-moz-progress-bar {
   letter-spacing: 0.05em;
   color: var(--color-text); 
   margin-bottom: 0.5rem;
-  padding: 0 15px; 
+  padding: 0 15px;
   font-weight: 600;
 }
 
@@ -2132,8 +2139,9 @@ progress::-moz-progress-bar {
   display: flex;
   flex-direction: column;
 }
+
 .mobile-admin-group .nav-link {
-  padding-left: 25px; 
+  padding-left: 25px;
   position: relative;
 }
 
@@ -2149,6 +2157,7 @@ progress::-moz-progress-bar {
     display: none;
   }
 }
+
 .team-indicator {
   appearance: none;
   -webkit-appearance: none;
@@ -2156,12 +2165,12 @@ progress::-moz-progress-bar {
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--color-text); 
-  
-  
-  padding: 8px 36px 8px 16px; 
-  margin: 0 10px; 
-  background-color: transparent; 
+  color: var(--color-text);
+
+
+  padding: 8px 36px 8px 16px;
+  margin: 0 10px;
+  background-color: transparent;
   border: 1px solid #ccc;
   border-radius: 6px;
   cursor: pointer;
@@ -2176,13 +2185,15 @@ progress::-moz-progress-bar {
 
 .team-indicator:hover {
   border-color: var(--brand-primary);
-  background-color: rgba(0, 0, 0, 0.03); 
+  background-color: rgba(0, 0, 0, 0.03);
 }
+
 .team-indicator:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 3px;
   border-color: var(--brand-primary);
 }
+
 .team-indicator option {
   font-weight: normal;
   color: #000;

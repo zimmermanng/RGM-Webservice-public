@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
 import useDialogFocus from "../hooks/useDialogFocus";
 
 const EvaluationPage = () => {
+  const navigate = useNavigate();
   const [messungen, setMessungen] = useState([]);
   const [messungenLaden, setMessungenLaden] = useState(true);
   const [loadError, setLoadError] = useState("");
@@ -128,6 +130,10 @@ const EvaluationPage = () => {
     setDialogError("");
     setActionMessage("");
     setDeleteDialog({ open: true, id: id, name: name });
+  }
+
+  const openEvaluation = (id) => {
+    navigate(`/evaluationsrunden/gesamtauswertung?id=${id}`)
   }
 
   const createNewEvaluation = async (evalauion) => {
@@ -365,10 +371,16 @@ const EvaluationPage = () => {
                       <strong>Zuletzt bearbeitet am:</strong> {messung.updatedAt}
                     </p>
                   </div>
-                  <div className="modalButtons">
+                  <div
+                    className="modalButtons"
+                    style={{
+                      float: messung.isActive ? "right" : "none",
+                    }}
+                  >
                     {!messung.isActive && (
                       <button onClick={() => openDeleteDialog(messung.id, messung.name)}>Löschen</button>
                     )}
+                    <button onClick={() => openEvaluation(messung.id)}>Ergebnis anzeigen</button>
                   </div>
                   {/* Prio2 <p className="downloadLink">Zwischenstand herunterladen:</p> */}
                 </div>

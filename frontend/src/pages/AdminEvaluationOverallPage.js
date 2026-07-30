@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import { API_BASE } from "../config.ts";
+import { useSearchParams } from "react-router-dom";
 import useDialogFocus from "../hooks/useDialogFocus";
 import { createZipBlob } from "../utils/zip";
 
@@ -134,19 +135,22 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
   const [selectedLevel1, setSelectedLevel1] = useState("gesamt");
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [evaluationData, setEvaluationData] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
   const [exportBusy, setExportBusy] = useState(false);
   const [exportStatus, setExportStatus] = useState("");
   const pageRef = useRef(null);
 
   // Aktuell werden die neusten Daten geladen!
   useEffect(() => {
+    const evaluationId = searchParams.get("id")
     const fetchEvaluationData = async () => {
       try {
-        const res = await fetch(`${API_BASE}/evaluation/retrieve-data`, {
+        const res = await fetch(`${API_BASE}/evaluation/retrieve-data?id=${evaluationId}`, {
           credentials: "include",
         });
         const evalData = await res.json();
         setEvaluationData(evalData.data);
+        console.log(evalData.data)
       } catch (err) {
         console.error("Fehler beim Laden der Evaluations Daten:", err);
       }
