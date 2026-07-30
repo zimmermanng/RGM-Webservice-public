@@ -454,11 +454,6 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
                     onKeyDown={(e) =>
                       handleKeyDown(e, dimension, "toEdit", "notToEdit")
                     }
-                    style={{
-                      cursor: isLocked
-                        ? "not-allowed"
-                        : "grab",
-                    }}
                   >
                     <Card_dimensions
                       title={dimension.name}

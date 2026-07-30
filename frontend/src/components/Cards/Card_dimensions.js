@@ -15,7 +15,7 @@ const Card_dimensions = ({
   privilegedAccess,
   isLocked: initialIsLocked = false,
   showLock = false,
-  setLockedCards
+  setLockedCards,
 }) => {
   const [isLocked, setIsLocked] = useState(initialIsLocked);
   const [isSavingLock, setIsSavingLock] = useState(false);
@@ -51,7 +51,9 @@ const Card_dimensions = ({
         throw new Error("Sperrstatus konnte nicht gespeichert werden.");
       }
       const results = await lockRes.json();
-      const lockedDimensions = results.lockedDimensions ? results.lockedDimensions : [];
+      const lockedDimensions = results.lockedDimensions
+        ? results.lockedDimensions
+        : [];
       setLockedCards?.(lockedDimensions);
       const savedIsLocked = lockedDimensions.includes(dimensionId);
       setIsLocked(savedIsLocked);
@@ -81,9 +83,18 @@ const Card_dimensions = ({
           className="icon-lock"
           role="img"
           aria-label={`Paket ${title} ist ${statusText}`}
-          title={`Paket ist ${statusText}`}
+          title={
+            isLocked
+              ? "Vom Administrator fixiert."
+              : "Vom Administrator nicht fixiert."
+          }
         >
-          <img src={iconSrc} alt="" className="card-lock-icon" />
+          <div className="lock-status">
+            <img src={iconSrc} alt="" className="card-lock-icon" />
+            <span className="lock-status-text">
+              {isLocked ? "Fixiert" : "Nicht fixiert"}
+            </span>
+          </div>
         </span>
       );
     }
@@ -100,7 +111,12 @@ const Card_dimensions = ({
         disabled={isSavingLock}
         title={isLocked ? "Freischalten" : "Sperren"}
       >
-        <img src={iconSrc} alt="" className="card-lock-icon" />
+        <div className="lock-status">
+          <img src={iconSrc} alt="" className="card-lock-icon" />
+          <span className="lock-status-text">
+            {isLocked ? "Fixiert" : "Nicht fixiert"}
+          </span>
+        </div>
       </button>
     );
   };
@@ -150,7 +166,9 @@ const Card_dimensions = ({
                   <span
                     id={lockStatusId}
                     className="sr-only"
-                    role={lockMessage.startsWith("Fehler:") ? "alert" : "status"}
+                    role={
+                      lockMessage.startsWith("Fehler:") ? "alert" : "status"
+                    }
                     aria-live={
                       lockMessage.startsWith("Fehler:") ? "assertive" : "polite"
                     }

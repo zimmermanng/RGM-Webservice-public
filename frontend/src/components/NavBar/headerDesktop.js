@@ -229,12 +229,9 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
           console.error(error);
         }
         setTeamView(true);
-        if (
-          ["/dimensions", "/dimensions/bearbeiten"].includes(
-            window.location.pathname,
-          )
-        )
-          window.location.reload();
+
+        navigate("/dimensions/bearbeiten", { replace: true });
+        window.location.reload();
       }
     } else if (event.target.value !== team) {
       try {
@@ -442,13 +439,13 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                         ))
                       ) : (
                         <option key={unit.name} value={unit.name}>
-                           {team === "Administration"
-                          ? unit.name === "Administration"
-                            ? `✏️ ${unit.name} (Eigener Bereich)`
-                            : `✏️ ${unit.name} (Organisierend)`
-                          :unit.name === team
-                            ? `✏️ ${unit.name} (Eigener Bereich)`
-                            : `👁️ ${unit.name} (Lesezugriff)`}
+                          {team === "Administration"
+                            ? unit.name === "Administration"
+                              ? `✏️ ${unit.name} (Eigener Bereich)`
+                              : `✏️ ${unit.name} (Organisierend)`
+                            : unit.name === team
+                              ? `✏️ ${unit.name} (Eigener Bereich)`
+                              : `👁️ ${unit.name} (Lesezugriff)`}
                         </option>
                       ),
                     )
@@ -621,14 +618,19 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       </header>
       {returnDialog.open && (
         <div className="modalOverlay" role="presentation">
-          <div ref={returnDialogRef} className="modal" role="alertdialog" aria-labelledby="return-dialog-title" aria-describedby="return-dialog-description" aria-modal="true" tabIndex={-1}>
+          <div
+            ref={returnDialogRef}
+            className="modal"
+            role="alertdialog"
+            aria-labelledby="return-dialog-title"
+            aria-describedby="return-dialog-description"
+            aria-modal="true"
+            tabIndex={-1}
+          >
             <h2 id="return-dialog-title">Teamansicht verlassen?</h2>
             <p id="return-dialog-description">{returnDialog.message}</p>
             <div className="modalButtons return-dialog-actions">
-              <button
-                ref={returnCancelRef}
-                onClick={closeReturnDialog}
-              >
+              <button ref={returnCancelRef} onClick={closeReturnDialog}>
                 In der Teamansicht bleiben
               </button>
               <button onClick={confirmPopup}>
@@ -642,7 +644,15 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
       )}
       {takeoverDialog.open && (
         <div className="session-timeout-dialog-backdrop" role="presentation">
-          <div ref={takeoverDialogRef} className="session-timeout-dialog" role="alertdialog" aria-modal="true" aria-labelledby="header-team-takeover-title" aria-describedby="header-team-takeover-description" tabIndex={-1}>
+          <div
+            ref={takeoverDialogRef}
+            className="session-timeout-dialog"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="header-team-takeover-title"
+            aria-describedby="header-team-takeover-description"
+            tabIndex={-1}
+          >
             <h2 id="header-team-takeover-title">Bearbeitung übernehmen?</h2>
             <p id="header-team-takeover-description">
               Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person
