@@ -366,14 +366,36 @@ router.delete("/delete-evaluation", async (req, res) => {
 });
 
 router.get("/retrieve-data", async (req, res) => {
+    if (!req.query.id) return res.status(404).json({
+        ok: false,
+        message: "Die Evaluations Runde konnte nicht gefunden werden."
+    });
     const evaluationId = parseInt(req.query.id);
+    if (isNaN(evaluationId)) return res.status(404).json({
+        ok: false,
+        message: "Die Evaluations Runde konnte nicht gefunden werden."
+    });
     try {
-        const evaluationRound = isNaN(evaluationId) ? null : await prisma.evaluationRoundsData.findFirst({
+        const evaluationRound = await prisma.evaluationRounds.findUnique({
             where: {
-                evaluationRound: evaluationId
+                id: evaluationId,
             },
+            include: {
+                evaluationRoundData: true,
+            },
+        })
+
+        if (!evaluationRound) return res.status(404).json({
+            ok: false,
+            message: "Die Evaluations Runde konnte nicht gefunden werden."
         });
-        const data = evaluationRound ? evaluationRound.payload : await createEvaluationRoundData();
+
+        const data = evaluationRound.isActive ? await createEvaluationRoundData() : evaluationRound.evaluationRoundData.payload;
+        if (evaluationRound.isActive) {
+            data.id = evaluationRound.id;
+            data.name = evaluationRound.name;
+        }
+
         return res.status(200).json({
             ok: true,
             message: "Evaluations Daten erfolgreich geladen.",

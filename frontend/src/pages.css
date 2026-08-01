@@ -937,6 +937,11 @@ a.homeButton:active {
   background: var(--brand-bg);
 }
 
+.admin-overall-loading {
+  padding: calc(var(--header-height) + var(--space-8)) 0 var(--space-8);
+  background: linear-gradient(180deg, var(--navBar-color) 0%, var(--brand-bg) 100%);
+}
+
 .admin-overall-hero {
   padding: calc(var(--header-height) + var(--space-8)) 0 var(--space-8);
   background: linear-gradient(180deg, var(--navBar-color) 0%, var(--brand-bg) 100%);

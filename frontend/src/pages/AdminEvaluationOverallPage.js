@@ -13,150 +13,53 @@ const LEVEL_COLORS = {
   4: "#5e5f4f",
 };
 
-const mockEvaluationRound = {
-  id: "rgm-2026-1",
-  name: "RGM Version 2026.1",
-  description:
-    "Hier finden Sie die Gesamtauswertung der abgeschlossenen Evaluationsrunde. Die dargestellten Werte basieren auf Organisationseinheiten auf Blattebene, die mindestens ein Päckchen vollständig abgeschlossen haben.",
-  packages: [
-    { id: "allgemein", name: "Allgemein", fields: ["Planung", "Umsetzung", "Feedback"] },
-    {
-      id: "ergebnisprodukte",
-      name: "Ergebnisprodukte",
-      fields: ["Planung", "Nutzerzentrierung", "Ueberpruefung"],
-    },
-    {
-      id: "software",
-      name: "Software",
-      fields: ["Planung", "Umsetzung", "Dokumentation", "Feedback"],
-    },
-    {
-      id: "webseiten",
-      name: "Webseiten",
-      fields: ["Erklaerung zur Barrierefreiheit", "Umsetzung", "Monitoring"],
-    },
-    {
-      id: "weiterbildung",
-      name: "Barrierefreiheit Weiterbildung",
-      fields: ["Bedarfserhebung", "Vorbereitung", "Durchfuehrung"],
-    },
-  ],
-  organisation: [
-    {
-      id: "abteilung-1",
-      name: "Abteilung 1",
-      children: [
-        { id: "referat-11", name: "Referat 11" },
-        { id: "referat-12", name: "Referat 12" },
-      ],
-    },
-    {
-      id: "abteilung-2",
-      name: "Abteilung 2",
-      children: [
-        { id: "referat-21", name: "Referat 21" },
-        { id: "referat-22", name: "Referat 22" },
-      ],
-    },
-    { id: "stabstelle", name: "Stabstelle", children: [] },
-  ],
-  leafResults: [
-    {
-      unitId: "referat-11",
-      importer: "Import Referat 11",
-      completedPackageIds: ["allgemein", "ergebnisprodukte", "software", "webseiten"],
-      values: {
-        allgemein: { Planung: 1, Umsetzung: 3, Feedback: 2 },
-        ergebnisprodukte: { Planung: 2, Nutzerzentrierung: 3, Ueberpruefung: 2 },
-        software: { Planung: 2, Umsetzung: 2, Dokumentation: 3, Feedback: 2 },
-        webseiten: { "Erklaerung zur Barrierefreiheit": 2, Umsetzung: 3, Monitoring: 2 },
-      },
-    },
-    {
-      unitId: "referat-12",
-      importer: "Import Referat 12",
-      completedPackageIds: ["allgemein", "ergebnisprodukte", "software", "weiterbildung"],
-      values: {
-        allgemein: { Planung: 2, Umsetzung: 4, Feedback: 3 },
-        ergebnisprodukte: { Planung: 3, Nutzerzentrierung: 3, Ueberpruefung: 4 },
-        software: { Planung: 3, Umsetzung: 4, Dokumentation: 3, Feedback: 3 },
-        weiterbildung: { Bedarfserhebung: 2, Vorbereitung: 2, Durchfuehrung: 3 },
-      },
-    },
-    {
-      unitId: "referat-21",
-      importer: "Import Referat 21",
-      completedPackageIds: ["allgemein", "software", "webseiten"],
-      values: {
-        allgemein: { Planung: 1, Umsetzung: 1, Feedback: 2 },
-        software: { Planung: 1, Umsetzung: 2, Dokumentation: 1, Feedback: 2 },
-        webseiten: { "Erklaerung zur Barrierefreiheit": 1, Umsetzung: 2, Monitoring: 1 },
-      },
-    },
-    {
-      unitId: "referat-22",
-      importer: "Import Referat 22",
-      completedPackageIds: [
-        "allgemein",
-        "ergebnisprodukte",
-        "software",
-        "webseiten",
-        "weiterbildung",
-      ],
-      values: {
-        allgemein: { Planung: 2, Umsetzung: 2, Feedback: 2 },
-        ergebnisprodukte: { Planung: 2, Nutzerzentrierung: 2, Ueberpruefung: 3 },
-        software: { Planung: 2, Umsetzung: 2, Dokumentation: 2, Feedback: 2 },
-        webseiten: { "Erklaerung zur Barrierefreiheit": 2, Umsetzung: 2, Monitoring: 2 },
-        weiterbildung: { Bedarfserhebung: 1, Vorbereitung: 2, Durchfuehrung: 2 },
-      },
-    },
-    {
-      unitId: "stabstelle",
-      importer: "Import Stabstelle",
-      completedPackageIds: ["allgemein", "webseiten"],
-      values: {
-        allgemein: { Planung: 3, Umsetzung: 3, Feedback: 3 },
-        webseiten: { "Erklaerung zur Barrierefreiheit": 3, Umsetzung: 4, Monitoring: 3 },
-      },
-    },
-  ],
-};
-
 const calculationLabels = {
   average: "Mittelwerte",
   minimum: "Minimalwerte",
 };
 
-function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, activeCompany = "LMZ" }) {
+function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
   const [calculationMode, setCalculationMode] = useState("average");
   const [selectedLevels, setSelectedLevels] = useState(new Set(MATURITY_LEVELS));
   const [selectedLevel0, setSelectedLevel0] = useState("");
   const [selectedLevel1, setSelectedLevel1] = useState("gesamt");
   const [selectedPackage, setSelectedPackage] = useState(null);
-  const [evaluationData, setEvaluationData] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const [exportBusy, setExportBusy] = useState(false);
   const [exportStatus, setExportStatus] = useState("");
+  const [evaluationRound, setEvaluationRound] = useState({
+    id: "",
+    name: "",
+    packages: [],
+    organisation: [],
+    leafResults: [],
+  });
+  const [loadingEvaluationRound, setLoadingEvaluationRound] = useState(true);
+  const [errorLoading, setErrorLoading] = useState(false);
   const pageRef = useRef(null);
+  const evaluationId = searchParams.get("id")
 
-  // Aktuell werden die neusten Daten geladen!
-  useEffect(() => {
-    const evaluationId = searchParams.get("id")
+  useEffect(() => {  
+    if (!evaluationId) {
+      setLoadingEvaluationRound(false);
+      return setErrorLoading(true);
+    };
     const fetchEvaluationData = async () => {
       try {
         const res = await fetch(`${API_BASE}/evaluation/retrieve-data?id=${evaluationId}`, {
           credentials: "include",
         });
         const evalData = await res.json();
-        setEvaluationData(evalData.data);
-        console.log(evalData.data)
+        if (evalData.ok) setEvaluationRound(evalData.data);
+        else return setErrorLoading(true);
       } catch (err) {
         console.error("Fehler beim Laden der Evaluations Daten:", err);
+      } finally {
+        setLoadingEvaluationRound(false);
       }
     };
     fetchEvaluationData();
-  }, []);
+  }, [evaluationId]);
 
   const unitNameById = useMemo(
     () => buildUnitNameMap(evaluationRound.organisation),
@@ -274,8 +177,7 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
         `${fileSlug(evaluationRound.name)}_Gesamtauswertung.zip`
       );
       setExportStatus(
-        `${files.length} sichtbare Ergebnisgrafik${files.length === 1 ? "" : "en"} wurde${
-          files.length === 1 ? "" : "n"
+        `${files.length} sichtbare Ergebnisgrafik${files.length === 1 ? "" : "en"} wurde${files.length === 1 ? "" : "n"
         } heruntergeladen.`
       );
     } catch (error) {
@@ -289,118 +191,137 @@ function AdminEvaluationOverallPage({ evaluationRound = mockEvaluationRound, act
   };
 
   return (
-    <div className="admin-overall-page" ref={pageRef}>
-      <section className="admin-overall-hero">
-        <div className="page-width">
-          <p className="sectionKicker">Evaluationsrunden</p>
-          <h1>Gesamtauswertung</h1>
-          <p>{evaluationRound.description}</p>
-          <button
-            type="button"
-            className="homeButton"
-            onClick={downloadVisibleCharts}
-            disabled={exportBusy}
-            aria-describedby="overall-chart-export-description"
-          >
-            {exportBusy ? "Grafiken werden erstellt …" : "Sichtbare Ergebnisgrafiken herunterladen"}
-          </button>
-          <p id="overall-chart-export-description" className="admin-overall-select-help">
-            Lädt die aktuell auf dieser Seite erzeugten Diagramme gemeinsam als ZIP-Datei herunter.
+    (loadingEvaluationRound ? (
+      <div className="admin-overall-page">
+        <section className="admin-overall-loading">
+          <p className="access-subtitle" role="status" aria-live="polite">
+            Evaluations Runde wird geladen …
           </p>
-          {exportStatus && (
-            <p
-              id="overall-chart-export-status"
-              className="evaluation-action-status"
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
+        </section>
+      </div>
+    ) : errorLoading ? (
+      <div className="admin-overall-page">
+        <section className="admin-overall-loading">
+          <p className="access-error" role="alert">
+            Die Evaluations Runde konnte nicht geladen werden. Bitte laden Sie die Seite
+            erneut oder wenden Sie sich an die Administration.
+          </p>
+        </section>
+      </div>
+    ) : (
+      <div className="admin-overall-page" ref={pageRef}>
+        <section className="admin-overall-hero">
+          <div className="page-width">
+            <p className="sectionKicker">Evaluationsrunden</p>
+            <h1>Gesamtauswertung</h1>
+            <button
+              type="button"
+              className="homeButton"
+              onClick={downloadVisibleCharts}
+              disabled={exportBusy}
+              aria-describedby="overall-chart-export-description"
             >
-              {exportStatus}
+              {exportBusy ? "Grafiken werden erstellt …" : "Sichtbare Ergebnisgrafiken herunterladen"}
+            </button>
+            <p id="overall-chart-export-description" className="admin-overall-select-help">
+              Lädt die aktuell auf dieser Seite erzeugten Diagramme gemeinsam als ZIP-Datei herunter.
             </p>
-          )}
-        </div>
-      </section>
+            {exportStatus && (
+              <p
+                id="overall-chart-export-status"
+                className="evaluation-action-status"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {exportStatus}
+              </p>
+            )}
+          </div>
+        </section>
 
-      <section className="admin-overall-section page-width">
-        <div className="admin-overall-layout">
-          <aside className="admin-overall-panel" aria-label="Filter Gesamtergebnis">
-            <EvaluationToolbar
-              calculationMode={calculationMode}
-              selectedLevels={selectedLevels}
-              onModeChange={setCalculationMode}
-              onLevelToggle={handleLevelToggle}
-            />
-            <PackageDetailsButtons
-              results={visibleOverallResults}
-              onPackageClick={setSelectedPackage}
-            />
-            <p className="admin-overall-info" role="status">
-              {contributingLeafCount} von {allLeafUnitIds.length} Einheiten auf
-              Blattebene haben Ergebnisse beigesteuert ({contributingPercent} Prozent).
-            </p>
-          </aside>
+        <section className="admin-overall-section page-width">
+          <div className="admin-overall-layout">
+            <aside className="admin-overall-panel" aria-label="Filter Gesamtergebnis">
+              <EvaluationToolbar
+                calculationMode={calculationMode}
+                selectedLevels={selectedLevels}
+                onModeChange={setCalculationMode}
+                onLevelToggle={handleLevelToggle}
+              />
+              <PackageDetailsButtons
+                results={visibleOverallResults}
+                onPackageClick={setSelectedPackage}
+              />
+              <p className="admin-overall-info" role="status">
+                {contributingLeafCount} von {allLeafUnitIds.length} Einheiten auf
+                Blattebene haben Ergebnisse beigesteuert ({contributingPercent} Prozent).
+              </p>
+            </aside>
 
-          <PackageChart
-            headingLevel={2}
-            title={`Gesamtergebnis ${evaluationRound.name}`}
-            subtitle={calculationLabels[calculationMode]}
-            results={visibleOverallResults}
-            emptyMessage="Für das Gesamtergebnis kann mit den aktuellen Filtern kein Diagramm erstellt werden."
-            onPackageClick={setSelectedPackage}
-            activeCompany={activeCompany}
-            showDetailsHint
-          />
-        </div>
-      </section>
-
-      <section className="admin-overall-section page-width">
-        <div className="admin-overall-section-heading">
-          <h2>Ergebnisse der Organisationseinheiten</h2>
-          <p>
-            Wählen Sie eine Organisationseinheit, um die Werte für diesen
-            Ausschnitt neu zu berechnen.
-          </p>
-        </div>
-
-        <div className="admin-overall-layout admin-overall-layout-detail">
-          <aside className="admin-overall-panel" aria-label="Filter Organisationseinheiten">
-            <OrganisationSelectors
-              organisation={evaluationRound.organisation}
-              selectedLevel0={selectedLevel0}
-              selectedLevel1={selectedLevel1}
-              level1Units={level1Units}
-              onLevel0Change={handleLevel0Change}
-              onLevel1Change={setSelectedLevel1}
-            />
-          </aside>
-
-          {hasOrganisationSelection ? (
             <PackageChart
-              headingLevel={3}
-              title="Auswertung der gewählten Organisationseinheit"
+              headingLevel={2}
+              title={`Gesamtergebnis ${evaluationRound.name}`}
               subtitle={calculationLabels[calculationMode]}
-              results={visibleOrganisationResults}
-              emptyMessage="Für diese Organisationseinheit liegen keine vollständigen Ergebnisse vor."
+              results={visibleOverallResults}
+              emptyMessage="Für das Gesamtergebnis kann mit den aktuellen Filtern kein Diagramm erstellt werden."
               onPackageClick={setSelectedPackage}
               activeCompany={activeCompany}
-              showDetailsHint={false}
+              showDetailsHint
             />
-          ) : (
-            <div className="admin-overall-placeholder" role="status">
-              Wählen Sie zuerst eine Einheit auf Ebene 0 aus. Danach wird das
-              passende Diagramm angezeigt.
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {selectedPackage && (
-        <PackageDetailsOverlay
-          packageResult={selectedPackage}
-          onClose={() => setSelectedPackage(null)}
-        />
-      )}
-    </div>
+        <section className="admin-overall-section page-width">
+          <div className="admin-overall-section-heading">
+            <h2>Ergebnisse der Organisationseinheiten</h2>
+            <p>
+              Wählen Sie eine Organisationseinheit, um die Werte für diesen
+              Ausschnitt neu zu berechnen.
+            </p>
+          </div>
+
+          <div className="admin-overall-layout admin-overall-layout-detail">
+            <aside className="admin-overall-panel" aria-label="Filter Organisationseinheiten">
+              <OrganisationSelectors
+                organisation={evaluationRound.organisation}
+                selectedLevel0={selectedLevel0}
+                selectedLevel1={selectedLevel1}
+                level1Units={level1Units}
+                onLevel0Change={handleLevel0Change}
+                onLevel1Change={setSelectedLevel1}
+              />
+            </aside>
+
+            {hasOrganisationSelection ? (
+              <PackageChart
+                headingLevel={3}
+                title="Auswertung der gewählten Organisationseinheit"
+                subtitle={calculationLabels[calculationMode]}
+                results={visibleOrganisationResults}
+                emptyMessage="Für diese Organisationseinheit liegen keine vollständigen Ergebnisse vor."
+                onPackageClick={setSelectedPackage}
+                activeCompany={activeCompany}
+                showDetailsHint={false}
+              />
+            ) : (
+              <div className="admin-overall-placeholder" role="status">
+                Wählen Sie zuerst eine Einheit auf Ebene 0 aus. Danach wird das
+                passende Diagramm angezeigt.
+              </div>
+            )}
+          </div>
+        </section>
+
+        {selectedPackage && (
+          <PackageDetailsOverlay
+            packageResult={selectedPackage}
+            onClose={() => setSelectedPackage(null)}
+          />
+        )}
+      </div>
+    ))
+
   );
 }
 
