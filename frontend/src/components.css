@@ -1554,6 +1554,23 @@ td span.nicht-bewertet {
   grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
 }
+@media (min-width: 600px) {
+  .modalButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .evaluationCard .modalButtons {
+    justify-content: flex-end;
+  }
+}
+
+.evaluationCard .modalButtons {
+  margin-top: 24px;
+  padding-top: 16px;
+}
 
 .modalButtons button {
   min-height: 2.75rem;
@@ -1565,16 +1582,51 @@ td span.nicht-bewertet {
   background-color: var(--footer-color);
   color: var(--color-text);
   font-weight: 700;
-  min-width: 0;
-  width: 100%;
   line-height: 1.35;
   text-align: center;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
   hyphens: none;
+  min-width: 160px;
+  max-width: 100%;
+  width: 100%;
 }
 
+@media (min-width: 600px) {
+  .modalButtons button {
+    width: auto;
+    flex: 1 1 auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .modalButtons button {
+    flex: 0 1 auto;
+  }
+}
+
+.modalButtons button:hover {
+  background-color: var(--brand-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.modalButtons button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.modalButtons button:hover {
+  background-color: var(--brand-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.modalButtons button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
 .modalButtons button:hover {
   background-color: var(--brand-accent-soft);
   text-decoration: underline;

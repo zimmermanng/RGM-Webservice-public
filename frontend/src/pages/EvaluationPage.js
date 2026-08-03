@@ -357,9 +357,6 @@ const EvaluationPage = () => {
                   </div>
                   <div
                     className="modalButtons"
-                    style={{
-                      float: messung.isActive ? "right" : "none",
-                    }}
                   >
                     {!messung.isActive && (
                       <button
