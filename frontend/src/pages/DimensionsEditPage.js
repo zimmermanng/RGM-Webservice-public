@@ -227,14 +227,9 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
     setDraggedCard(null);
   };
 
-  // ANGEPASST: Klick markiert (fokussiert) die Karte nur noch
-  const handleClick = (e) => {
-    // Verhindern, dass Klicks auf innere Buttons (wie das Schloss) den Container fokussieren
+const handleClick = (e) => {
     if (e.target.closest("button") || e.target.closest("a")) return;
-    
-    // Setzt den Fokus auf das DIV der Karte. 
-    // Dadurch wird sie markiert und ist bereit für die Enter-Taste.
-    e.currentTarget.focus();
+    e.currentTarget.focus({ focusVisible: true });
   };
 
   const handleKeyDown = (e, card, fromList, targetList) => {
