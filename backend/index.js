@@ -16,13 +16,20 @@ const SESSION_TIMEOUT_MS =
 
 app.set("trust proxy", 1);
 //"http://localhost:3011"
-const allowedOrigin = process.env.FRONTEND_URL;
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("Origin not allowed by CORS"));
+    },
     credentials: true,
   })
 );
+
+app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 app.use(express.json());
 
