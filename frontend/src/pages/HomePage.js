@@ -5,7 +5,7 @@ function HomePage({ isAdmin }) {
     <div className="homePage" id="top">
       <section className="homeHero">
         <div className="homeHeroInner">
-          <span className="homeEyebrow">LMZ</span>
+          <span className="homeEyebrow">LMZ!</span>
           <h1 className="homeTitle">
             {isAdmin 
               ? "Reifegradmodell – Administrationsbereich" 
