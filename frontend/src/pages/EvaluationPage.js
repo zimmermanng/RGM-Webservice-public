@@ -213,7 +213,7 @@ const EvaluationPage = () => {
       );
       setTitleSaveStatus((current) => ({
         ...current,
-        [id]: { text: "Name gespeichert.", type: "status" },
+        [id]: { text: "Name gespeichert", type: "status" },
       }));
     } catch (error) {
       console.error("Fehler beim Speichern des Namens:", error);
@@ -335,10 +335,65 @@ const EvaluationPage = () => {
                     </span>
                   )}
 
-                  <label className="evaluation-title-label">
-                    Name der Evaluationsrunde
-                  </label>
-                  <h2 className="evaluationTitle">{messung.name}</h2>
+                  <div className="title-edit-container">
+                    <label
+                      htmlFor={`title-input-${messung.id}`}
+                      className="evaluation-title-label"
+                    >
+                      Name der Evaluationsrunde
+                    </label>
+                    <div className="title-input-wrapper">
+                      <div className="input-icon-wrapper">
+                        <input
+                          id={`title-input-${messung.id}`}
+                          className="titleInputElegant"
+                          type="text"
+                          value={messung.name}
+                          onChange={(e) =>
+                            handleTitelChange(messung.id, e.target.value)
+                          }
+                          aria-describedby={saveStatusId}
+                          title="Name bearbeiten"
+                        />
+                        <svg
+                          className="edit-icon"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                      </div>
+                      {savedTitlesRef.current.get(messung.id) !==
+                        messung.name.trim() && (
+                        <button
+                          className="saveTitleButton"
+                          onClick={() => updateTitle(messung.id, messung.name)}
+                        >
+                          Speichern
+                        </button>
+                      )}
+                    </div>
+                    {currentSaveStatus && currentSaveStatus.text && (
+                      <p
+                        id={saveStatusId}
+                        className={
+                          currentSaveStatus.type === "error"
+                            ? "error-text"
+                            : "status-text"
+                        }
+                        role="status"
+                        aria-live="polite"
+                      >
+                        {currentSaveStatus.text}
+                      </p>
+                    )}
+                  </div>
 
                   {messung.beschreibung && (
                     <p className="evaluationDescription">
@@ -355,9 +410,7 @@ const EvaluationPage = () => {
                       {messung.updatedAt}
                     </p>
                   </div>
-                  <div
-                    className="modalButtons"
-                  >
+                  <div className="modalButtons">
                     {!messung.isActive && (
                       <button
                         onClick={() =>
