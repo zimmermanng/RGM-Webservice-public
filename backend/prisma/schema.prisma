@@ -139,7 +139,7 @@ model EvaluationRounds {
   createdAt     DateTime  
   updatedAt     DateTime
 
-  evaluationRoundData   EvaluationRoundsData{}
+  evaluationRoundData   EvaluationRoundsData[]
 
   @@index([name])
   @@index([isActive])

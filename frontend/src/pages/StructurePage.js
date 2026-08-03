@@ -34,7 +34,7 @@ const StructurePage = () => {
 
   // Wenn Kinder vorhanden sind, ist das Passwort kein Pflichtfeld mehr
   const isFormValid =
-    neuerName.trim() !== "" && (hasChildren || neuesPasswort?.trim() !== "");
+    neuerName.trim() !== "" && (hasChildren || (neuesPasswort && neuesPasswort.trim() !== ""));
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -58,6 +58,7 @@ const StructurePage = () => {
             }
           });
         };
+        sortTeamsAlphabetically(teams);
         setEinheiten(teams);
       } catch (err) {
         console.error("Fehler beim Laden der Teamstruktur:", err);
@@ -68,6 +69,22 @@ const StructurePage = () => {
     };
     fetchTeams();
   }, []);
+
+  const sortTeamsAlphabetically = (teams) => {
+    teams.sort((a, b) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+
+      if (nameA === "ADMINISTRATION") return 1
+      if (nameB === "ADMINISTRATION") return -1
+
+      return nameA.localeCompare(nameB, "de", {
+        sensitivity: "base",
+        numeric: true,
+      })
+    });
+    return teams
+  }
 
   const createTeam = async () => {
     const teamName = neuerName.trim();
@@ -146,23 +163,23 @@ const StructurePage = () => {
         if (!data.ok) {
           setFormError(
             data.message ||
-              "Die Organisationseinheit konnte nicht gespeichert werden.",
+            "Die Organisationseinheit konnte nicht gespeichert werden.",
           );
           return;
         }
 
-        setEinheiten(
-          einheiten.map((e) =>
-            e.id === editingNodeId
-              ? {
-                  ...e,
-                  name: neuerName.trim(),
-                  passwort: neuesPasswort,
-                  parentId: elternId === "" ? null : elternId,
-                }
-              : e,
-          ),
+        let einheitenNeu = einheiten.map((e) =>
+          e.id === editingNodeId
+            ? {
+              ...e,
+              name: neuerName.trim(),
+              passwort: neuesPasswort,
+              parentId: elternId === "" ? null : elternId,
+            }
+            : e,
         );
+        sortTeamsAlphabetically(einheitenNeu)
+        setEinheiten(einheitenNeu);
       } else {
         const neueEinheit = {
           id: null,
@@ -174,13 +191,17 @@ const StructurePage = () => {
         if (!data.ok) {
           setFormError(
             data.message ||
-              "Die Organisationseinheit konnte nicht erstellt werden.",
+            "Die Organisationseinheit konnte nicht erstellt werden.",
           );
           return;
         }
 
         neueEinheit.id = data.id;
-        setEinheiten([...einheiten, neueEinheit]);
+
+        let einheitenNeu = [...einheiten, neueEinheit];
+        sortTeamsAlphabetically(einheitenNeu); 
+        
+        setEinheiten(einheitenNeu);
       }
     } catch (error) {
       console.error("Fehler beim Speichern der Organisationseinheit:", error);
@@ -606,9 +627,8 @@ const StructurePage = () => {
                 >
                   {isFormValid
                     ? "Mit einem Stern gekennzeichnete Felder sind Pflichtfelder."
-                    : `Pflichtfelder: Bitte füllen Sie ${
-                        hasChildren ? "den Namen" : "Name und Passwort"
-                      } aus, um speichern zu können.`}
+                    : `Pflichtfelder: Bitte füllen Sie ${hasChildren ? "den Namen" : "Name und Passwort"
+                    } aus, um speichern zu können.`}
                 </p>
                 {formError && (
                   <p

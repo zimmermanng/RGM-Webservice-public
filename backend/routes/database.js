@@ -93,7 +93,7 @@ router.post("/create-team", async (req, res) => {
                     sortOrder: true,
                 },
             });
-            
+
             const createdTeam = await prisma.team.create({
                 data: {
                     name: teamName,
@@ -134,10 +134,14 @@ router.put("/update-team", async (req, res) => {
             const teamId = req.body.teamId;
             const teamName = req.body.teamName;
             const password = req.body.password;
+            if (!teamId || !teamName)
+                return res.status(409).json({ ok: false, message: "Bitte füllen Sie die Eingaben vollständig aus." });
+
             const teamRecord = await prisma.team.findUnique({
                 where: { id: teamId },
                 include: {
                     sessionLock: true,
+                    children: true,
                 }
             });
 
@@ -153,6 +157,9 @@ router.put("/update-team", async (req, res) => {
 
             if (elementWithTeamName && elementWithTeamName.id != teamId)
                 return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
+
+            if (teamRecord.children.length === 0 && !password)
+                return res.status(409).json({ ok: false, message: "Teams ohne Kinderelemente erfordern ein Passwort." });
 
             const passwordHash = teamRecord.isSelectable ? await generatePasswordHash(password) : null;
 
