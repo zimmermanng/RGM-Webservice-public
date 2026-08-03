@@ -1,5 +1,5 @@
 #Stage 1: Build Frontend
-FROM dhi.io/node:24-alpine3.22-dev AS build
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 RUN npm run build
 
 #Stage 2: Serve with nginx
-FROM dhi.io/nginx:1.28.0-alpine3.21-dev
+FROM nginxinc/nginx-unprivileged:1.28-alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --chown=nginx:nginx --from=build /app/build /usr/share/nginx/html
