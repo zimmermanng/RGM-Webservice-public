@@ -121,6 +121,7 @@ function RouteFocusManager() {
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [team, setTeam] = useState(null);
@@ -596,12 +597,13 @@ const App = () => {
   };
 
   const startPageElement = useMemo(() => {
+    const isAdmin = team === "Administration";
     return activeCompany === "LMZ" ? (
-      <HomePage activeCompany={activeCompany} />
+      <HomePage activeCompany={activeCompany } isAdmin={isAdmin} />
     ) : (
       <ShuffleHomePage activeCompany={activeCompany} />
     );
-  }, [activeCompany]);
+  }, [activeCompany, team]);
 
   const showServiceChrome = authChecked && isAuthenticated && !!team;
   const countdownText = `Ihre Sitzung endet in ${remainingSeconds} ${remainingSeconds === 1 ? "Sekunde" : "Sekunden"
