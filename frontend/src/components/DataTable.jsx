@@ -1,6 +1,6 @@
 import React from "react";
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data, onCategoryClick, getCategoryTargetId }) => {
   return (
     <table aria-labelledby="data-table">
       <caption id="data-table" className="sr-only">
@@ -17,7 +17,22 @@ const DataTable = ({ data }) => {
         {data.map((row, index) => (
           <tr key={index}>
             <td>{row.group}</td>
-            <td>{row.category}</td>
+            <td>
+              {onCategoryClick && getCategoryTargetId ? (
+                <a
+                  href={`#${getCategoryTargetId(row)}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onCategoryClick(row);
+                  }}
+                  aria-label={`Handlungsempfehlungen für ${row.category} in ${row.group} anzeigen`}
+                >
+                  {row.category}
+                </a>
+              ) : (
+                row.category
+              )}
+            </td>
             <td>
               {row.value - 1 === -1 ? (
                 <span className="nicht-bewertet">Nicht bewertet</span>

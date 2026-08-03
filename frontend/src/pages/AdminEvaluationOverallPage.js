@@ -300,7 +300,6 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
                 subtitle={calculationLabels[calculationMode]}
                 results={visibleOrganisationResults}
                 emptyMessage="Für diese Organisationseinheit liegen keine vollständigen Ergebnisse vor."
-                onPackageClick={setSelectedPackage}
                 activeCompany={activeCompany}
                 showDetailsHint={false}
               />
@@ -473,6 +472,7 @@ function PackageChart({
   showDetailsHint = true,
 }) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
+  const isInteractive = typeof onPackageClick === "function";
 
   if (!results.length) {
     return (
@@ -489,7 +489,7 @@ function PackageChart({
         <span>{subtitle}</span>
       </div>
 
-      {showDetailsHint && (
+      {showDetailsHint && isInteractive && (
         <p className="admin-overall-chart-hint">
           Die Päckchen im Diagramm sind auswählbar. Wählen Sie ein Segment aus
           oder nutzen Sie die Detail-Schaltflächen im Filterbereich.
@@ -497,9 +497,11 @@ function PackageChart({
       )}
 
       <RadialBarChart
-        data={toChartRows(results)}
+        data={toChartRows(results, isInteractive)}
         activeCompany={activeCompany}
-        ariaLabel={`${title}. Interaktives Diagramm. Päckchen auswählen, um Details zu öffnen.`}
+        ariaLabel={isInteractive
+          ? `${title}. Interaktives Diagramm. Päckchen auswählen, um Details zu öffnen.`
+          : `${title}. Diagramm der Päckchenergebnisse.`}
         showGroupRing={false}
         showCategoryLabels
         maxValue={4}
@@ -509,7 +511,9 @@ function PackageChart({
         categoryFontSize={38}
         categoryLineHeight={44}
         labelRingThickness={120}
-        onSegmentClick={(entry) => onPackageClick(entry.source)}
+        onSegmentClick={isInteractive
+          ? (entry) => onPackageClick(entry.source)
+          : undefined}
       />
     </div>
   );
@@ -552,7 +556,9 @@ function PackageDetailsOverlay({ packageResult, onClose }) {
           {packageResult.contributors.map((contributor) => (
             <li key={contributor.unitId}>
               <span>{contributor.unitName}</span>
-              <strong>Stufe {contributor.displayLevel}</strong>
+              <strong>
+                Stufe {contributor.displayLevel} ({formatValue(contributor.rawValue)})
+              </strong>
               <small>{contributor.importer}</small>
             </li>
           ))}
@@ -568,7 +574,7 @@ function PackageDetailsOverlay({ packageResult, onClose }) {
   );
 }
 
-function toChartRows(results) {
+function toChartRows(results, isInteractive = false) {
   return results.map((result) => ({
     group: "Päckchen",
     groupLabel: "Auswertung",
@@ -578,7 +584,7 @@ function toChartRows(results) {
     displayValue: result.displayLevel,
     color: LEVEL_COLORS[result.displayLevel],
     source: result,
-    ariaLabel: `${result.name}, Stufe ${result.displayLevel}, Rohwert ${formatValue(result.rawValue)}, Details öffnen`,
+    ariaLabel: `${result.name}, Stufe ${result.displayLevel}, Rohwert ${formatValue(result.rawValue)}${isInteractive ? ", Details öffnen" : ""}`,
   }));
 }
 
@@ -624,7 +630,13 @@ function getLeafPackageValue(result, pkg) {
     return null;
   }
 
-  const fieldValues = Object.values(packageValues).filter(Number.isFinite);
+  const fieldValues = Object.values(packageValues)
+    .filter(Number.isFinite)
+    // Fragebogenergebnisse verwenden 0 für "nicht bewertet" und speichern
+    // bewertete Reifegrade für das Diagramm um eins verschoben (1..5).
+    // Für Mittelwerte müssen die ursprünglichen Stufen (0..4) verwendet werden.
+    .filter((value) => value > 0)
+    .map((value) => value - 1);
   return fieldValues.length ? average(fieldValues) : null;
 }
 

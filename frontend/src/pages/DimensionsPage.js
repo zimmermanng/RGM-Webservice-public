@@ -108,35 +108,6 @@ const DimensionsPage = ({ activeCompany }) => {
     });
   }, [activeIds]);
 
-  const allCompleted =
-    dimensionen.length > 0 &&
-    dimensionen.some((dimension) => {
-      const answeredObj = currentAnswers[dimension.id] || {};
-
-      let totalQuestions = 0;
-      let answeredCount = 0;
-
-      if (Array.isArray(dimension.handlungsfelder)) {
-        dimension.handlungsfelder.forEach((hf) => {
-          if (Array.isArray(hf.fragen)) {
-            totalQuestions += hf.fragen.length;
-
-            hf.fragen.forEach((frage) => {
-              if (
-                answeredObj[frage.id] !== undefined &&
-                answeredObj[frage.id] !== null &&
-                answeredObj[frage.id] !== ""
-              ) {
-                answeredCount++;
-              }
-            });
-          }
-        });
-      }
-
-      return totalQuestions > 0 && answeredCount >= totalQuestions;
-    });
-
   if (loading) {
     return (
       <div className="mainContainer">
@@ -206,26 +177,9 @@ const DimensionsPage = ({ activeCompany }) => {
               </Link>
             </div>
 
-            {allCompleted ? (
-              <Link to="/rawresults" className="button results">
-                Ergebnisse ansehen
-              </Link>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  className="results"
-                  aria-disabled="true"
-                  aria-describedby="results-disabled-help"
-                >
-                  Ergebnisse ansehen
-                </button>
-                <span id="results-disabled-help" className="sr-only">
-                  Die Ergebnisse sind verfügbar, sobald alle Fragen der
-                  ausgewählten Pakete beantwortet wurden.
-                </span>
-              </>
-            )}
+            <Link to="/rawresults" className="button results">
+              Ergebnisse ansehen
+            </Link>
           </>
         )}
       </div>

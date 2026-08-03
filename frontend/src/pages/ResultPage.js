@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
 
-const CHART_LABEL_LIMIT = 25;
+const CHART_LABEL_LIMIT = 24;
 
 const ResultPage = ({ data, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
@@ -68,6 +68,10 @@ const ResultPage = ({ data, activeCompany }) => {
     let nextIndex = null;
 
     switch (event.key) {
+      case " ":
+      case "Spacebar":
+        event.preventDefault();
+        return;
       case "ArrowRight":
       case "Right":
         nextIndex = (currentIndex + 1) % dimensionKeys.length;
@@ -88,7 +92,6 @@ const ResultPage = ({ data, activeCompany }) => {
 
     event.preventDefault();
     const nextDimension = dimensionKeys[nextIndex];
-    setSelectedTab(nextDimension);
     focusTab(nextDimension);
   };
 
@@ -170,42 +173,49 @@ const ResultPage = ({ data, activeCompany }) => {
         <h1>Ergebnisse</h1>
         <p>Hier finden Sie eine detaillierte Erklärung der Dimensionen und ihrer Stufen.</p>
 
-        <div
-          className="toggle-container"
-          role="group"
-          aria-labelledby="result-view-mode-label"
-        >
-          <span id="result-view-mode-label" className="sr-only">
-            Darstellung der Ergebnisse
-          </span>
-          <button
-            type="button"
-            className={`toggle-button ${activeViewMode === "chart" ? "active" : ""}`}
-            onClick={() => setViewMode("chart")}
-            disabled={chartItemLimitExceeded}
-            aria-disabled={chartItemLimitExceeded ? "true" : undefined}
-            aria-pressed={activeViewMode === "chart"}
+        {!chartItemLimitExceeded && (
+          <div
+            className="toggle-container"
+            role="group"
+            aria-labelledby="result-view-mode-label"
           >
-            Diagramm anzeigen
-          </button>
-          <button
-            type="button"
-            className={`toggle-button ${activeViewMode === "table" ? "active" : ""}`}
-            onClick={() => setViewMode("table")}
-            aria-pressed={activeViewMode === "table"}
-          >
-            Tabelle anzeigen
-          </button>
-        </div>
+            <span id="result-view-mode-label" className="sr-only">
+              Darstellung der Ergebnisse
+            </span>
+            <button
+              type="button"
+              className={`toggle-button ${activeViewMode === "chart" ? "active" : ""}`}
+              onClick={() => setViewMode("chart")}
+              aria-pressed={activeViewMode === "chart"}
+            >
+              Diagramm anzeigen
+            </button>
+            <button
+              type="button"
+              className={`toggle-button ${activeViewMode === "table" ? "active" : ""}`}
+              onClick={() => setViewMode("table")}
+              aria-pressed={activeViewMode === "table"}
+            >
+              Tabelle anzeigen
+            </button>
+          </div>
+        )}
       </div>
 
       <a href="#ext" className="skip-link">
-        Diagramm und Tabelle überspringen
+        {chartItemLimitExceeded
+          ? "Tabelle überspringen"
+          : "Diagramm und Tabelle überspringen"}
       </a>
 
       <div>
         {chartItemLimitExceeded && (
-          <p className="chart-limit-notice" role="status">
+          <p
+            className="chart-limit-notice"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             Für {chartLabelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
             Die Ergebnisse werden deshalb als Tabelle angezeigt.
           </p>
@@ -221,7 +231,7 @@ const ResultPage = ({ data, activeCompany }) => {
         )}
       </div>
 
-      <div id="ext">
+      <div id="ext" tabIndex="-1">
         <h2>Erläuterungen</h2>
 
         <div className="tabs-container">

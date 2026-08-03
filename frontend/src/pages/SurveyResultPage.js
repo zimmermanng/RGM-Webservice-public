@@ -4,6 +4,8 @@ import DataTable from "../components/DataTable";
 import fragenData from "../components/data/fragen.json";
 import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
 
+const CHART_LABEL_LIMIT = 24;
+
 const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
@@ -12,6 +14,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [jumpAnnouncement, setJumpAnnouncement] = useState("");
+  const [downloadAnnouncement, setDownloadAnnouncement] = useState("");
   const [jumpRequestId, setJumpRequestId] = useState(0);
   const [expandedDetails, setExpandedDetails] = useState({});
   const tabRefs = useRef({});
@@ -40,37 +43,14 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           typeof row.value === "number"
       )
       .map((row, index) => {
-        const relevantSelections = getSelectionsForRow(selections, {
-          group: row.group,
-          category: row.category,
-        });
-
-        const selectedLevels = relevantSelections
-          .map((selection) => {
-            const question = questionMap?.[selection?.frageId];
-            const selectedAnswer = getSelectedAnswer(
-              question,
-              selection?.antwortId
-            );
-            return typeof selectedAnswer?.stufe === "number"
-              ? selectedAnswer.stufe
-              : null;
-          })
-          .filter((level) => typeof level === "number");
-
-        const hasAnsweredQuestions = selectedLevels.length > 0;
-        const lowestSelectedLevel = hasAnsweredQuestions
-          ? Math.min(...selectedLevels)
-          : -1;
-
         return {
           id: row.id ?? `${row.group}-${row.category}-${index}`,
           group: row.group,
           category: row.category,
-          value: hasAnsweredQuestions ? lowestSelectedLevel + 1 : 0,
+          value: row.value,
         };
       });
-  }, [surveyResults, selections, questionMap]);
+  }, [surveyResults]);
 
   const dimensionData = useMemo(() => {
     return data.reduce((acc, row) => {
@@ -81,6 +61,15 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
   }, [data]);
 
   const dimensionKeys = useMemo(() => Object.keys(dimensionData), [dimensionData]);
+  const chartLabelCount = data.length;
+  const chartLabelLimitExceeded = chartLabelCount > CHART_LABEL_LIMIT;
+  const activeViewMode = chartLabelLimitExceeded ? "table" : viewMode;
+
+  useEffect(() => {
+    if (chartLabelLimitExceeded && viewMode !== "table") {
+      setViewMode("table");
+    }
+  }, [chartLabelLimitExceeded, viewMode]);
 
   useEffect(() => {
     if (!dimensionKeys.length) {
@@ -129,6 +118,10 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     let nextIndex = null;
 
     switch (event.key) {
+      case " ":
+      case "Spacebar":
+        event.preventDefault();
+        return;
       case "ArrowRight":
       case "Right":
         nextIndex = (currentIndex + 1) % dimensionKeys.length;
@@ -149,28 +142,22 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
 
     event.preventDefault();
     const nextDimension = dimensionKeys[nextIndex];
-    setSelectedTab(nextDimension);
     focusTab(nextDimension);
   };
 
-  const handleDownloadJson = () => {
-    const exportPayload = {
-      team: surveyResults?.team || null,
-      exportedAt: new Date().toISOString(),
-      result: surveyResults,
-    };
-
-    const teamSlug = (surveyResults?.team || "team")
-      .toString()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]/g, "");
-
+  const handleRecommendationDownload = () => {
+    const markdown = buildRecommendationMarkdown({
+      data,
+      selections,
+      questionMap,
+      recommendationMap,
+      teamName: surveyResults?.team,
+    });
+    const teamSlug = slugifyFileName(surveyResults?.team || "team");
     const datePart = new Date().toISOString().slice(0, 10);
-    const fileName = `results_${teamSlug}_${datePart}.json`;
-
-    const blob = new Blob([JSON.stringify(exportPayload, null, 2)], {
-      type: "application/json;charset=utf-8",
+    const fileName = `handlungsempfehlungen_${teamSlug}_${datePart}.md`;
+    const blob = new Blob([`\uFEFF${markdown}`], {
+      type: "text/markdown;charset=utf-8",
     });
 
     const url = URL.createObjectURL(blob);
@@ -181,6 +168,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+    setDownloadAnnouncement(`Markdown-Datei ${fileName} wurde heruntergeladen.`);
   };
 
   const handleRecommendationJump = (entry) => {
@@ -346,30 +334,49 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           nach Dimensionen und Handlungsfeldern.
         </p>
 
-        <div
-          className="toggle-container"
-          role="group"
-          aria-labelledby="survey-result-view-mode-label"
-        >
-          <span id="survey-result-view-mode-label" className="sr-only">
-            Darstellung der Ergebnisse
-          </span>
+        <div className="results-download-container">
           <button
             type="button"
-            className={`toggle-button ${viewMode === "chart" ? "active" : ""}`}
-            onClick={() => setViewMode("chart")}
-            aria-pressed={viewMode === "chart"}
+            className="access-button secondary"
+            onClick={handleRecommendationDownload}
           >
-            Diagramm anzeigen
+            Handlungsempfehlungen als Markdown herunterladen
           </button>
-          <button
-            type="button"
-            className={`toggle-button ${viewMode === "table" ? "active" : ""}`}
-            onClick={() => setViewMode("table")}
-            aria-pressed={viewMode === "table"}
+          <p
+            className="sr-only"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
           >
-            Tabelle anzeigen
-          </button>
+            {downloadAnnouncement}
+          </p>
+        </div>
+
+        {!chartLabelLimitExceeded && (
+          <div
+            className="toggle-container"
+            role="group"
+            aria-labelledby="survey-result-view-mode-label"
+          >
+            <span id="survey-result-view-mode-label" className="sr-only">
+              Darstellung der Ergebnisse
+            </span>
+            <button
+              type="button"
+              className={`toggle-button ${activeViewMode === "chart" ? "active" : ""}`}
+              onClick={() => setViewMode("chart")}
+              aria-pressed={activeViewMode === "chart"}
+            >
+              Diagramm anzeigen
+            </button>
+            <button
+              type="button"
+              className={`toggle-button ${activeViewMode === "table" ? "active" : ""}`}
+              onClick={() => setViewMode("table")}
+              aria-pressed={activeViewMode === "table"}
+            >
+              Tabelle anzeigen
+            </button>
 {/*           <button
             type="button"
             className="toggle-button secondary"
@@ -377,15 +384,29 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           >
             JSON herunterladen
           </button> */}
-        </div>
+          </div>
+        )}
       </div>
 
       <a href="#ext" className="skip-link">
-        Diagramm und Tabelle überspringen
+        {chartLabelLimitExceeded
+          ? "Tabelle überspringen"
+          : "Diagramm und Tabelle überspringen"}
       </a>
 
       <div>
-        {viewMode === "chart" ? (
+        {chartLabelLimitExceeded && (
+          <p
+            className="chart-limit-notice"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            Für {chartLabelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
+            Die Ergebnisse werden deshalb als Tabelle angezeigt.
+          </p>
+        )}
+        {activeViewMode === "chart" ? (
           <div className="chart-container">
             <RadialBarChart
               data={data}
@@ -397,12 +418,16 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
           </div>
         ) : (
           <div className="table-container">
-            <DataTable data={data} />
+            <DataTable
+              data={data}
+              onCategoryClick={handleRecommendationJump}
+              getCategoryTargetId={getRecommendationTargetId}
+            />
           </div>
         )}
       </div>
 
-      <div id="ext">
+      <div id="ext" tabIndex="-1">
         <h2>Erläuterungen</h2>
         <div className="category-box">
           <p>
@@ -740,6 +765,31 @@ function getRecommendationSectionsForRow({
     })
     .filter(Boolean);
 
+  const establishedCurrentGroups = selectionsWithLevel
+    .map(({ selection, question, selectedAnswer }) => {
+      const completedRecommendations = dedupeRecommendations(
+        (question?.antworten ?? [])
+          .filter(
+            (answer) =>
+              typeof answer?.stufe === "number" &&
+              answer.stufe < currentCategoryLevel
+          )
+          .flatMap((answer) => recommendationMap[answer?.id] ?? [])
+      );
+
+      if (!completedRecommendations.length) return null;
+
+      return {
+        frageId: selection?.frageId,
+        frageText: selection?.frageText || question?.frage || "Frage",
+        antwortText:
+          selectedAnswer?.antwort || selection?.antwortText || "Antwort",
+        stufe: currentCategoryLevel,
+        recommendations: completedRecommendations,
+      };
+    })
+    .filter(Boolean);
+
   const establishedHigherGroups = selectionsWithLevel
     .filter((item) => item.stufe > currentCategoryLevel)
     .map(({ selection, question, selectedAnswer, stufe }) => {
@@ -762,9 +812,138 @@ function getRecommendationSectionsForRow({
 
   return {
     todoGroups,
+    establishedCurrentGroups,
     establishedHigherGroups,
     nextTargetLevel: currentCategoryLevel >= 0 ? currentCategoryLevel : null,
   };
+}
+
+function buildRecommendationMarkdown({
+  data,
+  selections,
+  questionMap,
+  recommendationMap,
+  teamName,
+}) {
+  const rows = data.map((row) => ({
+    row,
+    sections: getRecommendationSectionsForRow({
+      row,
+      selections,
+      questionMap,
+      recommendationMap,
+    }),
+  }));
+  const documentTitle = teamName || "Handlungsempfehlungen";
+  const lines = [`# ${escapeMarkdown(documentTitle)}`, ""];
+
+  lines.push("## Teil 1: Aktuell offene Handlungsempfehlungen", "");
+  appendRecommendationGroups({
+    lines,
+    rows,
+    sectionKey: "todoGroups",
+    packageHeadingLevel: 3,
+    emptyText: "Aktuell sind keine offenen Handlungsempfehlungen vorhanden.",
+  });
+
+  lines.push("## Teil 2: Abgeschlossene Handlungsempfehlungen", "");
+  lines.push("### Für die aktuelle Stufe abgeschlossen", "");
+  appendRecommendationGroups({
+    lines,
+    rows,
+    sectionKey: "establishedCurrentGroups",
+    packageHeadingLevel: 4,
+    emptyText: "Für die aktuelle Stufe sind keine abgeschlossenen Handlungsempfehlungen vorhanden.",
+  });
+
+  lines.push("### Bereits auf höheren Stufen abgeschlossen", "");
+  appendRecommendationGroups({
+    lines,
+    rows,
+    sectionKey: "establishedHigherGroups",
+    packageHeadingLevel: 4,
+    emptyText: "Auf höheren Stufen sind keine bereits abgeschlossenen Handlungsempfehlungen vorhanden.",
+  });
+
+  return `${lines.join("\n").trim()}\n`;
+}
+
+function appendRecommendationGroups({
+  lines,
+  rows,
+  sectionKey,
+  packageHeadingLevel,
+  emptyText,
+}) {
+  const relevantRows = rows.filter(
+    ({ sections }) => sections[sectionKey]?.length > 0
+  );
+
+  if (!relevantRows.length) {
+    lines.push(escapeMarkdown(emptyText), "");
+    return;
+  }
+
+  const packages = new Map();
+  relevantRows.forEach((entry) => {
+    const packageName = entry.row.group;
+    if (!packages.has(packageName)) packages.set(packageName, []);
+    packages.get(packageName).push(entry);
+  });
+
+  packages.forEach((packageRows, packageName) => {
+    lines.push(
+      `${"#".repeat(packageHeadingLevel)} Päckchen: ${escapeMarkdown(packageName)}`,
+      ""
+    );
+
+    packageRows.forEach(({ row, sections }) => {
+      lines.push(
+        `${"#".repeat(packageHeadingLevel + 1)} Handlungsfeld: ${escapeMarkdown(row.category)}`,
+        ""
+      );
+
+      sections[sectionKey].forEach((questionGroup) => {
+        lines.push(
+          `${"#".repeat(packageHeadingLevel + 2)} ${escapeMarkdown(questionGroup.frageText)}`,
+          "",
+          `**Ausgewählte Antwort:** ${escapeMarkdown(questionGroup.antwortText)}`,
+          ""
+        );
+
+        questionGroup.recommendations.forEach((recommendation) => {
+          lines.push(
+            `- ${escapeMarkdown(
+              recommendation?.text ?? String(recommendation)
+            )}`
+          );
+        });
+        lines.push("");
+      });
+    });
+  });
+}
+
+function escapeMarkdown(value) {
+  return String(value ?? "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/([\\`*_{}[\]<>#+.!|])/g, "\\$1");
+}
+
+function slugifyFileName(value) {
+  const slug = String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+  return slug || "team";
 }
 
 function dedupeRecommendations(recommendations) {
