@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
-const structure = require("../data/struktur.json")
+const structure = require("../../frontend/src/components/data/struktur.json")
 
 function determineOrganisation(obj) {
     const teamIdName = obj.team.name.toLowerCase().replace(/\s/g, "-");

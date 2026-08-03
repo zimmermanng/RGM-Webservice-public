@@ -6,7 +6,7 @@ COPY backend/package*.json ./
 RUN npm ci
 
 COPY backend/ ./
-COPY frontend/src/components/data/struktur.json ./data/struktur.json
+COPY frontend/src/components/data/struktur.json /frontend/src/components/data/struktur.json
 RUN npx prisma generate
 
 # Change if your backend uses a different port
