@@ -14,7 +14,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
   const [draggedCard, setDraggedCard] = useState(null);
   const [currentAnswers, setCurrentAnswers] = useState({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false); // Zeigt nun "Live-Speichern" an
+  const [saving, setSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [privilegedAccess, setprivilegedAccess] = useState(false);
   const toastTimeoutRef = useRef(null);
@@ -157,7 +157,6 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
     };
   }, [navigate]);
 
-  // Zentralisierungs-Funktion für das Speichern im Backend
   const saveData = async (nextToEdit, nextAnswers) => {
     const allgemeinDimension = data.dimensionen.find(
       (d) => d.name === "Allgemein",
@@ -202,7 +201,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
         throw new Error("Fehler beim automatischen Speichern");
       }
 
-      return true; // Erfolgreich gespeichert
+      return true;
     } catch (error) {
       console.error("Fehler beim Speichern:", error);
       announce(
@@ -228,12 +227,22 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
     setDraggedCard(null);
   };
 
+  // ANGEPASST: Klick markiert (fokussiert) die Karte nur noch
+  const handleClick = (e) => {
+    // Verhindern, dass Klicks auf innere Buttons (wie das Schloss) den Container fokussieren
+    if (e.target.closest("button") || e.target.closest("a")) return;
+    
+    // Setzt den Fokus auf das DIV der Karte. 
+    // Dadurch wird sie markiert und ist bereit für die Enter-Taste.
+    e.currentTarget.focus();
+  };
+
   const handleKeyDown = (e, card, fromList, targetList) => {
     if (e.target !== e.currentTarget) return;
 
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      if (lockedCards.includes(card.id)) {
+      if (lockedCards.includes(card.id) && fromList === "toEdit") {
         announce(`Paket "${card.name}" ist gesperrt und kann nicht verschoben werden.`);
         return;
       }
@@ -380,8 +389,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
         möchten.
-        <br /> Verschieben Sie diese einfach mit der Maus (Drag and Drop) oder
-        mit der Tastatur (Tab- und Enter-Taste).
+        <br /> Verschieben Sie diese einfach, indem Sie ein Paket <strong>anklicken und danach Enter drücken</strong>. <br /> Alternativ können Sie Drag and Drop nutzen oder die Tastaturbedienung (Tab- und Enter-Taste).
         {saving && (
           <strong style={{ marginLeft: "10px", color: "green" }}>
             – Speichert automatisch...
@@ -448,12 +456,12 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
                     aria-label={
                       isLocked
                         ? `Paket ${dimension.name}. Ausgewählt und gesperrt. Das Paket kann nicht verschoben werden.`
-                        : `Paket ${dimension.name}. Ausgewählt. Drücken Sie Enter oder die Leertaste, um es nach Nicht ausgewählt zu verschieben.`
+                        : `Paket ${dimension.name}. Ausgewählt. Klicken Sie, um es zu markieren, und drücken Sie Enter, um es nach Nicht ausgewählt zu verschieben.`
                     }
                     onDragStart={(e) => handleDragStart(e, dimension, "toEdit")}
-                    onKeyDown={(e) =>
-                      handleKeyDown(e, dimension, "toEdit", "notToEdit")
-                    }
+                    onKeyDown={(e) => handleKeyDown(e, dimension, "toEdit", "notToEdit")}
+                    onClick={handleClick}
+                    style={{ cursor: isLocked ? "default" : "pointer" }}
                   >
                     <Card_dimensions
                       title={dimension.name}
@@ -507,12 +515,11 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
                 draggable
                 tabIndex={0}
                 aria-roledescription="Verschiebbares Paket"
-                aria-label={`Paket ${dimension.name}. Nicht ausgewählt. Drücken Sie Enter oder die Leertaste, um es nach Ausgewählt zu verschieben.`}
+                aria-label={`Paket ${dimension.name}. Nicht ausgewählt. Klicken Sie, um es zu markieren, und drücken Sie Enter, um es nach Ausgewählt zu verschieben.`}
                 onDragStart={(e) => handleDragStart(e, dimension, "notToEdit")}
-                onKeyDown={(e) =>
-                  handleKeyDown(e, dimension, "notToEdit", "toEdit")
-                }
-                style={{ cursor: "grab" }}
+                onKeyDown={(e) => handleKeyDown(e, dimension, "notToEdit", "toEdit")}
+                onClick={handleClick}
+                style={{ cursor: "pointer" }}
               >
                 <Card_dimensions
                   title={dimension.name}
@@ -530,7 +537,6 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
       </div>
 
       <div className="footer">
-        {/* Button ruft nun handleFinish auf und ist deaktiviert, solange im Hintergrund gespeichert wird */}
         <button
           className="finishEditButton"
           onClick={handleFinish}
