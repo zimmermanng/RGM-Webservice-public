@@ -1554,6 +1554,23 @@ td span.nicht-bewertet {
   grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
 }
+@media (min-width: 600px) {
+  .modalButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .evaluationCard .modalButtons {
+    justify-content: flex-end;
+  }
+}
+
+.evaluationCard .modalButtons {
+  margin-top: 24px;
+  padding-top: 16px;
+}
 
 .modalButtons button {
   min-height: 2.75rem;
@@ -1565,16 +1582,51 @@ td span.nicht-bewertet {
   background-color: var(--footer-color);
   color: var(--color-text);
   font-weight: 700;
-  min-width: 0;
-  width: 100%;
   line-height: 1.35;
   text-align: center;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
   hyphens: none;
+  min-width: 160px;
+  max-width: 100%;
+  width: 100%;
 }
 
+@media (min-width: 600px) {
+  .modalButtons button {
+    width: auto;
+    flex: 1 1 auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .modalButtons button {
+    flex: 0 1 auto;
+  }
+}
+
+.modalButtons button:hover {
+  background-color: var(--brand-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.modalButtons button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.modalButtons button:hover {
+  background-color: var(--brand-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.modalButtons button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
 .modalButtons button:hover {
   background-color: var(--brand-accent-soft);
   text-decoration: underline;
@@ -1729,7 +1781,7 @@ progress::-moz-progress-bar {
 .activeLabel {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 25px;
   background-color: var(--brand-accent);
   color: var(--brand-button-text);
   padding: 4px 12px;
@@ -2197,4 +2249,114 @@ progress::-moz-progress-bar {
 .team-indicator option {
   font-weight: normal;
   color: #000;
+}
+.title-edit-container {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.evaluation-title-label {
+  display: block;
+  text-align: left;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+.title-input-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 450px;
+  width: 100%;
+}
+
+.titleInputElegant {
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  padding: 0.4rem 2.5rem 0.4rem 0.5rem;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.titleInputElegant:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-color: #cbd5e1;
+}
+
+.titleInputElegant:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  background-color: #ffffff;
+  border-color: var(--color-text);
+}
+
+.edit-icon {
+  position: absolute;
+  right: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #64748b;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.titleInputElegant:hover + .edit-icon,
+.titleInputElegant:focus-visible + .edit-icon {
+  color: var(--color-text);
+}
+
+.saveTitleButton {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+  background-color: var(--footer-color);
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.saveTitleButton:hover {
+  background-color: var(--brand-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.saveTitleButton:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.status-text,
+.error-text {
+  display: block;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.status-text {
+  color: #166534;
+}
+
+.error-text {
+  color: #dc2626;
 }
