@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    container_name: lmz-backend
+    container_name: rgm-webservice-backend
     restart: unless-stopped
     env_file:
       - ./backend/.env
@@ -21,10 +21,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: lmz-frontend
+    container_name: rgm-webservice-frontend
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3010:8080"
+      - "127.0.0.1:3020:8080"
     depends_on:
       backend:
         condition: service_healthy
