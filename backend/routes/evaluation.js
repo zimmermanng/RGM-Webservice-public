@@ -390,10 +390,19 @@ router.get("/retrieve-data", async (req, res) => {
             message: "Die Evaluations Runde konnte nicht gefunden werden."
         });
 
-        const data = evaluationRound.isActive ? await createEvaluationRoundData() : evaluationRound.evaluationRoundData.payload;
+        let data = null;
+
         if (evaluationRound.isActive) {
+            data = await createEvaluationRoundData()
             data.id = evaluationRound.id;
             data.name = evaluationRound.name;
+        } else {
+            if (!evaluationRound.evaluationRoundData) return res.status(404).json({
+                ok: false,
+                message: "Die Daten der Evaluations Runde konnten nicht gefunden werden."
+            });
+            const [evaluationRoundData] = evaluationRound.evaluationRoundData
+            data = evaluationRoundData.payload;
         }
 
         return res.status(200).json({
