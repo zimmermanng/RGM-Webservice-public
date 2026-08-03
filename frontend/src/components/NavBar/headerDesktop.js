@@ -129,6 +129,14 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     const fetchTeams = async () => {
       let teams = [];
       try {
+        /*
+        const res = await fetch(`${API_BASE}/auth/selectable-teams`);
+        const data = await res.json();
+        let teams = data.teams;
+        sortTeamsAlphabetically(teams);
+        console.log(teams)
+        setSelectableTeams(teams);
+        */
         const res = await fetch(`${API_BASE}/auth/teams`, {
           credentials: "include",
         });
@@ -189,6 +197,22 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     };
     getSelectedTeam();
   }, [team]);
+
+  const sortTeamsAlphabetically = (teams) => {
+    teams.sort((a, b) => {
+      const nameA = a.formattedName.toUpperCase();
+      const nameB = b.formattedName.toUpperCase();
+
+      if (nameA === "ADMINISTRATION") return 1
+      if (nameB === "ADMINISTRATION") return -1
+
+      return nameA.localeCompare(nameB, "de", {
+        sensitivity: "base",
+        numeric: true,
+      })
+    });
+    return teams
+  }
 
   const handleLogoutClick = async () => {
     closeMenu(false);
@@ -458,11 +482,10 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                 </span>
                 <span
                   id="team-select-current"
-                  className={`team-select-current ${
-                    !loadingSelectedTeam && selectedTeam?.length > 32
-                      ? "is-long"
-                      : ""
-                  }`}
+                  className={`team-select-current ${!loadingSelectedTeam && selectedTeam?.length > 32
+                    ? "is-long"
+                    : ""
+                    }`}
                 >
                   {loadingSelectedTeam ? "wird geladen" : selectedTeam}
                 </span>

@@ -112,6 +112,7 @@ router.post("/create-team", async (req, res) => {
                 ok: true,
                 message: `Das Team wurde erfolgreich erstellt.`,
                 id: createdTeam.id,
+                childrenLevelsAllowed: childrenLevelsAllowed,
             })
         } else return res.status(403).json({
             ok: false,

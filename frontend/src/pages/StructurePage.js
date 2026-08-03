@@ -27,6 +27,8 @@ const StructurePage = () => {
   const treeItemRefs = useRef(new Map());
   const [focusedNodeId, setFocusedNodeId] = useState(null);
 
+  const [passwordVisibility, setPasswordVisibility] = useState(false)
+
   // Prüft, ob die aktuell bearbeitete Einheit Kindelemente besitzt
   const hasChildren = editingNodeId
     ? einheiten.some((e) => e.parentId === editingNodeId)
@@ -167,7 +169,6 @@ const StructurePage = () => {
           );
           return;
         }
-
         let einheitenNeu = einheiten.map((e) =>
           e.id === editingNodeId
             ? {
@@ -195,12 +196,14 @@ const StructurePage = () => {
           );
           return;
         }
-
+        console.log(data)
         neueEinheit.id = data.id;
+        neueEinheit.childrenLevelsAllowed = data.childrenLevelsAllowed;
 
         let einheitenNeu = [...einheiten, neueEinheit];
-        sortTeamsAlphabetically(einheitenNeu); 
-        
+        console.log(einheitenNeu)
+        sortTeamsAlphabetically(einheitenNeu);
+
         setEinheiten(einheitenNeu);
       }
     } catch (error) {
@@ -567,7 +570,7 @@ const StructurePage = () => {
                     <label className="modal-label" htmlFor="structure-unit-password">Passwort*</label>
                     <input
                       id="structure-unit-password"
-                      type="password"
+                      type={passwordVisibility ? "text" : "password"}
                       value={neuesPasswort}
                       onChange={(e) => {
                         setNeuesPasswort(e.target.value);
@@ -578,6 +581,19 @@ const StructurePage = () => {
                       required
                       aria-describedby="structure-password-help structure-required-help"
                     />
+                    <div className="password-toggle">
+                      <input
+                        id="show-password-toggle"
+                        type="checkbox"
+                        placeholder="Passwort anzeigen"
+                        onChange={() => setPasswordVisibility(!passwordVisibility)}
+                      />
+                      <label
+                        htmlFor="show-password-toggle"
+                      >
+                        Passwort anzeigen
+                      </label>
+                    </div>
                     <p className="hint structure-hint" id="structure-password-help">
                       Hinweis: Es muss ein Passwort gesetzt werden. Durch das
                       Hinzufügen von Kindelementen entfällt die Möglichkeit zur
