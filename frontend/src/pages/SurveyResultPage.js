@@ -740,10 +740,9 @@ function getRecommendationSectionsForRow({
         item.selection?.antwortId
     );
 
-  const currentCategoryLevel =
-    selectionsWithLevel.length > 0
-      ? Math.min(...selectionsWithLevel.map((item) => item.stufe))
-      : -1;
+  // The result service is the single source of truth for the category level.
+  // In particular, it applies the "highest available answer" pass rule.
+  const currentCategoryLevel = row.value > 0 ? row.value - 1 : -1;
 
   const todoGroups = selectionsWithLevel
     .filter((item) => item.stufe === currentCategoryLevel)
