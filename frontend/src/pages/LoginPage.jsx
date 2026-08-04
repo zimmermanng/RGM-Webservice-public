@@ -76,7 +76,9 @@ const LoginPage = ({
       try {
         const res = await fetch(`${API_BASE}/auth/selectable-teams`);
         const data = await res.json();
-        setSelectableTeams(data.teams);
+        let teams = data.teams;
+        sortTeamsAlphabetically(teams);
+        setSelectableTeams(teams);
       } catch (err) {
         setSuccessfullyLoaded(false)
         console.error("Fehler beim Laden der Teamstruktur:", err);
@@ -200,6 +202,22 @@ const LoginPage = ({
     }
   }
 
+  const sortTeamsAlphabetically = (teams) => {
+    teams.sort((a, b) => {
+      const nameA = a.formattedName.toUpperCase();
+      const nameB = b.formattedName.toUpperCase();
+
+      if (nameA === "ADMINISTRATION") return 1
+      if (nameB === "ADMINISTRATION") return -1
+
+      return nameA.localeCompare(nameB, "de", {
+        sensitivity: "base",
+        numeric: true,
+      })
+    });
+    return teams
+  }
+
   return (
     <>
       <div className="access-page">
@@ -233,73 +251,73 @@ const LoginPage = ({
               Teamstruktur wird geladen …
             </p>
           ) : successfullyLoaded ? (
-              <form onSubmit={handleSubmit} className="access-form" noValidate>
-                <label htmlFor="login-organisation">Organisationseinheit</label>
-                <select
-                  id="login-organisation"
-                  value={organisation}
-                  onChange={(e) => {
-                    setOrganisation(e.target.value);
-                    if (errorField === "organisation") {
-                      setError("");
-                      setErrorField("");
-                    }
-                  }}
-                  className="access-input"
-                  required
-                  aria-invalid={errorField === "organisation"}
-                  aria-describedby={
-                    errorField === "organisation" ? "login-form-error" : undefined
+            <form onSubmit={handleSubmit} className="access-form" noValidate>
+              <label htmlFor="login-organisation">Organisationseinheit</label>
+              <select
+                id="login-organisation"
+                value={organisation}
+                onChange={(e) => {
+                  setOrganisation(e.target.value);
+                  if (errorField === "organisation") {
+                    setError("");
+                    setErrorField("");
                   }
+                }}
+                className="access-input"
+                required
+                aria-invalid={errorField === "organisation"}
+                aria-describedby={
+                  errorField === "organisation" ? "login-form-error" : undefined
+                }
+              >
+                <option value="" disabled>
+                  Bitte auswählen
+                </option>
+                {selectableTeams.map((unit) => (
+                  <option
+                    value={unit.name}
+                    key={unit.name}
+                  >{unit.formattedName}</option>
+                ))}
+              </select>
+
+              <label htmlFor="login-password">Passwort</label>
+
+              <input
+                id="login-password"
+                type="password"
+                placeholder="Passwort eingeben"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (errorField === "password") {
+                    setError("");
+                    setErrorField("");
+                  }
+                }}
+                className="access-input"
+                required
+                aria-invalid={errorField === "password"}
+                aria-describedby={
+                  errorField === "password" ? "login-form-error" : undefined
+                }
+              />
+
+              {error && (
+                <div
+                  id="login-form-error"
+                  className="access-error"
+                  role="alert"
+                  aria-live="assertive"
                 >
-                  <option value="" disabled>
-                    Bitte auswählen
-                  </option>
-                  {selectableTeams.map((unit) => (
-                    <option
-                      value={unit.name}
-                      key={unit.name}
-                    >{unit.formattedName}</option>
-                  ))}
-                </select>
+                  {error}
+                </div>
+              )}
 
-                <label htmlFor="login-password">Passwort</label>
-
-                <input
-                  id="login-password"
-                  type="password"
-                  placeholder="Passwort eingeben"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (errorField === "password") {
-                      setError("");
-                      setErrorField("");
-                    }
-                  }}
-                  className="access-input"
-                  required
-                  aria-invalid={errorField === "password"}
-                  aria-describedby={
-                    errorField === "password" ? "login-form-error" : undefined
-                  }
-                />
-
-                {error && (
-                  <div
-                    id="login-form-error"
-                    className="access-error"
-                    role="alert"
-                    aria-live="assertive"
-                  >
-                    {error}
-                  </div>
-                )}
-
-                <button type="submit" className="access-button" disabled={loading || !organisation}>
-                  {loading ? "Zugang wird geprüft …" : "Einloggen"}
-                </button>
-              </form>
+              <button type="submit" className="access-button" disabled={loading || !organisation}>
+                {loading ? "Zugang wird geprüft …" : "Einloggen"}
+              </button>
+            </form>
           ) : (
             <p className="access-error" role="alert">
               Teams konnten nicht geladen werden. Bitte laden Sie die Seite

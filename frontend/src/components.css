@@ -1888,6 +1888,11 @@ progress::-moz-progress-bar {
   border-color: var(--color-text);
 }
 
+.password-toggle{
+  display: flex;
+  margin-bottom: 1rem;
+}
+
 .evaluationDescription {
   margin-top: 5px;
   font-size: 14px;
