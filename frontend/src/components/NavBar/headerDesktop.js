@@ -424,11 +424,11 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                       <option key={unit.name} value={unit.name}>
                         {team === "Administration"
                           ? unit.name === "Administration"
-                            ? `⚙️ ${unit.formattedName} (Eigener Bereich)`
-                            : `✏️ ${unit.formattedName} (Schreibzugriff)`
+                            ? `⚙️ ${unit.name} (Eigener Bereich)`
+                            : `✏️ ${unit.name} (Schreibzugriff)`
                           : unit.name === team
-                            ? `✏️ ${unit.formattedName} (Eigener Bereich)`
-                            : `👁️ ${unit.formattedName} (Lesezugriff)`}
+                            ? `✏️ ${unit.name} (Eigener Bereich)`
+                            : `👁️ ${unit.name} (Lesezugriff)`}
                       </option>
                     ),
                     )
