@@ -408,6 +408,13 @@ router.get("/selectable-teams", async (req, res) => {
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
     });
 
+    if (!teams) return res.status(500).json({
+      ok: false,
+      message: "Teamstruktur konnte nicht geladen werden",
+    });
+
+    if (req.session.authenticated && req.session.teamId !== 57) teams.splice(teams.findIndex(team => team.name === "Administration"), 1);
+
     let formattedTeams = teams.map((node) => ({
       id: node.id,
       name: node.name,

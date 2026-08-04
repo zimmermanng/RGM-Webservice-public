@@ -127,45 +127,14 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      let teams = [];
       try {
-        /*
-        const res = await fetch(`${API_BASE}/auth/selectable-teams`);
-        const data = await res.json();
-        let teams = data.teams;
-        sortTeamsAlphabetically(teams);
-        console.log(teams)
-        setSelectableTeams(teams);
-        */
-        const res = await fetch(`${API_BASE}/auth/teams`, {
+
+        const res = await fetch(`${API_BASE}/auth/selectable-teams`,{
           credentials: "include",
         });
         const data = await res.json();
-        if (Array.isArray(data.teams)) {
-          data.teams.forEach((object) => {
-            if (
-              object.children.length === 0 &&
-              object.name !== "Administration" &&
-              object.isSelectable
-            )
-              teams.push(object);
-            if (object.children.length > 0) {
-              object.children.forEach((childrenObject) => {
-                if (childrenObject.isSelectable) teams.push(childrenObject);
-                else if (childrenObject.children.length > 0) {
-                  const selectableChildren = childrenObject.children.filter(
-                    (obj) => obj.isSelectable,
-                  );
-                  teams.push(...selectableChildren);
-                }
-              });
-            }
-          });
-          const adminTeam = data.teams.find((obj) => {
-            return obj.name === "Administration";
-          });
-          if (team === "Administration") teams.push(adminTeam);
-        }
+        let teams = data.teams;
+        sortTeamsAlphabetically(teams);
         setSelectableTeams(teams);
       } catch (err) {
         console.error("Fehler beim Laden der Teamstruktur:", err);
@@ -451,27 +420,17 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
                     <option value="">Teams werden geladen …</option>
                   ) : (
                     selectableTeams.map((unit) =>
-                      unit.children.length > 0 ? (
-                        unit.children.map((unitTeam) => (
-                          <option
-                            key={unitTeam.name}
-                            value={unitTeam.name}
-                            className="team-indicator-value"
-                          >
-                            {unit.name} | {unitTeam.name}
-                          </option>
-                        ))
-                      ) : (
-                        <option key={unit.name} value={unit.name}>
-                          {team === "Administration"
-                            ? unit.name === "Administration"
-                              ? `⚙️ ${unit.name} (Eigener Bereich)`
-                              : `✏️ ${unit.name} (Schreibzugriff)`
-                            : unit.name === team
-                              ? `✏️ ${unit.name} (Eigener Bereich)`
-                              : `👁️ ${unit.name} (Lesezugriff)`}
-                        </option>
-                      ),
+                    (
+                      <option key={unit.name} value={unit.name}>
+                        {team === "Administration"
+                          ? unit.name === "Administration"
+                            ? `⚙️ ${unit.formattedName} (Eigener Bereich)`
+                            : `✏️ ${unit.formattedName} (Schreibzugriff)`
+                          : unit.name === team
+                            ? `✏️ ${unit.formattedName} (Eigener Bereich)`
+                            : `👁️ ${unit.formattedName} (Lesezugriff)`}
+                      </option>
+                    ),
                     )
                   )}
                 </select>

@@ -78,7 +78,6 @@ const LoginPage = ({
         const data = await res.json();
         let teams = data.teams;
         sortTeamsAlphabetically(teams);
-        console.log(teams)
         setSelectableTeams(teams);
       } catch (err) {
         setSuccessfullyLoaded(false)

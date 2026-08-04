@@ -196,7 +196,6 @@ const StructurePage = () => {
           );
           return;
         }
-        console.log(data)
         neueEinheit.id = data.id;
         neueEinheit.childrenLevelsAllowed = data.childrenLevelsAllowed;
 
