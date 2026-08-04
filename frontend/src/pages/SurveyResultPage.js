@@ -377,7 +377,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             >
               Tabelle anzeigen
             </button>
-{/*           <button
+            {/*           <button
             type="button"
             className="toggle-button secondary"
             onClick={handleDownloadJson}
@@ -402,8 +402,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             aria-live="polite"
             aria-atomic="true"
           >
-            Für {chartLabelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
-            Die Ergebnisse werden deshalb als Tabelle angezeigt.
+            Ihre aktuelle Auswahl umfasst {chartLabelCount} Handlungsfelder, was den Grenzwert für eine übersichtliche Diagrammdarstellung überschreitet. Zur besseren Übersicht werden die Ergebnisse stattdessen als Tabelle angezeigt.
           </p>
         )}
         {activeViewMode === "chart" ? (

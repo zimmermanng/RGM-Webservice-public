@@ -216,8 +216,7 @@ const ResultPage = ({ data, activeCompany }) => {
             aria-live="polite"
             aria-atomic="true"
           >
-            Für {chartLabelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
-            Die Ergebnisse werden deshalb als Tabelle angezeigt.
+            Ihre aktuelle Auswahl umfasst {chartLabelCount} Handlungsfelder, was den Grenzwert für eine übersichtliche Diagrammdarstellung überschreitet. Zur besseren Übersicht werden die Ergebnisse stattdessen als Tabelle angezeigt.
           </p>
         )}
         {activeViewMode === "chart" ? (
