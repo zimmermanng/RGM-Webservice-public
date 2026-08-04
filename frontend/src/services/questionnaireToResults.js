@@ -189,6 +189,7 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
       allAtQuestionMaximum: true,
       answeredQuestionIds: new Set(),
       expectedQuestionIds: new Set(c.questionIds),
+      ratedAnswerCount: 0,
       ...c,
     });
   }
@@ -199,6 +200,14 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
     if (!location) continue;
     const b = buckets.get(location.handlungsfeldId);
     if (!b) continue;
+
+    // "Keine Angabe" is a complete answer but has no influence on the level.
+    b.answeredQuestionIds.add(entry.frageId);
+    const isNoAnswer =
+      entry.antwortId === "" ||
+      Number(entry.stufe) === -1 ||
+      String(entry.antwortText || "").trim().toLowerCase() === "keine angabe";
+    if (isNoAnswer) continue;
 
     const questionCandidates = (fragen?.fragen || []).filter(
       (question) => question.id === entry.frageId
@@ -213,10 +222,13 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
       (answer) => answer.id === entry.antwortId
     );
     const stufe = Number(selectedAnswer?.stufe);
-    if (!Number.isFinite(stufe)) continue;
+    if (!Number.isFinite(stufe)) {
+      b.allAtQuestionMaximum = false;
+      continue;
+    }
 
     b.any = true;
-    b.answeredQuestionIds.add(entry.frageId);
+    b.ratedAnswerCount += 1;
     b.selectedMin = Math.min(b.selectedMin, stufe);
 
     const questionLevels = (question?.antworten || [])
@@ -245,7 +257,11 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
     let value;
     if (!b || !b.any) {
       value = 0; // not rated
-    } else if (isComplete && b.allAtQuestionMaximum) {
+    } else if (
+      isComplete &&
+      b.ratedAnswerCount > 0 &&
+      b.allAtQuestionMaximum
+    ) {
       value = globalMaxStufe + 1; // full credit: displayed maturity level 4
     } else if (b.constraining) {
       value = b.min + 1; // 1..5

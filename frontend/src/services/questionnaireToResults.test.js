@@ -94,6 +94,39 @@ test("uses the lowest constraining answer when not every answer is maximal", () 
   expect(rows[0].value).toBe(3);
 });
 
+test("counts no-answer selections as complete but ignores them for the level", () => {
+  const rows = answersToResults(
+    {
+      F1: selection("F1", "A1-max"),
+      F2: {
+        frageId: "F2",
+        antwortId: "",
+        antwortText: "Keine Angabe",
+        stufe: -1,
+      },
+    },
+    struktur,
+    fragen,
+    "D1"
+  );
+
+  expect(rows[0].value).toBe(5);
+});
+
+test("keeps a field unrated if every answer is no-answer", () => {
+  const rows = answersToResults(
+    {
+      F1: { frageId: "F1", antwortId: "", stufe: -1 },
+      F2: { frageId: "F2", antwortId: "", stufe: -1 },
+    },
+    struktur,
+    fragen,
+    "D1"
+  );
+
+  expect(rows[0].value).toBe(0);
+});
+
 test("uses dimension and field context if a question ID is reused in the future", () => {
   const reusedStruktur = {
     dimensionen: [
