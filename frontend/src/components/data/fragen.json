@@ -5203,25 +5203,25 @@
         {
           "id": "A916",
           "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 0
         },
         {
           "id": "A917",
           "antwort": "Einzelne Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 1
         },
         {
           "id": "A918",
           "antwort": "Die meisten Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 2
         },
         {
           "id": "A919",
           "antwort": "Alle Endprodukte bieten einen Feedbackmechanismus für Nutzende an.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 3
         }
       ]
@@ -5233,25 +5233,25 @@
         {
           "id": "A921",
           "antwort": "Die Endprodukte bieten keinen Feedbackmechanismus für Nutzende an, um Probleme bzgl. Barrierefreiheit zu melden.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 0
         },
         {
           "id": "A922",
           "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist einfach umgesetzt.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 2
         },
         {
           "id": "A923",
           "antwort": "Es handelt sich um einen allgemeinen Feedbackmechanismus, der auch für Themen der Barrierefreiheit genutzt werden kann. Er ist barrierefrei umgesetzt.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 3
         },
         {
           "id": "A924",
           "antwort": "Es handelt sich um einen gesonderten Feedbackmechanismus, der speziell für Fragen und Beschwerden bezüglich Barrierefreiheit ausgelegt ist. Er ist barrierefrei umgesetzt.",
-          "handlungsfeldId": "HF3",
+          "handlungsfeldId": "HF31",
           "stufe": 4
         }
       ]
