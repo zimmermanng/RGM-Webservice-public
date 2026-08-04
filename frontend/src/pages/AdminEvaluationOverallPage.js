@@ -43,7 +43,7 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
   const pageRef = useRef(null);
   const evaluationId = searchParams.get("id")
 
-  useEffect(() => {  
+  useEffect(() => {
     if (!evaluationId) {
       setLoadingEvaluationRound(false);
       return setErrorLoading(true);
@@ -317,8 +317,7 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
           <div className="admin-overall-section-heading">
             <h2>Ergebnisse der Organisationseinheiten</h2>
             <p>
-              Wählen Sie eine Organisationseinheit, um die Werte für diesen
-              Ausschnitt neu zu berechnen.
+              Wählen Sie eine Organisationseinheit, um deren Beitrag zum Gesamtergebnis einzusehen.
             </p>
           </div>
 
@@ -354,7 +353,7 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
               />
             ) : (
               <div className="admin-overall-placeholder" role="status">
-                Wählen Sie zuerst eine Einheit auf Ebene 0 aus. Danach wird das
+                Wählen Sie zuerst eine Einheit auf der höchsten Ebene aus. Danach wird das
                 passende Diagramm angezeigt.
               </div>
             )}
@@ -433,7 +432,7 @@ function PackageDetailsButtons({ results, onPackageClick }) {
   return (
     <div className="admin-overall-detail-actions" aria-label="Päckchendetails öffnen">
       <h3>Details</h3>
-      <p>Alternativ zum Diagramm können Sie die Details direkt öffnen.</p>
+      <p>Wählen Sie ein Päckchen im Diagramm oder hier in der Seitenleiste aus, um Details dazu einzusehen.</p>
       <div className="admin-overall-detail-buttons">
         {results.map((result) => (
           <button
@@ -504,12 +503,12 @@ function OrganisationSelectors({
         </select>
         <span id="overall-child-unit-help" className="admin-overall-select-help">
           {!selectedLevel0
-            ? "Wählen Sie zuerst eine übergeordnete Organisationseinheit."
+            ? "Wählen Sie zuerst eine übergeordnete Einheit."
             : selectedLevel0 === "all"
-              ? "Bei der Gesamtauswertung ist keine untergeordnete Auswahl erforderlich."
+              ? "Bei der Gesamtauswertung ist keine untergeordnete Auswahl möglich."
               : level1Units.length === 0
-                ? "Für diese Organisationseinheit sind keine Untereinheiten vorhanden."
-                : "Optional können Sie die Ergebnisse auf eine Untereinheit begrenzen."}
+                ? "Für diese Einheit sind keine untergeordneten Einheiten vorhanden."
+                : "Optional können Sie die Ergebnisse auf eine untergeordnete Einheit begrenzen."}
         </span>
       </label>
     </div>
@@ -746,8 +745,7 @@ function PackageChart({
 
       {showDetailsHint && isInteractive && (
         <p className="admin-overall-chart-hint">
-          Die Päckchen im Diagramm sind auswählbar. Wählen Sie ein Segment aus
-          oder nutzen Sie die Detail-Schaltflächen im Filterbereich.
+          Wählen Sie ein Päckchen hier im Diagramm oder in der Seitenleiste aus, um Details dazu einzusehen.
         </p>
       )}
 
