@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import RadialBarChart from "../components/radialBarChart";
 import DataTable from "../components/DataTable";
-import fragenData from "../components/data/fragen.json";
-import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
 
 const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
@@ -11,13 +9,6 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
     new Set([-1, 0, 1, 2, 3, 4])
   );
   const tabRefs = useRef({});
-
-  const questionMap = useMemo(() => buildQuestionMap(fragenData), []);
-
-  const selections = useMemo(
-    () => normalizeSelections(surveyResults?.selections),
-    [surveyResults]
-  );
 
   const data = useMemo(() => {
     const rows = Array.isArray(surveyResults?.results) ? surveyResults.results : [];
@@ -31,37 +22,14 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
           typeof row.value === "number"
       )
       .map((row, index) => {
-        const relevantSelections = getSelectionsForRow(selections, {
-          group: row.group,
-          category: row.category,
-        });
-
-        const selectedLevels = relevantSelections
-          .map((selection) => {
-            const question = questionMap?.[selection?.frageId];
-            const selectedAnswer = getSelectedAnswer(
-              question,
-              selection?.antwortId
-            );
-            return typeof selectedAnswer?.stufe === "number"
-              ? selectedAnswer.stufe
-              : null;
-          })
-          .filter((level) => typeof level === "number");
-
-        const hasAnsweredQuestions = selectedLevels.length > 0;
-        const lowestSelectedLevel = hasAnsweredQuestions
-          ? Math.min(...selectedLevels)
-          : -1;
-
         return {
           id: row.id ?? `${row.group}-${row.category}-${index}`,
           group: row.group,
           category: row.category,
-          value: hasAnsweredQuestions ? lowestSelectedLevel + 1 : 0,
+          value: row.value,
         };
       });
-  }, [surveyResults, selections, questionMap]);
+  }, [surveyResults]);
 
   const dimensionData = useMemo(() => {
     return data.reduce((acc, row) => {
@@ -262,37 +230,6 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
     </div>
   );
 };
-
-function normalizeSelections(selections) {
-  if (Array.isArray(selections)) return selections;
-  if (selections && typeof selections === "object") {
-    return Object.values(selections).filter(Boolean);
-  }
-  return [];
-}
-
-function buildQuestionMap(source) {
-  const questions = source?.fragen ?? [];
-  return questions.reduce((acc, question) => {
-    acc[question.id] = question;
-    return acc;
-  }, {});
-}
-
-function getSelectionsForRow(selections, row) {
-  return (Array.isArray(selections) ? selections : []).filter(
-    (selection) =>
-      selection?.group === row.group && selection?.category === row.category
-  );
-}
-
-function getSelectedAnswer(question, selectedAnswerId) {
-  return (
-    (question?.antworten ?? []).find(
-      (answer) => answer.id === selectedAnswerId
-    ) ?? null
-  );
-}
 
 function slugifyId(value) {
   return String(value)

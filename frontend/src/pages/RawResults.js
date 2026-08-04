@@ -64,7 +64,7 @@ const RawResults = () => {
 
         const combined = combineEntries(filteredEntries);
 
-        if (combined) {
+        if (combined?.results?.length > 0) {
           setSurveyResults({
             ...combined,
             team: resultsData?.team || combined?.team || null,
@@ -83,9 +83,15 @@ const RawResults = () => {
     fetchResults();
   }, []);
 
-  if (loading) return <p>Lade Ergebnisse...</p>;
-  if (error) return <p>{error}</p>;
-  if (!surveyResults) return <p>Noch keine Ergebnisse vorhanden.</p>;
+  if (loading) {
+    return <p role="status" aria-live="polite">Ergebnisse werden geladen …</p>;
+  }
+  if (error) {
+    return <p className="access-error" role="alert">{error}</p>;
+  }
+  if (!surveyResults) {
+    return <p className="noResults" role="status">Noch keine Ergebnisse vorhanden.</p>;
+  }
 
   return <SurveyResultPage surveyResults={surveyResults} />;
 };

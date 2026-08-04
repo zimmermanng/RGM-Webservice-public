@@ -148,17 +148,15 @@ const debugLogSelections = ({ selectedAnswers, struktur, fragen, dimensionId }) 
 export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId) => {
   const idx = indexStructure(struktur);
   const categories = categoriesForDimension(struktur, dimensionId);
-  const { qMaxByQId, hfMaxByHfId, globalMaxStufe } = buildMaxStufeIndexes(fragen);
+  const { qMaxByQId, globalMaxStufe } = buildMaxStufeIndexes(fragen);
 
   // hfId -> bucket
   const buckets = new Map();
   for (const c of categories) {
-    const catMax = hfMaxByHfId.get(c.handlungsfeldId);
     buckets.set(c.handlungsfeldId, {
       min: Infinity,
       any: false,
       constraining: false,
-      categoryMaxStufe: Number.isFinite(catMax) ? catMax : globalMaxStufe,
       ...c,
     });
   }
@@ -185,8 +183,8 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
     }
   }
 
-  // Build rows: if no constraining selections but some answers exist,
-  // the category achieves its own maximum (categoryMaxStufe + 1).
+  // Build rows: if every selected answer is the highest answer available for
+  // its question, the category achieves the global maximum maturity level.
   const rows = [];
   for (const { group, category, handlungsfeldId } of categories) {
     const b = buckets.get(handlungsfeldId);
@@ -196,7 +194,7 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
     } else if (b.constraining) {
       value = b.min + 1; // 1..5
     } else {
-      value = b.categoryMaxStufe + 1; // full credit for this category
+      value = globalMaxStufe + 1; // full credit: displayed maturity level 4
     }
     rows.push({ group, category, value, handlungsfeldId });
   }

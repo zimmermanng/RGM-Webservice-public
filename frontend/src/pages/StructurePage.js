@@ -201,7 +201,6 @@ const StructurePage = () => {
         neueEinheit.childrenLevelsAllowed = data.childrenLevelsAllowed;
 
         let einheitenNeu = [...einheiten, neueEinheit];
-        console.log(einheitenNeu)
         sortTeamsAlphabetically(einheitenNeu);
 
         setEinheiten(einheitenNeu);
@@ -595,7 +594,7 @@ const StructurePage = () => {
                       </label>
                     </div>
                     <p className="hint structure-hint" id="structure-password-help">
-                      Hinweis: Es muss ein Passwort gesetzt werden. Durch das
+                      Hinweis: Es muss zunächst ein Passwort gesetzt werden. Erst durch das
                       Hinzufügen von Kindelementen entfällt die Möglichkeit zur
                       Bearbeitung des Elternelements.
                     </p>
@@ -631,7 +630,7 @@ const StructurePage = () => {
                     </select>
                     <p className="hint structure-hint" id="structure-parent-help">
                       Hinweis: Sie können Einheiten nur eine Ebene tief
-                      verschachteln, daher stehen hier nur die Elternelemente zur
+                      verschachteln, daher stehen hier nur die möglichen Elternelemente zur
                       Auswahl.
                     </p>
                   </div>
@@ -643,7 +642,7 @@ const StructurePage = () => {
                 >
                   {isFormValid
                     ? "Mit einem Stern gekennzeichnete Felder sind Pflichtfelder."
-                    : `Pflichtfelder: Bitte füllen Sie ${hasChildren ? "den Namen" : "Name und Passwort"
+                    : `*Pflichtfelder: Bitte füllen Sie ${hasChildren ? "den Namen" : "Name und Passwort"
                     } aus, um speichern zu können.`}
                 </p>
                 {formError && (
