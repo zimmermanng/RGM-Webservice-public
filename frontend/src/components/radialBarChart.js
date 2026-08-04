@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 
 const WIDTH = 1700;
@@ -92,7 +92,7 @@ const RadialBarChart = ({
   const svgRef = useRef(null);
   const chartIdRef = useRef(`radial-chart-${Math.random().toString(36).slice(2)}`);
   const lastInputTypeRef = useRef('mouse');
-  const [chartData, setChartData] = useState([]);
+  const chartData = useMemo(() => (Array.isArray(data) ? data : []), [data]);
 
   const radius = Math.min(WIDTH, HEIGHT) / 2 - MARGIN;
   const resolvedCompany = useMemo(() => normalizeCompany(activeCompany), [activeCompany]);
@@ -146,11 +146,7 @@ const RadialBarChart = ({
     };
   }, []);
 
-  useEffect(() => {
-    setChartData(Array.isArray(data) ? data : []);
-  }, [data]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!svgRef.current) return;
 
     const root = d3.select(svgRef.current);
