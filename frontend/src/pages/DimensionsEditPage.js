@@ -444,6 +444,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
                   <div
                     key={dimension.id}
                     id={`config-package-toEdit-${dimension.id}`}
+                    className="config-package"
                     role="listitem"
                     draggable={!isLocked}
                     tabIndex={0}
@@ -506,6 +507,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
               <div
                 key={dimension.id}
                 id={`config-package-notToEdit-${dimension.id}`}
+                className="config-package"
                 role="listitem"
                 draggable
                 tabIndex={0}

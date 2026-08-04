@@ -1450,6 +1450,16 @@ td span.nicht-bewertet {
   height: 100%;
 }
 
+.config-package:focus {
+  outline: none;
+}
+
+.config-package:focus > :is(.card, .card_dimension) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  box-shadow: var(--shadow-md);
+}
+
 .dFooter {
   margin-top: var(--space-6);
   gap: var(--space-4);
