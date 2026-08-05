@@ -432,7 +432,7 @@ function PackageDetailsButtons({ results, onPackageClick }) {
   return (
     <div className="admin-overall-detail-actions" aria-label="Päckchendetails öffnen">
       <h3>Details</h3>
-      <p>Wählen Sie ein Päckchen im Diagramm oder hier in der Seitenleiste aus, um Details dazu einzusehen.</p>
+      <p>Wählen Sie ein Päckchen aus, um Details dazu einzusehen.</p>
       <div className="admin-overall-detail-buttons">
         {results.map((result) => (
           <button
