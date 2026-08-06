@@ -472,7 +472,7 @@ router.get("/retrieve-data", async (req, res) => {
             data.id = evaluationRound.id;
             data.name = evaluationRound.name;
         } else {
-            if (!evaluationRound.evaluationRoundData) return res.status(404).json({
+            if (evaluationRound.evaluationRoundData.length === 0) return res.status(404).json({
                 ok: false,
                 message: "Die Daten der Evaluations Runde konnten nicht gefunden werden."
             });
