@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE } from "../../config.ts";
 import useDialogFocus from "../../hooks/useDialogFocus";
+import { TeamsContext } from "../../context/TeamContext.js";
 
 const NAV_ITEMS = {
   default: [
@@ -27,14 +28,16 @@ const LOGO_BY_COMPANY = {
   default: "/LMZ-Logo.jpg",
 };
 
+
+
 function HeaderDesktop({ activeCompany, onLogout, team }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const hamburgerButtonRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
-  const [selectableTeams, setSelectableTeams] = useState(null);
-  const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
+  //const [selectableTeams, setSelectableTeams] = useState(null);
+  //const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
   const [teamView, setTeamView] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [loadingSelectedTeam, setLoadingSelectedTeam] = useState(true);
@@ -51,6 +54,8 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   });
   const returnCancelRef = useRef(null);
   const takeoverCancelRef = useRef(null);
+  
+  const { selectableTeams, loadingSelectableTeams } = useContext(TeamsContext);
 
   const navItems = useMemo(() => {
     if (team === "Administration") return NAV_ITEMS.ADMIN;
@@ -126,26 +131,6 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
   }, [location.pathname]);
 
   useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-
-        const res = await fetch(`${API_BASE}/auth/selectable-teams`,{
-          credentials: "include",
-        });
-        const data = await res.json();
-        let teams = data.teams;
-        sortTeamsAlphabetically(teams);
-        setSelectableTeams(teams);
-      } catch (err) {
-        console.error("Fehler beim Laden der Teamstruktur:", err);
-      } finally {
-        setLoadingSelectableTeams(false);
-      }
-    };
-    fetchTeams();
-  }, [team]);
-
-  useEffect(() => {
     const getSelectedTeam = async () => {
       try {
         const selectedTeamReq = await fetch(
@@ -166,22 +151,6 @@ function HeaderDesktop({ activeCompany, onLogout, team }) {
     };
     getSelectedTeam();
   }, [team]);
-
-  const sortTeamsAlphabetically = (teams) => {
-    teams.sort((a, b) => {
-      const nameA = a.formattedName.toUpperCase();
-      const nameB = b.formattedName.toUpperCase();
-
-      if (nameA === "ADMINISTRATION") return 1
-      if (nameB === "ADMINISTRATION") return -1
-
-      return nameA.localeCompare(nameB, "de", {
-        sensitivity: "base",
-        numeric: true,
-      })
-    });
-    return teams
-  }
 
   const handleLogoutClick = async () => {
     closeMenu(false);

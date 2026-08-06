@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef, useContext } from "react";
 import { API_BASE } from "../config.ts";
 import useDialogFocus from "../hooks/useDialogFocus";
+import { TeamsContext } from "../context/TeamContext.js";
 
 const StructurePage = () => {
   const [einheiten, setEinheiten] = useState([]);
@@ -28,6 +29,8 @@ const StructurePage = () => {
   const [focusedNodeId, setFocusedNodeId] = useState(null);
 
   const [passwordVisibility, setPasswordVisibility] = useState(false)
+
+  const { fetchSelectableTeams } = useContext(TeamsContext)
 
   // Prüft, ob die aktuell bearbeitete Einheit Kindelemente besitzt
   const hasChildren = editingNodeId
@@ -204,6 +207,7 @@ const StructurePage = () => {
 
         setEinheiten(einheitenNeu);
       }
+      await fetchSelectableTeams();
     } catch (error) {
       console.error("Fehler beim Speichern der Organisationseinheit:", error);
       setFormError(
@@ -269,6 +273,7 @@ const StructurePage = () => {
       ),
     );
     setDeleteNodeId(null);
+    await fetchSelectableTeams();
   };
 
   const toggleNode = (nodeId) => {

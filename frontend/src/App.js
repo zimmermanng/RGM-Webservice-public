@@ -31,11 +31,12 @@ import EvaluationPage from "./pages/EvaluationPage.js";
 import LoginPage from "./pages/LoginPage";
 import TeamSelectionPage from "./pages/TeamSelectionPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import StructurePage from "./pages/StructurePage.js";
 import { API_BASE } from "./config.ts";
+import { TeamsProvider } from "./context/TeamContext.js"
 
 import { applyTheme } from "./theme";
 import "./App.css";
-import StructurePage from "./pages/StructurePage.js";
 
 const CLIENT_WARNING_FALLBACK_MS = 1000 * 60 * 5;
 const CLIENT_TIMEOUT_FALLBACK_MS = 1000 * 60 * 60;
@@ -354,7 +355,7 @@ const App = () => {
     }
 
     lastKeepaliveAtRef.current = now;
-    
+
     try {
       const res = await fetch(`${API_BASE}/auth/keepalive`, {
         method: "POST",
@@ -362,7 +363,7 @@ const App = () => {
       });
 
       const payload = await res.json();
-      
+
       if (!res.ok) {
         if (res.status === 401 || res.status === 403 || res.status === 423) {
           await handleLogout({
@@ -374,7 +375,7 @@ const App = () => {
         }
         return;
       }
-      
+
       syncSessionFromResponse(payload);
     } catch (error) {
       console.error("Keepalive failed:", error);
@@ -599,7 +600,7 @@ const App = () => {
   const startPageElement = useMemo(() => {
     const isAdmin = team === "Administration";
     return activeCompany === "LMZ" ? (
-      <HomePage activeCompany={activeCompany } isAdmin={isAdmin} />
+      <HomePage activeCompany={activeCompany} isAdmin={isAdmin} />
     ) : (
       <ShuffleHomePage activeCompany={activeCompany} />
     );
@@ -629,397 +630,398 @@ const App = () => {
 
   return (
     <Router>
-      <RouteDocumentTitle />
-      <RouteFocusManager />
-      <a className="skip-link-global" href="#main-content">
-        Direkt zum Hauptinhalt springen
-      </a>
+      <TeamsProvider>
+        <RouteDocumentTitle />
+        <RouteFocusManager />
+        <a className="skip-link-global" href="#main-content">
+          Direkt zum Hauptinhalt springen
+        </a>
+        <div ref={appShellRef}>
+          {showServiceChrome && (
+            <NavBar
+              activeCompany={activeCompany}
+              onLogout={handleLogout}
+              team={team}
+            />
+          )}
 
-      <div ref={appShellRef}>
-        {showServiceChrome && (
-          <NavBar
-            activeCompany={activeCompany}
-            onLogout={handleLogout}
-            team={team}
-          />
-        )}
+          {sessionNotice && !isAuthenticated && (
+            <div
+              className="access-session-notice"
+              role="alert"
+              aria-live="assertive"
+            >
+              {sessionNotice}
+            </div>
+          )}
 
-        {sessionNotice && !isAuthenticated && (
-          <div
-            className="access-session-notice"
-            role="alert"
-            aria-live="assertive"
-          >
-            {sessionNotice}
-          </div>
-        )}
-
-        <main id="main-content" tabIndex="-1">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                isAuthenticated ? (
-                  team ? (
-                    <Navigate to="/start" replace />
+          <main id="main-content" tabIndex="-1">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isAuthenticated ? (
+                    team ? (
+                      <Navigate to="/start" replace />
+                    ) : (
+                      <Navigate to="/team-select" replace />
+                    )
                   ) : (
-                    <Navigate to="/team-select" replace />
+                    <Navigate to="/login" replace />
                   )
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              }
-            />
-
-            <Route
-              path="/team-select"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={null}
-                  requireTeam={false}
-                >
-                  <TeamSelectionPage
-                    onTeamSelected={(selection) => {
-                      setTeam(selection.team);
-                      setSessionNotice("");
-
-                      if (typeof selection.sessionTimeoutMs === "number") {
-                        setSessionTimeoutMs(selection.sessionTimeoutMs);
-                      }
-
-                      if (
-                        typeof selection.warningBeforeTimeoutMs === "number"
-                      ) {
-                        setWarningBeforeTimeoutMs(
-                          selection.warningBeforeTimeoutMs,
-                        );
-                      }
-                    }}
-                  />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/login"
-              element={
-                <LoginPage
-                  activeCompany={activeCompany}
-                  logoPath="/logo.png"
-                  onLoginSuccess={({
-                    authenticated,
-                    team,
-                    sessionTimeoutMs,
-                    warningBeforeTimeoutMs,
-                  }) => {
-                    setIsAuthenticated(authenticated);
-                    setTeam(team || null);
-                    setSessionNotice("");
-
-                    if (typeof sessionTimeoutMs === "number") {
-                      setSessionTimeoutMs(sessionTimeoutMs);
-                    }
-
-                    if (typeof warningBeforeTimeoutMs === "number") {
-                      setWarningBeforeTimeoutMs(warningBeforeTimeoutMs);
-                    }
-                  }}
-                  onTeamSelected={(selection) => {
-                    setTeam(selection.team);
-                    setSessionNotice("");
-
-                    if (typeof selection.sessionTimeoutMs === "number") {
-                      setSessionTimeoutMs(selection.sessionTimeoutMs);
-                    }
-
-                    if (
-                      typeof selection.warningBeforeTimeoutMs === "number"
-                    ) {
-                      setWarningBeforeTimeoutMs(
-                        selection.warningBeforeTimeoutMs,
-                      );
-                    }
-                  }}
-                />
-              }
-            />
-
-            <Route
-              path="/team-select"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={null}
-                  requireTeam={false}
-                >
-                  <TeamSelectionPage
-                    onTeamSelected={(selection) => {
-                      setTeam(selection.team);
-                      setSessionNotice("");
-
-                      if (typeof selection.sessionTimeoutMs === "number") {
-                        setSessionTimeoutMs(selection.sessionTimeoutMs);
-                      }
-
-                      if (
-                        typeof selection.warningBeforeTimeoutMs === "number"
-                      ) {
-                        setWarningBeforeTimeoutMs(
-                          selection.warningBeforeTimeoutMs,
-                        );
-                      }
-                    }}
-                  />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/start"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  {startPageElement}
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/download"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <Download />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/upload"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <UploadPage onUpload={setData} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/dimensions"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <DimensionsPage activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/resultReadOnly"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <ResultPageReadOnly activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/dimensions/bearbeiten"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <DimensionsEditPage
-                    activeCompany={activeCompany}
-                    onSessionInvalid={(reason) =>
-                      handleLogout({ preserveNotice: true, reason })
-                    }
-                  />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/questionnaire"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <QuestionnairePage activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/questionnaire/:dimensionId/:handlungsfeldId"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <QuestionnairePage activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/results"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <ResultPage data={data} activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/rawresults"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <RawResults data={data} activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/handlungsempfehlungen"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <ResultPage data={data} activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/Evaluationsrunden"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <EvaluationPage activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/Struktur"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <StructurePage activeCompany={activeCompany} />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/evaluationsrunden/gesamtauswertung"
-              element={
-                <ProtectedRoute
-                  authChecked={authChecked}
-                  isAuthenticated={isAuthenticated}
-                  team={team}
-                >
-                  <AdminEvaluationOverallPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-      </div>
-
-      {warningOpen && (
-        <div className="session-timeout-dialog-backdrop" role="presentation">
-          <div
-            ref={warningDialogRef}
-            className="session-timeout-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="session-timeout-title"
-            aria-describedby="session-timeout-description session-timeout-countdown"
-          >
-            <h2 id="session-timeout-title">Sitzung läuft bald ab</h2>
-            <p id="session-timeout-description">
-              Wegen Inaktivität werden Sie automatisch abgemeldet. Bereits
-              gespeicherte Eingaben bleiben erhalten.
-            </p>
-            <p id="session-timeout-countdown" role="status" aria-live="polite">
-              {countdownText}
-            </p>
-
-            <div className="session-timeout-actions">
-              <button
-                ref={warningPrimaryButtonRef}
-                type="button"
-                className="access-button"
-                onClick={handleStaySignedIn}
-                disabled={warningBusy}
-              >
-                {warningBusy
-                  ? "Sitzung wird verlängert …"
-                  : "Angemeldet bleiben"}
-              </button>
-
-              <button
-                type="button"
-                className="access-button secondary"
-                onClick={() =>
-                  handleLogout({
-                    preserveNotice: true,
-                    reason:
-                      "Sie wurden erfolgreich abgemeldet. Ihre bereits gespeicherten Eingaben bleiben erhalten.",
-                  })
                 }
-                disabled={warningBusy}
-              >
-                Jetzt abmelden
-              </button>
+              />
+
+              <Route
+                path="/team-select"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={null}
+                    requireTeam={false}
+                  >
+                    <TeamSelectionPage
+                      onTeamSelected={(selection) => {
+                        setTeam(selection.team);
+                        setSessionNotice("");
+
+                        if (typeof selection.sessionTimeoutMs === "number") {
+                          setSessionTimeoutMs(selection.sessionTimeoutMs);
+                        }
+
+                        if (
+                          typeof selection.warningBeforeTimeoutMs === "number"
+                        ) {
+                          setWarningBeforeTimeoutMs(
+                            selection.warningBeforeTimeoutMs,
+                          );
+                        }
+                      }}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/login"
+                element={
+                  <LoginPage
+                    activeCompany={activeCompany}
+                    logoPath="/logo.png"
+                    onLoginSuccess={({
+                      authenticated,
+                      team,
+                      sessionTimeoutMs,
+                      warningBeforeTimeoutMs,
+                    }) => {
+                      setIsAuthenticated(authenticated);
+                      setTeam(team || null);
+                      setSessionNotice("");
+
+                      if (typeof sessionTimeoutMs === "number") {
+                        setSessionTimeoutMs(sessionTimeoutMs);
+                      }
+
+                      if (typeof warningBeforeTimeoutMs === "number") {
+                        setWarningBeforeTimeoutMs(warningBeforeTimeoutMs);
+                      }
+                    }}
+                    onTeamSelected={(selection) => {
+                      setTeam(selection.team);
+                      setSessionNotice("");
+
+                      if (typeof selection.sessionTimeoutMs === "number") {
+                        setSessionTimeoutMs(selection.sessionTimeoutMs);
+                      }
+
+                      if (
+                        typeof selection.warningBeforeTimeoutMs === "number"
+                      ) {
+                        setWarningBeforeTimeoutMs(
+                          selection.warningBeforeTimeoutMs,
+                        );
+                      }
+                    }}
+                  />
+                }
+              />
+
+              <Route
+                path="/team-select"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={null}
+                    requireTeam={false}
+                  >
+                    <TeamSelectionPage
+                      onTeamSelected={(selection) => {
+                        setTeam(selection.team);
+                        setSessionNotice("");
+
+                        if (typeof selection.sessionTimeoutMs === "number") {
+                          setSessionTimeoutMs(selection.sessionTimeoutMs);
+                        }
+
+                        if (
+                          typeof selection.warningBeforeTimeoutMs === "number"
+                        ) {
+                          setWarningBeforeTimeoutMs(
+                            selection.warningBeforeTimeoutMs,
+                          );
+                        }
+                      }}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/start"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    {startPageElement}
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/download"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <Download />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/upload"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <UploadPage onUpload={setData} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/dimensions"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <DimensionsPage activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/resultReadOnly"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <ResultPageReadOnly activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/dimensions/bearbeiten"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <DimensionsEditPage
+                      activeCompany={activeCompany}
+                      onSessionInvalid={(reason) =>
+                        handleLogout({ preserveNotice: true, reason })
+                      }
+                    />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/questionnaire"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <QuestionnairePage activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/questionnaire/:dimensionId/:handlungsfeldId"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <QuestionnairePage activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/results"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <ResultPage data={data} activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/rawresults"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <RawResults data={data} activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/handlungsempfehlungen"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <ResultPage data={data} activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/Evaluationsrunden"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <EvaluationPage activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/Struktur"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <StructurePage activeCompany={activeCompany} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/evaluationsrunden/gesamtauswertung"
+                element={
+                  <ProtectedRoute
+                    authChecked={authChecked}
+                    isAuthenticated={isAuthenticated}
+                    team={team}
+                  >
+                    <AdminEvaluationOverallPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+        </div>
+
+        {warningOpen && (
+          <div className="session-timeout-dialog-backdrop" role="presentation">
+            <div
+              ref={warningDialogRef}
+              className="session-timeout-dialog"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="session-timeout-title"
+              aria-describedby="session-timeout-description session-timeout-countdown"
+            >
+              <h2 id="session-timeout-title">Sitzung läuft bald ab</h2>
+              <p id="session-timeout-description">
+                Wegen Inaktivität werden Sie automatisch abgemeldet. Bereits
+                gespeicherte Eingaben bleiben erhalten.
+              </p>
+              <p id="session-timeout-countdown" role="status" aria-live="polite">
+                {countdownText}
+              </p>
+
+              <div className="session-timeout-actions">
+                <button
+                  ref={warningPrimaryButtonRef}
+                  type="button"
+                  className="access-button"
+                  onClick={handleStaySignedIn}
+                  disabled={warningBusy}
+                >
+                  {warningBusy
+                    ? "Sitzung wird verlängert …"
+                    : "Angemeldet bleiben"}
+                </button>
+
+                <button
+                  type="button"
+                  className="access-button secondary"
+                  onClick={() =>
+                    handleLogout({
+                      preserveNotice: true,
+                      reason:
+                        "Sie wurden erfolgreich abgemeldet. Ihre bereits gespeicherten Eingaben bleiben erhalten.",
+                    })
+                  }
+                  disabled={warningBusy}
+                >
+                  Jetzt abmelden
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* <Footer /> */}
+        {/* <Footer /> */}
+      </TeamsProvider>
     </Router>
   );
 };
