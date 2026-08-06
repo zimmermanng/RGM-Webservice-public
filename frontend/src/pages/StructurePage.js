@@ -605,6 +605,9 @@ const StructurePage = () => {
                       Hinzufügen von Kindelementen entfällt die Möglichkeit zur
                       Bearbeitung des Elternelements.
                     </p>
+                    <p className="hint structure-hint" id="structure-password-notice">
+                      Aus Sicherheitsgründen kann das gespeicherte Passwort nicht angezeigt werden. Setzen Sie ein neues Passwort, um das alte zu überschreiben.
+                    </p>
                   </div>
                 )}
 

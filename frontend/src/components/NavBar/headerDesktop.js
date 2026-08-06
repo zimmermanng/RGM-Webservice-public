@@ -28,16 +28,12 @@ const LOGO_BY_COMPANY = {
   default: "/LMZ-Logo.jpg",
 };
 
-
-
 function HeaderDesktop({ activeCompany, onLogout, team }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const hamburgerButtonRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
-  //const [selectableTeams, setSelectableTeams] = useState(null);
-  //const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
   const [teamView, setTeamView] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [loadingSelectedTeam, setLoadingSelectedTeam] = useState(true);

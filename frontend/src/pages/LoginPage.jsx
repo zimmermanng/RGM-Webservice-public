@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
 import useDialogFocus from "../hooks/useDialogFocus";
+import { TeamsContext } from "../context/TeamContext.js";
 
 const LoginPage = ({
   activeCompany,
@@ -13,9 +14,6 @@ const LoginPage = ({
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [organisation, setOrganisation] = useState("");
-  const [selectableTeams, setSelectableTeams] = useState([]);
-  const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
-  const [successfullyLoaded, setSuccessfullyLoaded] = useState(true)
   const [error, setError] = useState("");
   const [errorField, setErrorField] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,6 +35,8 @@ const LoginPage = ({
   }, [activeCompany]);
 
   const companyLabel = activeCompany === "LMZ" ? "LMZ" : "Shuffle";
+
+  const { selectableTeams, loadingSelectableTeams, successfullyLoaded } = useContext(TeamsContext);
 
   const closeTakeoverDialog = () => {
     setTakeoverDialog({
@@ -70,24 +70,6 @@ const LoginPage = ({
       sessionNoticeRef.current.focus();
     }
   }, [sessionNotice]);
-
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/auth/selectable-teams`);
-        const data = await res.json();
-        let teams = data.teams;
-        sortTeamsAlphabetically(teams);
-        setSelectableTeams(teams);
-      } catch (err) {
-        setSuccessfullyLoaded(false)
-        console.error("Fehler beim Laden der Teamstruktur:", err);
-      } finally {
-        setLoadingSelectableTeams(false);
-      }
-    };
-    fetchTeams();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
