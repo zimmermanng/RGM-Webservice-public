@@ -591,7 +591,8 @@ const StructurePage = () => {
                         id="show-password-toggle"
                         type="checkbox"
                         placeholder="Passwort anzeigen"
-                        onChange={(e) => e.target.checked ? setPasswordVisibility(true) : setPasswordVisibility(false)}
+                        checked={passwordVisibility}
+                        onChange={(e) => setPasswordVisibility(e.target.checked)}
                       />
                       <label
                         htmlFor="show-password-toggle"
