@@ -377,7 +377,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             >
               Tabelle anzeigen
             </button>
-{/*           <button
+            {/*           <button
             type="button"
             className="toggle-button secondary"
             onClick={handleDownloadJson}
@@ -402,8 +402,7 @@ const SurveyResultPage = ({ surveyResults, activeCompany }) => {
             aria-live="polite"
             aria-atomic="true"
           >
-            Für {chartLabelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
-            Die Ergebnisse werden deshalb als Tabelle angezeigt.
+            Ihre aktuelle Auswahl umfasst {chartLabelCount} Handlungsfelder, was den Grenzwert für eine übersichtliche Diagrammdarstellung überschreitet. Zur besseren Übersicht werden die Ergebnisse stattdessen als Tabelle angezeigt.
           </p>
         )}
         {activeViewMode === "chart" ? (
@@ -740,10 +739,9 @@ function getRecommendationSectionsForRow({
         item.selection?.antwortId
     );
 
-  const currentCategoryLevel =
-    selectionsWithLevel.length > 0
-      ? Math.min(...selectionsWithLevel.map((item) => item.stufe))
-      : -1;
+  // The result service is the single source of truth for the category level.
+  // In particular, it applies the "highest available answer" pass rule.
+  const currentCategoryLevel = row.value > 0 ? row.value - 1 : -1;
 
   const todoGroups = selectionsWithLevel
     .filter((item) => item.stufe === currentCategoryLevel)

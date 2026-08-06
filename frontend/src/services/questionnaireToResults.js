@@ -28,6 +28,34 @@ export const indexStructure = (struktur) => {
   return map;
 };
 
+const resolveSelectionLocation = (entry, struktur, fallbackDimensionId) => {
+  const dimensionId = entry?.dimensionId || fallbackDimensionId;
+  const dimension = (struktur?.dimensionen || []).find(
+    (item) => item.id === dimensionId
+  );
+  const handlungsfelder = dimension
+    ? dimension.handlungsfelder || []
+    : (struktur?.dimensionen || []).flatMap(
+        (item) => item.handlungsfelder || []
+      );
+
+  if (entry?.handlungsfeldId) {
+    const explicitMatch = handlungsfelder.find(
+      (item) => item.id === entry.handlungsfeldId
+    );
+    if (explicitMatch) {
+      return { handlungsfeldId: explicitMatch.id };
+    }
+  }
+
+  const questionMatch = handlungsfelder.find((handlungsfeld) =>
+    (handlungsfeld.fragen || []).some(
+      (frage) => frage.id === entry?.frageId
+    )
+  );
+  return questionMatch ? { handlungsfeldId: questionMatch.id } : null;
+};
+
 export const categoriesForDimension = (struktur, dimensionId) => {
   const dim = (struktur.dimensionen || []).find((d) => d.id === dimensionId);
   if (!dim) return [];
@@ -36,6 +64,7 @@ export const categoriesForDimension = (struktur, dimensionId) => {
     group,
     category: hf.name,
     handlungsfeldId: hf.id,
+    questionIds: (hf.fragen || []).map((frage) => frage.id),
   }));
 };
 
@@ -146,36 +175,69 @@ const debugLogSelections = ({ selectedAnswers, struktur, fragen, dimensionId }) 
 
 // ---------------- Base result rows (min stufe per HF) with "pass" logic ----------------
 export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId) => {
-  const idx = indexStructure(struktur);
   const categories = categoriesForDimension(struktur, dimensionId);
-  const { qMaxByQId, globalMaxStufe } = buildMaxStufeIndexes(fragen);
+  const { globalMaxStufe } = buildMaxStufeIndexes(fragen);
 
   // hfId -> bucket
   const buckets = new Map();
   for (const c of categories) {
     buckets.set(c.handlungsfeldId, {
       min: Infinity,
+      selectedMin: Infinity,
       any: false,
       constraining: false,
+      allAtQuestionMaximum: true,
+      answeredQuestionIds: new Set(),
+      expectedQuestionIds: new Set(c.questionIds),
+      ratedAnswerCount: 0,
       ...c,
     });
   }
 
   // Fold answers: only answers BELOW their question's max stufe constrain the rating.
   for (const entry of Object.values(selectedAnswers || {})) {
-    const meta = idx[entry.frageId];
-    if (!meta) continue;
-    const b = buckets.get(meta.handlungsfeldId);
+    const location = resolveSelectionLocation(entry, struktur, dimensionId);
+    if (!location) continue;
+    const b = buckets.get(location.handlungsfeldId);
     if (!b) continue;
 
+    // "Keine Angabe" is a complete answer but has no influence on the level.
+    b.answeredQuestionIds.add(entry.frageId);
+    const isNoAnswer =
+      entry.antwortId === "" ||
+      Number(entry.stufe) === -1 ||
+      String(entry.antwortText || "").trim().toLowerCase() === "keine angabe";
+    if (isNoAnswer) continue;
+
+    const questionCandidates = (fragen?.fragen || []).filter(
+      (question) => question.id === entry.frageId
+    );
+    const question =
+      questionCandidates.find((candidate) =>
+        (candidate.antworten || []).some(
+          (answer) => answer.id === entry.antwortId
+        )
+      ) || questionCandidates[0];
+    const selectedAnswer = (question?.antworten || []).find(
+      (answer) => answer.id === entry.antwortId
+    );
+    const stufe = Number(selectedAnswer?.stufe);
+    if (!Number.isFinite(stufe)) {
+      b.allAtQuestionMaximum = false;
+      continue;
+    }
+
     b.any = true;
+    b.ratedAnswerCount += 1;
+    b.selectedMin = Math.min(b.selectedMin, stufe);
 
-    const stufe = Number(entry.stufe);
-    if (!Number.isFinite(stufe)) continue;
-
-    const qMax = qMaxByQId.get(entry.frageId);
+    const questionLevels = (question?.antworten || [])
+      .map((answer) => Number(answer.stufe))
+      .filter(Number.isFinite);
+    const qMax = questionLevels.length ? Math.max(...questionLevels) : null;
     // If user selected the question's MAX stufe, we ignore it for rating (treated as "passed").
     const constrains = Number.isFinite(qMax) ? stufe < qMax : true;
+    if (constrains) b.allAtQuestionMaximum = false;
 
     if (constrains) {
       b.min = Math.min(b.min, stufe);
@@ -188,13 +250,23 @@ export const answersToResults = (selectedAnswers, struktur, fragen, dimensionId)
   const rows = [];
   for (const { group, category, handlungsfeldId } of categories) {
     const b = buckets.get(handlungsfeldId);
+    const isComplete =
+      b &&
+      b.expectedQuestionIds.size > 0 &&
+      b.answeredQuestionIds.size === b.expectedQuestionIds.size;
     let value;
     if (!b || !b.any) {
       value = 0; // not rated
+    } else if (
+      isComplete &&
+      b.ratedAnswerCount > 0 &&
+      b.allAtQuestionMaximum
+    ) {
+      value = globalMaxStufe + 1; // full credit: displayed maturity level 4
     } else if (b.constraining) {
       value = b.min + 1; // 1..5
     } else {
-      value = globalMaxStufe + 1; // full credit: displayed maturity level 4
+      value = b.selectedMin + 1; // incomplete, do not grant full credit
     }
     rows.push({ group, category, value, handlungsfeldId });
   }
@@ -253,13 +325,14 @@ export const enrichWithRecommendations = ({
 
   // Selected answer IDs per HF (all selections count here,
   // including those "passed" for rating purposes)
-  const idx = indexStructure(struktur);
   const selectedByHf = new Map(); // hfId -> Set(answerId)
   for (const entry of Object.values(selectedAnswers || {})) {
-    const meta = idx[entry.frageId];
-    if (!meta) continue;
-    if (!selectedByHf.has(meta.handlungsfeldId)) selectedByHf.set(meta.handlungsfeldId, new Set());
-    selectedByHf.get(meta.handlungsfeldId).add(entry.antwortId);
+    const location = resolveSelectionLocation(entry, struktur);
+    if (!location) continue;
+    if (!selectedByHf.has(location.handlungsfeldId)) {
+      selectedByHf.set(location.handlungsfeldId, new Set());
+    }
+    selectedByHf.get(location.handlungsfeldId).add(entry.antwortId);
   }
 
   const recsByHf = buildRecommendationsByHf(handlEmpf, answerMetaById);

@@ -976,6 +976,16 @@ a.homeButton:active {
   margin-top: var(--space-5);
 }
 
+.admin-overall-section-heading + .admin-overall-layout {
+  margin-top: var(--space-5);
+}
+
+.admin-overall-result-view {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
 .admin-overall-panel,
 .admin-overall-chart,
 .admin-overall-placeholder,
@@ -1004,6 +1014,60 @@ a.homeButton:active {
 
 .admin-overall-toggle {
   grid-template-columns: 1fr;
+}
+
+.admin-overall-view-toolbar h3 {
+  margin: 0;
+}
+
+.admin-overall-switch-fieldset {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.admin-overall-switch-fieldset legend {
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.admin-overall-switch-fieldset-secondary {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.admin-overall-segmented-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-border-strong);
+  overflow: hidden;
+}
+
+.admin-overall-segmented-toggle .toggle-button {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  gap: 0.4rem;
+}
+
+.admin-overall-segmented-toggle .toggle-button[aria-pressed="true"] {
+  border: 0;
+  background: #f7ead7;
+  color: var(--color-text);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.28em;
+  box-shadow: none;
 }
 
 .admin-overall-filter {
@@ -1104,6 +1168,19 @@ a.homeButton:active {
 .admin-overall-chart {
   padding: clamp(1rem, 2vw, 1.5rem);
   overflow: hidden;
+}
+
+.admin-overall-chart .table-container {
+  overflow-x: auto;
+  padding: var(--space-3) 0 0;
+}
+
+.admin-overall-chart tbody tr:nth-child(odd):hover {
+  background: #fafafa;
+}
+
+.admin-overall-chart tbody tr:nth-child(even):hover {
+  background: var(--color-surface);
 }
 
 .admin-overall-chart-heading {

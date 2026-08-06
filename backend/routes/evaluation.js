@@ -3,26 +3,42 @@ const router = express.Router();
 const prisma = require("../db/prisma");
 const structure = require("../../frontend/src/components/data/struktur.json")
 
-function determineOrganisation(obj) {
-    const teamIdName = obj.team.name.toLowerCase().replace(/\s/g, "-");
+function hasAnyCurrentAnswers(currentAnswers) {
+    if (!currentAnswers || typeof currentAnswers !== "object") return false;
+    return Object.values(currentAnswers).some(
+        answers => answers &&
+            typeof answers === "object" &&
+            Object.keys(answers).length > 0
+    );
+}
+
+function getLowestSelectableTeams(teams) {
+    const selectableParentIds = new Set(
+        teams.map(team => team.parentId).filter(Number.isInteger)
+    );
+    return teams.filter(team => !selectableParentIds.has(team.id));
+}
+
+function determineOrganisation(team) {
+    const teamIdName = team.name.toLowerCase().replace(/\s/g, "-");
     let organisationBody = {};
 
-    if (!obj.team.parent.parentId) {
+    if (!team.parent || !team.parent.parentId) {
         organisationBody = {
             id: teamIdName,
-            name: obj.team.name,
+            name: team.name,
             children: []
         }
         return organisationBody;
     } else {
-        const parentId = obj.team.parent.name.toLowerCase().replace(/\s/g, "-");
+        const parentId = team.parent.name.toLowerCase().replace(/\s/g, "-");
         organisationBody = {
             id: parentId,
-            name: obj.team.parent.name,
+            name: team.parent.name,
             children: [
                 {
                     id: teamIdName,
-                    name: obj.team.name
+                    name: team.name
                 }
             ]
         };
@@ -83,6 +99,8 @@ function determineLeafresults(obj, surveySnapshotData) {
     leafResultsBody = {
         unitId: unitId,
         importer: importer,
+        hasAnsweredQuestions:
+            Array.isArray(obj.payload.selections) && obj.payload.selections.length > 0,
         completedPackageIds: completedPackages,
         values: values,
     };
@@ -108,41 +126,85 @@ async function createEvaluationRoundData() {
         packages: [],
         organisation: [],
         leafResults: [],
+        teamCounts: {
+            answered: 0,
+            total: 0,
+        },
     }
     let includedPackages = [];
 
     try {
-        const surveyRunData = await prisma.surveyRun.findMany({
-            where: {
-                isLatest: true,
-            },
-            include: {
-                team: {
-                    include: {
-                        parent: true
+        const [surveyRunData, surveySnapshotData, organisationTeamData] = await Promise.all([
+            prisma.surveyRun.findMany({
+                where: {
+                    isLatest: true,
+                    teamId: { not: 57 },
+                },
+                include: {
+                    team: {
+                        include: {
+                            parent: true
+                        }
                     }
-                }
-            },
-        });
-        const surveySnapshotData = await prisma.surveySnapshot.findMany({
-            where: {
-                snapshotType: "dimension_complete"
-            }, include: {
-                team: true
-            },
-        });
+                },
+            }),
+            prisma.surveySnapshot.findMany({
+                where: {
+                    snapshotType: "dimension_complete"
+                }, include: {
+                    team: true
+                },
+            }),
+            prisma.team.findMany({
+                where: {
+                    isActive: true,
+                    isSelectable: true,
+                    id: { not: 57 },
+                },
+                include: {
+                    parent: true,
+                    current: true,
+                },
+                orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+            }),
+        ]);
 
         if (!surveyRunData || !surveySnapshotData) return res.status(404).json({
             ok: false,
             message: "Es konnten keine Evaluations Runden gefunden werden.",
         });
 
-        surveyRunData.forEach((obj) => {
-            const organisationResult = determineOrganisation(obj);
+        organisationTeamData.forEach((team) => {
+            const organisationResult = determineOrganisation(team);
             const existingOrganisation = finalData.organisation.find(org => org.id === organisationResult.id);
             if (existingOrganisation) existingOrganisation.children.push(...organisationResult.children)
             else finalData.organisation.push(organisationResult);
+        });
 
+        const lowestSelectableTeams = getLowestSelectableTeams(organisationTeamData);
+        const eligibleTeamIds = new Set(
+            lowestSelectableTeams.map(team => team.id)
+        );
+        const answeredTeamIds = new Set(
+            surveyRunData
+                .filter(run =>
+                    eligibleTeamIds.has(run.teamId) &&
+                    Array.isArray(run.payload?.selections) &&
+                    run.payload.selections.length > 0
+                )
+                .map(run => run.teamId)
+        );
+        lowestSelectableTeams.forEach(team => {
+            if (hasAnyCurrentAnswers(team.current?.currentAnswers)) {
+                answeredTeamIds.add(team.id);
+            }
+        });
+        finalData.teamCounts = {
+            answered: answeredTeamIds.size,
+            total: lowestSelectableTeams.length,
+        };
+
+        surveyRunData.forEach((obj) => {
             const packagesResult = determinePackages(obj, includedPackages);
             includedPackages.push(...packagesResult.map(({ id }) => id))
             finalData.packages.push(...packagesResult);
@@ -376,14 +438,27 @@ router.get("/retrieve-data", async (req, res) => {
         message: "Die Evaluations Runde konnte nicht gefunden werden."
     });
     try {
-        const evaluationRound = await prisma.evaluationRounds.findUnique({
-            where: {
-                id: evaluationId,
-            },
-            include: {
-                evaluationRoundData: true,
-            },
-        })
+        const [evaluationRound, selectableTeams] = await Promise.all([
+            prisma.evaluationRounds.findUnique({
+                where: {
+                    id: evaluationId,
+                },
+                include: {
+                    evaluationRoundData: true,
+                },
+            }),
+            prisma.team.findMany({
+                where: {
+                    isActive: true,
+                    isSelectable: true,
+                    id: { not: 57 },
+                },
+                select: {
+                    id: true,
+                    parentId: true,
+                },
+            }),
+        ])
 
         if (!evaluationRound) return res.status(404).json({
             ok: false,
@@ -404,6 +479,11 @@ router.get("/retrieve-data", async (req, res) => {
             const [evaluationRoundData] = evaluationRound.evaluationRoundData
             data = evaluationRoundData.payload;
         }
+
+        data.teamCounts = {
+            ...(data.teamCounts || {}),
+            total: getLowestSelectableTeams(selectableTeams).length,
+        };
 
         return res.status(200).json({
             ok: true,

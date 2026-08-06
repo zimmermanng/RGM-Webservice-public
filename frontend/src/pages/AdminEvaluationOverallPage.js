@@ -17,6 +17,7 @@ const calculationLabels = {
   average: "Mittelwerte",
   minimum: "Minimalwerte",
 };
+const CHART_LABEL_LIMIT = 24;
 
 function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
   const [calculationMode, setCalculationMode] = useState("average");
@@ -24,6 +25,8 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
   const [selectedLevel0, setSelectedLevel0] = useState("");
   const [selectedLevel1, setSelectedLevel1] = useState("gesamt");
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const [organisationDisplayMode, setOrganisationDisplayMode] = useState("packages");
+  const [organisationFieldViewMode, setOrganisationFieldViewMode] = useState("chart");
   const [searchParams, setSearchParams] = useSearchParams();
   const [exportBusy, setExportBusy] = useState(false);
   const [exportStatus, setExportStatus] = useState("");
@@ -33,13 +36,14 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
     packages: [],
     organisation: [],
     leafResults: [],
+    teamCounts: null,
   });
   const [loadingEvaluationRound, setLoadingEvaluationRound] = useState(true);
   const [errorLoading, setErrorLoading] = useState(false);
   const pageRef = useRef(null);
   const evaluationId = searchParams.get("id")
 
-  useEffect(() => {  
+  useEffect(() => {
     if (!evaluationId) {
       setLoadingEvaluationRound(false);
       return setErrorLoading(true);
@@ -69,22 +73,31 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
     () => getAllLeafUnitIds(evaluationRound.organisation),
     [evaluationRound.organisation]
   );
+  const availableOrganisation = useMemo(
+    () =>
+      getOrganisationWithResults(
+        evaluationRound.organisation,
+        evaluationRound.packages,
+        evaluationRound.leafResults
+      ),
+    [evaluationRound.organisation, evaluationRound.packages, evaluationRound.leafResults]
+  );
   const selectedUnitIds = useMemo(
     () =>
       getSelectedLeafUnitIds(
-        evaluationRound.organisation,
+        availableOrganisation,
         selectedLevel0,
         selectedLevel1
       ),
-    [evaluationRound.organisation, selectedLevel0, selectedLevel1]
+    [availableOrganisation, selectedLevel0, selectedLevel1]
   );
   const level1Units = useMemo(() => {
     if (!selectedLevel0 || selectedLevel0 === "all") return [];
     return (
-      evaluationRound.organisation.find((unit) => unit.id === selectedLevel0)
+      availableOrganisation.find((unit) => unit.id === selectedLevel0)
         ?.children || []
     );
-  }, [evaluationRound.organisation, selectedLevel0]);
+  }, [availableOrganisation, selectedLevel0]);
 
   const overallResults = useMemo(
     () =>
@@ -108,21 +121,42 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
       unitNameById,
     });
   }, [calculationMode, evaluationRound, selectedUnitIds, unitNameById]);
+  const organisationFieldResults = useMemo(() => {
+    const selectedResults = evaluationRound.leafResults.filter((result) =>
+      selectedUnitIds.includes(result.unitId)
+    );
 
-  const contributingLeafCount = evaluationRound.leafResults.filter(
-    (result) => result.completedPackageIds?.length > 0
+    return calculateFieldResults({
+      packages: evaluationRound.packages,
+      leafResults: selectedResults,
+      mode: calculationMode,
+    });
+  }, [calculationMode, evaluationRound, selectedUnitIds]);
+
+  const fallbackAnsweredTeamCount = evaluationRound.leafResults.filter(
+    (result) => result.hasAnsweredQuestions !== false
   ).length;
-  const contributingPercent = allLeafUnitIds.length
-    ? Math.round((contributingLeafCount / allLeafUnitIds.length) * 100)
+  const answeredTeamCount = Number.isInteger(evaluationRound.teamCounts?.answered)
+    ? evaluationRound.teamCounts.answered
+    : fallbackAnsweredTeamCount;
+  const totalTeamCount = Number.isInteger(evaluationRound.teamCounts?.total)
+    ? evaluationRound.teamCounts.total
+    : allLeafUnitIds.length;
+  const contributingPercent = totalTeamCount
+    ? Math.round((answeredTeamCount / totalTeamCount) * 100)
     : 0;
 
-  const visibleOverallResults = filterBySelectedLevels(
-    overallResults,
-    selectedLevels
+  const visibleOverallResults = useMemo(
+    () => filterBySelectedLevels(overallResults, selectedLevels),
+    [overallResults, selectedLevels]
   );
-  const visibleOrganisationResults = filterBySelectedLevels(
-    organisationResults,
-    selectedLevels
+  const visibleOrganisationResults = useMemo(
+    () => filterBySelectedLevels(organisationResults, selectedLevels),
+    [organisationResults, selectedLevels]
+  );
+  const visibleOrganisationFieldResults = useMemo(
+    () => filterBySelectedLevels(organisationFieldResults, selectedLevels),
+    [organisationFieldResults, selectedLevels]
   );
   const hasOrganisationSelection = Boolean(selectedLevel0);
 
@@ -241,6 +275,9 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
         </section>
 
         <section className="admin-overall-section page-width">
+          <div className="admin-overall-section-heading">
+            <h2>{`Gesamtauswertung ${evaluationRound.name}`}</h2>
+          </div>
           <div className="admin-overall-layout">
             <aside className="admin-overall-panel" aria-label="Filter Gesamtergebnis">
               <EvaluationToolbar
@@ -254,58 +291,69 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
                 onPackageClick={setSelectedPackage}
               />
               <p className="admin-overall-info" role="status">
-                {contributingLeafCount} von {allLeafUnitIds.length} Einheiten auf
-                Blattebene haben Ergebnisse beigesteuert ({contributingPercent} Prozent).
+                {answeredTeamCount} von {totalTeamCount} Teams haben
+                mindestens eine Frage beantwortet ({contributingPercent} Prozent).
               </p>
             </aside>
 
             <PackageChart
-              headingLevel={2}
-              title={`Gesamtergebnis ${evaluationRound.name}`}
+              containerId="overall-results-chart"
+              headingLevel={3}
+              title={`Gesamtauswertung ${evaluationRound.name}`}
               subtitle={calculationLabels[calculationMode]}
+              displayTitle={false}
               results={visibleOverallResults}
               emptyMessage="Für das Gesamtergebnis kann mit den aktuellen Filtern kein Diagramm erstellt werden."
-              onPackageClick={setSelectedPackage}
               activeCompany={activeCompany}
-              showDetailsHint
+              showDetailsHint={false}
             />
           </div>
         </section>
 
-        <section className="admin-overall-section page-width">
+        <section
+          id="organisation-results-section"
+          className="admin-overall-section page-width"
+        >
           <div className="admin-overall-section-heading">
             <h2>Ergebnisse der Organisationseinheiten</h2>
             <p>
-              Wählen Sie eine Organisationseinheit, um die Werte für diesen
-              Ausschnitt neu zu berechnen.
+              Wählen Sie eine Organisationseinheit, um deren Beitrag zum Gesamtergebnis einzusehen.
             </p>
           </div>
 
           <div className="admin-overall-layout admin-overall-layout-detail">
             <aside className="admin-overall-panel" aria-label="Filter Organisationseinheiten">
               <OrganisationSelectors
-                organisation={evaluationRound.organisation}
+                organisation={availableOrganisation}
                 selectedLevel0={selectedLevel0}
                 selectedLevel1={selectedLevel1}
                 level1Units={level1Units}
                 onLevel0Change={handleLevel0Change}
                 onLevel1Change={setSelectedLevel1}
               />
+              {hasOrganisationSelection && (
+                <OrganisationResultsToolbar
+                  displayMode={organisationDisplayMode}
+                  onDisplayModeChange={setOrganisationDisplayMode}
+                  fieldViewMode={organisationFieldViewMode}
+                  onFieldViewModeChange={setOrganisationFieldViewMode}
+                  fieldLabelCount={visibleOrganisationFieldResults.length}
+                />
+              )}
             </aside>
 
             {hasOrganisationSelection ? (
-              <PackageChart
-                headingLevel={3}
-                title="Auswertung der gewählten Organisationseinheit"
-                subtitle={calculationLabels[calculationMode]}
-                results={visibleOrganisationResults}
-                emptyMessage="Für diese Organisationseinheit liegen keine vollständigen Ergebnisse vor."
+              <OrganisationResultsView
+                displayMode={organisationDisplayMode}
+                fieldViewMode={organisationFieldViewMode}
+                packageResults={visibleOrganisationResults}
+                fieldResults={visibleOrganisationFieldResults}
+                calculationLabel={calculationLabels[calculationMode]}
                 activeCompany={activeCompany}
-                showDetailsHint={false}
               />
             ) : (
               <div className="admin-overall-placeholder" role="status">
-                Wählen Sie zuerst eine Einheit auf Ebene 0 aus. Danach wird das
+                Wählen Sie zuerst eine Einheit auf der höchsten Ebene aus. Danach wird das
                 passende Diagramm angezeigt.
               </div>
             )}
@@ -332,33 +380,34 @@ function EvaluationToolbar({
 }) {
   return (
     <div className="admin-overall-toolbar" aria-label="Auswertungsoptionen">
-      <div
-        className="admin-overall-toggle"
-        role="group"
-        aria-label="Berechnungsart"
-        aria-describedby="calculation-mode-description"
-      >
+      <fieldset className="admin-overall-switch-fieldset">
+        <legend>Berechnungsart</legend>
         <span id="calculation-mode-description" className="sr-only">
-          Wählen Sie eine Berechnungsart. Der aktuell ausgewählte Button wird
-          als gedrückt ausgegeben.
+          Die Berechnungsart wirkt sich auf alle Ergebnisbereiche dieser Seite aus.
         </span>
-        <button
-          type="button"
-          className={`toggle-button ${calculationMode === "average" ? "active" : ""}`}
-          aria-pressed={calculationMode === "average"}
-          onClick={() => onModeChange("average")}
-        >
-          Mittelwerte
-        </button>
-        <button
-          type="button"
-          className={`toggle-button ${calculationMode === "minimum" ? "active" : ""}`}
-          aria-pressed={calculationMode === "minimum"}
-          onClick={() => onModeChange("minimum")}
-        >
-          Minimalwerte
-        </button>
-      </div>
+        <div className="admin-overall-segmented-toggle">
+          <button
+            type="button"
+            className="toggle-button"
+            aria-pressed={calculationMode === "average"}
+            aria-controls="overall-results-chart organisation-results-section"
+            aria-describedby="calculation-mode-description"
+            onClick={() => onModeChange("average")}
+          >
+            Mittelwerte
+          </button>
+          <button
+            type="button"
+            className="toggle-button"
+            aria-pressed={calculationMode === "minimum"}
+            aria-controls="overall-results-chart organisation-results-section"
+            aria-describedby="calculation-mode-description"
+            onClick={() => onModeChange("minimum")}
+          >
+            Minimalwerte
+          </button>
+        </div>
+      </fieldset>
 
       <fieldset className="admin-overall-filter">
         <legend>Reifegradstufen</legend>
@@ -383,7 +432,7 @@ function PackageDetailsButtons({ results, onPackageClick }) {
   return (
     <div className="admin-overall-detail-actions" aria-label="Päckchendetails öffnen">
       <h3>Details</h3>
-      <p>Alternativ zum Diagramm können Sie die Details direkt öffnen.</p>
+      <p>Wählen Sie ein Päckchen aus, um Details dazu einzusehen.</p>
       <div className="admin-overall-detail-buttons">
         {results.map((result) => (
           <button
@@ -416,10 +465,13 @@ function OrganisationSelectors({
           id="overall-parent-unit"
           value={selectedLevel0}
           onChange={onLevel0Change}
+          disabled={organisation.length === 0}
           aria-describedby="overall-parent-unit-help"
         >
-          <option value="">Bitte auswählen</option>
-          <option value="all">Gesamt</option>
+          <option value="">
+            {organisation.length > 0 ? "Bitte auswählen" : "Keine Ergebnisse vorhanden"}
+          </option>
+          {organisation.length > 0 && <option value="all">Gesamt</option>}
           {organisation.map((unit) => (
             <option key={unit.id} value={unit.id}>
               {unit.name}
@@ -427,7 +479,9 @@ function OrganisationSelectors({
           ))}
         </select>
         <span id="overall-parent-unit-help" className="admin-overall-select-help">
-          Wählen Sie „Gesamt“ oder eine Organisationseinheit als Ausgangspunkt.
+          {organisation.length > 0
+            ? "Wählen Sie „Gesamt“ oder eine Organisationseinheit als Ausgangspunkt. Angezeigt werden nur Einheiten mit auswertbaren Ergebnissen."
+            : "Es gibt keine Organisationseinheit mit auswertbaren Ergebnissen."}
         </span>
       </label>
 
@@ -449,22 +503,212 @@ function OrganisationSelectors({
         </select>
         <span id="overall-child-unit-help" className="admin-overall-select-help">
           {!selectedLevel0
-            ? "Wählen Sie zuerst eine übergeordnete Organisationseinheit."
+            ? "Wählen Sie zuerst eine übergeordnete Einheit."
             : selectedLevel0 === "all"
-              ? "Bei der Gesamtauswertung ist keine untergeordnete Auswahl erforderlich."
+              ? "Bei der Gesamtauswertung ist keine untergeordnete Auswahl möglich."
               : level1Units.length === 0
-                ? "Für diese Organisationseinheit sind keine Untereinheiten vorhanden."
-                : "Optional können Sie die Ergebnisse auf eine Untereinheit begrenzen."}
+                ? "Für diese Einheit sind keine untergeordneten Einheiten vorhanden."
+                : "Optional können Sie die Ergebnisse auf eine untergeordnete Einheit begrenzen."}
         </span>
       </label>
     </div>
   );
 }
 
+function OrganisationResultsView({
+  displayMode,
+  fieldViewMode,
+  packageResults,
+  fieldResults,
+  calculationLabel,
+  activeCompany,
+}) {
+  return (
+    <div
+      id="organisation-results-view"
+      className="admin-overall-result-view"
+      role="region"
+      aria-label="Ergebnisse der gewählten Organisationseinheit"
+    >
+      {displayMode === "packages" ? (
+        <PackageChart
+          headingLevel={3}
+          title="Auswertung der gewählten Organisationseinheit"
+          subtitle={calculationLabel}
+          results={packageResults}
+          emptyMessage="Für diese Organisationseinheit liegen keine vollständigen Ergebnisse vor."
+          activeCompany={activeCompany}
+          showDetailsHint={false}
+        />
+      ) : (
+        <FieldResultsView
+          title="Handlungsfelder der gewählten Organisationseinheit"
+          subtitle={calculationLabel}
+          results={fieldResults}
+          viewMode={fieldViewMode}
+          activeCompany={activeCompany}
+        />
+      )}
+    </div>
+  );
+}
+
+function OrganisationResultsToolbar({
+  displayMode,
+  onDisplayModeChange,
+  fieldViewMode,
+  onFieldViewModeChange,
+  fieldLabelCount,
+}) {
+  const fieldLabelLimitExceeded = fieldLabelCount > CHART_LABEL_LIMIT;
+
+  return (
+    <div className="admin-overall-toolbar admin-overall-view-toolbar">
+      <h3>Darstellung</h3>
+      <fieldset className="admin-overall-switch-fieldset">
+        <legend>Auswertungsinhalt</legend>
+        <div className="admin-overall-segmented-toggle">
+          <button
+            type="button"
+            className="toggle-button"
+            aria-pressed={displayMode === "packages"}
+            aria-controls="organisation-results-view"
+            onClick={() => onDisplayModeChange("packages")}
+          >
+            Päckchen
+          </button>
+          <button
+            type="button"
+            className="toggle-button"
+            aria-pressed={displayMode === "fields"}
+            aria-controls="organisation-results-view"
+            onClick={() => onDisplayModeChange("fields")}
+          >
+            Handlungsfelder
+          </button>
+        </div>
+      </fieldset>
+
+      {displayMode === "fields" && !fieldLabelLimitExceeded && fieldLabelCount > 0 && (
+        <fieldset className="admin-overall-switch-fieldset admin-overall-switch-fieldset-secondary">
+          <legend>Ausgabeformat</legend>
+          <div className="admin-overall-segmented-toggle">
+            <button
+              type="button"
+              className="toggle-button"
+              aria-pressed={fieldViewMode === "chart"}
+              aria-controls="organisation-results-view"
+              onClick={() => onFieldViewModeChange("chart")}
+            >
+              Diagramm
+            </button>
+            <button
+              type="button"
+              className="toggle-button"
+              aria-pressed={fieldViewMode === "table"}
+              aria-controls="organisation-results-view"
+              onClick={() => onFieldViewModeChange("table")}
+            >
+              Tabelle
+            </button>
+          </div>
+        </fieldset>
+      )}
+    </div>
+  );
+}
+
+function FieldResultsView({
+  title,
+  subtitle,
+  results,
+  viewMode,
+  activeCompany,
+}) {
+  const labelCount = results.length;
+  const labelLimitExceeded = labelCount > CHART_LABEL_LIMIT;
+  const activeViewMode = labelLimitExceeded ? "table" : viewMode;
+  const chartRows = useMemo(() => toFieldChartRows(results), [results]);
+
+  if (!results.length) {
+    return (
+      <div className="admin-overall-empty" role="status">
+        Für diese Organisationseinheit liegen keine vollständigen Handlungsfeldergebnisse vor.
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-overall-chart" aria-label={title}>
+      <div className="admin-overall-chart-heading">
+        <h3>{title}</h3>
+        <span>{subtitle}</span>
+      </div>
+
+      {labelLimitExceeded && (
+        <p
+          className="chart-limit-notice"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          Für {labelCount} Beschriftungen ist das Diagramm nicht mehr übersichtlich.
+          Die Ergebnisse werden deshalb als Tabelle angezeigt.
+        </p>
+      )}
+
+      {activeViewMode === "chart" ? (
+        <RadialBarChart
+          data={chartRows}
+          activeCompany={activeCompany}
+          ariaLabel={`${title}. Diagramm der Handlungsfeldergebnisse.`}
+          showGroupRing
+          showCategoryLabels
+          maxValue={4}
+          numTicks={4}
+          valueOffset={0}
+        />
+      ) : (
+        <FieldResultsTable title={title} results={results} />
+      )}
+    </div>
+  );
+}
+
+function FieldResultsTable({ title, results }) {
+  return (
+    <div className="table-container">
+      <table>
+        <caption className="sr-only">{title}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Päckchen</th>
+            <th scope="col">Handlungsfeld</th>
+            <th scope="col">Erreichte Stufe</th>
+          </tr>
+        </thead>
+        <tbody>
+          {results.map((result) => (
+            <tr key={result.id}>
+              <td>{result.group}</td>
+              <td>{result.category}</td>
+              <td>
+                Stufe {result.displayLevel} ({formatValue(result.rawValue)})
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function PackageChart({
+  containerId,
   headingLevel = 3,
   title,
   subtitle,
+  displayTitle = true,
   results,
   emptyMessage,
   onPackageClick,
@@ -473,31 +717,40 @@ function PackageChart({
 }) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
   const isInteractive = typeof onPackageClick === "function";
+  const chartRows = useMemo(
+    () => toChartRows(results, isInteractive),
+    [results, isInteractive]
+  );
 
   if (!results.length) {
     return (
-      <div className="admin-overall-empty" role="status">
+      <div id={containerId} className="admin-overall-empty" role="status">
         {emptyMessage}
       </div>
     );
   }
 
   return (
-    <div className="admin-overall-chart" aria-label={title}>
+    <div id={containerId} className="admin-overall-chart" aria-label={title}>
       <div className="admin-overall-chart-heading">
-        <Heading>{title}</Heading>
-        <span>{subtitle}</span>
+        {displayTitle ? (
+          <>
+            <Heading>{title}</Heading>
+            <span>{subtitle}</span>
+          </>
+        ) : (
+          <Heading>{subtitle}</Heading>
+        )}
       </div>
 
       {showDetailsHint && isInteractive && (
         <p className="admin-overall-chart-hint">
-          Die Päckchen im Diagramm sind auswählbar. Wählen Sie ein Segment aus
-          oder nutzen Sie die Detail-Schaltflächen im Filterbereich.
+          Wählen Sie ein Päckchen hier im Diagramm oder in der Seitenleiste aus, um Details dazu einzusehen.
         </p>
       )}
 
       <RadialBarChart
-        data={toChartRows(results, isInteractive)}
+        data={chartRows}
         activeCompany={activeCompany}
         ariaLabel={isInteractive
           ? `${title}. Interaktives Diagramm. Päckchen auswählen, um Details zu öffnen.`
@@ -588,6 +841,18 @@ function toChartRows(results, isInteractive = false) {
   }));
 }
 
+function toFieldChartRows(results) {
+  return results.map((result) => ({
+    group: result.group,
+    groupLabel: "Päckchen",
+    category: result.category,
+    categoryLabel: "Handlungsfeld",
+    value: result.displayLevel,
+    displayValue: result.displayLevel,
+    ariaLabel: `${result.group}, ${result.category}, Stufe ${result.displayLevel}, Rohwert ${formatValue(result.rawValue)}`,
+  }));
+}
+
 function calculatePackageResults({ packages, leafResults, mode, unitNameById }) {
   return packages
     .map((pkg) => {
@@ -622,6 +887,39 @@ function calculatePackageResults({ packages, leafResults, mode, unitNameById }) 
       };
     })
     .filter(Boolean);
+}
+
+function calculateFieldResults({ packages, leafResults, mode }) {
+  return packages.flatMap((pkg) =>
+    (pkg.fields || [])
+      .map((field) => {
+        const contributorValues = leafResults
+          .map((result) => {
+            if (!result.completedPackageIds?.includes(pkg.id)) return null;
+            const storedValue = result.values?.[pkg.id]?.[field];
+            return Number.isFinite(storedValue) && storedValue > 0
+              ? storedValue - 1
+              : null;
+          })
+          .filter(Number.isFinite);
+
+        if (!contributorValues.length) return null;
+
+        const rawValue =
+          mode === "minimum"
+            ? Math.min(...contributorValues)
+            : average(contributorValues);
+
+        return {
+          id: `${pkg.id}__${field}`,
+          group: pkg.name,
+          category: field,
+          rawValue,
+          displayLevel: roundDisplayLevel(rawValue),
+        };
+      })
+      .filter(Boolean)
+  );
 }
 
 function getLeafPackageValue(result, pkg) {
@@ -716,6 +1014,25 @@ function getAllLeafUnitIds(organisation) {
   return organisation.flatMap((unit) =>
     unit.children?.length ? unit.children.map((child) => child.id) : [unit.id]
   );
+}
+
+function getOrganisationWithResults(organisation, packages, leafResults) {
+  const resultUnitIds = new Set(
+    leafResults
+      .filter((result) =>
+        packages.some((pkg) => getLeafPackageValue(result, pkg) !== null)
+      )
+      .map((result) => result.unitId)
+  );
+
+  return organisation.flatMap((unit) => {
+    if (!unit.children?.length) {
+      return resultUnitIds.has(unit.id) ? [unit] : [];
+    }
+
+    const children = unit.children.filter((child) => resultUnitIds.has(child.id));
+    return children.length ? [{ ...unit, children }] : [];
+  });
 }
 
 function getSelectedLeafUnitIds(organisation, level0Id, level1Id) {

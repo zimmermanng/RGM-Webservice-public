@@ -227,7 +227,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
     setDraggedCard(null);
   };
 
-const handleClick = (e) => {
+  const handleClick = (e) => {
     if (e.target.closest("button") || e.target.closest("a")) return;
     e.currentTarget.focus({ focusVisible: true });
   };
@@ -384,7 +384,7 @@ const handleClick = (e) => {
       <p>
         Im Konfigurationsmodus wählen Sie aus, welche Pakete Sie bearbeiten
         möchten.
-        <br /> Verschieben Sie diese einfach, indem Sie ein Paket <strong>anklicken und danach Enter drücken</strong>. <br /> Alternativ können Sie Drag and Drop nutzen oder die Tastaturbedienung (Tab- und Enter-Taste).
+        <br /> Verschieben Sie ein Paket, indem Sie es <strong>anklicken und die Auswahl mit Enter bestätigen</strong>. <br /> Alternativ können Sie die Pakete mit der Maus ziehen oder die Tastaturbedienung (Tab- und Enter-Taste) verwenden.
         {saving && (
           <strong style={{ marginLeft: "10px", color: "green" }}>
             – Speichert automatisch...
@@ -444,6 +444,7 @@ const handleClick = (e) => {
                   <div
                     key={dimension.id}
                     id={`config-package-toEdit-${dimension.id}`}
+                    className="config-package"
                     role="listitem"
                     draggable={!isLocked}
                     tabIndex={0}
@@ -506,6 +507,7 @@ const handleClick = (e) => {
               <div
                 key={dimension.id}
                 id={`config-package-notToEdit-${dimension.id}`}
+                className="config-package"
                 role="listitem"
                 draggable
                 tabIndex={0}

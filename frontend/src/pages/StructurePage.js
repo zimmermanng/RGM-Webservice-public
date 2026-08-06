@@ -609,7 +609,7 @@ const StructurePage = () => {
                 {!editingNodeId && (
                   <div className="form-field">
                     <label className="modal-label" htmlFor="structure-parent-unit">
-                      Elternelement (Übergeordnete Einheit, optional)
+                      Elternelement (Übergeordnete Einheit)
                     </label>
                     <select
                       id="structure-parent-unit"
