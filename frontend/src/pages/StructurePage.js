@@ -139,6 +139,7 @@ const StructurePage = () => {
     setNeuesPasswort("");
     setElternId("");
     setFormError("");
+    setPasswordVisibility(false);
     setConfirmDialog(true);
   };
 
@@ -148,6 +149,7 @@ const StructurePage = () => {
     setNeuesPasswort(node.passwort);
     setElternId(node.parentId || "");
     setFormError("");
+    setPasswordVisibility(false);
     setConfirmDialog(true);
   };
 
@@ -589,7 +591,7 @@ const StructurePage = () => {
                         id="show-password-toggle"
                         type="checkbox"
                         placeholder="Passwort anzeigen"
-                        onChange={() => setPasswordVisibility(!passwordVisibility)}
+                        onChange={(e) => e.target.checked ? setPasswordVisibility(true) : setPasswordVisibility(false)}
                       />
                       <label
                         htmlFor="show-password-toggle"
