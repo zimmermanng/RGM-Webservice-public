@@ -300,25 +300,25 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
       where: { teamId: viewTeamId }
     });
 
-    let lockedDimensionsObject = settings?.lockedDimensions
-    if (lockedDimensionsObject && lockStatus) lockedDimensionsObject.push(dimensionId)
-    else if (lockedDimensionsObject && !lockStatus) {
-      let index = lockedDimensionsObject.indexOf(dimensionId)
+    let lockedDimensions = settings?.lockedDimensions;
+    if (lockedDimensions && lockStatus) lockedDimensions.push(dimensionId);
+    else if (lockedDimensions && !lockStatus) {
+      let index = lockedDimensions.indexOf(dimensionId);
       if (index > -1) {
-        lockedDimensionsObject.splice(index, 1)
+        lockedDimensions.splice(index, 1)
       }
     };
 
     const changeLock = await prisma.teamSettings.update({
       where: { teamId: viewTeamId },
-      data: { lockedDimensions: lockedDimensionsObject ? lockedDimensionsObject : [dimensionId] },
+      data: { lockedDimensions: lockedDimensions ? lockedDimensions : [dimensionId] },
     });
 
     await updateEvaluationDate()
-
+    
     return res.status(200).json({
       ok: true,
-      lockedDimensions: lockedDimensionsObject,
+      lockedDimensions: lockedDimensions ? lockedDimensions : [dimensionId],
     })
   } catch (error) {
     console.error("Fehler beim Speichern des Zustands:", error);
