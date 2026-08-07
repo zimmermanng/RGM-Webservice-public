@@ -146,7 +146,7 @@ const StructurePage = () => {
   const handleEditClick = (node) => {
     setEditingNodeId(node.id);
     setNeuerName(node.name);
-    setNeuesPasswort(node.passwort);
+    setNeuesPasswort("");
     setElternId(node.parentId || "");
     setFormError("");
     setPasswordVisibility(false);
