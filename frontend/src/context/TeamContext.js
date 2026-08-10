@@ -40,7 +40,7 @@ export function TeamsProvider({ children }) {
             setLoadingSelectableTeams(false)
         }
     };
-
+    
     useEffect(() => {
         fetchSelectableTeams();
     }, []);

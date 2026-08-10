@@ -39,7 +39,7 @@ const StructurePage = () => {
 
   // Wenn Kinder vorhanden sind, ist das Passwort kein Pflichtfeld mehr
   const isFormValid =
-    neuerName.trim() !== "" && (hasChildren || (neuesPasswort && neuesPasswort.trim() !== ""));
+    neuerName.trim() !== "" && (hasChildren || (editingNodeId || (neuesPasswort && neuesPasswort.trim() !== "")));
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -202,7 +202,7 @@ const StructurePage = () => {
           return;
         }
         neueEinheit.id = data.id;
-        neueEinheit.childrenLevelsAllowed = data.childrenLevelsAllowed;
+        neueEinheit.childrenAllowed = data.childrenAllowed;
 
         let einheitenNeu = [...einheiten, neueEinheit];
         sortTeamsAlphabetically(einheitenNeu);
@@ -605,9 +605,12 @@ const StructurePage = () => {
                       Hinzufügen von Kindelementen entfällt die Möglichkeit zur
                       Bearbeitung des Elternelements.
                     </p>
-                    <p className="hint structure-hint" id="structure-password-notice">
-                      Aus Sicherheitsgründen kann das gespeicherte Passwort nicht angezeigt werden. Setzen Sie ein neues Passwort, um das alte zu überschreiben.
-                    </p>
+                    {editingNodeId && (
+                      <p className="hint structure-hint" id="structure-password-notice">
+                        Aus Sicherheitsgründen kann das gespeicherte Passwort nicht angezeigt werden. Setzen Sie ein neues Passwort, um das alte zu überschreiben.
+                      </p>
+                    )
+                    }
                   </div>
                 )}
 
@@ -631,7 +634,7 @@ const StructurePage = () => {
                         -- Top Level (Kein Elternelement) --
                       </option>
                       {einheiten
-                        .filter((e) => e.name !== "Administration" && e.childrenLevelsAllowed !== "ZERO")
+                        .filter((e) => e.name !== "Administration" && e.childrenAllowed)
                         .map((e) => (
                           <option key={e.id} value={e.id}>
                             {e.name}

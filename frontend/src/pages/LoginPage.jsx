@@ -36,7 +36,7 @@ const LoginPage = ({
 
   const companyLabel = activeCompany === "LMZ" ? "LMZ" : "Shuffle";
 
-  const { selectableTeams, loadingSelectableTeams, successfullyLoaded } = useContext(TeamsContext);
+  const { selectableTeams, loadingSelectableTeams, successfullyLoaded, fetchSelectableTeams } = useContext(TeamsContext);
 
   const closeTakeoverDialog = () => {
     setTakeoverDialog({
@@ -53,7 +53,7 @@ const LoginPage = ({
     closeOnEscape: !saving,
   });
 
-  const completeSelection = (data, fallbackTeamName) => {
+  const completeSelection = async (data, fallbackTeamName) => {
     if (onTeamSelected) {
       onTeamSelected({
         team: data.team || fallbackTeamName,
@@ -62,6 +62,7 @@ const LoginPage = ({
         warningBeforeTimeoutMs: data.warningBeforeTimeoutMs,
       });
     }
+    await fetchSelectableTeams();
     navigate("/start");
   };
 
@@ -259,7 +260,7 @@ const LoginPage = ({
                   <option
                     value={unit.name}
                     key={unit.name}
-                  >{unit.formattedName}</option>
+                  >{unit.name}</option>
                 ))}
               </select>
 

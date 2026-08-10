@@ -18,7 +18,7 @@ function buildTree(nodes, parentId = null) {
       id: node.id,
       name: node.name,
       parentId: node.parentId,
-      childrenLevelsAllowed: node.childrenLevelsAllowed,
+      childrenAllowed: node.childrenAllowed,
       isSelectable: node.isSelectable,
       isActive: node.isActive,
       children: buildTree(nodes, node.id),
@@ -421,8 +421,8 @@ router.get("/selectable-teams", async (req, res) => {
       parentId: node.parentId,
       isSelectable: node.isSelectable,
       isActive: node.isActive,
-      childrenLevelsAllowed: node.childrenLevelsAllowed,
-      formattedName: node.childrenLevelsAllowed === "ZERO" && node.parent ? `${node.parent.name} | ${node.name}` : node.name,
+      childrenAllowed: node.childrenAllowed,
+      formattedName: !node.childrenAllowed && node.parent ? `${node.parent.name} | ${node.name}` : node.name,
     }));
 
     return res.json({

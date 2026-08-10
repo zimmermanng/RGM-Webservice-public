@@ -4,12 +4,12 @@ const prisma = require("../db/prisma");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-function determineAllowedChildren(parent) {
-    if (parent) {
-        if (parent.childrenLevelsAllowed === "ONE") return "ZERO"
-        else return "ONE"
-    } else return "TWO"
-};
+const APP_PASSWORD = process.env.APP_PASSWORD;
+
+async function generatePasswordHash(plaintextPassword) {
+    const passwordHash = await bcrypt.hash(plaintextPassword, saltRounds);
+    return passwordHash
+}
 
 async function deleteSingleTeam(id) {
     const deleteTeam = await prisma.team.delete({
@@ -20,16 +20,23 @@ async function deleteSingleTeam(id) {
 };
 
 async function updateParentSelectable(id) {
+    const passwordHash = await generatePasswordHash("RGM".concat(APP_PASSWORD));
     const updateParent = await prisma.team.update({
         where: { id: id },
-        data: { isSelectable: true }
+        data: { 
+            isSelectable: true,
+            passwordHash: passwordHash,
+        }
     });
 };
 
 async function updateParentUnselectable(id) {
     const updateParent = await prisma.team.update({
         where: { id: id },
-        data: { isSelectable: false }
+        data: { 
+            isSelectable: false,
+            passwordHash: null 
+        }
     });
 
     const deleteSurveyRuns = prisma.surveyRun.deleteMany({
@@ -50,11 +57,6 @@ async function updateParentUnselectable(id) {
 
     const transaction = await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState, deleteTeamSettings]);
 };
-
-async function generatePasswordHash(plaintextPassword) {
-    const passwordHash = await bcrypt.hash(plaintextPassword, saltRounds);
-    return passwordHash
-}
 
 router.post("/create-team", async (req, res) => {
     const sessionTeamId = req.session.teamId;
@@ -81,10 +83,10 @@ router.post("/create-team", async (req, res) => {
             if ((parentElementId && !parentElement) || (parentElement && parentElement.name === "Administration"))
                 return res.status(404).json({ ok: false, message: "Das Elternelement wurde nicht gefunden." });
 
-            if (parentElement && parentElement.childrenLevelsAllowed === "ZERO")
+            if (parentElement && !parentElement.childrenAllowed)
                 return res.status(409).json({ ok: false, message: "Das Elternelement darf keine neue Ebene an Teams besitzen." });
 
-            const childrenLevelsAllowed = determineAllowedChildren(parentElement);
+            const childrenAllowed = parentElement ? false : true;
 
             const passwordHash = await generatePasswordHash(password);
 
@@ -99,7 +101,7 @@ router.post("/create-team", async (req, res) => {
                     name: teamName,
                     passwordHash: passwordHash,
                     parentId: parentElementId,
-                    childrenLevelsAllowed: childrenLevelsAllowed,
+                    childrenAllowed: childrenAllowed,
                     isSelectable: true,
                     sortOrder: highestSortOrder._max.sortOrder + 1,
                     isActive: true,
@@ -112,7 +114,7 @@ router.post("/create-team", async (req, res) => {
                 ok: true,
                 message: `Das Team wurde erfolgreich erstellt.`,
                 id: createdTeam.id,
-                childrenLevelsAllowed: childrenLevelsAllowed,
+                childrenAllowed: childrenAllowed,
             })
         } else return res.status(403).json({
             ok: false,
@@ -159,16 +161,13 @@ router.put("/update-team", async (req, res) => {
             if (elementWithTeamName && elementWithTeamName.id != teamId)
                 return res.status(409).json({ ok: false, message: "Der eingegebene Name existiert bereits." });
 
-            if (teamRecord.children.length === 0 && !password)
-                return res.status(409).json({ ok: false, message: "Teams ohne Kinderelemente erfordern ein Passwort." });
-
-            const passwordHash = teamRecord.isSelectable ? await generatePasswordHash(password) : null;
+            const passwordHash = teamRecord.isSelectable && password ? await generatePasswordHash(password) : null;
 
             const updateTeam = await prisma.team.update({
                 where: { id: teamId },
                 data: {
                     name: teamName,
-                    passwordHash: passwordHash,
+                    passwordHash: passwordHash ? passwordHash : teamRecord.passwordHash,
                 },
             });
 
@@ -216,6 +215,7 @@ router.delete("/delete-team", async (req, res) => {
             const parentId = teamRecord.parentId
 
             for (const element of teamRecord.children) {
+                console.log(element.id, teamId)
                 if (element.children.length > 0) {
                     const deleteMultipleUsers = await prisma.team.deleteMany({
                         where: {
@@ -235,7 +235,7 @@ router.delete("/delete-team", async (req, res) => {
                 }
             }) : null;
 
-            if (parentRecord && parentRecord.children.length === 0) updateParentSelectable(parentId);
+            if (parentRecord && parentRecord.children.length === 0) await updateParentSelectable(parentId);
 
             return res.status(200).json({
                 ok: true,
