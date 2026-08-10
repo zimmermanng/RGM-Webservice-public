@@ -215,7 +215,6 @@ router.delete("/delete-team", async (req, res) => {
             const parentId = teamRecord.parentId
 
             for (const element of teamRecord.children) {
-                console.log(element.id, teamId)
                 if (element.children.length > 0) {
                     const deleteMultipleUsers = await prisma.team.deleteMany({
                         where: {

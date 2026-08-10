@@ -181,7 +181,7 @@ async function main() {
   for (const node of TEAM_TREE) {
     await upsertNode(node);
   }
-  await upsertNode(MOCK_TEAM_TREE)
+  // await upsertNode(MOCK_TEAM_TREE)
   console.log("Seed complete");
 }
 
