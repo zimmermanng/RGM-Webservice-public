@@ -292,7 +292,7 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
               />
               <p className="admin-overall-info" role="status">
                 {answeredTeamCount} von {totalTeamCount} Teams haben
-                mindestens eine Frage beantwortet ({contributingPercent} Prozent).
+                mindestens ein Päckchen vollständig beantwortet und somit zum Gesamtergebnis beigetragen ({contributingPercent} Prozent).
               </p>
             </aside>
 
