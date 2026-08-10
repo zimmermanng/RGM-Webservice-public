@@ -260,7 +260,7 @@ const LoginPage = ({
                   <option
                     value={unit.name}
                     key={unit.name}
-                  >{unit.name}</option>
+                  >{unit.formattedName}</option>
                 ))}
               </select>
 
