@@ -133,17 +133,19 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
     });
   }, [calculationMode, evaluationRound, selectedUnitIds]);
 
-  const fallbackAnsweredTeamCount = evaluationRound.leafResults.filter(
-    (result) => result.hasAnsweredQuestions !== false
-  ).length;
-  const answeredTeamCount = Number.isInteger(evaluationRound.teamCounts?.answered)
-    ? evaluationRound.teamCounts.answered
-    : fallbackAnsweredTeamCount;
+  const fallbackCompletedTeamCount = new Set(
+    evaluationRound.leafResults
+      .filter((result) => result.completedPackageIds?.length > 0)
+      .map((result) => result.unitId)
+  ).size;
+  const completedTeamCount = Number.isInteger(evaluationRound.teamCounts?.completed)
+    ? evaluationRound.teamCounts.completed
+    : fallbackCompletedTeamCount;
   const totalTeamCount = Number.isInteger(evaluationRound.teamCounts?.total)
     ? evaluationRound.teamCounts.total
     : allLeafUnitIds.length;
   const contributingPercent = totalTeamCount
-    ? Math.round((answeredTeamCount / totalTeamCount) * 100)
+    ? Math.round((completedTeamCount / totalTeamCount) * 100)
     : 0;
 
   const visibleOverallResults = useMemo(
@@ -291,7 +293,7 @@ function AdminEvaluationOverallPage({ activeCompany = "LMZ" }) {
                 onPackageClick={setSelectedPackage}
               />
               <p className="admin-overall-info" role="status">
-                {answeredTeamCount} von {totalTeamCount} Teams haben
+                {completedTeamCount} von {totalTeamCount} Teams haben
                 mindestens ein Päckchen vollständig beantwortet und somit zum Gesamtergebnis beigetragen ({contributingPercent} Prozent).
               </p>
             </aside>
