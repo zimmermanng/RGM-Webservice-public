@@ -233,9 +233,7 @@ const TeamSelectionPage = ({ onTeamSelected }) => {
   };
 
   const completeSelection = (data, fallbackTeamName) => {
-    console.log(onTeamSelected)
     if (onTeamSelected) {
-      console.log("X")
       onTeamSelected({
         team: data.team || fallbackTeamName,
         teamId: data.teamId || null,

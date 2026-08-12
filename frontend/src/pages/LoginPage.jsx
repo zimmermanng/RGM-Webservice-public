@@ -81,9 +81,7 @@ const LoginPage = ({
   })
 
   const completeSelection = async (data, fallbackTeamName) => {
-    console.log("ABCD")
     if (onLoginSuccess) {
-      console.log("Login Success!")
       onLoginSuccess({
         authenticated: true,
         team: data.team || null,
@@ -177,7 +175,7 @@ const LoginPage = ({
 
       const data = await res.json();
       if (!res.ok) {
-        if (data.code === "TEAM_LOCKED") {
+        if (data.code === "TEAM_LOCKED" || organisation === "Administration") {
           setTakeoverDialog({
             open: true,
             teamName: organisation,
@@ -186,7 +184,6 @@ const LoginPage = ({
               "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
           });
         } else if (data.code === "ADMIN_LOCKED") {
-          console.log(data)
           setAdminLockedDialog({
             open: true,
             teamName: organisation,
