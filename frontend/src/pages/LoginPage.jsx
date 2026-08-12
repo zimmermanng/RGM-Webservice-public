@@ -9,7 +9,6 @@ const LoginPage = ({
   onLoginSuccess,
   sessionNotice,
   onNoticeShown,
-  onTeamSelected
 }) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -19,8 +18,8 @@ const LoginPage = ({
   const [loading, setLoading] = useState(false);
 
   const sessionNoticeRef = useRef(null);
-
   const [saving, setSaving] = useState(false);
+
   const [takeoverDialog, setTakeoverDialog] = useState({
     open: false,
     teamName: "",
@@ -30,6 +29,14 @@ const LoginPage = ({
   const takeoverPrimaryButtonRef = useRef(null);
   const takeoverCancelButtonRef = useRef(null);
 
+  const [adminLockedDialog, setAdminLockedDialog] = useState({
+    open: false,
+    teamName: "",
+    message: ""
+  });
+  const adminLockedDialogRef = useRef(null);
+  const adminLockedCancelButtonRef = useRef(null);
+
   const logoPath = useMemo(() => {
     return activeCompany === "LMZ" ? "/LMZ-Logo.jpg" : "/shuffle-logo.svg";
   }, [activeCompany]);
@@ -38,11 +45,24 @@ const LoginPage = ({
 
   const { selectableTeams, loadingSelectableTeams, successfullyLoaded, fetchSelectableTeams } = useContext(TeamsContext);
 
+  useEffect(() => {
+    fetchSelectableTeams();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const closeTakeoverDialog = () => {
     setTakeoverDialog({
       open: false,
       teamName: "",
       message: "",
+    });
+  };
+
+  const closeAdminLockedDialog = () => {
+    setAdminLockedDialog({
+      open: false,
+      teamName: "",
+      message: ""
     });
   };
 
@@ -53,13 +73,20 @@ const LoginPage = ({
     closeOnEscape: !saving,
   });
 
+  useDialogFocus(adminLockedDialog.open, {
+    dialogRef: adminLockedDialogRef,
+    initialFocusRef: adminLockedCancelButtonRef,
+    onClose: closeAdminLockedDialog,
+    closeOnEscape: !saving,
+  })
+
   const completeSelection = async (data, fallbackTeamName) => {
-    if (onTeamSelected) {
-      onTeamSelected({
-        team: data.team || fallbackTeamName,
-        teamId: data.teamId || null,
-        sessionTimeoutMs: data.sessionTimeoutMs,
-        warningBeforeTimeoutMs: data.warningBeforeTimeoutMs,
+    console.log("ABCD")
+    if (onLoginSuccess) {
+      console.log("Login Success!")
+      onLoginSuccess({
+        authenticated: true,
+        team: data.team || null,
       });
     }
     await fetchSelectableTeams();
@@ -118,13 +145,6 @@ const LoginPage = ({
         return;
       }
 
-      if (onLoginSuccess) {
-        onLoginSuccess({
-          authenticated: true,
-          team: data.team || null,
-        });
-      }
-
       if (onNoticeShown) {
         onNoticeShown();
       }
@@ -157,17 +177,23 @@ const LoginPage = ({
 
       const data = await res.json();
       if (!res.ok) {
-        if (data.code === "TEAM_LOCKED" || data.code === "ADMIN_LOCKED") {
-          if (data.code === "TEAM_LOCKED") {
-            setTakeoverDialog({
-              open: true,
-              teamName: organisation,
-              message:
-                data.takeoverMessage ||
-                "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
-            });
-          }
-          return;
+        if (data.code === "TEAM_LOCKED") {
+          setTakeoverDialog({
+            open: true,
+            teamName: organisation,
+            message:
+              data.takeoverMessage ||
+              "Möchten Sie die aktive Bearbeitung übernehmen? Die andere Person wird dann automatisch abgemeldet.",
+          });
+        } else if (data.code === "ADMIN_LOCKED") {
+          console.log(data)
+          setAdminLockedDialog({
+            open: true,
+            teamName: organisation,
+            message:
+              data.message ||
+              "Diese Organisationseinheit wird derzeit von der Administration bearbeitet. Ein Zugriff ist derzeit nicht möglich.",
+          });
         }
         return;
       }
@@ -183,22 +209,6 @@ const LoginPage = ({
     } finally {
       setSaving(false);
     }
-  }
-
-  const sortTeamsAlphabetically = (teams) => {
-    teams.sort((a, b) => {
-      const nameA = a.formattedName.toUpperCase();
-      const nameB = b.formattedName.toUpperCase();
-
-      if (nameA === "ADMINISTRATION") return 1
-      if (nameB === "ADMINISTRATION") return -1
-
-      return nameA.localeCompare(nameB, "de", {
-        sensitivity: "base",
-        numeric: true,
-      })
-    });
-    return teams
   }
 
   return (
@@ -354,6 +364,41 @@ const LoginPage = ({
                 disabled={saving}
               >
                 Bearbeitung nicht übernehmen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {adminLockedDialog.open && (
+        <div
+          className="session-timeout-dialog-backdrop"
+          role="presentation"
+        >
+          <div
+            ref={adminLockedDialogRef}
+            className="session-timeout-dialog"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="admin-locked-title"
+            aria-describedby="admin-locked-description"
+          >
+            <p id="admin-locked-description">
+              {adminLockedDialog.message}
+            </p>
+            <p>
+              Ausgewählte Organisationseinheit:{" "}
+              <strong>{adminLockedDialog.teamName}</strong>
+            </p>
+
+            <div className="session-timeout-actions">
+              <button
+                ref={adminLockedCancelButtonRef}
+                type="button"
+                className="access-button secondary"
+                onClick={closeAdminLockedDialog}
+                disabled={saving}
+              >
+                Schließen
               </button>
             </div>
           </div>

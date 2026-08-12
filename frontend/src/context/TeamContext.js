@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { API_BASE } from "../config.ts";
 
 export const TeamsContext = createContext(null);
@@ -40,10 +40,10 @@ export function TeamsProvider({ children }) {
             setLoadingSelectableTeams(false)
         }
     };
-    
+
     useEffect(() => {
-        fetchSelectableTeams();
-    }, []);
+        fetchSelectableTeams()
+    }, [])
 
     return (
         <TeamsContext.Provider value={{ selectableTeams, loadingSelectableTeams, successfullyLoaded, fetchSelectableTeams }}>

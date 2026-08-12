@@ -226,10 +226,6 @@ router.post("/login", async (req, res) => {
   try {
     await releaseSessionLocks(req.session.id);
 
-    req.session.authenticated = true;
-    req.session.team = null;
-    req.session.teamId = null;
-
     return res.json({
       ok: true,
       authenticated: true,
@@ -440,13 +436,6 @@ router.get("/selectable-teams", async (req, res) => {
 
 // Save selected team and acquire team lock
 router.post("/team", async (req, res) => {
-  if (!req.session.authenticated) {
-    return res.status(401).json({
-      ok: false,
-      message: "Nicht eingeloggt",
-    });
-  }
-
   const { team, forceTakeover = false } = req.body;
 
   if (!team) {
@@ -499,6 +488,8 @@ router.post("/team", async (req, res) => {
       },
     });
 
+    req.session.authenticated = true;
+
     return res.json({
       ok: true,
       authenticated: true,
@@ -515,12 +506,12 @@ router.post("/team", async (req, res) => {
     });
   } catch (error) {
     // IMPORTANT: REMOVE SECOND CONDITION AFTER FINISHING ADMIN DEVELOPMENT
-    if (error.code === "TEAM_LOCKED" || error.code === "ADMIN_LOCKED") {
+    if (error.code === "TEAM_LOCKED") {
       return res.status(423).json({
         ok: false,
         code: "TEAM_LOCKED",
         allowTakeover: false,
-        team: team,
+        team: null,
         message:
           "Diese Organisationseinheit wird derzeit bereits in einer anderen aktiven Sitzung bearbeitet.",
         takeoverMessage:
@@ -533,7 +524,7 @@ router.post("/team", async (req, res) => {
         ok: false,
         code: "ADMIN_LOCKED",
         allowTakeover: false,
-        team: team,
+        team: null,
         message:
           "Diese Organisationseinheit wird derzeit von der Administration bearbeitet. Ein Zugriff ist derzeit nicht möglich.",
       });

@@ -82,7 +82,6 @@ const getPageTitle = (pathname) => {
   if (path.startsWith("/dimensions")) return "Übersicht Pakete";
   if (path.startsWith("/download")) return "Downloads";
   if (path.startsWith("/upload")) return "Upload";
-  if (path.startsWith("/team-select")) return "Organisationseinheit auswählen";
   if (path.startsWith("/login")) return "Anmeldung";
   if (path.startsWith("/start")) return "Startseite";
   return "RGM-Prüfwerkzeug";
@@ -661,45 +660,11 @@ const App = () => {
                 path="/"
                 element={
                   isAuthenticated ? (
-                    team ? (
-                      <Navigate to="/start" replace />
-                    ) : (
-                      <Navigate to="/team-select" replace />
-                    )
-                  ) : (
+                    <Navigate to="/start" replace />
+                  )
+                  : (
                     <Navigate to="/login" replace />
                   )
-                }
-              />
-
-              <Route
-                path="/team-select"
-                element={
-                  <ProtectedRoute
-                    authChecked={authChecked}
-                    isAuthenticated={isAuthenticated}
-                    team={null}
-                    requireTeam={false}
-                  >
-                    <TeamSelectionPage
-                      onTeamSelected={(selection) => {
-                        setTeam(selection.team);
-                        setSessionNotice("");
-
-                        if (typeof selection.sessionTimeoutMs === "number") {
-                          setSessionTimeoutMs(selection.sessionTimeoutMs);
-                        }
-
-                        if (
-                          typeof selection.warningBeforeTimeoutMs === "number"
-                        ) {
-                          setWarningBeforeTimeoutMs(
-                            selection.warningBeforeTimeoutMs,
-                          );
-                        }
-                      }}
-                    />
-                  </ProtectedRoute>
                 }
               />
 
@@ -727,54 +692,7 @@ const App = () => {
                         setWarningBeforeTimeoutMs(warningBeforeTimeoutMs);
                       }
                     }}
-                    onTeamSelected={(selection) => {
-                      setTeam(selection.team);
-                      setSessionNotice("");
-
-                      if (typeof selection.sessionTimeoutMs === "number") {
-                        setSessionTimeoutMs(selection.sessionTimeoutMs);
-                      }
-
-                      if (
-                        typeof selection.warningBeforeTimeoutMs === "number"
-                      ) {
-                        setWarningBeforeTimeoutMs(
-                          selection.warningBeforeTimeoutMs,
-                        );
-                      }
-                    }}
                   />
-                }
-              />
-
-              <Route
-                path="/team-select"
-                element={
-                  <ProtectedRoute
-                    authChecked={authChecked}
-                    isAuthenticated={isAuthenticated}
-                    team={null}
-                    requireTeam={false}
-                  >
-                    <TeamSelectionPage
-                      onTeamSelected={(selection) => {
-                        setTeam(selection.team);
-                        setSessionNotice("");
-
-                        if (typeof selection.sessionTimeoutMs === "number") {
-                          setSessionTimeoutMs(selection.sessionTimeoutMs);
-                        }
-
-                        if (
-                          typeof selection.warningBeforeTimeoutMs === "number"
-                        ) {
-                          setWarningBeforeTimeoutMs(
-                            selection.warningBeforeTimeoutMs,
-                          );
-                        }
-                      }}
-                    />
-                  </ProtectedRoute>
                 }
               />
 
