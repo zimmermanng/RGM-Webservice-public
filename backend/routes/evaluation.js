@@ -3,20 +3,15 @@ const router = express.Router();
 const prisma = require("../db/prisma");
 const structure = require("../../frontend/src/components/data/struktur.json")
 
-function hasAnyCurrentAnswers(currentAnswers) {
-    if (!currentAnswers || typeof currentAnswers !== "object") return false;
-    return Object.values(currentAnswers).some(
-        answers => answers &&
-            typeof answers === "object" &&
-            Object.keys(answers).length > 0
-    );
-}
-
 function getLowestSelectableTeams(teams) {
     const selectableParentIds = new Set(
         teams.map(team => team.parentId).filter(Number.isInteger)
     );
     return teams.filter(team => !selectableParentIds.has(team.id));
+}
+
+function getTeamUnitId(teamName) {
+    return teamName.toLowerCase().replace(/\s/g, "-");
 }
 
 function determineOrganisation(team) {
@@ -69,7 +64,7 @@ function determinePackages(obj, includedPackages) {
 
 function determineLeafresults(obj, surveySnapshotData) {
     const teamId = obj.teamId;
-    const unitId = obj.team.name.toLowerCase().replace(/\s/g, "-");
+    const unitId = getTeamUnitId(obj.team.name);
     const importer = `Import ${obj.team.name}`;
     let values = {};
     let completedPackages = [];
@@ -127,7 +122,7 @@ async function createEvaluationRoundData() {
         organisation: [],
         leafResults: [],
         teamCounts: {
-            answered: 0,
+            completed: 0,
             total: 0,
         },
     }
@@ -182,27 +177,8 @@ async function createEvaluationRoundData() {
         });
 
         const lowestSelectableTeams = getLowestSelectableTeams(organisationTeamData);
-        const eligibleTeamIds = new Set(
-            lowestSelectableTeams.map(team => team.id)
-        );
-        const answeredTeamIds = new Set(
-            surveyRunData
-                .filter(run =>
-                    eligibleTeamIds.has(run.teamId) &&
-                    Array.isArray(run.payload?.selections) &&
-                    run.payload.selections.length > 0
-                )
-                .map(run => run.teamId)
-        );
-        lowestSelectableTeams.forEach(team => {
-            if (hasAnyCurrentAnswers(team.current?.currentAnswers)) {
-                answeredTeamIds.add(team.id);
-            }
-        });
-        finalData.teamCounts = {
-            answered: answeredTeamIds.size,
-            total: lowestSelectableTeams.length,
-        };
+        const eligibleTeamIds = new Set(lowestSelectableTeams.map(team => team.id));
+        const completedTeamIds = new Set();
 
         surveyRunData.forEach((obj) => {
             const packagesResult = determinePackages(obj, includedPackages);
@@ -211,7 +187,18 @@ async function createEvaluationRoundData() {
 
             const leafResults = determineLeafresults(obj, surveySnapshotData);
             finalData.leafResults.push(leafResults);
+            if (
+                eligibleTeamIds.has(obj.teamId) &&
+                leafResults.completedPackageIds.length > 0
+            ) {
+                completedTeamIds.add(obj.teamId);
+            }
         });
+
+        finalData.teamCounts = {
+            completed: completedTeamIds.size,
+            total: lowestSelectableTeams.length,
+        };
 
         return finalData
     } catch (error) {
@@ -456,6 +443,7 @@ router.get("/retrieve-data", async (req, res) => {
                 select: {
                     id: true,
                     parentId: true,
+                    name: true,
                 },
             }),
         ])
@@ -480,9 +468,24 @@ router.get("/retrieve-data", async (req, res) => {
             data = evaluationRoundData.payload;
         }
 
+        const lowestSelectableTeams = getLowestSelectableTeams(selectableTeams);
+        const selectableLeafUnitIds = new Set(
+            lowestSelectableTeams.map(team => getTeamUnitId(team.name))
+        );
+        const completedTeamCount = new Set(
+            (data.leafResults || [])
+                .filter(result =>
+                    selectableLeafUnitIds.has(result.unitId) &&
+                    Array.isArray(result.completedPackageIds) &&
+                    result.completedPackageIds.length > 0
+                )
+                .map(result => result.unitId)
+        ).size;
+
         data.teamCounts = {
             ...(data.teamCounts || {}),
-            total: getLowestSelectableTeams(selectableTeams).length,
+            completed: completedTeamCount,
+            total: lowestSelectableTeams.length,
         };
 
         return res.status(200).json({
