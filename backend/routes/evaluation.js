@@ -17,8 +17,7 @@ function getTeamUnitId(teamName) {
 function determineOrganisation(team) {
     const teamIdName = team.name.toLowerCase().replace(/\s/g, "-");
     let organisationBody = {};
-
-    if (!team.parent || !team.parent.parentId) {
+    if (!team.parent) {
         organisationBody = {
             id: teamIdName,
             name: team.name,
