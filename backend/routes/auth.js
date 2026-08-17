@@ -198,8 +198,7 @@ async function deleteTeamView(teamId) {
 
 // Login
 router.post("/login", async (req, res) => {
-  const { password } = req.body;
-  const { teamId } = req.body;
+  const { teamId, password } = req.body;
 
   const team = await prisma.team.findUnique({
     where: {
