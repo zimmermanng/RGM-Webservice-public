@@ -438,7 +438,7 @@ router.get("/selectable-teams", async (req, res) => {
   }
 });
 
-// Save selected team and acquire team lock -> Needs schema?
+// Save selected team and acquire team lock
 router.post("/team", async (req, res) => {
   const { team, forceTakeover = false } = req.body;
 
