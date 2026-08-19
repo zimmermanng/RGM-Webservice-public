@@ -112,7 +112,7 @@ const LoginPage = ({
       );
       return;
     }
-
+    
     if (!password.trim()) {
       setError("Bitte geben Sie das Passwort der Organisationseinheit ein.");
       setErrorField("password");

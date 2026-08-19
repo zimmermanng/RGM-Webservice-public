@@ -298,7 +298,8 @@ export default function QuestionnairePage({ activeCompany }) {
     const payload = buildFullPayload();
     setIsSubmitting(true);
     setStatusMessage("Fragebogen wird gespeichert...", "status");
-
+    console.log(payload);
+    
     try {
       const response = await fetch(`${API_BASE}/session/results`, {
         method: "POST",

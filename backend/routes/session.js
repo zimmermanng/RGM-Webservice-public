@@ -106,6 +106,7 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
   const teamName = viewTeam && req.session.teamId === 57 ? viewTeam.name : req.session.team
+  
   try {
     const submittedAt = req.body.timestamp
       ? new Date(req.body.timestamp)

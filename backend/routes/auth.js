@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
 const bcrypt = require("bcrypt");
+const { UserLogin } = require("../validation/schemas.ts");
 
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60 * 24 * 365 * 10;
@@ -200,20 +201,24 @@ async function deleteTeamView(teamId) {
 router.post("/login", async (req, res) => {
   const { teamId, password } = req.body;
 
+  const result = UserLogin.safeParse({ teamId: teamId, password: password });
+  if (!result.success) return res.status(400).json({
+    ok: false,
+    message: "Die Eingaben konnten nicht verarbeitet werden.",
+  });
+
   const team = await prisma.team.findUnique({
     where: {
-      id: teamId
+      id: result.data.teamId
     }
   })
 
-  if (!team) {
-    return res.status(404).json({
-      ok: false,
-      message: "Das Team konnte nicht gefunden werden.",
-    });
-  }
+  if (!team) return res.status(404).json({
+    ok: false,
+    message: "Das Team konnte nicht gefunden werden.",
+  });
 
-  const passwordCheck = await bcrypt.compare(password, team.passwordHash);
+  const passwordCheck = await bcrypt.compare(result.data.password, team.passwordHash);
 
   if (!passwordCheck) {
     return res.status(401).json({
@@ -433,7 +438,7 @@ router.get("/selectable-teams", async (req, res) => {
   }
 });
 
-// Save selected team and acquire team lock
+// Save selected team and acquire team lock -> Needs schema?
 router.post("/team", async (req, res) => {
   const { team, forceTakeover = false } = req.body;
 

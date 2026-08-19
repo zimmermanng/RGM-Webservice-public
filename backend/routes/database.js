@@ -3,6 +3,7 @@ const router = express.Router();
 const prisma = require("../db/prisma");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const { TeamNamePassword } = require("../validation/schemas.ts");
 
 const APP_PASSWORD = process.env.APP_PASSWORD;
 
@@ -23,7 +24,7 @@ async function updateParentSelectable(id) {
     const passwordHash = await generatePasswordHash("RGM".concat(APP_PASSWORD));
     const updateParent = await prisma.team.update({
         where: { id: id },
-        data: { 
+        data: {
             isSelectable: true,
             passwordHash: passwordHash,
         }
@@ -33,9 +34,9 @@ async function updateParentSelectable(id) {
 async function updateParentUnselectable(id) {
     const updateParent = await prisma.team.update({
         where: { id: id },
-        data: { 
+        data: {
             isSelectable: false,
-            passwordHash: null 
+            passwordHash: null
         }
     });
 
@@ -63,9 +64,16 @@ router.post("/create-team", async (req, res) => {
     const authenticated = req.session.authenticated;
     try {
         if (sessionTeamId === 57 && authenticated) {
-            const teamName = req.body.teamName;
+            const result = TeamNamePassword.safeParse({ name: req.body.teamName, password: req.body.password });
+            if (!result.success) return res.status(400).json({
+                ok: false,
+                message: "Die Eingaben konnten nicht verarbeitet werden.",
+            });
+
+            const teamName = result.data.name;
+            const password = result.data.password;
+
             const parentElementId = req.body.parentElementId;
-            const password = req.body.password;
             const parentElement = parentElementId ? await prisma.team.findUnique({
                 where: { id: parentElementId },
                 include: {
@@ -134,9 +142,16 @@ router.put("/update-team", async (req, res) => {
     const authenticated = req.session.authenticated;
     try {
         if (sessionTeamId === 57 && authenticated) {
+            const result = TeamNamePassword.safeParse({ name: req.body.teamName, password: req.body.password });
+            if (!result.success) return res.status(400).json({
+                ok: false,
+                message: "Die Eingaben konnten nicht verarbeitet werden.",
+            });
+
+            const teamName = result.data.name;
+            const password = result.data.password;
             const teamId = req.body.teamId;
-            const teamName = req.body.teamName;
-            const password = req.body.password;
+
             if (!teamId || !teamName)
                 return res.status(409).json({ ok: false, message: "Bitte füllen Sie die Eingaben vollständig aus." });
 

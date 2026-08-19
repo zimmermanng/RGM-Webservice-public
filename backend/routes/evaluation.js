@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
-const structure = require("../../frontend/src/components/data/struktur.json")
+const structure = require("../../frontend/src/components/data/struktur.json");
+const { EvaluationName } = require("../validation/schemas.ts");
 
 function getLowestSelectableTeams(teams) {
     const selectableParentIds = new Set(
@@ -238,7 +239,14 @@ router.post("/create-evaluation", async (req, res) => {
     const authenticated = req.session.authenticated;
     try {
         if (sessionTeamId === 57 && authenticated) {
-            const evaluationName = req.body.evaluationName;
+            const result = EvaluationName.safeParse({ name: req.body.evaluationName });
+            if (!result.success) return res.status(400).json({
+                ok: false,
+                message: "Die Eingaben konnten nicht verarbeitet werden.",
+            });
+
+            const evaluationName = result.data.name;
+
             const date = new Date(req.body.date);
             const previousActiveEvaluation = await prisma.evaluationRounds.findFirst({
                 where: {
@@ -303,7 +311,14 @@ router.put("/change-name", async (req, res) => {
     try {
         if (sessionTeamId === 57 && authenticated) {
             const id = req.body.id;
-            const name = req.body.evaluationName;
+            
+            const result = EvaluationName.safeParse({ name: req.body.evaluationName });
+            if (!result.success) return res.status(400).json({
+                ok: false,
+                message: "Die Eingaben konnten nicht verarbeitet werden.",
+            });
+            const name = result.data.name;
+            
             const evaluationRound = await prisma.evaluationRounds.findUnique({
                 where: {
                     id: id
