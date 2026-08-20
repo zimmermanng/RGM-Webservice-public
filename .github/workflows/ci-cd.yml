@@ -14,19 +14,25 @@ env:
   DOCKER_IMAGE_NAME_BACKEND: rgm-backend
 
 jobs:
-  build-frontend:
+  build-images:
     runs-on: ubuntu-latest
     steps:
-      - id: commit
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .
+      
+      - name: Retrieve commit SHA
+        id: commit
         uses: prompt/actions-commit-hash@v4 
-      - run: echo "Build ${{env.DOCKER_IMAGE_NAME_FRONTEND}}/${{ steps.commit.outputs.short }} docker image ..."
-      - run: docker build ./frontend/Dockerfile
-  
-  build-backend:
-    runs-on: ubuntu-latest
-    steps: 
-     - run: echo "Build ${{env.DOCKER_IMAGE_NAME_BACKEND}}/${{ steps.commit.outputs.short }} docker image ..."
-     - run: docker build ./backend/Dockerfile
+      
+      - name: Build Frontend 
+        run: echo "Build ${{env.DOCKER_IMAGE_NAME_FRONTEND}}/${{ steps.commit.outputs.short }} docker image ..."
+        run: docker build ./frontend/Dockerfile
+      
+      - name: Build Backend
+        run: echo "Build ${{env.DOCKER_IMAGE_NAME_BACKEND}}/${{ steps.commit.outputs.short }} docker image ..."
+        run: docker build ./backend/Dockerfile
 
   upload:
     runs-on: ubuntu-latest
