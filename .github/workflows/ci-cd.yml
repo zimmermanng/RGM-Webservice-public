@@ -14,37 +14,56 @@ env:
   DOCKER_IMAGE_NAME_BACKEND: rgm-backend
 
 jobs:
-  build-images:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          sparse-checkout: .
+          sparse-checkout: |
+           .
+           backend
+           frontend
       
       - name: Retrieve commit SHA
         id: commit
         uses: prompt/actions-commit-hash@v4 
+
+      - name: Create .env file from secrets
+        env: 
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          NODE_ENV: ${{ secrets.NODE_ENV }} 
+          SESSION_TIMEOUT_MS: ${{ secrets.SESSION_TIMEOUT_MS }}
+          SESSION_WARNING_MS: ${{ secrets.SESSION_WARNING_MS }}
+        run: | 
+          cat <<EOF > .env
+          DATABASE_URL="$DATABASE_URL"
+          APP_PASSWORD="$APP_PASSWORD"
+          SESSION_SECRET="$SESSION_SECRET"
+          FRONTEND_URL="$FRONTEND_URL"
+          NODE_ENV="$NODE_ENV"
+          SESSION_TIMEOUT_MS="$SESSION_TIMEOUT_MS"
+          SESSION_WARNING_MS="$SESSION_WARNING_MS"
+          EOF
+
+          mv .env ./backend
       
-      - name: Build Frontend 
+      - name: Build  
         run: |
-              echo "Build ${{env.DOCKER_IMAGE_NAME_FRONTEND}}/${{ steps.commit.outputs.short }} docker image ..."
-              docker build ./frontend/Dockerfile
-      
-      - name: Build Backend
-        run: |
-              ls -l
-              echo "Build ${{env.DOCKER_IMAGE_NAME_BACKEND}}/${{ steps.commit.outputs.short }} docker image ..."
-              docker build ./backend/Dockerfile
+              echo "${{ env.DOCKER_IMAGE_NAME_FRONTEND }}, ${{ steps.commit.outputs.short }}"
+              docker compose build
 
   upload:
     runs-on: ubuntu-latest
-    needs: build-images
+    needs: [build]
     steps:
      - run: echo "Upload docker image..."
   
   deploy: 
     runs-on: ubuntu-latest
-    needs: [build-images, upload]
+    needs: [build, upload]
     steps:
      - run: echo "Deploy docker image..."
