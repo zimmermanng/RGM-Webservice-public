@@ -149,6 +149,8 @@ const App = () => {
 
   const activeCompany = "LMZ"; // "LMZ" oder "Shuffle"
 
+  console.log(API_BASE);
+
   useEffect(() => {
     applyTheme(activeCompany);
   }, [activeCompany]);

@@ -12,7 +12,7 @@ RUN npm run build
 #Stage 2: Serve with nginx
 FROM nginxinc/nginx-unprivileged:1.28-alpine
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
 COPY --chown=nginx:nginx --from=build /app/build /usr/share/nginx/html
 
 USER nginx

@@ -53,7 +53,7 @@ jobs:
       
       - name: Build  
         run: |
-              echo "${{ env.DOCKER_IMAGE_NAME_FRONTEND }}, ${{ steps.commit.outputs.short }}"
+              echo Building images for Commit: ${{ steps.commit.outputs.short }}.
               docker compose build
 
   upload:

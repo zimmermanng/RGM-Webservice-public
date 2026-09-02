@@ -9,7 +9,7 @@ const databaseRoutes = require("./routes/database");
 const evaluationRoutes = require("./routes/evaluation");
 
 const app = express();
-const port = 3011;
+const port = process.env.BACKEND_PORT || 3011;
 
 const SESSION_TIMEOUT_MS =
   Number(process.env.SESSION_TIMEOUT_MS) || 1000 * 60 * 60 * 24 * 365 * 10;
