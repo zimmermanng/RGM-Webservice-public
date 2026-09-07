@@ -34,7 +34,9 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          PORT: ${{ secrets.PORT }}
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          REACT_APP_BACKEND_PORT: ${{ secrets.REACT_APP_BACKEND_PORT }}
           NODE_ENV: ${{ secrets.NODE_ENV }} 
           SESSION_TIMEOUT_MS: ${{ secrets.SESSION_TIMEOUT_MS }}
           SESSION_WARNING_MS: ${{ secrets.SESSION_WARNING_MS }}
@@ -43,13 +45,16 @@ jobs:
           DATABASE_URL="$DATABASE_URL"
           APP_PASSWORD="$APP_PASSWORD"
           SESSION_SECRET="$SESSION_SECRET"
+          PORT="$PORT"
           FRONTEND_URL="$FRONTEND_URL"
+          REACT_APP_BACKEND_PORT="$REACT_APP_BACKEND_PORT"
           NODE_ENV="$NODE_ENV"
           SESSION_TIMEOUT_MS="$SESSION_TIMEOUT_MS"
           SESSION_WARNING_MS="$SESSION_WARNING_MS"
           EOF
 
-          mv .env ./backend
+          cp .env ./backend
+          cp .env ./frontend
       
       - name: Build  
         run: |

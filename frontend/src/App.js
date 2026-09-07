@@ -121,7 +121,6 @@ function RouteFocusManager() {
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [team, setTeam] = useState(null);
@@ -148,8 +147,6 @@ const App = () => {
   const previouslyFocusedElementRef = useRef(null);
 
   const activeCompany = "LMZ"; // "LMZ" oder "Shuffle"
-
-  console.log(API_BASE);
 
   useEffect(() => {
     applyTheme(activeCompany);

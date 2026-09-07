@@ -1,3 +1,5 @@
+require("dotenv").config({ path: __dirname+"/./../.env"});
+
 const prisma = require("../db/prisma");
 const bcrypt = require("bcrypt");
 
@@ -117,27 +119,6 @@ const TEAM_TREE = [
   },
 ]
 
-const MOCK_TEAM_TREE = {
-  name: "TestA",
-  isSelectable: false,
-  sortOrder: 100,
-  childrenAllowed: true,
-  children: [
-    {
-      name: "TestB",
-      isSelectable: true,
-      sortOrder: 101,
-      childrenAllowed: false,
-    },
-    {
-      name: "TestC",
-      isSelectable: true,
-      sortOrder: 102,
-      childrenAllowed: false,
-    },
-  ],
-}
-
 async function createPasswordHash() {
   const passwordHash = await bcrypt.hash(APP_PASSWORD, saltRounds);
   return passwordHash;
@@ -181,7 +162,6 @@ async function main() {
   for (const node of TEAM_TREE) {
     await upsertNode(node);
   }
-  // await upsertNode(MOCK_TEAM_TREE)
   console.log("Seed complete");
 }
 

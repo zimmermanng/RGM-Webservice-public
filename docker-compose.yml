@@ -10,9 +10,9 @@ services:
     volumes:
       - backend-data:/data
     expose:
-      - "${BACKEND_PORT}"
+      - "${REACT_APP_BACKEND_PORT}"
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:${BACKEND_PORT}/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:${REACT_APP_BACKEND_PORT}/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -24,9 +24,9 @@ services:
     container_name: rgm-webservice-frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT}:8080"
-    environment:
-      BACKEND_PORT: ${BACKEND_PORT}
+      - "${PORT}:8080"
+    env_file:
+      - ./frontend/.env
     depends_on:
       backend:
         condition: service_healthy

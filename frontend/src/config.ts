@@ -2,4 +2,4 @@
 // nginx forwards same-origin /api requests to the backend container.
 export const API_BASE =
   process.env.REACT_APP_API_BASE ||
-  (process.env.NODE_ENV === "development" ? `http://localhost:${process.env.BACKEND_PORT}` : "/api");
+  (process.env.NODE_ENV === "development" ? `http://localhost:${process.env.REACT_APP_BACKEND_PORT}` : "/api");

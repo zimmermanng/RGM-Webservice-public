@@ -1,3 +1,5 @@
+require("dotenv").config({ path: __dirname+"/./../.env"});
+
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db/prisma");
