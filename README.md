@@ -90,8 +90,8 @@ For the container-based setup:
 ## Architecture and data flow
 
 The React frontend and the Express API run on `http://localhost` during local development.
-Ports can be assigned in the .env file in the frontend and backend folder structure.
-These ports are by default port `3000` for the React frontend and port `3011` for the Express API.
+Ports must be assigned in `frontend/.env` and `backend/.env`.
+These ports are by default `3000` for the React frontend and `3011` for the Express API.
 The backend persists teams, settings,
 sessions, answers, survey runs, snapshots, and evaluation rounds in SQLite
 through Prisma.
@@ -179,8 +179,8 @@ Create the `frontend/.env` file from scratch:
 PORT="3000"
 REACT_APP_BACKEND_PORT="3011"
 ```
-[!IMPORTANT]
-The value of the environment variable PORT in `frontend/.env` must be identical to the port declared in FRONTEND_URL in `backend/.env`.
+> [!IMPORTANT]  
+> The value of the environment variable `PORT` in `frontend/.env` must be identical to the port declared in `FRONTEND_URL` in `backend/.env`.
 Additionally, the value of the environment variable REACT_APP_BACKEND_PORT must be identical in both `frontend/.env` and `backend/.env`.
 
 See [Configure the frontend](#configure-the-frontend) before using real or
@@ -663,8 +663,8 @@ Also verify that `DATABASE_URL` exists in `backend/.env`.
 
 Ensure that the assigned ports in `./.env`, `backend/.env` and `frontend/.env` are identical.
 The following environment variables must have identical port declarations:
-- REACT_APP_BACKEND_PORT in `./.env`, `backend/.env` and `frontend/.env`.
-- PORT in `./.env` and `frontend/.env`. The port declared in this variable must match the declared port for FRONTEND_URL in `backend/.env`.
+- `REACT_APP_BACKEND_PORT` in `./.env`, `backend/.env` and `frontend/.env`.
+- `PORT` in `./.env` and `frontend/.env`. The port declared in this variable must match the declared port for `FRONTEND_URL` in `backend/.env`.
 
 ## Production and server deployment
 
