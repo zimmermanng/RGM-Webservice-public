@@ -77,17 +77,21 @@ For the container-based setup:
 │   │   ├── pages/              # Application pages
 │   │   ├── services/           # Result extraction/calculation
 │   │   └── config.ts           # API base URL
-│   ├── Dockerfile
+│   ├── .env                    # Local configuration (not committed)
+|   ├── Dockerfile
 │   ├── nginx.conf
 │   └── package.json
+├── .env                        # Local configuration required for building docker images (not committed)
 ├── docker-compose.yml
 └── README.md
 ```
 
 ## Architecture and data flow
 
-The React frontend runs on port `3000` during local development and calls the
-Express API at `http://localhost:3011`. The backend persists teams, settings,
+The React frontend and the Express API run on `http://localhost` during local development.
+Ports can be assigned in the .env file in the frontend and backend folder structure.
+These ports are by default port `3000` for the React frontend and port `3011` for the Express API.
+The backend persists teams, settings,
 sessions, answers, survey runs, snapshots, and evaluation rounds in SQLite
 through Prisma.
 
@@ -142,15 +146,17 @@ cd ..
 Use `npm install` instead if intentionally updating dependencies or if a lock
 file is unavailable. Commit resulting lock-file changes deliberately.
 
-### 3. Create `backend/.env`
+### 3 Create `.env` files
 
-Create the file from scratch:
+#### 3.1 Create `backend/.env`
+Create the `backend/.env` file from scratch:
 
 ```dotenv
 DATABASE_URL="file:./dev.db"
 APP_PASSWORD="replace-with-a-local-login-password"
 SESSION_SECRET="replace-with-a-long-random-secret"
 FRONTEND_URL="http://localhost:3000"
+REACT_APP_BACKEND_PORT="3011"
 ```
 
 Optional session settings:
@@ -165,6 +171,17 @@ SESSION_WARNING_MS=300000
 
 See [Configure the backend](#configure-the-backend) before using real or
 production data.
+
+#### 3.2 Create `frontend/.env`
+Create the `frontend/.env` file from scratch:
+```dotenv
+PORT="3000"
+REACT_APP_BACKEND_PORT="3011"
+```
+
+[!IMPORTANT]
+The value of the environment variable PORT in `frontend/.env` must be identical to the port declared in FRONTEND_URL in `backend/.env`.
+Additionally, the value of the environment variable REACT_APP_BACKEND_PORT must be identical in both `frontend/.env` and `backend/.env`.
 
 ### 4. Initialise the database
 
@@ -191,7 +208,7 @@ cd backend
 npm start
 ```
 
-The API listens on `http://localhost:3011`.
+The API listens on `http://localhost` under the assigned port (default settings assign port `3011`).
 
 ### 6. Start the frontend
 
@@ -202,7 +219,7 @@ cd frontend
 npm start
 ```
 
-Open `http://localhost:3000`. Select a seeded team and use the value configured
+Open `http://localhost` including the assigned port (default settings assign port `3000`). Select a seeded team and use the value configured
 as `APP_PASSWORD`.
 
 ## Set up with Docker
@@ -215,12 +232,14 @@ docker compose up -d
 docker compose logs -f
 ```
 
-The current port mappings are:
+Additionally, the port mappings are declared in the `./.env` file:
 
 | Service | Host URL | Container port |
 | --- | --- | --- |
-| Frontend | `http://localhost:3010` | `8080` |
-| Backend | `http://localhost:3011` | `3011` |
+| Frontend | `http://localhost:${PORT}` | `8080` |
+| Backend | `http://localhost:${REACT_APP_BACKEND_PORT}` | Variable |
+
+Ports may need to be adjusted according to personal configurations.
 
 Stop the services with:
 
@@ -234,14 +253,14 @@ The checked-in container configuration is **not production-ready** and does not 
 
 - Backend CORS is currently hard-coded to `http://localhost:3000`, but Compose
   exposes the frontend at `http://localhost:3010`. Browser API requests from the
-  containerised frontend will therefore require the planned CORS adjustment.
+  containerised frontend will therefore require the planned CORS adjustment. **(Fixed?)**
 - `FRONTEND_URL` is read by the backend but is not currently used by its CORS
-  middleware.
+  middleware. **(Fixed?)**
 - The frontend API base is build-time source configuration in
-  `frontend/src/config.ts` and currently points to `http://localhost:3011`.
+  `frontend/src/config.ts` and currently points to `http://localhost:3011`. **(Fixed?)**
 - Compose does not run Prisma migrations or seed automatically.
 - The SQLite file has no Docker volume, so container replacement can lose data.
-- Compose reads `backend/.env`; create it before building/running.
+- Compose reads `backend/.env`, `frontend/.env` and `./.env`; create it before building/running.
 - TLS, reverse proxy routing, secret management, health checks, backups,
   resource limits, and production session storage are not configured.
 - Both published ports bind to `127.0.0.1`; this is useful behind a local reverse
@@ -262,15 +281,16 @@ work, not as final deployment instructions.
 | `DATABASE_URL` | Yes | Prisma SQLite URL, normally `file:./dev.db` |
 | `APP_PASSWORD` | Yes for seed | Password assigned to all selectable seeded teams |
 | `SESSION_SECRET` | Yes | Signs session cookies; use a long random value |
-| `FRONTEND_URL` | Intended | Frontend origin; currently not wired into CORS |
+| `FRONTEND_URL` | Yes | Frontend origin(; currently not wired into CORS) |
+| `REACT_APP_BACKEND_PORT` | Yes | Assigned backend port | 
 | `SESSION_TIMEOUT_MS` | No | Session/lock lifetime in milliseconds |
 | `SESSION_WARNING_MS` | No | Pre-expiry warning period in milliseconds |
 | `NODE_ENV` | No | In `production`, marks cookies as `secure` |
 
 Important current behaviour:
 
-- The backend listens on port `3011`; this is not environment-configurable.
-- Backend CORS currently permits `http://localhost:3000` only.
+- The backend listens on port `3011`; this is not environment-configurable. **(Fixed?)**
+- Backend CORS currently permits `http://localhost:3000` only. **(Fixed?)**
 - If `SESSION_SECRET` is absent, the backend falls back to an unsafe development
   string. Always set it.
 - Production `secure` cookies require HTTPS.
@@ -278,6 +298,16 @@ Important current behaviour:
   value for the intended environment.
 - Express's default in-memory session store is suitable only for development,
   not a multi-instance production deployment.
+
+## Configure the frontend
+
+`frontend/.env` is ignored by Git. Never commit real secrets.
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `PORT` | Yes | Assigned frontend port |
+| `REACT_APP_BACKEND_PORT` | Yes | Assigned backend port | 
+| `NODE_ENV` | No | In `production`, marks cookies as `secure` |
 
 ## Database setup and team seed data
 
@@ -561,7 +591,7 @@ Run in `backend/`:
 | Command | Purpose |
 | --- | --- |
 | `npm start` | Start the API |
-| `npm run dev` | Start the API (currently identical to `start`) |
+| `npm run dev` | Start the API in watch mode (changes in watched files cause process to restart) |
 | `npm run prisma:generate` | Generate Prisma Client |
 | `npm run prisma:migrate` | Create/apply a development migration |
 | `npm run prisma:seed` | Seed the initial team hierarchy |
@@ -583,16 +613,16 @@ Run in `frontend/`:
 
 ### The frontend cannot reach the backend
 
-- Confirm that the backend is running on port `3011`.
+- Confirm that the backend is running on port `3011`. **(Fixed?)**
 - Confirm `frontend/src/config.ts` points to the correct browser-accessible API.
 - For local development, open the frontend through
-  `http://localhost:3000`; backend CORS currently permits that origin only.
+  `http://localhost:3000`; backend CORS currently permits that origin only. **(Fixed?)**
 - If cookies/sessions are missing, check CORS origin, Axios credentials, cookie
   security, protocol, and hostname together.
 
 ### Login fails after changing `APP_PASSWORD`
 
-Changing `.env` does not change existing hashes by itself. Run:
+Changing `backend/.env` does not change existing hashes by itself. Run:
 
 ```bash
 cd backend
@@ -628,9 +658,10 @@ Also verify that `DATABASE_URL` exists in `backend/.env`.
 
 ### Docker frontend loads but login/API calls fail
 
-This is a known limitation of the current Compose setup: frontend port `3010`
-does not match the backend's hard-coded allowed CORS origin (`3000`). Address
-this as part of the planned Docker/server configuration update.
+Ensure that the assigned ports in `./.env`, `backend/.env` and `frontend/.env` are identical.
+The following environment variables must have identical port declarations:
+- REACT_APP_BACKEND_PORT in `./.env`, `backend/.env` and `frontend/.env`.
+- PORT in `./.env` and `frontend/.env`. The port declared in this variable must match the declared port for FRONTEND_URL in `backend/.env`.
 
 ## Production and server deployment
 
