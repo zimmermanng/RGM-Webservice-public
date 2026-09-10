@@ -8,6 +8,7 @@
 - [Set up from zero without Docker](#set-up-from-zero-without-docker)
 - [Set up with Docker](#set-up-with-docker)
 - [Configure the backend](#configure-the-backend)
+- [Configure the frontend](#configure-the-frontend)
 - [Database setup and team seed data](#database-setup-and-team-seed-data)
 - [Edit the maturity model with Excel and the JSON converter](#edit-the-maturity-model-with-excel-and-the-json-converter)
 - [Available commands](#available-commands)
@@ -178,10 +179,12 @@ Create the `frontend/.env` file from scratch:
 PORT="3000"
 REACT_APP_BACKEND_PORT="3011"
 ```
-
 [!IMPORTANT]
 The value of the environment variable PORT in `frontend/.env` must be identical to the port declared in FRONTEND_URL in `backend/.env`.
 Additionally, the value of the environment variable REACT_APP_BACKEND_PORT must be identical in both `frontend/.env` and `backend/.env`.
+
+See [Configure the frontend](#configure-the-frontend) before using real or
+production data.
 
 ### 4. Initialise the database
 
@@ -224,15 +227,7 @@ as `APP_PASSWORD`.
 
 ## Set up with Docker
 
-The repository includes Dockerfiles and a Compose file:
-
-```bash
-docker compose build
-docker compose up -d
-docker compose logs -f
-```
-
-Additionally, the port mappings are declared in the `./.env` file:
+Port mappings are declared in the `./.env` file:
 
 | Service | Host URL | Container port |
 | --- | --- | --- |
@@ -240,6 +235,14 @@ Additionally, the port mappings are declared in the `./.env` file:
 | Backend | `http://localhost:${REACT_APP_BACKEND_PORT}` | Variable |
 
 Ports may need to be adjusted according to personal configurations.
+
+The repository includes Dockerfiles and a Compose file:
+
+```bash
+docker compose build
+docker compose up -d
+docker compose logs -f
+```
 
 Stop the services with:
 
