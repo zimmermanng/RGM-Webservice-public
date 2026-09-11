@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./.env"});
+require("dotenv").config({ path: "./.env" });
 
 const express = require("express");
 const cors = require("cors");
@@ -33,6 +33,12 @@ app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const date = new Date().toLocaleString("de-DE")
+  console.log(`${date} | ${req.method} | ${req.originalUrl}`);
+  next()
+})
+
 app.use(
   session({
     name: "questionnaire.sid",
@@ -54,6 +60,18 @@ app.use("/auth", authRoutes);
 app.use("/session", sessionRoutes);
 app.use("/database", databaseRoutes);
 app.use("/evaluation", evaluationRoutes)
+
+app.use((err, req, res, next) => {
+  console.error("Unerwarteter Fehler", {
+    method: req.method,
+    originalURL: req.originalURL,
+    error: err,
+  });
+  res.status(500).json({
+    ok: false,
+    message: `Ein Fehler im Server ist aufgetreten.`
+  });
+})
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Backend läuft auf Port ${port}`);

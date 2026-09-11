@@ -100,7 +100,7 @@ async function updateEvaluationDate() {
       });
     }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 

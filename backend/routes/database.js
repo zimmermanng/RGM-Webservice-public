@@ -131,7 +131,7 @@ router.post("/create-team", async (req, res) => {
             message: `Sie sind für diese Aktion nicht berechtigt.`
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
@@ -197,7 +197,7 @@ router.put("/update-team", async (req, res) => {
             message: `Sie sind für diese Aktion nicht berechtigt.`
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
@@ -262,7 +262,7 @@ router.delete("/delete-team", async (req, res) => {
             message: `Sie sind für diese Aktion nicht berechtigt.`
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`

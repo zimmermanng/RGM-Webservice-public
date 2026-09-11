@@ -202,7 +202,7 @@ async function createEvaluationRoundData() {
 
         return finalData
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 };
 
@@ -225,7 +225,7 @@ router.get("/", async (req, res) => {
             evaluationRounds: evaluationRounds,
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
@@ -296,7 +296,7 @@ router.post("/create-evaluation", async (req, res) => {
             message: `Sie sind für diese Aktion nicht berechtigt.`
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
@@ -371,7 +371,7 @@ router.put("/change-name", async (req, res) => {
             message: `Sie sind für diese Aktion nicht berechtigt.`
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
@@ -420,7 +420,7 @@ router.delete("/delete-evaluation", async (req, res) => {
             message: `Sie sind für diese Aktion nicht berechtigt.`
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
@@ -508,7 +508,7 @@ router.get("/retrieve-data", async (req, res) => {
             data: data,
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             message: `Ein Fehler im Server ist aufgetreten.`
