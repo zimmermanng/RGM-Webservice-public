@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
 import useDialogFocus from "../hooks/useDialogFocus";
@@ -309,8 +309,8 @@ const EvaluationPage = () => {
             <p role="status">Keine Evaluationsrunden vorhanden.</p>
           )}
           {messungen.map((messung) => {
-            const titleId = `evaluation-name-${messung.id}`;
-            const helpId = `evaluation-name-help-${messung.id}`;
+            // const titleId = `evaluation-name-${messung.id}`;
+            // const helpId = `evaluation-name-help-${messung.id}`;
             const statusId = `evaluation-status-${messung.id}`;
             const saveStatusId = `evaluation-name-save-${messung.id}`;
             const currentSaveStatus = titleSaveStatus[messung.id];

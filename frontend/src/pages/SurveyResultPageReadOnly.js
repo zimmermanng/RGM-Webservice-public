@@ -1,17 +1,20 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import RadialBarChart from "../components/radialBarChart";
+import { useEffect, useMemo, useState } from "react";
 import DataTable from "../components/DataTable";
+import RadialBarChart from "../components/radialBarChart";
 
 const CHART_LABEL_LIMIT = 24;
 
 const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
   const [viewMode, setViewMode] = useState("chart");
   const [selectedTab, setSelectedTab] = useState(null);
+  /*
   const [visibleLevels, setVisibleLevels] = useState(
     new Set([-1, 0, 1, 2, 3, 4])
   );
+  
   const tabRefs = useRef({});
-
+  */
+ 
   const data = useMemo(() => {
     const rows = Array.isArray(surveyResults?.results) ? surveyResults.results : [];
 
@@ -63,6 +66,7 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
     }
   }, [dimensionKeys, selectedTab]);
 
+  /*
   const focusTab = (dimension) => {
     const tab = tabRefs.current[dimension];
     if (tab) tab.focus();
@@ -98,7 +102,7 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
     setSelectedTab(nextDimension);
     focusTab(nextDimension);
   };
-
+  
   const handleDownloadJson = () => {
     const exportPayload = {
       team: surveyResults?.team || null,
@@ -128,7 +132,7 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
-
+  
   const renderRecommendationGroupCard = (groupItem, index, variant) => {
     const isTodo = variant === "todo";
 
@@ -175,7 +179,7 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
       );
     }
   };
-
+  */
   const hasValidResults = !!surveyResults && Array.isArray(surveyResults.results);
 
   if (!hasValidResults) {
@@ -254,6 +258,7 @@ const SurveyResultPageReadOnly = ({ surveyResults, activeCompany }) => {
   );
 };
 
+/*
 function slugifyId(value) {
   return String(value)
     .toLowerCase()
@@ -261,5 +266,6 @@ function slugifyId(value) {
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9_-]/g, "");
 }
+*/
 
 export default SurveyResultPageReadOnly;

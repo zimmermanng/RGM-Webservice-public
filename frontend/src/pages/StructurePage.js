@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useRef, useContext } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { API_BASE } from "../config.ts";
-import useDialogFocus from "../hooks/useDialogFocus";
 import { TeamsContext } from "../context/TeamContext.js";
+import useDialogFocus from "../hooks/useDialogFocus";
 
 const StructurePage = () => {
   const [einheiten, setEinheiten] = useState([]);

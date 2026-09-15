@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE } from "../../config.ts";
-import useDialogFocus from "../../hooks/useDialogFocus";
 import { TeamsContext } from "../../context/TeamContext.js";
+import useDialogFocus from "../../hooks/useDialogFocus";
 
 const NAV_ITEMS = {
   default: [

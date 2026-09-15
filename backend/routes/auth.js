@@ -188,7 +188,7 @@ async function deleteTeamView(teamId) {
     })
 
     if (existingTeamView) {
-      const deleteTempView = await prisma.teamView.delete({
+      await prisma.teamView.delete({
         where: {
           sessionTeamId: teamId,
         }

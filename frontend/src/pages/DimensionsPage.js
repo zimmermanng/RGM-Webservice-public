@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
-import data from "../components/data/struktur.json";
-import dimensionenContent from "../components/data/dimensionen_content.json";
-import Card_dimensions from "../components/Cards/Card_dimensions";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import CardDimensions from "../components/Cards/CardDimensions.js";
+import dimensionenContent from "../components/data/dimensionen_content.json";
+import data from "../components/data/struktur.json";
 import { API_BASE } from "../config.ts";
 
 const DimensionsPage = ({ activeCompany }) => {
@@ -50,10 +50,6 @@ const DimensionsPage = ({ activeCompany }) => {
         const settings = await settingsRes.json();
         const state = await stateRes.json();
         const evaluation = await evaluationRes.json();
-
-        const loadedIds = Array.isArray(settings.activeDimensions)
-          ? settings.activeDimensions
-          : [];
 
         const activeEvaluation = evaluation.evaluationRounds.find(obj => obj.isActive);
         setEvaluationName(activeEvaluation.name)
@@ -156,7 +152,7 @@ const DimensionsPage = ({ activeCompany }) => {
               key={dimension.id}
               className={`gridItem ${dimension.name === "Allgemein" ? "allgemein" : ""}`}
             >
-              <Card_dimensions
+              <CardDimensions
                 title={dimension.name}
                 description={descriptionByDimensionId[dimension.id] || ""}
                 dimensionId={dimension.id}

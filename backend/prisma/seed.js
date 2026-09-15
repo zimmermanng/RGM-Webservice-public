@@ -1,4 +1,4 @@
-require("dotenv").config({ path: __dirname+"/./../.env"});
+require("dotenv").config({ path: __dirname + "/./../.env" });
 
 const prisma = require("../db/prisma");
 const bcrypt = require("bcrypt");

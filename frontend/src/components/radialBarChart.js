@@ -1,5 +1,5 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 
 const WIDTH = 1700;
 const HEIGHT = 1400;

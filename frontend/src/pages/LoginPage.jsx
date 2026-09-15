@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState, useContext } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../config.ts";
-import useDialogFocus from "../hooks/useDialogFocus";
 import { TeamsContext } from "../context/TeamContext.js";
+import useDialogFocus from "../hooks/useDialogFocus";
 
 const LoginPage = ({
   activeCompany,
@@ -44,7 +44,7 @@ const LoginPage = ({
   const companyLabel = activeCompany === "LMZ" ? "LMZ" : "Shuffle";
 
   const { selectableTeams, loadingSelectableTeams, successfullyLoaded, fetchSelectableTeams } = useContext(TeamsContext);
-
+  
   useEffect(() => {
     fetchSelectableTeams();
     // eslint-disable-next-line react-hooks/exhaustive-deps

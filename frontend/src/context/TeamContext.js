@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { API_BASE } from "../config.ts";
 
 export const TeamsContext = createContext(null);
@@ -23,7 +23,7 @@ export function TeamsProvider({ children }) {
     const [selectableTeams, setSelectableTeams] = useState([]);
     const [loadingSelectableTeams, setLoadingSelectableTeams] = useState(true);
     const [successfullyLoaded, setSuccessfullyLoaded] = useState(true);
-
+    
     const fetchSelectableTeams = async () => {
         try {
             const res = await fetch(`${API_BASE}/auth/selectable-teams`, {
@@ -40,14 +40,14 @@ export function TeamsProvider({ children }) {
             setLoadingSelectableTeams(false)
         }
     };
-
+    
     useEffect(() => {
         fetchSelectableTeams()
-    }, [])
+    }, []);
 
     return (
         <TeamsContext.Provider value={{ selectableTeams, loadingSelectableTeams, successfullyLoaded, fetchSelectableTeams }}>
             {children}
         </TeamsContext.Provider>
-    )
+    );
 };

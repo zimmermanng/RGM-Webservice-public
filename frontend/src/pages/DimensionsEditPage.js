@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import data from "../components/data/struktur.json";
-import Card_dimensions from "../components/Cards/Card_dimensions";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import CardDimensions from "../components/Cards/CardDimensions.js";
 import dimensionenContent from "../components/data/dimensionen_content.json";
+import data from "../components/data/struktur.json";
 import { API_BASE } from "../config.ts";
 import useDialogFocus from "../hooks/useDialogFocus";
 
@@ -459,7 +459,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
                     onClick={handleClick}
                     style={{ cursor: isLocked ? "default" : "pointer" }}
                   >
-                    <Card_dimensions
+                    <CardDimensions
                       title={dimension.name}
                       description={descriptionByDimensionId[dimension.id] || ""}
                       dimensionId={dimension.id}
@@ -518,7 +518,7 @@ const DimensionsEditPage = ({ onSessionInvalid }) => {
                 onClick={handleClick}
                 style={{ cursor: "pointer" }}
               >
-                <Card_dimensions
+                <CardDimensions
                   title={dimension.name}
                   description={descriptionByDimensionId[dimension.id] || ""}
                   dimensionId={dimension.id}

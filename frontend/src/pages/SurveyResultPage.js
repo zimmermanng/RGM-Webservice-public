@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import RadialBarChart from "../components/radialBarChart";
+import { useEffect, useMemo, useRef, useState } from "react";
 import DataTable from "../components/DataTable";
 import fragenData from "../components/data/fragen.json";
 import handlungsempfehlungenData from "../components/data/handlungsempfehlungen.json";
+import RadialBarChart from "../components/radialBarChart";
 
 const CHART_LABEL_LIMIT = 24;
 

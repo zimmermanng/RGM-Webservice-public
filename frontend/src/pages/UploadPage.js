@@ -1,7 +1,7 @@
-import React, { useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
+import { MdUpload } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { readExcelFile } from "../services/dataExtractor";
-import { MdUpload } from "react-icons/md";
 
 const UploadPage = ({ onUpload }) => {
   const navigate = useNavigate();

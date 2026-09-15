@@ -15,7 +15,7 @@ async function generatePasswordHash(plaintextPassword) {
 }
 
 async function deleteSingleTeam(id) {
-    const deleteTeam = await prisma.team.delete({
+    await prisma.team.delete({
         where: {
             id: id
         },
@@ -24,7 +24,7 @@ async function deleteSingleTeam(id) {
 
 async function updateParentSelectable(id) {
     const passwordHash = await generatePasswordHash("RGM".concat(APP_PASSWORD));
-    const updateParent = await prisma.team.update({
+    await prisma.team.update({
         where: { id: id },
         data: {
             isSelectable: true,
@@ -34,7 +34,7 @@ async function updateParentSelectable(id) {
 };
 
 async function updateParentUnselectable(id) {
-    const updateParent = await prisma.team.update({
+    await prisma.team.update({
         where: { id: id },
         data: {
             isSelectable: false,
@@ -58,9 +58,10 @@ async function updateParentUnselectable(id) {
         where: { teamId: id }
     });
 
-    const transaction = await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState, deleteTeamSettings]);
+    await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState, deleteTeamSettings]);
 };
 
+// Create a new team
 router.post("/create-team", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -139,6 +140,7 @@ router.post("/create-team", async (req, res) => {
     }
 });
 
+// Update an existing teams name and password (optional)
 router.put("/update-team", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -180,7 +182,7 @@ router.put("/update-team", async (req, res) => {
 
             const passwordHash = teamRecord.isSelectable && password ? await generatePasswordHash(password) : null;
 
-            const updateTeam = await prisma.team.update({
+            await prisma.team.update({
                 where: { id: teamId },
                 data: {
                     name: teamName,
@@ -205,6 +207,7 @@ router.put("/update-team", async (req, res) => {
     }
 });
 
+// Delete an existing team and its children nodes (if there are any)
 router.delete("/delete-team", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -233,7 +236,7 @@ router.delete("/delete-team", async (req, res) => {
 
             for (const element of teamRecord.children) {
                 if (element.children.length > 0) {
-                    const deleteMultipleUsers = await prisma.team.deleteMany({
+                    await prisma.team.deleteMany({
                         where: {
                             parentId: element.id
                         }

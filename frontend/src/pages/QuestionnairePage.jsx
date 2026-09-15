@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
-import struktur from "../components/data/struktur.json";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import fragen from "../components/data/fragen.json";
 import handlEmpf from "../components/data/handlungsempfehlungen.json";
-import { useParams, useNavigate } from "react-router-dom";
-import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
-import CommentBox from "./CommentFunction";
+import struktur from "../components/data/struktur.json";
 import { API_BASE } from "../config.ts";
+import { answersToResultsWithRecommendations } from "../services/questionnaireToResults";
 
 export default function QuestionnairePage({ activeCompany }) {
   const { dimensionId, handlungsfeldId } = useParams();
@@ -15,7 +14,7 @@ export default function QuestionnairePage({ activeCompany }) {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [activeDimensionIds, setActiveDimensionIds] = useState([]);
   const [postedComments, setPostedComments] = useState([]);
-  const [inputs, setInputs] = useState({ user: "", text: "" });
+  // const [inputs, setInputs] = useState({ user: "", text: "" });
   const [loading, setLoading] = useState(true);
   const [pageMessage, setPageMessage] = useState({ text: "", type: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +27,7 @@ export default function QuestionnairePage({ activeCompany }) {
     (h) => h.id === handlungsfeldId,
   );
   const currentHandlungsfeld = handlungsfelder[currentHFIndex];
-  const commentsEnabled = activeCompany === "Shuffle";
+  // const commentsEnabled = activeCompany === "Shuffle";
 
   const filteredFragen = useMemo(() => {
     if (!currentHandlungsfeld) return [];
@@ -185,7 +184,7 @@ export default function QuestionnairePage({ activeCompany }) {
 
         const loadedAnswers =
           stateData.currentAnswers &&
-          typeof stateData.currentAnswers === "object"
+            typeof stateData.currentAnswers === "object"
             ? stateData.currentAnswers
             : {};
 
@@ -344,11 +343,12 @@ export default function QuestionnairePage({ activeCompany }) {
       setIsSubmitting(false);
     }
   };
-
+  
+  /*
   const handleInputChange = (field, value) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
   };
-
+  
   const handlePost = () => {
     if (!inputs.user || !inputs.text) {
       setStatusMessage(
@@ -362,7 +362,8 @@ export default function QuestionnairePage({ activeCompany }) {
     setInputs({ user: "", text: "" });
     setStatusMessage("Kommentar hinzugefügt.", "status");
   };
-
+  */
+ 
   const navigateToHandlungsfeld = (index) => {
     if (index < 0 || index >= handlungsfelder.length) return;
     const nextHF = handlungsfelder[index];

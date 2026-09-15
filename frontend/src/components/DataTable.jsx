@@ -1,5 +1,3 @@
-import React from "react";
-
 const DataTable = ({ data, onCategoryClick, getCategoryTargetId }) => {
   return (
     <table aria-labelledby="data-table">

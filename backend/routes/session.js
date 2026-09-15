@@ -1,4 +1,4 @@
-require("dotenv").config({ path: __dirname+"/./../.env"});
+require("dotenv").config({ path: __dirname + "/./../.env" });
 
 const express = require("express");
 const router = express.Router();
@@ -90,7 +90,7 @@ async function updateEvaluationDate() {
       }
     });
     if (currentEvaluation) {
-      const updateDate = await prisma.evaluationRounds.update({
+      await prisma.evaluationRounds.update({
         where: {
           id: currentEvaluation.id
         },
@@ -104,11 +104,30 @@ async function updateEvaluationDate() {
   }
 }
 
+async function retrieveTeamView(teamId) {
+  try {
+    const teamViewRecord = await prisma.teamView.findUnique({
+      where: { sessionTeamId: teamId }
+    });
+    if (!teamViewRecord) return null
+    await prisma.team.findUnique({
+      where: { id: teamId }
+    });
+    const viewTeamRecord = await prisma.team.findUnique({
+      where: { id: teamViewRecord.viewingTeamId }
+    });
+    return viewTeamRecord;
+  } catch (error) {
+    console.error("Fehler:", error)
+  }
+}
+
+// Save results
 router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
   const teamName = viewTeam && req.session.teamId === 57 ? viewTeam.name : req.session.team
-  
+
   try {
     const submittedAt = req.body.timestamp
       ? new Date(req.body.timestamp)
@@ -193,6 +212,7 @@ router.post("/results", requireAuth, requireActiveTeamLock, async (req, res) => 
   }
 });
 
+// Get results
 router.get("/results", requireAuth, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam ? viewTeam.id : req.session.teamId
@@ -222,6 +242,7 @@ router.get("/results", requireAuth, async (req, res) => {
   }
 });
 
+// Get dimensions settings
 router.get("/settings", requireAuth, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam ? viewTeam.id : req.session.teamId
@@ -252,6 +273,7 @@ router.get("/settings", requireAuth, async (req, res) => {
   }
 });
 
+// Save changed dimensions settings
 router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam && req.session.teamId === 57 ? viewTeam.id : req.session.teamId
@@ -286,6 +308,7 @@ router.post("/settings", requireAuth, requireActiveTeamLock, async (req, res) =>
   }
 });
 
+// Lock a dimension
 router.post("/locking-dimension", requireAuth, async (req, res) => {
   if (req.session.teamId !== 57) return res.status(403).json({
     ok: false,
@@ -312,13 +335,13 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
       }
     };
 
-    const changeLock = await prisma.teamSettings.update({
+    await prisma.teamSettings.update({
       where: { teamId: viewTeamId },
       data: { lockedDimensions: lockedDimensions ? lockedDimensions : [dimensionId] },
     });
 
     await updateEvaluationDate()
-    
+
     return res.status(200).json({
       ok: true,
       lockedDimensions: lockedDimensions ? lockedDimensions : [dimensionId],
@@ -332,6 +355,7 @@ router.post("/locking-dimension", requireAuth, async (req, res) => {
   }
 })
 
+// Get the current state of a team
 router.get("/current-state", requireAuth, async (req, res) => {
   const viewTeam = await retrieveTeamView(req.session.teamId)
   const teamId = viewTeam ? viewTeam.id : req.session.teamId
@@ -359,6 +383,7 @@ router.get("/current-state", requireAuth, async (req, res) => {
   }
 });
 
+// Change the current states of a team
 router.post(
   "/current-state",
   requireAuth,
@@ -436,6 +461,7 @@ router.get("/research-summary", requireAuth, async (req, res) => {
   }
 });
 
+// Retrieve selected user from select in header
 router.get("/selected-user", requireAuth, async (req, res) => {
   const teamId = req.session.teamId
   try {
@@ -458,6 +484,7 @@ router.get("/selected-user", requireAuth, async (req, res) => {
   }
 });
 
+// Create a temporary view allowing users to view other teams
 router.post("/temporary-view", requireAuth, async (req, res) => {
   const viewTeamId = Number(req.body.viewTeamId)
   try {
@@ -470,7 +497,7 @@ router.post("/temporary-view", requireAuth, async (req, res) => {
 
     if (!teamRecord || !viewTeamRecord) return res.status(404).json({ message: "Team nicht gefunden" });
 
-    const tempView = await prisma.teamView.upsert({
+    await prisma.teamView.upsert({
       where: { sessionTeamId: req.session.teamId },
       update: { viewingTeamId: viewTeamId },
       create: {
@@ -479,12 +506,12 @@ router.post("/temporary-view", requireAuth, async (req, res) => {
       }
     })
     res.status(200).json({ message: "Temporäre Einsicht wurde erstellt." })
-
   } catch (error) {
     console.error("Fehler:", error)
   }
 });
 
+// Delete temporary view
 router.delete("/temporary-view", requireAuth, async (req, res) => {
   try {
     const existingTeamView = await prisma.teamView.findUnique({
@@ -505,34 +532,15 @@ router.delete("/temporary-view", requireAuth, async (req, res) => {
     if (!teamRecord || !viewTeamRecord)
       return res.status(404).json({ message: "Team wurde nicht gefunden." });
 
-    const deleteTeamView = await prisma.teamView.delete({
+    await prisma.teamView.delete({
       where: {
         sessionTeamId: req.session.teamId,
       }
     })
     res.status(200).json({ message: "Team wurde erfolgreich gelöscht." })
-
   } catch (error) {
     console.error("Fehler:", error)
   }
 });
-
-async function retrieveTeamView(teamId) {
-  try {
-    const teamViewRecord = await prisma.teamView.findUnique({
-      where: { sessionTeamId: teamId }
-    });
-    if (!teamViewRecord) return null
-    const teamRecord = await prisma.team.findUnique({
-      where: { id: teamId }
-    });
-    const viewTeamRecord = await prisma.team.findUnique({
-      where: { id: teamViewRecord.viewingTeamId }
-    });
-    return viewTeamRecord;
-  } catch (error) {
-    console.error("Fehler:", error)
-  }
-}
 
 module.exports = router;

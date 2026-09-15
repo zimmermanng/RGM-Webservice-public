@@ -1,42 +1,41 @@
-import React, {
-  useState,
+import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
-  useCallback,
+  useState,
 } from "react";
 import {
+  Navigate,
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
-  Navigate,
   useLocation,
 } from "react-router-dom";
 
 import NavBar from "./components/NavBar/navBar";
 // import Footer from "./components/Footer/footer";
 
-import UploadPage from "./pages/UploadPage";
-import ResultPage from "./pages/ResultPage";
-import Download from "./pages/DownloadPage";
-import QuestionnairePage from "./pages/QuestionnairePage";
-import DimensionsPage from "./pages/DimensionsPage";
-import HomePage from "./pages/HomePage";
-import ShuffleHomePage from "./pages/shuffleHomePage";
-import RawResults from "./pages/RawResults";
-import DimensionsEditPage from "./pages/DimensionsEditPage";
-import ResultPageReadOnly from "./pages/ResultPageReadOnly.js";
-import AdminEvaluationOverallPage from "./pages/AdminEvaluationOverallPage";
-import EvaluationPage from "./pages/EvaluationPage.js";
-import LoginPage from "./pages/LoginPage";
-import TeamSelectionPage from "./pages/TeamSelectionPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import StructurePage from "./pages/StructurePage.js";
 import { API_BASE } from "./config.ts";
-import { TeamsProvider } from "./context/TeamContext.js"
+import { TeamsProvider } from "./context/TeamContext.js";
+import AdminEvaluationOverallPage from "./pages/AdminEvaluationOverallPage";
+import DimensionsEditPage from "./pages/DimensionsEditPage";
+import DimensionsPage from "./pages/DimensionsPage";
+import Download from "./pages/DownloadPage";
+import EvaluationPage from "./pages/EvaluationPage.js";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import QuestionnairePage from "./pages/QuestionnairePage";
+import RawResults from "./pages/RawResults";
+import ResultPage from "./pages/ResultPage";
+import ResultPageReadOnly from "./pages/ResultPageReadOnly.js";
+import ShuffleHomePage from "./pages/shuffleHomePage";
+import StructurePage from "./pages/StructurePage.js";
+import UploadPage from "./pages/UploadPage";
 
-import { applyTheme } from "./theme";
 import "./App.css";
+import { applyTheme } from "./theme";
 
 const CLIENT_WARNING_FALLBACK_MS = 1000 * 60 * 5;
 const CLIENT_TIMEOUT_FALLBACK_MS = 1000 * 60 * 60;

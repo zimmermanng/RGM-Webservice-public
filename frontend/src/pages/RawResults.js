@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import SurveyResultPage from "./SurveyResultPage";
+import { useEffect, useState } from "react";
 import struktur from "../components/data/struktur.json";
 import { API_BASE } from "../config.ts";
+import SurveyResultPage from "./SurveyResultPage";
 
 
 const RawResults = () => {

@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
-import SurveyResultPageReadOnly from "./SurveyResultPageReadOnly.js";
+import { useEffect, useMemo, useState } from "react";
+import CardDimensions from "../components/Cards/CardDimensions.js";
+import dimensionenContent from "../components/data/dimensionen_content.json";
 import struktur from "../components/data/struktur.json";
 import { API_BASE } from "../config.ts";
-import Card_dimensions from "../components/Cards/Card_dimensions.js";
-import dimensionenContent from "../components/data/dimensionen_content.json";
+import SurveyResultPageReadOnly from "./SurveyResultPageReadOnly.js";
 
 const ResultPageReadOnly = () => {
   const [surveyResults, setSurveyResults] = useState(null);
@@ -187,7 +187,7 @@ const ResultPageReadOnly = () => {
                 dimension.name === "Allgemein" ? "allgemein" : ""
               }`}
             >
-              <Card_dimensions
+              <CardDimensions
                 title={dimension.name}
                 description={descriptionByDimensionId[dimension.id] || ""}
                 dimensionId={dimension.id}

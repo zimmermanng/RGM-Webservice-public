@@ -213,9 +213,10 @@ async function deletePreviousAnswers() {
 
     const deleteTeamCurrentState = prisma.teamCurrentState.deleteMany({});
 
-    const transaction = await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState]);
+    await prisma.$transaction([deleteSurveyRuns, deleteSurveySnapshots, deleteTeamCurrentState]);
 }
 
+// Retrieve all evaluations rounds
 router.get("/", async (req, res) => {
     try {
         const evaluationRounds = await getAllEvaluations();
@@ -233,6 +234,7 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Creates a new evaluation round
 router.post("/create-evaluation", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -274,7 +276,7 @@ router.post("/create-evaluation", async (req, res) => {
                 });
             }
 
-            const createEvaluation = await prisma.evaluationRounds.create({
+            await prisma.evaluationRounds.create({
                 data: {
                     name: evaluationName,
                     isActive: true,
@@ -304,6 +306,7 @@ router.post("/create-evaluation", async (req, res) => {
     }
 });
 
+// Changes the name of an evaluation round
 router.put("/change-name", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -379,6 +382,7 @@ router.put("/change-name", async (req, res) => {
     };
 });
 
+// Delete an evaluation round
 router.delete("/delete-evaluation", async (req, res) => {
     const sessionTeamId = req.session.teamId;
     const authenticated = req.session.authenticated;
@@ -397,7 +401,7 @@ router.delete("/delete-evaluation", async (req, res) => {
                     message: "Aktive Evaluationsrunden dürfen nicht gelöscht werden."
                 });
                 else {
-                    const updateUser = await prisma.evaluationRounds.delete({
+                    await prisma.evaluationRounds.delete({
                         where: {
                             id: id,
                         },
@@ -428,6 +432,7 @@ router.delete("/delete-evaluation", async (req, res) => {
     };
 });
 
+// Retrieve data from a specific evaluation round
 router.get("/retrieve-data", async (req, res) => {
     if (!req.query.id) return res.status(404).json({
         ok: false,
