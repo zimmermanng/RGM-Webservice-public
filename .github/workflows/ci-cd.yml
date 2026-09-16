@@ -45,16 +45,25 @@ jobs:
           DATABASE_URL="$DATABASE_URL"
           APP_PASSWORD="$APP_PASSWORD"
           SESSION_SECRET="$SESSION_SECRET"
-          PORT="$PORT"
           FRONTEND_URL="$FRONTEND_URL"
           REACT_APP_BACKEND_PORT="$REACT_APP_BACKEND_PORT"
           NODE_ENV="$NODE_ENV"
           SESSION_TIMEOUT_MS="$SESSION_TIMEOUT_MS"
           SESSION_WARNING_MS="$SESSION_WARNING_MS"
           EOF
+          mv .env ./backend
 
-          cp .env ./backend
-          cp .env ./frontend
+          cat <<EOF > .env
+          PORT="$PORT"
+          REACT_APP_BACKEND_PORT="$REACT_APP_BACKEND_PORT"
+          NODE_ENV="$NODE_ENV"
+          EOF
+          mv .env ./frontend
+
+          cat <<EOF > .env
+          PORT="$PORT"
+          REACT_APP_BACKEND_PORT="$REACT_APP_BACKEND_PORT"
+          EOF
       
       - name: Build  
         run: |

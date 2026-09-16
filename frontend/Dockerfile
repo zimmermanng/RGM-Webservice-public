@@ -14,13 +14,11 @@ RUN npm run build
 FROM nginxinc/nginx-unprivileged:1.28-alpine
 
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
-# COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
 COPY entrypoint.sh ./
 COPY --chown=nginx:nginx --from=build /app/build /usr/share/nginx/html
 
 USER nginx
 EXPOSE 8080
 
-# Set configuration file ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
