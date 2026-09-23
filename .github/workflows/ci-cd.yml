@@ -8,10 +8,6 @@ on:
   pull_request:
    branches: 
     - main
-    
-env: 
-  DOCKER_IMAGE_NAME_FRONTEND: rgm-frontend
-  DOCKER_IMAGE_NAME_BACKEND: rgm-backend
 
 jobs:
   build:
@@ -75,12 +71,22 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      -
-        name: Login to Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Tag images
+        run: |  
+              docker tag rgm-webservice-frontend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}
+              docker tag rgm-webservice-backend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}  
+      
+      - name: Push images
+        run: |
+              docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}
+              docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}
+         
   
   deploy:
     name: Deploy 
