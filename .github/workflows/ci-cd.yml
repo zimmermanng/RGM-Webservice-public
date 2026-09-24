@@ -20,10 +20,6 @@ jobs:
            .
            backend
            frontend
-      
-      - name: Retrieve commit SHA
-        id: commit
-        uses: prompt/actions-commit-hash@v4 
 
       - name: Create .env file from secrets
         env: 
@@ -63,25 +59,64 @@ jobs:
       
       - name: Build docker images
         run: |
-              echo Building images for Commit: ${{ steps.commit.outputs.short }}.
               docker compose build
+      
+      - name: Save docker images
+        run: |
+              docker image save -o ${{ runner.temp }}/rgm-webservice-frontend.tar rgm-webservice-frontend
+              docker image save -o ${{ runner.temp }}/rgm-webservice-backend.tar rgm-webservice-backend 
+      
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rgm-webservice-frontend
+          path: ${{ runner.temp }}/rgm-webservice-frontend.tar
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rgm-webservice-backend
+          path: ${{ runner.temp }}/rgm-webservice-backend.tar
 
   upload:
     name: Upload docker images
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - name: Download frontend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: rgm-webservice-frontend
+          path: ${{ runner.temp }}
+
+      - name: Download backend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: rgm-webservice-backend
+          path: ${{ runner.temp }}
+      
+      - name: Load images
+        run: |
+              docker load --input ${{ runner.temp }}/rgm-webservice-frontend.tar
+              docker load --input ${{ runner.temp }}/rgm-webservice-backend.tar
+              docker image ls -a
+
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
 
+      - name: Retrieve commit SHA
+        id: commit
+        uses: prompt/actions-commit-hash@v4 
+        
       - name: Tag images
-        run: |  
-              docker tag rgm-webservice-frontend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}
-              docker tag rgm-webservice-backend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}  
-      
+        run: |
+              docker tag rgm-webservice-frontend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}:${{ steps.commit.outputs.short }}
+              docker tag rgm-webservice-backend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}:${{ steps.commit.outputs.short }}
+              docker image ls -a
+
       - name: Push images
         run: |
               docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}

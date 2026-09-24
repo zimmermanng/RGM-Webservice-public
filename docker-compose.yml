@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    image: rgm-webservice-backend
     container_name: rgm-webservice-backend
     restart: unless-stopped
     env_file:
@@ -21,6 +22,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: rgm-webservice-frontend
     container_name: rgm-webservice-frontend
     restart: unless-stopped
     ports:
