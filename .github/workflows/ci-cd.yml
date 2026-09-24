@@ -119,8 +119,8 @@ jobs:
 
       - name: Push images
         run: |
-              docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}
-              docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}
+              docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}:${{ steps.commit.outputs.short }}
+              docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}:${{ steps.commit.outputs.short }}
          
   
   deploy:
