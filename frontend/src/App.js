@@ -193,7 +193,6 @@ const App = () => {
         setData([]);
         setWarningOpen(false);
         setWarningBusy(false);
-
         if (preserveNotice && reason) {
           setSessionNotice(reason);
         }
@@ -226,7 +225,6 @@ const App = () => {
       warningTimeoutRef.current = setTimeout(() => {
         setWarningOpen(true);
         setRemainingSeconds(Math.ceil(safeWarningMs / 1000));
-
         countdownIntervalRef.current = setInterval(() => {
           setRemainingSeconds((prev) => {
             if (prev <= 1) {
@@ -504,10 +502,9 @@ const App = () => {
 
     const focusInitial = () => {
       if (warningPrimaryButtonRef.current) {
-        warningPrimaryButtonRef.current.focus();
+        // warningPrimaryButtonRef.current.focus();
         return;
       }
-
       const focusables = getFocusableElements(warningDialogRef.current);
       if (focusables.length > 0) {
         focusables[0].focus();
@@ -561,7 +558,6 @@ const App = () => {
 
   const handleStaySignedIn = async () => {
     setWarningBusy(true);
-
     try {
       const res = await fetch(`${API_BASE}/auth/keepalive`, {
         method: "POST",
@@ -660,9 +656,9 @@ const App = () => {
                   isAuthenticated ? (
                     <Navigate to="/start" replace />
                   )
-                  : (
-                    <Navigate to="/login" replace />
-                  )
+                    : (
+                      <Navigate to="/login" replace />
+                    )
                 }
               />
 

@@ -4,7 +4,7 @@ on:
   push:
    branches: 
     - main
-    - CICD 
+    # - CICD
   pull_request:
    branches: 
     - main
@@ -99,7 +99,6 @@ jobs:
         run: |
               docker load --input ${{ runner.temp }}/rgm-webservice-frontend.tar
               docker load --input ${{ runner.temp }}/rgm-webservice-backend.tar
-              docker image ls -a
 
       - name: Login to Docker Hub
         uses: docker/login-action@v4
@@ -115,14 +114,12 @@ jobs:
         run: |
               docker tag rgm-webservice-frontend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}:${{ steps.commit.outputs.short }}
               docker tag rgm-webservice-backend ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}:${{ steps.commit.outputs.short }}
-              docker image ls -a
 
       - name: Push images
         run: |
               docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}:${{ steps.commit.outputs.short }}
               docker push ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}:${{ steps.commit.outputs.short }}
          
-  
   deploy:
     name: Deploy 
     runs-on: ubuntu-latest

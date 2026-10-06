@@ -45,13 +45,13 @@ app.use(
     secret: process.env.SESSION_SECRET || "super-secret-key",
     resave: false,
     saveUninitialized: false,
-    rolling: false,
+    rolling: true,
     proxy: true,
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: SESSION_TIMEOUT_MS,
+      maxAge: SESSION_TIMEOUT_MS
     },
   })
 );

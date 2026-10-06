@@ -634,7 +634,7 @@ router.delete("/logout-team-view", async (req, res) => {
     });
     if (!teamViewRecord) return res.json({ ok: true })
 
-    const deleteSessionLock = await prisma.teamSessionLock.delete({
+    await prisma.teamSessionLock.delete({
       where: {
         teamId: teamViewRecord.viewingTeamId,
       }
