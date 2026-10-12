@@ -3,6 +3,7 @@ require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session)
 const sessionRoutes = require("./routes/session");
 const authRoutes = require("./routes/auth");
 const databaseRoutes = require("./routes/database");
@@ -41,6 +42,9 @@ app.use((req, res, next) => {
 
 app.use(
   session({
+    store: new MemoryStore({
+      checkPeriod: 86400000, 
+    }),
     name: "questionnaire.sid",
     secret: process.env.SESSION_SECRET || "super-secret-key",
     resave: false,
