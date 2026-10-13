@@ -10,6 +10,7 @@
 - [Configure the backend](#configure-the-backend)
 - [Configure the frontend](#configure-the-frontend)
 - [Database setup and team seed data](#database-setup-and-team-seed-data)
+- [Creating database migrations](#creating-database-migrations)
 - [Edit the maturity model with Excel and the JSON converter](#edit-the-maturity-model-with-excel-and-the-json-converter)
 - [Available commands](#available-commands)
 - [Troubleshooting](#troubleshooting)
@@ -344,6 +345,53 @@ their password hashes to the current value.
 
 Before experimenting with a database that contains useful survey data, make a
 copy of the SQLite file referenced by `DATABASE_URL`.
+
+## Database migrations
+
+After making changes to the Prisma database schema under `backend\prisma\schema.prisma` a down and up migration needs to be created.
+
+### Creating migrations
+
+#### 1. Creating a down migration
+In order to create a down migration, run the following command from `backend/`:
+```bash
+# Create a down migration based on differences 
+npx prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-schema-datasource prisma/schema.prisma --script > down.sql
+```
+This command creates a down migration by comparing it to the current state of the database. This method relies on the database having an up-to-date schema.
+The down migration can be found at the root of the `backend` directory with the name `down.sql`.
+
+#### 2. Creating an up migration
+After successfully creating a down migration, an up migration can be created.
+Creating an up migration requires running the following command from `backend/`:
+```bash
+# Create an up migration
+npx prisma migrate dev --name example_migration
+```
+Running this command creates a new directory titled `<timestamp>_<migration_name>` inside the `prisma/migrations` directory.
+
+#### 3. Placing the down migration inside the up migration directory
+Lastly, place the newly created `down.sql` file from step 1 inside the up migration folder created during step 2.
+The new directory with the name `<timestamp>_<migration_name>` should now contain the two files `down.sql` (down migration) and `migrations.sql` (up migration). 
+
+### Applying a down migration
+> [!NOTE]
+> The commands needs to be adjusted by replacing `example_migration` with the actual failed migration name.
+If a migration failed, a down migration can be applied.
+
+First, the down migration needs to be executed by running the following command from `backend/`:
+```bash
+# Execute the down migration
+npx prisma db execute --file ./prisma/migrations/example_migration/down.sql --url="file:./dev.db"
+```
+
+Second, it has to be recorded that the migration was rolled back by running the following command from `backend/`:
+```bash
+# Record the rolled back migration
+npx prisma migrate resolve --rolled-back example_migration
+```
+
+More information can be found in the [PrismaDB v6 docs](https://www.prisma.io/docs/orm/v6/prisma-migrate/workflows/generating-down-migrations).
 
 ## Edit the maturity model with Excel and the JSON converter
 
