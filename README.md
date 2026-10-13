@@ -10,7 +10,7 @@
 - [Configure the backend](#configure-the-backend)
 - [Configure the frontend](#configure-the-frontend)
 - [Database setup and team seed data](#database-setup-and-team-seed-data)
-- [Creating database migrations](#creating-database-migrations)
+- [Database migrations](#database-migrations)
 - [Edit the maturity model with Excel and the JSON converter](#edit-the-maturity-model-with-excel-and-the-json-converter)
 - [Available commands](#available-commands)
 - [Troubleshooting](#troubleshooting)
@@ -359,10 +359,10 @@ In order to create a down migration, run the following command from `backend/`:
 npx prisma migrate diff --from-schema-datamodel prisma/schema.prisma --to-schema-datasource prisma/schema.prisma --script > down.sql
 ```
 This command creates a down migration by comparing it to the current state of the database. This method relies on the database having an up-to-date schema.
-The down migration can be found at the root of the `backend` directory with the name `down.sql`.
+The down migration can be found as `down.sql` at the root of the `backend` directory.
 
 #### 2. Creating an up migration
-After successfully creating a down migration, an up migration can be created.
+After successfully creating a down migration, an up migration needs to be created.
 Creating an up migration requires running the following command from `backend/`:
 ```bash
 # Create an up migration
@@ -372,11 +372,11 @@ Running this command creates a new directory titled `<timestamp>_<migration_name
 
 #### 3. Placing the down migration inside the up migration directory
 Lastly, place the newly created `down.sql` file from step 1 inside the up migration folder created during step 2.
-The new directory with the name `<timestamp>_<migration_name>` should now contain the two files `down.sql` (down migration) and `migrations.sql` (up migration). 
+The new directory with the name `<timestamp>_<migration_name>` should now contain two files: `down.sql` (down migration) and `migrations.sql` (up migration). 
 
 ### Applying a down migration
 > [!NOTE]
-> The commands needs to be adjusted by replacing `example_migration` with the actual failed migration name.
+> The commands need to be adjusted by replacing `example_migration` with the actual failed migration name.
 If a migration failed, a down migration can be applied.
 
 First, the down migration needs to be executed by running the following command from `backend/`:
