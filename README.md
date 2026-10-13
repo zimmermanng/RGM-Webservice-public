@@ -348,7 +348,7 @@ copy of the SQLite file referenced by `DATABASE_URL`.
 
 ## Database migrations
 
-After making changes to the Prisma database schema under `backend\prisma\schema.prisma` a down and up migration needs to be created.
+Changes to the Prisma database schema under `backend\prisma\schema.prisma` require the creation of a down and up migration.
 
 ### Creating migrations
 
