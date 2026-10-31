@@ -62,8 +62,8 @@ jobs:
 
   upload:
     name: Upload docker images
-    runs-on: self-hosted
-    needs: [build, docker]
+    runs-on: [self-hosted, docker]
+    needs: [build]
     steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v4
