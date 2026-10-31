@@ -4,14 +4,13 @@ on:
   push:
    branches: 
     - main
-    # - CICD
   pull_request:
    branches: 
     - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -43,14 +42,14 @@ jobs:
           SESSION_TIMEOUT_MS="$SESSION_TIMEOUT_MS"
           SESSION_WARNING_MS="$SESSION_WARNING_MS"
           EOF
-          mv .env ./backend
+          mv -f .env ./backend
 
           cat <<EOF > .env
           PORT="$PORT"
           REACT_APP_BACKEND_PORT="$REACT_APP_BACKEND_PORT"
           NODE_ENV="$NODE_ENV"
           EOF
-          mv .env ./frontend
+          mv -f .env ./frontend
 
           cat <<EOF > .env
           PORT="$PORT"
@@ -60,46 +59,12 @@ jobs:
       - name: Build docker images
         run: |
               docker compose build
-      
-      - name: Save docker images
-        run: |
-              docker image save -o ${{ runner.temp }}/rgm-webservice-frontend.tar rgm-webservice-frontend
-              docker image save -o ${{ runner.temp }}/rgm-webservice-backend.tar rgm-webservice-backend 
-      
-      - name: Upload frontend artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: rgm-webservice-frontend
-          path: ${{ runner.temp }}/rgm-webservice-frontend.tar
-
-      - name: Upload backend artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: rgm-webservice-backend
-          path: ${{ runner.temp }}/rgm-webservice-backend.tar
 
   upload:
     name: Upload docker images
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build]
     steps:
-      - name: Download frontend artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: rgm-webservice-frontend
-          path: ${{ runner.temp }}
-
-      - name: Download backend artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: rgm-webservice-backend
-          path: ${{ runner.temp }}
-      
-      - name: Load images
-        run: |
-              docker load --input ${{ runner.temp }}/rgm-webservice-frontend.tar
-              docker load --input ${{ runner.temp }}/rgm-webservice-backend.tar
-
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
@@ -122,7 +87,15 @@ jobs:
          
   deploy:
     name: Deploy 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build, upload]
     steps:
-     - run: echo "Deploy docker image..."
+     - name: Retrieve commit SHA
+       id: commit
+       uses: prompt/actions-commit-hash@v4 
+     
+     - name: Deploy
+       run: | 
+             docker pull rgm-webservice-frontend:${{ steps.commit.outputs.short }}
+             docker pull rgm-webservice-backend:${{ steps.commit.outputs.short }} 
+             docker-compose up -d
