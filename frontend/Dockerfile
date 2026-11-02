@@ -14,7 +14,7 @@ RUN npm run build
 FROM nginxinc/nginx-unprivileged:1.28-alpine
 
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
-COPY entrypoint.sh ./
+COPY --chmod=755 entrypoint.sh ./
 COPY --chown=nginx:nginx --from=build /app/build /usr/share/nginx/html
 
 USER nginx
