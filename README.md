@@ -1,7 +1,3 @@
-> [!NOTE]
-> This is a private repository for the RGM-Webservice. For security reasons, this repository includes the complete CI/CD pipeline.
-> Changes on the main branch of this repository will build and push a new Docker image!   
-
 # Digital Accessibility Maturity Model
 ## Contents
 
