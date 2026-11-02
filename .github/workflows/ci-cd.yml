@@ -102,6 +102,6 @@ jobs:
      
      - name: Deploy
        run: | 
-             docker pull rgm-webservice-frontend:${{ steps.commit.outputs.short }}
-             docker pull rgm-webservice-backend:${{ steps.commit.outputs.short }} 
+             docker pull rgm-frontend:${{ steps.commit.outputs.short }}
+             docker pull rgm-backend:${{ steps.commit.outputs.short }} 
              docker-compose up -d
