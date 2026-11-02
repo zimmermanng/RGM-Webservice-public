@@ -102,6 +102,6 @@ jobs:
      
      - name: Deploy
        run: | 
-             docker pull rgm-frontend:${{ steps.commit.outputs.short }}
-             docker pull rgm-backend:${{ steps.commit.outputs.short }} 
+             docker pull ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_FRONTEND }}:${{ steps.commit.outputs.short }}
+             docker pull ${{ secrets.DOCKER_REGISTRY_USER }}/${{ secrets.DOCKER_REPOSITORY_BACKEND }}:${{ steps.commit.outputs.short }} 
              docker-compose up -d
